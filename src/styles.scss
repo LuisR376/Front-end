@@ -1,0 +1,43 @@
+/* You can add global styles to this file, and also import other style files */
+
+  /* Aquí van todos los estilos CSS */
+
+.login-register{
+    position: relative;
+    overflow: hidden;
+}
+
+
+.login-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+  }
+
+
+  body{
+    display: block;
+    margin: 0px!important;
+  }
+  .fondo-imagen{
+    background-image: url(assets/images/big/LB_Login.jpg);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+  }
+  @media only screen and (min-device-width: 960px){
+  .fondo-imagen{
+    background-image: url(assets/images/big/LB_Login.jpg);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    
+}
+
+
+.tamano560{
+    width: 560px;
+}
+}
