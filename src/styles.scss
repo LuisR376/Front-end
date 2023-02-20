@@ -1,0 +1,55 @@
+/* You can add global styles to this file, and also import other style files */
+
+  /* Aquí van todos los estilos CSS */
+
+.login-register{
+    position: relative;
+    overflow: hidden;
+}
+
+
+.login-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+  }
+
+
+  body,
+  body .p-component
+  {
+    margin: 0;
+    font-family: "Montserrat", sans-serif;
+  }
+  .fondo-imagen{
+    background-image: url(assets/images/big/LB_Login.jpg);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+  }
+  @media only screen and (min-device-width: 960px){
+  .fondo-imagen{
+    background-image: url(assets/images/big/LB_Login.jpg);
+    position: relative;
+    min-height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+
+
+.tamano560{
+    width: 560px;
+}
+.login-card{
+  background: transparent;
+    color: #495057;
+    box-shadow:  0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+    border-radius: 6px;
+    padding: 1.25rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+}
