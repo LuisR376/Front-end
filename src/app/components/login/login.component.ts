@@ -34,18 +34,14 @@ export class LoginComponent {
     contrasenaLogin: ['',[Validators.required, Validators.maxLength(15)]]
 
   });
-
   fnLogueo(){
     console.log("this.loginForm",this.loginForm.value)
     if(this.loginForm.invalid){
       this.messageService.add({severity:'error', summary:'No es posible acceder', detail:'Porfavor verifique todos los campos'});
-
     }else{
       console.log("this.loginForm.value.usuarioLogin", this.loginForm.value.usuarioLogin)
        this.iniciarSesion( this.loginForm.value.usuarioLogin , this.loginForm.value.contrasenaLogin);
-
     }
-
   }
 
   get form(): { [key: string]: AbstractControl } {

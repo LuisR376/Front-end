@@ -14,22 +14,11 @@ import { AlertaComponent } from 'src/app/util/alerta.component';
   styleUrls: ['./lugar-area.component.css']
 })
 export class LugarAreaComponent {
+  @ViewChild(AlertaComponent, { static: false }) mensajeAlerta!: AlertaComponent;
   @Input() displayAddModal: boolean = true;
   @Output() clickClose: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() clickAdd: EventEmitter<any> = new EventEmitter<any>();
-
-  @ViewChild(AlertaComponent, { static: false }) mensajeAlerta!: AlertaComponent;
-  token : string;
-  area !: lugarAreas[];
-areas !: any;
-text !: boolean;
-texts !: boolean;
-idlugar! : any[];
-productForm = this.fb.group({
-  nombre_area: ["", Validators.required],
-  idlugar: ["", Validators.required]
-});
-  constructor(private fb: FormBuilder,
+    constructor(
+    private fb: FormBuilder,
     private messageService: MessageService,
     private customerService: CustomerService,
     public _authGuardService: authGuardService,
@@ -38,13 +27,18 @@ productForm = this.fb.group({
       this.token = this._authGuardService.getToken();
 
     }
+    token : string;
+    area !: lugarAreas[];
+  areas !: any;
+  text !: boolean;
+  texts !: boolean;
+  
+  productForm = this.fb.group({
+    nombre_area: ["", Validators.required],
+    idlugar: ["", Validators.required]
+  });
   ngOnInit() {
     this.obtenerArea();
-    this.idlugar = [
-      {label: '1', value: '1'},
-      {label: '2', value: '2'},
-      {label: '3', value: '3'}
-  ];
   }
   obtenerArea(){
   console.log("Token",this.token);
@@ -71,20 +65,10 @@ productForm = this.fb.group({
 }
 
 closeModal() {
-  this.areas.reset();
+  this.productForm.reset();
   this.clickClose.emit(true);
 }
 addProduct() {
-  this.areaService.saveArea(this.areas.value).subscribe(
-    response => {
-      this.clickAdd.emit(response);
-      this.closeModal();
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Product added' });
-    },
-    error => {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: error });
-      console.log('Errror occured');
-    }
-  )
+  console.log("this.Area",this.productForm.value)
 }
 }

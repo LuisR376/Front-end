@@ -18,6 +18,6 @@ export class AreaService {
         this.url = environment.url;   
     }
     saveArea(datos : lugarAreas): Observable<RespuestaDto> {
-        return this._apiService.sendPostRequest(datos, this.url + "area/getarea");
+        return this._apiService.sendPostRequest(datos, this.url + "area/post");
     }// Post area
 }
