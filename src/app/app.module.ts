@@ -34,6 +34,7 @@ import {SplitButtonModule} from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
 import {TableModule} from 'primeng/table';
 import { CustomerService } from './service/CustomerService';
+import { AreaService } from './service/Area.service';
 import { PrincipalComponent } from './components/indexPrincipal/principal.component';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
@@ -82,7 +83,8 @@ import { BrowserModule } from '@angular/platform-browser';
   ],
   providers: [
     UsuarioService,
-    CustomerService
+    CustomerService,
+    AreaService
   ],
   bootstrap: [PrincipalComponent],
   exports: [FormsModule,

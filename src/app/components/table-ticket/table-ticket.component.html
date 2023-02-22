@@ -1,24 +1,25 @@
-1111111111111111111
+
 <div class="card">
-    <h5>tickets 😬</h5>
+    <div class="col-12">
+    <h1>TICKETS</h1>
     <p-table [value]="tickets" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [tableStyle]="{'min-width': '50rem'}"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]">
+    [rowsPerPageOptions]="[10,25,50]">
         <ng-template pTemplate="header">
             <tr>
-                <th style="width:25%">idfolios</th>
-                <th style="width:25%">fecha_registro</th>
-                <th style="width:25%">idtipo_servicio</th>
-                <th style="width:25%">asunto</th>
-                <th style="width:25%">estado_ticket</th>
-                <th style="width:25%">idusuarios</th>
-                <th style="width:25%">nombre Usuario</th>
-                <th style="width:25%">mensaje</th>
-                <th style="width:25%">foto1</th>
-                <th style="width:25%">foto2</th>
-                <th style="width:25%">foto3</th>
-                <th style="width:25%">foto4</th>
-                <th style="width:25%">Solucion</th>
-                <th style="width:25%">firma</th>
+                <th >idfolios</th>
+                <th >fecha_registro</th>
+                <th >idtipo_servicio</th>
+                <th >asunto</th>
+                <th >estado_ticket</th>
+                <th >idusuarios</th>
+                <th >nombre Usuario</th>
+                <th>mensaje</th>
+                <th>foto1</th>
+                <th>foto2</th>
+                <th>foto3</th>
+                <th>foto4</th>
+                <th >Solucion</th>
+                <th >firma</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-usuario>
@@ -40,10 +41,11 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="paginatorleft">
-            <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+          
         </ng-template>
         <ng-template pTemplate="paginatorright">
-            <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+            <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
         </ng-template>
     </p-table>
+    </div>
 </div>

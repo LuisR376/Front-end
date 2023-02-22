@@ -1,28 +1,19 @@
 <app-menu></app-menu>
-<p-toolbar class="p-element">
-    <div>
-        <span class="p-float-label p-input-icon-left">
-            <i class="pi pi-search"></i>
-            <input type="text" id="inputtext-left" pInputText>
-            <label for="inputtext-left">Buscar Folio</label>
-        </span>
-    </div>
-
-    <div class="col-12 md:col-4">
-        <div class="card">
-
-            <p-avatar shape="circle" icon="pi pi-user" pBadge value="4" severity="success" styleClass="mr-2"
-                [style]="{'background-color':'#E30521','opacity':'0.2;', 'color': '#ffffff'}" size="large"></p-avatar>
-            <p-splitButton label="Cuenta" [model]="this.items" styleClass="p-button-text p-button-danger mr-2 mb-2 "
-                style="position: absolute; right: 0;"></p-splitButton>
-
+<div class="container">
+    <div class="row">
+        <p-toolbar>
+        <div class="col-md-8">           
         </div>
-    </div>
-</p-toolbar>
-<div>
-    <button pButton type="button" label="Nuevo" class="p-button-outlined"></button>
+        <div class="col-md-4" >
+            <p-avatar shape="circle" icon="pi pi-user" pBadge value="4" severity="success" styleClass="mr-2"
+            [style]="{'background-color':'#E30521','opacity':'0.2;', 'color': '#ffffff'}" size="large">
+        </p-avatar>
+            <p-splitButton label="Cuenta" [model]="this.items" styleClass="p-button-text p-button-danger mr-2 mb-2 ">  
+            </p-splitButton>
+        </div>
+    </p-toolbar>
+  </div>  
 </div>
-
 <div>
     <div *ngIf="sesionUsuario.clave== 'ADM' ||   sesionUsuario.clave == 'TEC'">
      <!--  <app-table-ticket></app-table-ticket>--> 
@@ -31,6 +22,5 @@
 <app-alerta></app-alerta>
 <div>
     <div *ngIf="sesionUsuario.clave== 'ADM' ||   sesionUsuario.clave == 'TEC'"></div>
-    <a routerLink='inicio/main/Tusuario'>Tabla de Usuarios</a>
 </div>
 <router-outlet></router-outlet>

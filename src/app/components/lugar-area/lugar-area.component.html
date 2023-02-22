@@ -11,13 +11,16 @@
                 <tr>
                     <th>ID</th>
                     <th>Area</th>
+                    <th>id Lugar</th>
                     <th>Lugar</th>
+                    
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-areas>
                 <tr>
                     <td>{{areas.idarea}}</td>
                     <td>{{areas.nombre_area}}</td>
+                    <td>{{areas.idlugar}}</td>
                     <td>{{areas.ubicacion}}</td>
                 </tr>
             </ng-template>
@@ -37,19 +40,26 @@
                 <small class="p-error" *ngIf="text && !areas.name">Name is required.</small>
             </div>
             <div class="field">
-                <label for="description">Nice</label>
-                <textarea id="description" pInputTextarea [(ngModel)]="areas.description" required rows="3" cols="20"></textarea>
-            </div>
-    
-            <div class="field">
-                <label for="inventoryStatus">Lugar</label>
-                <p-dropdown [(ngModel)]="areas.inventoryStatus" inputId="inventoryStatus" placeholder="Select">
+                <label for="inventoryStatus">Inventory Status</label>
+                <p-dropdown [(ngModel)]="areas.inventoryStatus" inputId="inventoryStatus" [options]="idlugar" placeholder="Select">
                     <ng-template let-option pTemplate="item">
-                        <span [class]="'areas-badge status-' + option.value">{{option.label}}</span>
+                        <span [class]="'product-badge status-' + option.value">{{option.label}}</span>
                     </ng-template>
                 </p-dropdown>
             </div>
+            <p-button
+                  (click)="closeModal()"
+                  label="Cancel"
+                  styleClass="p-button-text"
+                ></p-button>
+            
+                <p-button
+                  (click)="addProduct()"
+                  label="Add"
+                  [disabled]="areas.invalid"
+                ></p-button>
             <div>
+                
 </div>
     
 

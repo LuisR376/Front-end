@@ -14,4 +14,5 @@ solucion:string,
 firma:string,
 estado_ticket:number,
 nombre:string;
+Descripcion : string;
 }
