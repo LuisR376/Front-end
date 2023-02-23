@@ -1,14 +1,16 @@
 <div class="card">
-    <h5>Implicit Pagination</h5>
-    <p-table [value]="area" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [tableStyle]="{'min-width': '50rem'}"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]">
+<h1>Lugar y Area</h1>
+    <p-table [value]="area" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+        [tableStyle]="{'min-width': '50rem'}"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [rowsPerPageOptions]="[10,25,50]">
         <ng-template pTemplate="header">
             <tr>
                 <th>ID</th>
                 <th>Area</th>
                 <th>id Lugar</th>
                 <th>Lugar</th>
-                
+
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-areas>
@@ -20,37 +22,32 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="paginatorleft">
-            <p-button type="button" icon="pi pi-plus" (click)="openNew()"styleClass="p-button-text"></p-button>
+            <p-button type="button" icon="pi pi-plus" (click)="openNew()" styleClass="p-button-text"></p-button>
         </ng-template>
-        
+
     </p-table>
 </div>
 
-    <p-dialog [(visible)]="texts" [style]="{width: '450px'}" header="Agregar Area" [modal]="true" styleClass="p-fluid">
-        <ng-template pTemplate="content">
-            <img [src]="'https://primefaces.org/cdn/primeng/images/demo/areas/' + areas.image" [alt]="areas.image" class="areas-image" *ngIf="areas.image">
-            <div class="field">
-                <label for="name">Nombre del Area</label>
-                <input type="text" pInputText id="name" [(ngModel)]="areas.nombre_area" required autofocus />
-                <small class="p-error" *ngIf="text && !areas.nombre_area">Name is required.</small>
-            </div>  <div class="field">
-                <label for="ubi">Nombre del Area</label>
-                <input type="text" pInputText id="ubi" [(ngModel)]="areas.idlugar" required autofocus />
-                <small class="p-error" *ngIf="text && !areas.idlugar">Name is required.</small>
-            </div>
-            <p-button
-                  (click)="closeModal()"
-                  label="Cancel"
-                  styleClass="p-button-text"
-                ></p-button>
+<p-dialog [(visible)]="texts" [style]="{width: '450px'}" header="Agregar Area" [modal]="true" styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+        <img [src]="'https://primefaces.org/cdn/primeng/images/demo/areas/' + areas.image" [alt]="areas.image"
+            class="areas-image" *ngIf="areas.image">
+            <form [formGroup]="productForm" (ngSubmit)="addProduct()">
+        <div class="field">
+            <label for="name">Nombre del Area</label>
+            <input formControlName="nombre_area"pInputText id="ubi" required autofocus>
+            <small class="p-error" *ngIf="text && !areas.nombre_area">Name is required.</small>
+        </div>
+        <div class="field">
+            <label for="ubi">id lugar</label>
+            <input type="number" formControlName="idlugar"pInputText id="ubi" required autofocus>
+            <small class="p-error" *ngIf="text && !areas.idlugar">Name is required.</small>
+        </div>
+        <p-button (click)="closeModal()" label="Cancel" styleClass="p-button-text"></p-button>
+
+        <p-button (click)="addProduct()" label="AÑADIR" [disabled]="areas.invalid"></p-button>
+    </form>
+
             
-                <p-button
-                  (click)="addProduct()"
-                  label="AÑADIR"
-                  [disabled]="areas.invalid"
-                ></p-button>
             <div>
-                
-    
-
-

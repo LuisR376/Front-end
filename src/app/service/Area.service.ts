@@ -5,7 +5,7 @@ import { RespuestaDto } from '../components/model/respuestaDto';
 import { lugarAreas } from '../components/model/lugarArea.model';
 import { UtilApiService } from './util-api.service';
 import { Observable } from 'rxjs';
-
+import { insertArea } from '../components/model/insertArea'
 @Injectable()
 export class AreaService {
     public url: string;
@@ -17,7 +17,7 @@ export class AreaService {
         ) {
         this.url = environment.url;   
     }
-    saveArea(datos : lugarAreas): Observable<RespuestaDto> {
-        return this._apiService.sendPostRequest(datos, this.url + "area/post");
+    saveArea(datosA : insertArea): Observable<RespuestaDto> {
+        return this._apiService.sendPostRequest(datosA, this.url + "area/post");
     }// Post area
 }
