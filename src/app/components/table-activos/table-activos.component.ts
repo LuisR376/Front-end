@@ -51,11 +51,6 @@ obtenerActivos(){
         let respuestaDto = <RespuestaDto>resp;
         if (respuestaDto.ok) {
           this.activos = resp.addenda;
-          this.estado = [
-            {label: 'INSTOCK', value: 'instock'},
-            {label: 'LOWSTOCK', value: 'lowstock'},
-            {label: 'OUTOFSTOCK', value: 'outofstock'}
-        ];
         } else {
 
         } // if
@@ -80,9 +75,9 @@ obtenerActivos(){
         ];
 
         this.statuses = [
-            { label: 'INSTOCK', value: 'instock' },
-            { label: 'LOWSTOCK', value: 'lowstock' },
-            { label: 'OUTOFSTOCK', value: 'outofstock' }
+            { label: 'INSTOCK', value: '1' },
+            { label: 'LOWSTOCK', value: '0' },
+            { label: 'OUTOFSTOCK', value: '0' }
         ];
     }
 
