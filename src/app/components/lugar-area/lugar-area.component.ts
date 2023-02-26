@@ -90,6 +90,7 @@ export class LugarAreaComponent {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: respuestaDto.mensaje });
           } else {
             this.areas = <lugarAreas>respuestaDto.addenda;
+            this.obtenerArea();
           }
         },
         error: (error) => {
