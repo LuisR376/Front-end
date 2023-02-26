@@ -1,0 +1,13 @@
+<p-dialog [(visible)]="nuevoActivoComp"  header="Product Details" [modal]="true" class="p-fluid">
+    <ng-template pTemplate="content">
+        <p-steps [model]="pasosActivo"  [readonly]="false"></p-steps>
+      <!--  {{product.Pertenencia}}-->
+    <router-outlet></router-outlet>
+   
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="abrirModalNuevoAct(false)"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="guardarActivo()"></button>
+    </ng-template>
+</p-dialog>

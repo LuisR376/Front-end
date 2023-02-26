@@ -1,0 +1,26 @@
+<app-menu></app-menu>
+<div class="container">
+    <div class="row">
+        <p-toolbar>
+        <div class="col-md-8">           
+        </div>
+        <div class="col-md-4" >
+            <p-avatar shape="circle" icon="pi pi-user" pBadge value="4" severity="success" styleClass="mr-2"
+            [style]="{'background-color':'#E30521','opacity':'0.2;', 'color': '#ffffff'}" size="large">
+        </p-avatar>
+            <p-splitButton label="Cuenta" [model]="this.items" styleClass="p-button-text p-button-danger mr-2 mb-2 ">  
+            </p-splitButton>
+        </div>
+    </p-toolbar>
+  </div>  
+</div>
+<div>
+    <div *ngIf="sesionUsuario.clave== 'ADM' ||   sesionUsuario.clave == 'TEC'">
+     <!--  <app-table-ticket></app-table-ticket>--> 
+    </div>
+</div>
+<app-alerta></app-alerta>
+<div>
+    <div *ngIf="sesionUsuario.clave== 'ADM' ||   sesionUsuario.clave == 'TEC'"></div>
+</div>
+<router-outlet></router-outlet>

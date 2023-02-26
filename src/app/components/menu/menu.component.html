@@ -1,0 +1,6 @@
+<p-sidebar [(visible)]="visibleSidebar1" [baseZIndex]="10000">
+    <h1 style="font-weight:normal">MENU</h1>
+    <p-slideMenu [model]="items" [viewportHeight]="300" [style]="{'min-width':'175px'}" ></p-slideMenu>
+
+</p-sidebar>
+<p-button type="button" (click)="visibleSidebar1 = true" icon="pi pi-align-justify"></p-button>

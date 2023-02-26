@@ -1,0 +1,61 @@
+
+
+<section   *ngIf="!_authGuardService.isLoggednIn()"  id="wrapper">
+    <div  class="fondo-imagen">
+        <div class="login-box ">
+            <div class="login-card tamano560 ">
+                <h3 class="box-title m-b-20 text-center">Iniciar Sesión</h3>
+                  
+                <form [formGroup]="loginForm" (ngSubmit)="fnLogueo()">
+                    <div class="field ">
+                        <label for="loginUsuario">Usuario</label>
+                        <input
+                          id="usuarioLogin"
+                          formControlName="usuarioLogin"
+                          class=" p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                          pInputText style="background: #9c9b9b54;"
+                        />
+
+                        <div *ngIf="loginForm.touched && loginForm.invalid" >
+                         
+                          <small *ngIf="form['usuarioLogin'].errors?.['required']" id="blErrorUsuarioLogin" class="p-error"
+                          >El campo usuario se encuentra vacío.</small>
+                          <small *ngIf="loginForm.controls.usuarioLogin.errors?.['minlength']" id="lblLongUsername" class="p-error">El usuario debe de ser de minimo 3 caracteres</small>
+                        </div>
+                        
+                      </div>
+                    
+                      <div class="field">
+                        <label for="lblLoginContrasena">Contraseña</label>
+                        <input
+                          id="idLoginContrasena"
+                          formControlName="contrasenaLogin"
+                          class="p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                          pInputText style="background: #9c9b9b54;"
+                          type="password"
+                        />
+                        <div *ngIf="loginForm.touched && loginForm.invalid" >
+                            <small *ngIf="loginForm.controls.contrasenaLogin.errors?.['required']"  id="lblErrcontrasenaLogin" class=" p-error "
+                              >El campo contraseña se encuentra vacío.</small>
+                              <small *ngIf="loginForm.controls.contrasenaLogin.errors?.['maxlength']"  id="lblErrcontrasenaLogin" class=" p-error "
+                              >La contraseña es demaciado larga.</small>
+                        </div>
+                        
+                      </div>
+                      <div class="form-group text-center m-t-20">
+                        <div class="col-xs-12">
+                            <button pButton class="p-button-danger" (click)="fnLogueo()" type="button">Iniciar sesión</button>
+                        </div>
+                    </div>
+                </form>
+                    
+
+              </div>
+        </div>
+
+    </div>
+    
+</section>
+
+<p-toast position="top-right"></p-toast>
+<app-alerta></app-alerta>

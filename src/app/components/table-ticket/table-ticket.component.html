@@ -1,0 +1,51 @@
+
+<div class="card">
+    <div class="col-12">
+    <h1>TICKETS</h1>
+    <p-table [value]="tickets" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [tableStyle]="{'min-width': '50rem'}"
+    [rowsPerPageOptions]="[10,25,50]">
+        <ng-template pTemplate="header">
+            <tr>
+                <th >idfolios</th>
+                <th >fecha_registro</th>
+                <th >idtipo_servicio</th>
+                <th >asunto</th>
+                <th >estado_ticket</th>
+                <th >idusuarios</th>
+                <th >nombre Usuario</th>
+                <th>mensaje</th>
+                <th>foto1</th>
+                <th>foto2</th>
+                <th>foto3</th>
+                <th>foto4</th>
+                <th >Solucion</th>
+                <th >firma</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-usuario>
+            <tr>
+                <td>{{usuario.idfolios}}</td>
+                <td>{{usuario.fecha_registro}}</td>
+                <td>{{usuario.idtipo_servicio}}</td>
+                <td>{{usuario.asunto}}</td>
+                <td>{{usuario.estado_ticket}}</td>
+                <td>{{usuario.idusuarios}}</td>
+                <td>{{usuario.nombre}}</td>
+                <td>{{usuario.mensaje}}</td>
+                <td>{{usuario.foto1}}</td>
+                <td>{{usuario.foto2}}</td>
+                <td>{{usuario.foto3}}</td>
+                <td>{{usuario.foto4}}</td>
+                <td>{{usuario.Solucion}}</td>
+                <td>{{usuario.firma}}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="paginatorleft">
+          
+        </ng-template>
+        <ng-template pTemplate="paginatorright">
+            <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+        </ng-template>
+    </p-table>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+
+<div class="card">
+    <p-table [value]="usuarios" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [tableStyle]="{'min-width': '50rem'}"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width:25%">Nombre</th>
+                <th style="width:25%">Apellido Paterno</th>
+                <th style="width:25%">Apellido Materno</th>
+                <th style="width:25%">Numero de Empleado</th>
+                <th style="width:25%">Email</th>
+                <th style="width:25%">Lugar</th>
+                <th style="width:25%">Area</th>
+                <th style="width:25%">Fecha</th>
+                <th style="width:25%">Estado</th>
+                <th style="width:25%">Contraseña</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-usuario>
+            <tr>
+                <td>{{usuario.nombre}}</td>
+                <td>{{usuario.apellidoP}}</td>
+                <td>{{usuario.apellidoM}}</td>
+                <td>{{usuario.num_empleado}}</td>
+                <td>{{usuario.email}}</td>
+                <td>{{usuario.idlugar}}</td>
+                <td>{{usuario.idarea}}</td>
+                <td>{{usuario.fecha}}</td>
+                <td>{{usuario.status}}</td>
+                <td>{{usuario.password}}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="paginatorleft">
+            <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+        </ng-template>
+        <ng-template pTemplate="paginatorright">
+            <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+        </ng-template>
+    </p-table>
+</div>
+
