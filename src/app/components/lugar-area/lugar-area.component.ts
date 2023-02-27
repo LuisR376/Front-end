@@ -66,7 +66,7 @@ export class LugarAreaComponent {
   }
     closeModal() {
       this.productForm.reset();
-      this.clickClose.emit(true);
+      this.obtenerArea();
     }
     addProduct() {
       console.log("this.loginForm",this.productForm.value)

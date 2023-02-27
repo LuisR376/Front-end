@@ -1,19 +1,19 @@
-<app-menu></app-menu>
-<div class="container">
-    <div class="row">
-        <p-toolbar>
-        <div class="col-md-8">           
+
+<nav class="">
+    <div class="flex align-items-center justify-content-between">
+        <div>
+            <app-menu></app-menu>
         </div>
-        <div class="col-md-4" >
+        <div class="flex-inline">
             <p-avatar shape="circle" icon="pi pi-user" pBadge value="4" severity="success" styleClass="mr-2"
             [style]="{'background-color':'#E30521','opacity':'0.2;', 'color': '#ffffff'}" size="large">
         </p-avatar>
             <p-splitButton label="Cuenta" [model]="this.items" styleClass="p-button-text p-button-danger mr-2 mb-2 ">  
             </p-splitButton>
         </div>
-    </p-toolbar>
-  </div>  
-</div>
+    </div>
+</nav>
+
 <div>
     <div *ngIf="sesionUsuario.clave== 'ADM' ||   sesionUsuario.clave == 'TEC'">
      <!--  <app-table-ticket></app-table-ticket>--> 
