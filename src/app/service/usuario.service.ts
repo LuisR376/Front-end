@@ -5,7 +5,7 @@ import { RespuestaDto } from '../components/model/respuestaDto';
 import { loginUsuario } from '../components/model/login.model';
 import { UtilApiService } from './util-api.service';
 import { Observable } from 'rxjs';
-
+import { insertUsuario } from '../components/model/insertUsuario'
 @Injectable()
 export class UsuarioService {
     public url: string;
@@ -24,5 +24,7 @@ export class UsuarioService {
         return this._apiService.sendPostRequest(datosInicioSesion , this.url + 'iniciarSesion/iniciarSesion');
     } // IniciarSesion
 
-
+    saveUsuario(datosA : insertUsuario): Observable<RespuestaDto> {
+        return this._apiService.sendPostRequest(datosA, this.url + "usuario/post");
+    }// Post area
 }

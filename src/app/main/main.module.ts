@@ -10,7 +10,8 @@ import { SolicitudesComponent } from '../components/solicitudes/solicitudes.comp
 import { TableActivosComponent } from '../components/table-activos/table-activos.component';
 import { TableUsuarioComponent } from '../components/table-usuario/table-usuario.component';
 import { CommonModule } from '@angular/common';
-
+import { NuevoActivoComponent } from '../components/nuevo-activo/nuevo-activo.component';
+import { Paso1ActivoComponent } from '../paso1-activo/paso1-activo.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,9 @@ import { CommonModule } from '@angular/common';
     TableActivosComponent,
     SolicitudesComponent,
     LugarAreaComponent,
-    ReasignacionComponent
+    ReasignacionComponent,
+    NuevoActivoComponent,
+    Paso1ActivoComponent
   ],
   imports: [
     MainRoutingModule,

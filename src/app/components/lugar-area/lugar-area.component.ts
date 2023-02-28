@@ -36,7 +36,7 @@ export class LugarAreaComponent {
 
   productForm = this.fb.group({
     nombre_area: ['', Validators.required],
-    idlugar: ['', Validators.required]
+    ubicacion: ['', Validators.required]
   });
   ngOnInit() {
     this.obtenerArea();
@@ -74,12 +74,12 @@ export class LugarAreaComponent {
         this.messageService.add({severity:'error', summary:'No es posible acceder', detail:'Porfavor verifique todos los campos'});
       }else{
         console.log("this.loginForm.value.usuarioLogin", this.productForm.value.nombre_area)
-         this.saveArea( this.productForm.value.nombre_area, this.productForm.value.idlugar);
+         this.saveArea( this.productForm.value.nombre_area, this.productForm.value.ubicacion);
       }
     }
-      async saveArea(nombre_area : string | undefined | null, idlugar : string | undefined | null) {
-      console.log("lugarAreas", nombre_area, "Lugar", idlugar);
-      let datosA = new insertArea(nombre_area, idlugar);
+      async saveArea(nombre_area : string | undefined | null, ubicacion : string | undefined | null) {
+      console.log("lugarAreas", nombre_area, "Lugar", ubicacion);
+      let datosA = new insertArea(nombre_area, ubicacion);
       console.log("Datos Area", datosA);
       this.areaService.saveArea(datosA).subscribe({
         next: (resp: RespuestaDto) => {

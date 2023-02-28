@@ -27,6 +27,6 @@ export class CustomerService {
         getArea(token:string): Observable<RespuestaDto> {
             return this._apiService.sendGetRequest(this.url + "area/getarea",token);
         }
-       
+        
         
 }

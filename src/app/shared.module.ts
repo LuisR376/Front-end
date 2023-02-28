@@ -45,7 +45,7 @@ import {MenuItem} from 'primeng/api';
 import {MegaMenuItem} from 'primeng/api';
 import { RouterModule } from "@angular/router";
 import { CommonModule } from '@angular/common';
-
+import {StepsModule} from 'primeng/steps';
 
 @NgModule({
   declarations: [
@@ -100,7 +100,7 @@ import { CommonModule } from '@angular/common';
     MenuModule,
     RippleModule,
     TableModule,
-  
+    StepsModule
     
 
 

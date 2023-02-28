@@ -7,7 +7,8 @@ import { TableActivosComponent } from '../components/table-activos/table-activos
 import { TableTicketComponent } from '../components/table-ticket/table-ticket.component';
 import { TableUsuarioComponent } from '../components/table-usuario/table-usuario.component';
 import { InicioComponent } from '../components/inicio/inicio.component';
-
+import{ NuevoActivoComponent }from '../components/nuevo-activo/nuevo-activo.component';
+import { Paso1ActivoComponent } from '../paso1-activo/paso1-activo.component';
 const routes: Routes = [
   {
       path: 'main', component: InicioComponent,
@@ -17,7 +18,9 @@ const routes: Routes = [
       { path: 'Tactivos', component: TableActivosComponent },
       { path: 'solicitudes', component: SolicitudesComponent },
       { path: 'lugarArea', component: LugarAreaComponent },
-      { path: 'reasignacion', component: ReasignacionComponent }
+      { path: 'reasignacion', component: ReasignacionComponent },
+      {path: 'NuevoActivo', component: NuevoActivoComponent},
+      {path: 'Paso1', component: Paso1ActivoComponent}
     ]
   }
 ];

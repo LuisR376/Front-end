@@ -1,0 +1,15 @@
+<section class="container">
+    <div>
+        <div class="flex align-items-center justify-content-between fondo">
+            <div>
+                <h1>Nuevo Activo</h1>
+                <p>Alta de activos</p>
+            </div>
+        </div>
+        <div>
+            <p-toast></p-toast>
+            <p-steps [model]="items" [readonly]="true"></p-steps>
+        </div>
+        <router-outlet></router-outlet>
+    </div>
+</section>

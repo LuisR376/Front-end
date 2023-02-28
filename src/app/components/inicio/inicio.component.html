@@ -3,6 +3,7 @@
     <div class="flex align-items-center justify-content-between">
         <div>
             <app-menu></app-menu>
+            
         </div>
         <div class="flex-inline">
             <p-avatar shape="circle" icon="pi pi-user" pBadge value="4" severity="success" styleClass="mr-2"
@@ -23,4 +24,5 @@
 <div>
     <div *ngIf="sesionUsuario.clave== 'ADM' ||   sesionUsuario.clave == 'TEC'"></div>
 </div>
+
 <router-outlet></router-outlet>
