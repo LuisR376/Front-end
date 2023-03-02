@@ -1,4 +1,4 @@
-import { Component,ViewChild } from '@angular/core';
+import { Component,ViewChild, EventEmitter, Input,Output } from '@angular/core';
 import { Usuario } from '../model/usuario.model';
 import { CustomerService } from '../../service/CustomerService';
 import { RespuestaDto } from '../model/respuestaDto';
@@ -15,11 +15,8 @@ import { UsuarioService } from '../../service/usuario.service';
 })
 export class TableUsuarioComponent {
   @ViewChild(AlertaComponent, { static: false }) mensajeAlerta!: AlertaComponent;
-  token : string;
-  usuarios !: Usuario[];
-  usuari : any;
-  text !: boolean;
-  texts !: boolean;
+  @Input() displayAddModal: boolean = true;
+  @Output() clickClose: EventEmitter<boolean> = new EventEmitter<boolean>();
   constructor(
     private fb: FormBuilder,
     private messageService: MessageService,
@@ -28,8 +25,15 @@ export class TableUsuarioComponent {
     private usuarioService: UsuarioService
     ) {
       this.token = this._authGuardService.getToken();
-
+      
     }
+    token : string;
+    usuarios !: Usuario[];
+    usuari : any;
+    submitted !: Usuario;
+    text !: boolean;
+    texts !: boolean;
+
     recoInfo = this.fb.group({
       fecha:['', Validators.required],
       idrol:['', Validators.required],
@@ -68,6 +72,10 @@ obtenerUsuarios(){
     this.text = false;
     this.texts = true;
   }
+  closeModal() {
+    this.recoInfo.reset();
+    this.obtenerUsuarios();
+  }
   addUsuario() {
     console.log("this.loginForm",this.recoInfo.value)
     if(this.recoInfo.invalid){
@@ -98,5 +106,9 @@ obtenerUsuarios(){
         this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
       }   
     });    
+    
+}
+onGlobalFilter(table: any, event: Event) {
+  table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
 }
 }

@@ -26,5 +26,5 @@ export class UsuarioService {
 
     saveUsuario(datosA : insertUsuario): Observable<RespuestaDto> {
         return this._apiService.sendPostRequest(datosA, this.url + "usuario/post");
-    }// Post area
+    }// Post usuario
 }
