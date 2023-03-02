@@ -23,6 +23,9 @@ export class UsuarioService {
     iniciarSesion(datosInicioSesion : loginUsuario ): Observable<RespuestaDto> {
         return this._apiService.sendPostRequest(datosInicioSesion , this.url + 'iniciarSesion/iniciarSesion');
     } // IniciarSesion
+    fnusuario(token:string): Observable<RespuestaDto> {
+        return this._apiService.sendGetRequest(this.url + "usuario/getUsuarios",token);
+    } //get Usuario
 
     saveUsuario(datosA : insertUsuario): Observable<RespuestaDto> {
         return this._apiService.sendPostRequest(datosA, this.url + "usuario/post");

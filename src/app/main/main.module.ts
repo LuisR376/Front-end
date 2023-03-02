@@ -12,6 +12,8 @@ import { TableUsuarioComponent } from '../components/table-usuario/table-usuario
 import { CommonModule } from '@angular/common';
 import { NuevoActivoComponent } from '../components/nuevo-activo/nuevo-activo.component';
 import { Paso1ActivoComponent } from '../paso1-activo/paso1-activo.component';
+import { NuevoUsuarioComponent } from '../components/nuevo-usuario/nuevo-usuario.component';
+import { UsuarioComponent } from '../components/usuario/usuario.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { Paso1ActivoComponent } from '../paso1-activo/paso1-activo.component';
     LugarAreaComponent,
     ReasignacionComponent,
     NuevoActivoComponent,
-    Paso1ActivoComponent
+    Paso1ActivoComponent,
+    NuevoUsuarioComponent,
+    UsuarioComponent
   ],
   imports: [
     MainRoutingModule,

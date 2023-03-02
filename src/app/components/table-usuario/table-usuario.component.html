@@ -1,121 +1,73 @@
+
 <section class="container">
-    <div>
-        <p-table [value]="usuarios" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
-            [tableStyle]="{'min-width': '50rem'}"
-            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-            [rowsPerPageOptions]="[10,25,50]">
-            <ng-template pTemplate="caption">
-                <div class="flex align-items-center justify-content-between fondo">
-                    <div>
-                        <h1>USUARIOS</h1>
-                        <p>ADMINISTAR USUARIOS</p>
-                    </div>
-                    <div>
-                        <button pButton pRipple type="button" label="Nuevo" (click)="openNew()"></button>
-                    </div>
-                   
+    <p-table #dt [value]="usuarios" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['nombre_equipo','country.nombre_equipo','representative.nombre_equipo','status']" 
+    [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" 
+    [(selection)]="selectedProducts" selectionMode="multiple" [rowHover]="true" dataKey="id">
+    <ng-template pTemplate="caption">
+        <div class="flex justify-content-between fondo">
+            <div>
+                <h1>Usuarios</h1>
+            </div>
+               <div class="inline-flex">
+                <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+                <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger mr-2" [disabled]="!selectedProducts || !selectedProducts.length"></button>
+                <p-fileUpload mode="basic" accept="Pertenencia/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2"></p-fileUpload>
+                <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help mr-2" (click)="dt.exportCSV()"></button>
+            
+            <span class=" p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>
+            </span>
+
+               </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+          
+            <th >Numero de Usuario <p-sortIcon field="code"></p-sortIcon></th>
+            <th >Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
+            <th>Apellido Paterno</th>
+            <th>Apellido Materno <p-sortIcon field="price"></p-sortIcon></th>
+            <th>Email <p-sortIcon field=""></p-sortIcon></th>
+            <th>Estado <p-sortIcon field=""></p-sortIcon></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+        <tr>
+         
+            <td style="width:14%; min-width:10rem;"><span class="p-column-title">Code</span>
+                {{product.num_empleado}}
+            </td>
+            <td style="width:14%; min-width:10rem;">
+                <span class="p-column-title">Name</span>
+                {{product.nombre}}
+            </td>
+            <td style="width:14%; min-width:10rem;"><span class="p-column-title">Image</span>
+                {{product.apellidoP}}
+            </td>
+            <td style="width:14%; min-width:8rem;">
+                <span class="p-column-title">Price</span>
+                {{product.apellidoM}}
+            </td>
+            <td style="width:14%; min-width:10rem;">
+                <span class="p-column-title">Pertenencia</span>
+                {{product.email}}
+            </td>
+            <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Status</span>
+                <span >{{product.status}}</span>
+            </td>
+            <td>
+                <div class="flex">
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" ></button><!--Editar-->
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" ></button><!--Eliminar-->
                 </div>
-            </ng-template>
-            <ng-template pTemplate="header">
-                <tr>
-                    <th style="width:25%">Nombre</th>
-                    <th style="width:25%">Apellido Paterno</th>
-                    <th style="width:25%">Apellido Materno</th>
-                    <th style="width:25%">Numero de Empleado</th>
-                    <th style="width:25%">Email</th>
-                    <th style="width:25%">Lugar</th>
-                    <th style="width:25%">Area</th>
-                    <th style="width:25%">Fecha</th>
-                    <th style="width:25%">Estado</th>
-                    <th style="width:25%">Contraseña</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-usuario>
-                <tr>
-                    <td>{{usuario.nombre}}</td>
-                    <td>{{usuario.apellidoP}}</td>
-                    <td>{{usuario.apellidoM}}</td>
-                    <td>{{usuario.num_empleado}}</td>
-                    <td>{{usuario.email}}</td>
-                    <td>{{usuario.idlugar}}</td>
-                    <td>{{usuario.idarea}}</td>
-                    <td>{{usuario.fecha}}</td>
-                    <td>{{usuario.status}}</td>
-                    <td>{{usuario.password}}</td>
-                </tr>
-            </ng-template>
-        </p-table>
-    </div>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
 </section>
-<p-dialog  [style]="{width: '450px'}" header="Product Details" [modal]="true" styleClass="p-fluid">
-    <ng-template pTemplate="content">
-        <form [formGroup]="recoInfo" (ngSubmit)="addUsuario()">
-        <div class="field">
-            <label for="name">Name</label>
-            <input type="text" pInputText id="name"  required autofocus />
-            <small class="p-error" *ngIf="text && !usuari.nombre">Name is required.</small>
-        </div>
-        <div class="field">
-            <label for="description">Description</label>
-            <textarea id="description" pInputTextarea [(ngModel)]="usuari.description" required rows="3" cols="20"></textarea>
-        </div>
-
-        <div class="field">
-            <label for="inventoryStatus">Inventory Status</label>
-            <p-dropdown  inputId="inventoryStatus"  placeholder="Select">
-                <ng-template let-option pTemplate="item">
-                    <span [class]="'usuari-badge status-' + option.value">{{option.label}}</span>
-                </ng-template>
-            </p-dropdown>
-        </div>
-
-        <div class="field">
-            <label class="mb-3">Rol</label>
-            <div class="formgrid grid">
-                <div class="field-radiobutton col-6">
-                    <p-radioButton id="category1" name="category" value="Accessories"></p-radioButton>
-                    <label for="category1">TEC</label>
-                </div>
-                <div class="field-radiobutton col-6">
-                    <p-radioButton id="category2" name="category" value="Clothing" ></p-radioButton>
-                    <label for="category2">CLIE</label>
-                </div>
-                <div class="field-radiobutton col-6">
-                    <p-radioButton id="category3" name="category" value="Electronics" ></p-radioButton>
-                    <label for="category3">ADMIN</label>
-                </div>
-                <div class="field-radiobutton col-6">
-                    <p-radioButton id="category4" name="category" value="Fitness" ></p-radioButton>
-                    <label for="category4">OTRO</label>
-                </div>
-            </div>
-        </div>
-
-        <div class="formgrid grid">
-            <div class="field col">
-                <label for="price">Apellido Paterno</label>
-                <p-inputNumber id="price"  mode="currency"></p-inputNumber>
-            </div>
-            <div class="field col">
-                <label for="quantity">Quantity</label>
-                <p-inputNumber id="quantity" ></p-inputNumber>
-            </div>
-        </div>
-        </form>
-        <p-button (click)="addUsuario()" label="AÑADIR" [disabled]="usuari.invalid"></p-button>
-    </ng-template>
-
-    <ng-template pTemplate="footer">
-        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" ></button>
-        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" ></button>
-    </ng-template>
-</p-dialog>
-
-<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
-<!--
-
-
-<p-dialog [(visible)]="texts" [style]="{width: '450px'}" header="Agregar Area" [modal]="true"
+<p-dialog [(visible)]="texts" [style]="{width: '450px'}" header="Agregar Usuario" [modal]="true"
 styleClass="p-fluid">
 
 <ng-template pTemplate="content">
@@ -128,18 +80,33 @@ styleClass="p-fluid">
             <small class="p-error" *ngIf="text && !usuari.nombre">Name is required.</small>
         </div>
         <div class="field">
-            <label for="ubi">Apellido Paterno</label>
-            <input formControlName="Apellido" pInputText id="ubi" required autofocus>
+            <label for="Apellido">Apellido Paterno</label>
+            <input formControlName="Apellido" pInputText id="Apellido" required autofocus>
             <small class="p-error" *ngIf="text && !usuari.apellidoP">Name is required.</small>
         </div>
         <div class="field">
-            <label for="ubi">Apellido Materno</label>
-            <input formControlName="Apellido" pInputText id="ubi" required autofocus>
+            <label for="Apellido">Apellido Materno</label>
+            <input formControlName="Apellido" pInputText id="Apellido" required autofocus>
             <small class="p-error" *ngIf="text && !usuari.apellidoM">Name is required.</small>
         </div>
+        <div class="field">
+            <label for="Email">Email</label>
+            <input formControlName="Email" pInputText id="Email" required autofocus>
+            <small class="p-error" *ngIf="text && !usuari.email">Name is required.</small>
+        </div>
         <p-button  label="Cancel" styleClass="p-button-text"></p-button>
-
         <p-button (click)="addUsuario()" label="AÑADIR" [disabled]="usuari.invalid"></p-button>
     </form>
 
--->
+
+<p-dialog [(visible)]="deleteProductDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+<div class="flex align-items-center justify-content-center">
+    <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+    <span *ngIf="products">Are you sure you want to delete <b>{{products.num_empleado}}</b>?</span>
+</div>
+<ng-template pTemplate="footer">
+    <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteProductDialog = false"></button>
+    <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDelete()"></button>
+</ng-template>
+</p-dialog>
+

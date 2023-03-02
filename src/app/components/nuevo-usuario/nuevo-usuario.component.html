@@ -1,0 +1,158 @@
+<p-progressBar *ngIf="show" mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
+<div class="space">
+    <div class="p-grid">
+        <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" header="Confirmación"
+            icon="pi pi-exclamation-triangle"></p-confirmDialog>
+        <div class="ui-g-12">
+            <div class="ui-g-10 ui-lg-10 ui-md-10">
+                <h3>Usuarios de consola</h3>
+                <p>Usuarios registrados para dar acceso a los perfiles de la consola.</p>
+            </div>
+            <div class="ui-g-2 ui-lg-2 ui-md-2 text-right space">
+                <button type="button" pButton (click)="showDialogToAdd()" label="Nuevo usuario"
+                    class="ui-button-primary"></button>
+            </div>
+
+        </div>
+
+
+
+        <div class="ui-g-12">
+            <p-table #dt [columns]="cols" [value]="usuarios" selectionMode="single" [(selection)]="selectedUsuario"
+                (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="15">
+                <ng-template pTemplate="caption">
+                    <div style="text-align: right">
+                        <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+                        
+                    </div>
+                </ng-template>
+
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                            {{col.header}}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr [pSelectableRow]="rowData">
+                        <td *ngFor="let col of columns">
+                            {{rowData[col.field]}}
+                        </td>
+                    </tr>
+                </ng-template>
+
+            </p-table>
+        </div>
+
+        <!--mensajes de exito-->
+        <p-toast key="agregar" [style]="{marginTop: '70px'}"></p-toast>
+        <p-toast key="eliminar" [style]="{marginTop: '70px'}"></p-toast>
+
+
+    </div>
+</div>
+
+<!--INICIA MODAL-->
+<p-dialog header="Usuario" [(visible)]="displayDialog" [focusOnShow]="false" [responsive]="true" showEffect="fade"
+    [maximizable]="true" [modal]="true" [style]="{width: '800px'}">
+    <form [formGroup]='usuarioForm' #formDirective="ngForm">
+        <div class="ui-g ui-fluid">
+
+
+            <div class="ui-g-12 ui-md-6">
+                <p-dropdown [options]="perfilSelect" placeholder='Perfil*' [autoDisplayFirst]='false'
+                    formControlName="idrol">
+                </p-dropdown>
+                <p-message severity="error"
+                    *ngIf="usuarioForm.get( 'idrol' ).hasError('required')&& validarFormUsr"
+                    text="Debe seleccionar una opción"></p-message>
+            </div>
+
+            <div class="ui-g-12 ui-md-6">
+                <span class="ui-float-label">
+                    <input [attr.disabled]="!nuevoUsuario ? 'disabled' : null" pInputText id="brand" maxlength="40" autofocus
+                        formControlName="nombre" />
+                    <label for="elusr">Usuario</label>
+                </span>
+                    <p-message severity="error"
+                        *ngIf="usuarioForm.get( 'nombre ).hasError('required')&& validarFormUsr"
+                        text="Debe ingresar el usuario con el cual se iniciara sesión"></p-message>
+            </div>
+
+            <div class="ui-g-12 ui-md-4">
+                <span class="ui-float-label">
+                    <input pInputText id="nombre" maxlength="40" formControlName="nombre" autofocus />
+                    <label for="float-input">Nombre(s)*</label>
+                </span>
+                    <p-message severity="error" *ngIf="usuarioForm.get( 'nombre' ).hasError('required')&& validarFormUsr"
+                        text="Debe ingresar un nombre"></p-message>
+            </div>
+
+            <div class="ui-g-12 ui-md-4">
+                <span class="ui-float-label">
+                    <input pInputText id="ap" maxlength="40" formControlName="apellidoP" />
+                    <label for="float-input">Paterno*</label>
+                </span>
+                    <p-message severity="error"
+                        *ngIf="usuarioForm.get( 'apellidoP' ).hasError('required')&& validarFormUsr"
+                        text="Debe ingresar el apellido paterno"></p-message>
+            </div>
+
+
+            <div class="ui-g-12 ui-md-4">
+                <span class="ui-float-label">
+                    <input id="float-input" type="text" maxlength="40" size="30" formControlName="apellidoM"
+                        pInputText>
+                    <label for="float-input">Materno*</label>
+                </span>
+                    <p-message severity="error"
+                        *ngIf="usuarioForm.get( 'apellidoM' ).hasError('required')&& validarFormUsr"
+                        text="Debe ingresar el apellido materno"></p-message>
+            </div>
+
+
+            <div class="ui-g-12 ui-md-6">
+                <span class="ui-float-label">
+                    <input type="password" maxlength="255" showHideInput formControlName="password" pInputText>
+                    <label for="float-input">Nueva contraseña*</label>
+                </span>
+                <!-- <span class="ui-inputgroup-addon"><a><i  showHideTrigger="nipConfirm" class="material-icons">remove_red_eye</i></a></span> -->
+                <p-message severity="error" text="Debe ingresar una contraseña"
+                    *ngIf="!usuarioForm.controls['password'].valid&&usuarioForm.controls['password'].dirty&&validarFormUsr">
+                </p-message>
+                <p-message severity="error"
+                    text="Debe tener al menos 8 caracteres, un dígito, una minúscula, una mayuscula  "
+                    *ngIf="usuarioForm.controls[ 'password' ].hasError('pattern')&&validarFormUsr"></p-message>
+               
+            </div>
+
+            <div class="ui-g-12 ui-md-6">
+                <span class="ui-float-label">
+                    <input type="password" showHideInput formControlName="nipConfirm" pInputText>
+                    <label for="float-input">Confirmar contraseña*</label>
+                <!-- <span class="ui-inputgroup-addon"><a><i  showHideTrigger="nipConfirm" class="material-icons">remove_red_eye</i></a></span> -->
+                <p-message severity="error" text="la contraseña no coindicen"
+                    *ngIf="usuarioForm.value.nipConfirm != usuarioForm.value.password"></p-message>
+                </span>
+            </div>
+        </div>
+    </form>
+
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button *ngIf="!nuevoUsuario" type="button" pButton icon="pi pi-times" (click)="eliminarUsuario()"
+                label="Eliminar" class="ui-button-danger"></button>
+            <button type="button" *ngIf="nuevoUsuario" pButton icon="pi pi-check"
+                (click)="saveUsuario(); validarFormUsr = true;" label="Guardar"
+                class="ui-button-success"></button>
+            <button *ngIf="!nuevoUsuario" type="button" pButton icon="pi pi-check" (click)="btnActualizarUsuario()"
+                label="Actualizar" class="ui-button-success"></button>
+        </div>
+    </p-footer>
+
+
+
+</p-dialog>
+<app-alerta></app-alerta>
