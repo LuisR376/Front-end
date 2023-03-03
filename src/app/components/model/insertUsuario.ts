@@ -2,8 +2,9 @@ export class insertUsuario{
     constructor(
 
         public nombre:string | undefined | null,
-        public apelllidoP:string | undefined | null,
+        public apellidoP:string | undefined | null,
         public apellidoM:string | undefined | null,
+        public email:string | undefined | null
 /*
     public fecha:Date | undefined | null,
     public idrol:number | undefined | null,

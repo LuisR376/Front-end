@@ -44,7 +44,7 @@ export class TableUsuarioComponent {
     idrol: ['', Validators.required],
     num_empleado: ['', Validators.required],
     nombre: ['', Validators.required],
-    apelllidoP: ['', Validators.required],
+    apellidoP: ['', Validators.required],
     apellidoM: ['', Validators.required],
     idlugar: ['', Validators.required],
     idarea: ['', Validators.required],
@@ -100,12 +100,12 @@ export class TableUsuarioComponent {
       this.messageService.add({ severity: 'error', summary: 'No es posible acceder', detail: 'Porfavor verifique todos los campos' });
     } else {
       console.log("this.loginForm.value.usuarioLogin", this.recoInfo.value.nombre)
-      this.saveUsuario(this.recoInfo.value.nombre, this.recoInfo.value.apelllidoP, this.recoInfo.value.apellidoM);
+      this.saveUsuario(this.recoInfo.value.nombre, this.recoInfo.value.apellidoP, this.recoInfo.value.apellidoM, this.recoInfo.value.email);
     }
   }
-  async saveUsuario(nombre: string | undefined | null, apelllidoP: string | undefined | null, apellidoM: string | undefined | null) {
-    console.log("Usuario", nombre, "apellidoP", apelllidoP, "apellido", apellidoM);
-    let datosA = new insertUsuario(nombre, apelllidoP, apellidoM);
+  async saveUsuario(nombre: string | undefined | null, apellidoP: string | undefined | null, apellidoM: string | undefined | null, email: string|undefined|null) {
+    console.log("Usuario", nombre, "apellidoP", apellidoP, "apellidoM", apellidoM, "email", email);
+    let datosA = new insertUsuario(nombre, apellidoP, apellidoM, email);
     console.log("Datos Area", datosA);
     this.usuarioService.saveUsuario(datosA).subscribe({
       next: (resp: RespuestaDto) => {

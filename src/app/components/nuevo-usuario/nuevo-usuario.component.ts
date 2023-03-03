@@ -18,7 +18,7 @@ import { AlertaComponent } from "src/app/util/alerta.component";
   templateUrl: './nuevo-usuario.component.html',
   providers: [MessageService]
 })
-export class NuevoUsuarioComponent  {
+export class NuevoUsuarioComponent  { }/*
 
   validarFormUsr: boolean = false;
   token: any;
@@ -237,14 +237,14 @@ export class NuevoUsuarioComponent  {
     }
 
   }
-  onRowSelect(event) {
+  onRowSelect() {
     this.validarFormUsr = false;
 
     console.log(this.usuarioForm)
 
     // this.usuarioForm.get('username').clearValidators();
     this.nuevoUsuario = false;
-    this.cloneUsuario(event.model);
+    
     this.displayDialog = true;
   }
 
@@ -319,3 +319,4 @@ export class NuevoUsuarioComponent  {
 
 }
 
+*/

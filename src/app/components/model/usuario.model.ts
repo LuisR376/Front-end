@@ -1,10 +1,10 @@
 export interface Usuario {
-    idUsuario:number;
+    idUsuario?:number;
     fecha?:Date;
     idrol?:number;
     num_empleado?:string;
     nombre?:string;
-    apelllidoP?:string;
+    apellidoP?:string;
     apellidoM?:string;
     idlugar?:number;
     idarea?:number;
