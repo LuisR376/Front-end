@@ -27,7 +27,7 @@ export class UsuarioService {
         return this._apiService.sendGetRequest(this.url + "usuario/getUsuarios",token);
     } //get Usuario
 
-    saveUsuario(datosA : insertUsuario): Observable<RespuestaDto> {
+        saveUsuario(datosA : insertUsuario): Observable<RespuestaDto> {
         return this._apiService.sendPostRequest(datosA, this.url + "usuario/post");
     }// Post usuario
 }

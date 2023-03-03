@@ -31,6 +31,12 @@
             <th>Apellido Materno <p-sortIcon field="price"></p-sortIcon></th>
             <th>Email <p-sortIcon field=""></p-sortIcon></th>
             <th>Estado <p-sortIcon field=""></p-sortIcon></th>
+            <th>Rol <p-sortIcon field=""></p-sortIcon></th>
+            <th>Lugar <p-sortIcon field=""></p-sortIcon></th>
+            <th>Area <p-sortIcon field=""></p-sortIcon></th>
+            <th>Contraseña <p-sortIcon field=""></p-sortIcon></th>
+            
+            
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-product>
@@ -57,6 +63,19 @@
             <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Status</span>
                 <span >{{product.status}}</span>
             </td>
+            <td style="width:14%; min-width: 10rem;"><span class="p-column-title">idrol</span>
+                <span >{{product.idrol}}</span>
+            </td>
+            <td style="width:14%; min-width: 10rem;"><span class="p-column-title">idlugar</span>
+                <span >{{product.idlugar}}</span>
+            </td>
+            <td style="width:14%; min-width: 10rem;"><span class="p-column-title">idarea</span>
+                <span >{{product.idarea}}</span>
+            </td>
+            <td style="width:14%; min-width: 10rem;"><span class="p-column-title">password</span>
+                <span >{{product.password}}</span>
+            </td>
+            
             <td>
                 <div class="flex">
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" ></button><!--Editar-->
@@ -74,6 +93,11 @@ styleClass="p-fluid">
     <img [src]="'https://primefaces.org/cdn/primeng/images/demo/areas/' + usuari.image"
         [alt]="usuari.image" class="areas-image" *ngIf="usuari.image">
     <form [formGroup]="recoInfo" (ngSubmit)="addUsuario()">
+        <div class="field">
+            <label for="insertUsuario">N° Empleado</label>
+            <input formControlName="num_empleado" type="number" pInputText id="num_empleado" required autofocus>
+            <small class="p-error" *ngIf="text && !usuari.num_empleado">Name is required.</small>
+        </div>
         <div class="field">
             <label for="name">Nombre</label>
             <input formControlName="nombre" pInputText id="ubi" required autofocus>
@@ -94,7 +118,32 @@ styleClass="p-fluid">
             <input formControlName="email" pInputText id="email" required autofocus>
             <small class="p-error" *ngIf="text && !usuari.email">Name is required.</small>
         </div>
-        <p-button  label="Cancel" styleClass="p-button-text"></p-button>
+        <div class="field">
+            <label for="status">Estado</label>
+            <input formControlName="status" type="number" pInputText id="status" required autofocus>
+            <small class="p-error" *ngIf="text && !usuari.status">Name is required.</small>
+        </div>
+        <div class="field">
+            <label for="idrol">Rol</label>
+            <input formControlName="idrol" type="number" pInputText id="idrol" required autofocus>
+            <small class="p-error" *ngIf="text && !usuari.idrol">Name is required.</small>
+        </div>
+        <div class="field">
+            <label for="idlugar">Lugar</label>
+            <input formControlName="idlugar" type="number" pInputText id="idlugar" required autofocus>
+            <small class="p-error" *ngIf="text && !usuari.idlugar">Name is required.</small>
+        </div>
+        <div class="field">
+            <label for="idarea">Area</label>
+            <input formControlName="idarea" type="number" pInputText id="idarea" required autofocus>
+            <small class="p-error" *ngIf="text && !usuari.idarea">Name is required.</small>
+        </div>
+        <div class="field">
+            <label for="password">Contraseña</label>
+            <input formControlName="password" pInputText id="password" required autofocus>
+            <small class="p-error" *ngIf="text && !usuari.password">Name is required.</small>
+        </div>
+        <p-button (click)="closeModal()" label="Cancel" styleClass="p-button-text"></p-button>
         <p-button (click)="addUsuario()" label="AÑADIR" [disabled]="usuari.invalid"></p-button>
     </form>
 

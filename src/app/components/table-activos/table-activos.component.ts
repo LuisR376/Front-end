@@ -50,7 +50,7 @@ export class TableActivosComponent {
       { label: 'LOWSTOCK', value: '0' },
       { label: 'OUTOFSTOCK', value: '0' }
     ];
-  }
+  } 
 
   
   obtenerActivos() {

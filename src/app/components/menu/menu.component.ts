@@ -30,7 +30,7 @@ export class MenuComponent implements OnInit {
       this.primengConfig.ripple = true;
      console.log("this.sesionUsuario.descripcion_rol ",this.sesionUsuario.clave );
      
-      if(this.sesionUsuario.clave === 'TEC' || this.sesionUsuario.clave === 'ADM' ){
+    
           this.items.push(
             {
                label:'Solicitudes',
@@ -43,7 +43,7 @@ export class MenuComponent implements OnInit {
                routerLink:['Ticket']
             }
           );
-      }
+      if(this.sesionUsuario.clave === 'TEC' || this.sesionUsuario.clave === 'ADM' ){
         this.items.push(
             
             {
@@ -92,4 +92,4 @@ export class MenuComponent implements OnInit {
         )
          }
       }
-   
+   }

@@ -35,29 +35,24 @@ export class TableUsuarioComponent {
     private usuarioService: UsuarioService
   ) {
     this.token = this._authGuardService.getToken();
-
   }
-
-
   recoInfo = this.fb.group({
-    fecha: ['', Validators.required],
-    idrol: ['', Validators.required],
     num_empleado: ['', Validators.required],
     nombre: ['', Validators.required],
     apellidoP: ['', Validators.required],
     apellidoM: ['', Validators.required],
+    email: ['', Validators.required],
+    status:['', Validators.required],
+    idrol: ['', Validators.required],
     idlugar: ['', Validators.required],
     idarea: ['', Validators.required],
-    email: ['', Validators.required],
     password: ['', Validators.required],
+    
+    fecha: ['', Validators.required],
   });
-
-
   ngOnInit() {
     this.obtenerUsuarios();
   }
-
-
   obtenerUsuarios() {
     console.log("Token", this.token);
     this.customerService.fnusuario(this.token).subscribe({
@@ -67,7 +62,6 @@ export class TableUsuarioComponent {
         if (respuestaDto.ok) {
           this.usuarios = resp.addenda;
         } else {
-
         } // if
       },
       error: (error) => {
@@ -76,7 +70,78 @@ export class TableUsuarioComponent {
       }
     });
   }
+  addUsuario() {
+    console.log("this.loginForm", this.recoInfo.value);
+    
+    if (this.recoInfo.invalid) {
+      this.messageService.add({ severity: 'error', summary: 'No es posible acceder', detail: 'Porfavor verifique todos los campos' });
+    } else {
+      console.log("this.loginForm.value.usuarioLogin", this.recoInfo.value.nombre)
+      this.saveUsuario(this.recoInfo.value.nombre, 
+        this.recoInfo.value.apellidoP, 
+        this.recoInfo.value.apellidoM, 
+        this.recoInfo.value.email,
+        this.recoInfo.value.idrol,
+        this.recoInfo.value.num_empleado,
+        this.recoInfo.value.idlugar,
+        this.recoInfo.value.idarea,
+        this.recoInfo.value.password,
+        this.recoInfo.value.status,
+        );
+    }
+  }
+  
+  async saveUsuario(
+    
+    nombre: string | undefined | null, 
+    num_empleado: string | undefined | null,
+    apellidoP: string | undefined | null, 
+    apellidoM: string | undefined | null, 
+    email: string | undefined | null,
+    status:string | undefined | null,
+    idrol: string | undefined | null,
+    idlugar: string | undefined | null,
+    idarea:string | undefined | null,
+    password: string | undefined | null,
+    ) {
+      console.log("VERRRRRRRRRRRRRREEEEEEEE",this.saveUsuario);
+    console.log(
+    "Usuario", nombre, 
+    "apellidoP", apellidoP, 
+    "apellidoM", apellidoM, 
+    "email", email,"idrol",
+     idrol,"num_empleado", 
+     num_empleado,"idlugar", 
+     idlugar,"idarea", idarea, 
+     "password",password, 
+     "status", status,);
+    let datosA = new insertUsuario(nombre, apellidoP, apellidoM, email, idrol, num_empleado, idlugar, idarea, password, status);
+    console.log("VERRRRRRRRRRRRRREEEEEEEE",this.saveUsuario);
+    console.log("Datos Area", datosA);
+    this.usuarioService.saveUsuario(datosA).subscribe({
+      next: (resp: RespuestaDto) => {
 
+        let respuestaDto = <RespuestaDto>resp;
+        if (respuestaDto.valido == 0) {
+          console.log("next", respuestaDto.mensaje)
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: respuestaDto.mensaje });
+        } else {
+          this.usuari = <Usuario>respuestaDto.addenda;
+          console.log("obtenerUsuarios",this.obtenerUsuarios);
+          
+          this.obtenerUsuarios();
+        }
+      },
+      error: (error) => {
+        let mensaje = <any>error;
+        this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
+      }
+    });
+
+  }
+  onGlobalFilter(table: any, event: Event) {
+    table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+  }
   confirmDelete() {
     this.deleteProductDialog = false;
     this.usuarios = this.usuarios.filter(val => val.idUsuario !== this.products.idUsuario);
@@ -92,41 +157,5 @@ export class TableUsuarioComponent {
   closeModal() {
     this.recoInfo.reset();
     this.obtenerUsuarios();
-  }
-  
-  addUsuario() {
-    console.log("this.loginForm", this.recoInfo.value)
-    if (this.recoInfo.invalid) {
-      this.messageService.add({ severity: 'error', summary: 'No es posible acceder', detail: 'Porfavor verifique todos los campos' });
-    } else {
-      console.log("this.loginForm.value.usuarioLogin", this.recoInfo.value.nombre)
-      this.saveUsuario(this.recoInfo.value.nombre, this.recoInfo.value.apellidoP, this.recoInfo.value.apellidoM, this.recoInfo.value.email);
-    }
-  }
-  async saveUsuario(nombre: string | undefined | null, apellidoP: string | undefined | null, apellidoM: string | undefined | null, email: string|undefined|null) {
-    console.log("Usuario", nombre, "apellidoP", apellidoP, "apellidoM", apellidoM, "email", email);
-    let datosA = new insertUsuario(nombre, apellidoP, apellidoM, email);
-    console.log("Datos Area", datosA);
-    this.usuarioService.saveUsuario(datosA).subscribe({
-      next: (resp: RespuestaDto) => {
-
-        let respuestaDto = <RespuestaDto>resp;
-        if (respuestaDto.valido == 0) {
-          console.log("next", respuestaDto.mensaje)
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: respuestaDto.mensaje });
-        } else {
-          this.usuari = <Usuario>respuestaDto.addenda;
-          this.obtenerUsuarios();
-        }
-      },
-      error: (error) => {
-        let mensaje = <any>error;
-        this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
-      }
-    });
-
-  }
-  onGlobalFilter(table: any, event: Event) {
-    table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
   }
 }

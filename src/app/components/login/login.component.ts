@@ -50,6 +50,7 @@ export class LoginComponent {
   
   async iniciarSesion(usuario : string  | undefined | null, contrasena : string  | undefined | null) {
     console.log("usuario", usuario , "contrasena" , contrasena);
+    
     let datosInicioSesion = new loginUsuario(usuario , contrasena );
     console.log("datosSesion", datosInicioSesion);
     this._usuarioService.iniciarSesion(datosInicioSesion ).subscribe({

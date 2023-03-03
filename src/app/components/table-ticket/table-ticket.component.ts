@@ -5,6 +5,7 @@ import { CustomerService } from '../../service/CustomerService';
 import { RespuestaDto } from '../model/respuestaDto';
 import { AlertaComponent } from '../../util/alerta.component';
 import { authGuardService } from '../../service/auth-guard.service';
+import { Usuario } from '../model/usuario.model';
 
 
 @Component({
@@ -16,12 +17,14 @@ export class TableTicketComponent {
   @ViewChild(AlertaComponent, { static: false }) mensajeAlerta!: AlertaComponent;
   token : string;
   tickets !: Ticket[];
+  sesionUsuario !: Usuario;
   constructor(
     private messageService: MessageService,
     private customerService: CustomerService,
     public _authGuardService: authGuardService
     ) {
       this.token = this._authGuardService.getToken();
+      this.sesionUsuario = this._authGuardService.getUser();
     }
 
   
@@ -29,6 +32,7 @@ export class TableTicketComponent {
     debugger
     console.log("entraa")
     this.obtenerTickets();
+    
   }
 //
 obtenerTickets(){
