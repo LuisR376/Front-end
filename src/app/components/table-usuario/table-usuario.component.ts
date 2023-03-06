@@ -48,7 +48,7 @@ export class TableUsuarioComponent {
     idarea: ['', Validators.required],
     password: ['', Validators.required],
     
-    fecha: ['', Validators.required],
+    
   });
   ngOnInit() {
     this.obtenerUsuarios();
@@ -71,13 +71,14 @@ export class TableUsuarioComponent {
     });
   }
   addUsuario() {
-    console.log("this.loginForm", this.recoInfo.value);
+    console.log("this.recoInfo", this.recoInfo.value);
     
     if (this.recoInfo.invalid) {
       this.messageService.add({ severity: 'error', summary: 'No es posible acceder', detail: 'Porfavor verifique todos los campos' });
     } else {
-      console.log("this.loginForm.value.usuarioLogin", this.recoInfo.value.nombre)
-      this.saveUsuario(this.recoInfo.value.nombre, 
+      console.log("this.ecolecta informacion nombre", this.recoInfo.value.nombre)
+      this.saveUsuario(
+        this.recoInfo.value.nombre, 
         this.recoInfo.value.apellidoP, 
         this.recoInfo.value.apellidoM, 
         this.recoInfo.value.email,
@@ -94,28 +95,31 @@ export class TableUsuarioComponent {
   async saveUsuario(
     
     nombre: string | undefined | null, 
-    num_empleado: string | undefined | null,
     apellidoP: string | undefined | null, 
     apellidoM: string | undefined | null, 
     email: string | undefined | null,
-    status:string | undefined | null,
     idrol: string | undefined | null,
+    num_empleado: string | undefined | null,
     idlugar: string | undefined | null,
     idarea:string | undefined | null,
     password: string | undefined | null,
+    status:string | undefined | null,
+
     ) {
       console.log("VERRRRRRRRRRRRRREEEEEEEE",this.saveUsuario);
     console.log(
     "Usuario", nombre, 
     "apellidoP", apellidoP, 
     "apellidoM", apellidoM, 
-    "email", email,"idrol",
-     idrol,"num_empleado", 
-     num_empleado,"idlugar", 
-     idlugar,"idarea", idarea, 
-     "password",password, 
-     "status", status,);
-    let datosA = new insertUsuario(nombre, apellidoP, apellidoM, email, idrol, num_empleado, idlugar, idarea, password, status);
+    "email", email,
+    "idrol",idrol,
+    "num_empleado",num_empleado,
+    "idlugar",idlugar,
+    "idarea", idarea, 
+    "password",password, 
+    "status", status);
+    let datosA = new insertUsuario(nombre, 
+      apellidoP, apellidoM, email, idrol, num_empleado, idlugar, idarea, password, status);
     console.log("VERRRRRRRRRRRRRREEEEEEEE",this.saveUsuario);
     console.log("Datos Area", datosA);
     this.usuarioService.saveUsuario(datosA).subscribe({

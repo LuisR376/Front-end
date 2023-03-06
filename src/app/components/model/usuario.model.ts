@@ -11,6 +11,7 @@ export interface Usuario {
     email?:string;
     password?:string;
     status?:number;
+    
     descripcion_rol?:string;
     clave?:string;
 

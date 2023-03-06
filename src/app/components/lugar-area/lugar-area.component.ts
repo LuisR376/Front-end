@@ -8,6 +8,7 @@ import { authGuardService } from '../../service/auth-guard.service';
 import { MessageService } from 'primeng/api';
 import { AlertaComponent } from 'src/app/util/alerta.component';
 import { insertArea } from '../model/insertArea'
+import { Lugar } from '../model/lugar.model';
 
 @Component({
   selector: 'app-lugar-area',
@@ -30,16 +31,19 @@ export class LugarAreaComponent {
   }
   token: string;
   area !: lugarAreas[];
+  lugares !: Lugar[];
   areas !: any;
   text !: boolean;
   texts !: boolean;
 
   productForm = this.fb.group({
     nombre_area: ['', Validators.required],
-    ubicacion: ['', Validators.required]
+    idlugar: ['', Validators.required]
+    
   });
   ngOnInit() {
     this.obtenerArea();
+    this.obtenerLugar();
   }
   obtenerArea() {
     console.log("Token", this.token);
@@ -49,6 +53,24 @@ export class LugarAreaComponent {
         let respuestaDto = <RespuestaDto>resp;
         if (respuestaDto.ok) {
           this.area = resp.addenda;
+        } else {
+
+        } // if
+      },
+      error: (error) => {
+        let mensaje = <any>error;
+        this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
+      }
+    });
+  }
+  obtenerLugar() {
+    console.log("Token", this.token);
+    this.customerService.getLugar(this.token).subscribe({
+      next: (resp: RespuestaDto) => {
+        console.log("Lugaaaaaaaaaaaaar", resp);
+        let respuestaDto = <RespuestaDto>resp;
+        if (respuestaDto.ok) {
+          this.lugares = resp.addenda;
         } else {
 
         } // if
@@ -69,17 +91,17 @@ export class LugarAreaComponent {
       this.obtenerArea();
     }
     addProduct() {
-      console.log("this.loginForm",this.productForm.value)
+      console.log("this.loginFormLugare area",this.productForm.value)
       if(this.productForm.invalid){
         this.messageService.add({severity:'error', summary:'No es posible acceder', detail:'Porfavor verifique todos los campos'});
       }else{
         console.log("this.loginForm.value.usuarioLogin", this.productForm.value.nombre_area)
-         this.saveArea( this.productForm.value.nombre_area, this.productForm.value.ubicacion);
+         this.saveArea( this.productForm.value.nombre_area, this.productForm.value.idlugar);
       }
     }
-      async saveArea(nombre_area : string | undefined | null, ubicacion : string | undefined | null) {
-      console.log("lugarAreas", nombre_area, "Lugar", ubicacion);
-      let datosA = new insertArea(nombre_area, ubicacion);
+      async saveArea(nombre_area : string | undefined | null, idlugar : string | undefined | null) {
+      console.log("lugarAreas", nombre_area, "Lugar", idlugar);
+      let datosA = new insertArea(nombre_area, idlugar);
       console.log("Datos Area", datosA);
       this.areaService.saveArea(datosA).subscribe({
         next: (resp: RespuestaDto) => {

@@ -9,6 +9,7 @@ import { TableUsuarioComponent } from '../components/table-usuario/table-usuario
 import { InicioComponent } from '../components/inicio/inicio.component';
 import{ NuevoActivoComponent }from '../components/nuevo-activo/nuevo-activo.component';
 import { Paso1ActivoComponent } from '../paso1-activo/paso1-activo.component';
+import { SelectComponent } from '../components/select/select.component';
 const routes: Routes = [
   {
       path: 'main', component: InicioComponent,
@@ -20,7 +21,9 @@ const routes: Routes = [
       { path: 'lugarArea', component: LugarAreaComponent },
       { path: 'reasignacion', component: ReasignacionComponent },
       {path: 'NuevoActivo', component: NuevoActivoComponent},
-      {path: 'Paso1', component: Paso1ActivoComponent}
+      {path: 'Paso1', component: Paso1ActivoComponent},
+      {path: 'select', component: SelectComponent},
+      
     ]
   }
 ];

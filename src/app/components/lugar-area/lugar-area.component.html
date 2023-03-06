@@ -50,7 +50,7 @@
                         </div>
                         <div class="field">
                             <label for="ubi">Lugar</label>
-                            <input formControlName="ubicacion" pInputText id="ubi" required autofocus>
+                            <p-dropdown [options]="lugares" placeholder="Seleccione un lugar" formControlName="idlugar" optionLabel="ubicacion" optionValue="idlugar"></p-dropdown>
                             <small class="p-error" *ngIf="text && !areas.ubicacion">Name is required.</small>
                         </div>
                         <p-button (click)="closeModal()" label="Cancel" styleClass="p-button-text"></p-button>
