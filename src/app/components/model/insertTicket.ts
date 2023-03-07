@@ -1,7 +1,7 @@
 export class insertTicket{
     constructor(
 public idfolios : string | undefined | null,
-public fecha_registro:string | undefined | null,
+
 public idusuarios: string | undefined | null,
 public idtipo_servicio: string | undefined | null,
 public asunto:string | undefined | null,

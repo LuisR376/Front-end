@@ -60,45 +60,45 @@
 
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-usuario>
+            <ng-template pTemplate="body" let-ticket>
                 <tr>
-                    <td>{{usuario.idfolios}}</td>
-                    <td>{{usuario.fecha_registro}}</td>
-                    <td>{{usuario.idtipo_servicio}}</td>
-                    <td>{{usuario.asunto}}</td>
-                    <td>{{usuario.estado_ticket}}</td>
-                    <td>{{usuario.idusuarios}}</td>
-                    <td>{{usuario.nombre}}</td>
-                    <td>{{usuario.mensaje}}</td>
+                    <td>{{ticket.idfolios}}</td>
+                    <td>{{ticket.fecha_registro}}</td>
+                    <td>{{ticket.idtipo_servicio}}</td>
+                    <td>{{ticket.asunto}}</td>
+                    <td>{{ticket.estado_ticket}}</td>
+                    <td>{{ticket.idusuarios}}</td>
+                    <td>{{ticket.nombre}}</td>
+                    <td>{{ticket.mensaje}}</td>
 
                     <td>
                         <div *ngIf="sesionUsuario.clave== 'ADM' ||   sesionUsuario.clave == 'TEC'">
-                            {{usuario.foto1}}
+                            {{ticket.foto1}}
                         </div>
                     </td>
                     <td>
                         <div *ngIf="sesionUsuario.clave== 'ADM' ||   sesionUsuario.clave == 'TEC'">
-                            {{usuario.foto2}}
+                            {{ticket.foto2}}
                         </div>
                     </td>
                     <td>
                         <div *ngIf="sesionUsuario.clave== 'ADM' ||   sesionUsuario.clave == 'TEC'">
-                            {{usuario.foto3}}
+                            {{ticket.foto3}}
                         </div>
                     </td>
                     <td>
                         <div *ngIf="sesionUsuario.clave== 'ADM' ||   sesionUsuario.clave == 'TEC'">
-                            {{usuario.foto4}}
+                            {{ticket.foto4}}
                         </div>
                     </td>
                     <td>
                         <div *ngIf="sesionUsuario.clave== 'ADM' ||   sesionUsuario.clave == 'TEC'">
-                            {{usuario.Solucion}}
+                            {{ticket.Solucion}}
                         </div>
                     </td>
                     <td>
                         <div *ngIf="sesionUsuario.clave== 'ADM' ||   sesionUsuario.clave == 'TEC'">
-                            {{usuario.firma}}
+                            {{ticket.firma}}
                         </div>
                     </td>
                 </tr>
@@ -112,28 +112,28 @@ styleClass="p-fluid">
 
 <ng-template pTemplate="content">
 
-    <form [formGroup]="tickets" (ngSubmit)="addUsuario()">
+    <form [formGroup]="recoInfo" (ngSubmit)="addTicket()">
         <div class="field">
-            <label for="insertUsuario">N° Empleado</label>
-            <input formControlName="num_empleado" type="number" pInputText id="num_empleado" required autofocus>
-            <small class="p-error" *ngIf="text && !tickets.asunto">Name is required.</small>
+            <label for="insertUsuario">Asunto</label>
+            <input formControlName="asunto"pInputText id="asunto" required autofocus>
+            <small class="p-error" *ngIf="text && !ticke.asunto">Name is required.</small>
         </div>
         <div class="field">
-            <label for="name">Nombre</label>
-            <input formControlName="nombre" pInputText id="ubi" required autofocus>
-            <small class="p-error" *ngIf="text && !tickets.descripcion">Name is required.</small>
+            <label for="name">descripcion</label>
+            <input formControlName="descripcion" pInputText id="descripcion" required autofocus>
+            <small class="p-error" *ngIf="text && !ticke.descripcion">Name is required.</small>
         </div>
         <p-button (click)="closeModal()" label="Cancel" styleClass="p-button-text"></p-button>
-        <p-button (click)="addUsuario()" label="AÑADIR" [disabled]="usuari.invalid"></p-button>
+        <p-button (click)="addTicket()" label="AÑADIR" [disabled]="ticke.invalid"></p-button>
     </form>
-<p-dialog [(visible)]="deleteProductDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+<p-dialog  header="Confirm" [modal]="true" [style]="{width:'450px'}">
 <div class="flex align-items-center justify-content-center">
     <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-    <span *ngIf="products">Are you sure you want to delete <b>{{products.num_empleado}}</b>?</span>
+  <span *ngIf="products">Are you sure you want to delete <b>{{products.num_empleado}}</b>?</span>
 </div>
 <ng-template pTemplate="footer">
-    <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteProductDialog = false"></button>
-    <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDelete()"></button>
+    <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"   ></button>
+    <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" ></button>
 </ng-template>
 </p-dialog>
 
