@@ -106,3 +106,34 @@
         </p-table>
     </div>
 </section>
+
+<p-dialog [(visible)]="texts" [style]="{width: '450px'}" header="Agregar Usuario" [modal]="true"
+styleClass="p-fluid">
+
+<ng-template pTemplate="content">
+
+    <form [formGroup]="tickets" (ngSubmit)="addUsuario()">
+        <div class="field">
+            <label for="insertUsuario">N° Empleado</label>
+            <input formControlName="num_empleado" type="number" pInputText id="num_empleado" required autofocus>
+            <small class="p-error" *ngIf="text && !tickets.asunto">Name is required.</small>
+        </div>
+        <div class="field">
+            <label for="name">Nombre</label>
+            <input formControlName="nombre" pInputText id="ubi" required autofocus>
+            <small class="p-error" *ngIf="text && !tickets.descripcion">Name is required.</small>
+        </div>
+        <p-button (click)="closeModal()" label="Cancel" styleClass="p-button-text"></p-button>
+        <p-button (click)="addUsuario()" label="AÑADIR" [disabled]="usuari.invalid"></p-button>
+    </form>
+<p-dialog [(visible)]="deleteProductDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+<div class="flex align-items-center justify-content-center">
+    <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+    <span *ngIf="products">Are you sure you want to delete <b>{{products.num_empleado}}</b>?</span>
+</div>
+<ng-template pTemplate="footer">
+    <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteProductDialog = false"></button>
+    <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDelete()"></button>
+</ng-template>
+</p-dialog>
+

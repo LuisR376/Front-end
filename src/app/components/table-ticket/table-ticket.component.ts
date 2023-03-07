@@ -1,4 +1,4 @@
-import { Component,OnInit, ViewChild} from '@angular/core';
+import { Component, ViewChild, EventEmitter, Input, Output} from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Ticket } from '../model/ticket.model';
 import { CustomerService } from '../../service/CustomerService';
@@ -15,9 +15,13 @@ import { Usuario } from '../model/usuario.model';
 })
 export class TableTicketComponent {
   @ViewChild(AlertaComponent, { static: false }) mensajeAlerta!: AlertaComponent;
+  @Input() displayAddModal: boolean = true;
+  @Output() clickClose: EventEmitter<boolean> = new EventEmitter<boolean>();
   token : string;
   tickets !: Ticket[];
   sesionUsuario !: Usuario;
+  abrir = any;
+
   constructor(
     private messageService: MessageService,
     private customerService: CustomerService,
@@ -34,8 +38,16 @@ export class TableTicketComponent {
     this.obtenerTickets();
     
   }
-//
-obtenerTickets(){
+  openNew() {
+    this.abrir = {};
+    this.text = false;
+    this.texts = true;
+  }
+  closeModal() {
+    this.recoInfo.reset();
+    this.obtenerUsuarios();
+  }
+  obtenerTickets(){
   console.log("Token",this.token);
     this.customerService.getTicket(this.token).subscribe({
       next : (resp: RespuestaDto)  => {

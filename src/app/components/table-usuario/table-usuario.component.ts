@@ -8,6 +8,9 @@ import { AlertaComponent } from 'src/app/util/alerta.component';
 import { FormBuilder, Validators } from '@angular/forms';
 import { insertUsuario } from '../model/insertUsuario';
 import { UsuarioService } from '../../service/usuario.service';
+import { Lugar } from '../model/lugar.model';
+import { lugarAreas } from '../model/lugarArea.model';
+import { Rol } from '../model/rol.model';
 
 @Component({
   selector: 'app-table-usuario',
@@ -27,6 +30,9 @@ export class TableUsuarioComponent {
   deleteProductDialog: boolean = false;
   text !: boolean;
   texts !: boolean;
+  lugares !: Lugar[];
+  area !: lugarAreas[];
+  roles !: Rol[];
   constructor(
     private fb: FormBuilder,
     private messageService: MessageService,
@@ -52,6 +58,59 @@ export class TableUsuarioComponent {
   });
   ngOnInit() {
     this.obtenerUsuarios();
+    this.obtenerArea();
+    this.obtenerLugar();
+    this.obtenerRol();
+  }
+  obtenerArea() {
+    console.log("Token", this.token);
+    this.customerService.getArea(this.token).subscribe({
+      next: (resp: RespuestaDto) => {
+        console.log("Obtener Area", resp);
+        let respuestaDto = <RespuestaDto>resp;
+        if (respuestaDto.ok) {
+          this.area = resp.addenda;
+        } else {
+
+        } // if
+      },
+      error: (error) => {
+        let mensaje = <any>error;
+        this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
+      }
+    });
+  }
+  obtenerLugar() {
+    console.log("Token", this.token);
+    this.customerService.getLugar(this.token).subscribe({
+      next: (resp: RespuestaDto) => {
+        console.log("Lugaaaaaaaaaaaaar", resp);
+        let respuestaDto = <RespuestaDto>resp;
+        if (respuestaDto.ok) {
+          this.lugares = resp.addenda;
+        } 
+      },
+      error: (error) => {
+        let mensaje = <any>error;
+        this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
+      }
+    });
+  }
+  obtenerRol() {
+    console.log("Token", this.token);
+    this.customerService.getRol(this.token).subscribe({
+      next: (resp: RespuestaDto) => {
+        console.log("Rol", resp);
+        let respuestaDto = <RespuestaDto>resp;
+        if (respuestaDto.ok) {
+          this.roles = resp.addenda;
+        } 
+      },
+      error: (error) => {
+        let mensaje = <any>error;
+        this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
+      }
+    });
   }
   obtenerUsuarios() {
     console.log("Token", this.token);

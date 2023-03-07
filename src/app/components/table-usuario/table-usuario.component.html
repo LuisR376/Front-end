@@ -24,24 +24,15 @@
     </ng-template>
     <ng-template pTemplate="header">
         <tr>
-          
             <th >Numero de Usuario <p-sortIcon field="code"></p-sortIcon></th>
             <th >Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
             <th>Apellido Paterno</th>
             <th>Apellido Materno <p-sortIcon field="price"></p-sortIcon></th>
             <th>Email <p-sortIcon field=""></p-sortIcon></th>
-            <th>Estado <p-sortIcon field=""></p-sortIcon></th>
-            <th>Rol <p-sortIcon field=""></p-sortIcon></th>
-            <th>Lugar <p-sortIcon field=""></p-sortIcon></th>
-            <th>Area <p-sortIcon field=""></p-sortIcon></th>
-            <th>Contraseña <p-sortIcon field=""></p-sortIcon></th>
-            
-            
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-product>
         <tr>
-         
             <td style="width:14%; min-width:10rem;"><span class="p-column-title">Code</span>
                 {{product.num_empleado}}
             </td>
@@ -60,22 +51,6 @@
                 <span class="p-column-title">Pertenencia</span>
                 {{product.email}}
             </td>
-            <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Status</span>
-                <span >{{product.status}}</span>
-            </td>
-            <td style="width:14%; min-width: 10rem;"><span class="p-column-title">idrol</span>
-                <span >{{product.idrol}}</span>
-            </td>
-            <td style="width:14%; min-width: 10rem;"><span class="p-column-title">idlugar</span>
-                <span >{{product.idlugar}}</span>
-            </td>
-            <td style="width:14%; min-width: 10rem;"><span class="p-column-title">idarea</span>
-                <span >{{product.idarea}}</span>
-            </td>
-            <td style="width:14%; min-width: 10rem;"><span class="p-column-title">password</span>
-                <span >{{product.password}}</span>
-            </td>
-            
             <td>
                 <div class="flex">
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" ></button><!--Editar-->
@@ -86,12 +61,12 @@
     </ng-template>
 </p-table>
 </section>
+
 <p-dialog [(visible)]="texts" [style]="{width: '450px'}" header="Agregar Usuario" [modal]="true"
 styleClass="p-fluid">
 
 <ng-template pTemplate="content">
-    <img [src]="'https://primefaces.org/cdn/primeng/images/demo/areas/' + usuari.image"
-        [alt]="usuari.image" class="areas-image" *ngIf="usuari.image">
+
     <form [formGroup]="recoInfo" (ngSubmit)="addUsuario()">
         <div class="field">
             <label for="insertUsuario">N° Empleado</label>
@@ -125,17 +100,17 @@ styleClass="p-fluid">
         </div>
         <div class="field">
             <label for="idrol">Rol</label>
-            <input formControlName="idrol" type="number" pInputText id="idrol" required autofocus>
+            <p-dropdown [options]="roles" placeholder="Seleccione un Rol" formControlName="idrol" optionLabel="descripcion_rol" optionValue="idrol"></p-dropdown>
             <small class="p-error" *ngIf="text && !usuari.idrol">Name is required.</small>
         </div>
         <div class="field">
-            <label for="idlugar">Lugar</label>
-            <input formControlName="idlugar" type="number" pInputText id="idlugar" required autofocus>
+            <label for="ubi">Lugar</label>
+            <p-dropdown [options]="lugares" placeholder="Seleccione un lugar" formControlName="idlugar" optionLabel="ubicacion" optionValue="idlugar"></p-dropdown>
             <small class="p-error" *ngIf="text && !usuari.idlugar">Name is required.</small>
         </div>
         <div class="field">
             <label for="idarea">Area</label>
-            <input formControlName="idarea" type="number" pInputText id="idarea" required autofocus>
+            <p-dropdown [options]="area" placeholder="Seleccione un Area" formControlName="idarea" optionLabel="nombre_area" optionValue="idarea"></p-dropdown>
             <small class="p-error" *ngIf="text && !usuari.idarea">Name is required.</small>
         </div>
         <div class="field">

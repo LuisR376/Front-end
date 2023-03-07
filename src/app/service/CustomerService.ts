@@ -30,6 +30,10 @@ export class CustomerService {
         getLugar(token:string): Observable<RespuestaDto> {
             return this._apiService.sendGetRequest(this.url + "lugar/get",token);
         }
+        getRol(token:string): Observable<RespuestaDto> {
+            return this._apiService.sendGetRequest(this.url + "rol/get",token);
+        }
+        
         
         
         
