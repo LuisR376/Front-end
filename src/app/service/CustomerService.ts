@@ -4,6 +4,7 @@ import { RespuestaDto } from '../components/model/respuestaDto';
 import { Observable } from 'rxjs';
 import { UtilApiService } from './util-api.service';
 import { environment } from 'src/environments/environment';
+import { insertTicket } from '../components/model/insertTicket';
 @Injectable()
 
 export class CustomerService {
@@ -34,7 +35,10 @@ export class CustomerService {
             return this._apiService.sendGetRequest(this.url + "rol/get",token);
         }
         
+        saveTicket(datosT : insertTicket): Observable<RespuestaDto> {
+            return this._apiService.sendPostRequest(datosT, this.url + "ticket/post");
+        }// Post usuario
+    }
         
         
         
-}

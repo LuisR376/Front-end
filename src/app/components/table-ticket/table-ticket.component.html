@@ -9,9 +9,10 @@
                         <p>Atiende los nuevos tickets</p>
                     </div>
                     <div>
-                        <button pButton pRipple type="button" label="Nuevo"></button>
+                        <button pButton pRipple type="button" (click)="openNew()" label="Nuevo" ></button>
+                        
                     </div>
-
+                    
                 </div>
             </ng-template>
             <ng-template pTemplate="header">
@@ -21,7 +22,6 @@
                     <th>idtipo_servicio</th>
                     <th>asunto</th>
                     <th>estado_ticket</th>
-                    <th>idusuarios</th>
                     <th>nombre Usuario</th>
                     <th>mensaje</th>
 
@@ -31,21 +31,7 @@
                             foto1
                         </div>
                     </th>
-                    <th>
-                        <div *ngIf="sesionUsuario.clave== 'ADM' ||   sesionUsuario.clave == 'TEC'">
-
-                            foto2</div>
-                    </th>
-                    <th>
-                        <div *ngIf="sesionUsuario.clave== 'ADM' ||   sesionUsuario.clave == 'TEC'">
-
-                            foto3</div>
-                    </th>
-                    <th>
-                        <div *ngIf="sesionUsuario.clave== 'ADM' ||   sesionUsuario.clave == 'TEC'">
-
-                            foto4</div>
-                    </th>
+                   
                     <th>
                         <div *ngIf="sesionUsuario.clave== 'ADM' ||   sesionUsuario.clave == 'TEC'">
 
@@ -62,12 +48,11 @@
             </ng-template>
             <ng-template pTemplate="body" let-ticket>
                 <tr>
-                    <td>{{ticket.idfolios}}</td>
+                    <td>{{ticket.num_folio}}</td>
                     <td>{{ticket.fecha_registro}}</td>
-                    <td>{{ticket.idtipo_servicio}}</td>
+                    <td>{{ticket.descripcion}}</td>
                     <td>{{ticket.asunto}}</td>
                     <td>{{ticket.estado_ticket}}</td>
-                    <td>{{ticket.idusuarios}}</td>
                     <td>{{ticket.nombre}}</td>
                     <td>{{ticket.mensaje}}</td>
 
@@ -76,21 +61,7 @@
                             {{ticket.foto1}}
                         </div>
                     </td>
-                    <td>
-                        <div *ngIf="sesionUsuario.clave== 'ADM' ||   sesionUsuario.clave == 'TEC'">
-                            {{ticket.foto2}}
-                        </div>
-                    </td>
-                    <td>
-                        <div *ngIf="sesionUsuario.clave== 'ADM' ||   sesionUsuario.clave == 'TEC'">
-                            {{ticket.foto3}}
-                        </div>
-                    </td>
-                    <td>
-                        <div *ngIf="sesionUsuario.clave== 'ADM' ||   sesionUsuario.clave == 'TEC'">
-                            {{ticket.foto4}}
-                        </div>
-                    </td>
+                   
                     <td>
                         <div *ngIf="sesionUsuario.clave== 'ADM' ||   sesionUsuario.clave == 'TEC'">
                             {{ticket.Solucion}}
@@ -107,24 +78,25 @@
     </div>
 </section>
 
-<p-dialog [(visible)]="texts" [style]="{width: '450px'}" header="Agregar Usuario" [modal]="true"
+<p-dialog [(visible)]="texts" [style]="{width: '450px'}" header="Agregar Ticket" [modal]="true"
 styleClass="p-fluid">
 
 <ng-template pTemplate="content">
 
     <form [formGroup]="recoInfo" (ngSubmit)="addTicket()">
         <div class="field">
-            <label for="insertUsuario">Asunto</label>
+            <label for="insertUsuario">ASUNTO</label>
             <input formControlName="asunto"pInputText id="asunto" required autofocus>
             <small class="p-error" *ngIf="text && !ticke.asunto">Name is required.</small>
         </div>
         <div class="field">
-            <label for="name">descripcion</label>
-            <input formControlName="descripcion" pInputText id="descripcion" required autofocus>
-            <small class="p-error" *ngIf="text && !ticke.descripcion">Name is required.</small>
+            <label for="name">mensaje</label>
+            <textarea formControlName="mensaje" inputId="mensaje" rows="3" style="resize: none;" cols="30" pInputTextarea></textarea>
+            <small class="p-error" *ngIf="text && !ticke.mensaje">Name is required.</small>
         </div>
+        <p-fileUpload name="foto1" url="./upload.php" accept=".jpg, .jpeg, .png" [fileLimit]="4" [maxFileSize]="2000000" [multiple]="true"></p-fileUpload>
         <p-button (click)="closeModal()" label="Cancel" styleClass="p-button-text"></p-button>
-        <p-button (click)="addTicket()" label="AÑADIR" [disabled]="ticke.invalid"></p-button>
+        <p-button (click)="addTicket()" label="ENVIAR" [disabled]="ticke.invalid"></p-button>
     </form>
 <p-dialog  header="Confirm" [modal]="true" [style]="{width:'450px'}">
 <div class="flex align-items-center justify-content-center">
@@ -136,4 +108,3 @@ styleClass="p-fluid">
     <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" ></button>
 </ng-template>
 </p-dialog>
-

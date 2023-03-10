@@ -14,5 +14,5 @@ export interface Usuario {
     
     descripcion_rol?:string;
     clave?:string;
-
+    
 }

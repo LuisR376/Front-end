@@ -36,48 +36,42 @@ export class TableTicketComponent {
     private messageService: MessageService,
     private customerService: CustomerService,
     public _authGuardService: authGuardService,
-    private ticketservice: ticketService
+
   ) {
     this.token = this._authGuardService.getToken();
     this.sesionUsuario = this._authGuardService.getUser();
   }
-  confirmDelete() {
-    this.deleteProductDialog = false;
-    this.ticket = this.ticket.filter(val => val.idfolios !== this.products.idfolios);
-    this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
-    this.products = {};
-  }
-
-  recoInfo = this.fb.group({
-
-
-    idfolios: ['', Validators.required],
-    idusuarios: ['', Validators.required],
-    idtipo_servicio: ['', Validators.required],
-    asunto: ['', Validators.required],
-    mensaje: ['', Validators.required],
-    foto1: ['', Validators.required],
-    foto2: ['', Validators.required],
-    foto3: ['', Validators.required],
-    foto4: ['', Validators.required],
-    solucion: ['', Validators.required],
-    firma: ['', Validators.required],
-    estado_ticket: ['', Validators.required],
-    nombre: ['', Validators.required],
-    Descripcion: ['', Validators.required],
-    num_folio: ['', Validators.required],
-    num_empleado: ['', Validators.required],
-    idstatusTicket: ['', Validators.required]
-
-
-  });
-
   ngOnInit() {
     debugger
     console.log("entraa")
     this.obtenerTickets();
 
   }
+
+
+  recoInfo = this.fb.group({
+
+
+    idfolios: ['1'],
+    idusuarios: ['26'],
+    idtipo_servicio: ['1'],
+    asunto: [''],
+    mensaje: [''],
+    foto1: ['1'],
+    foto2: ['1'],
+    foto3: ['1'],
+    foto4: ['1'],
+    solucion: ['1'],
+    firma: ['1'],
+    estado_ticket: ['1'],
+    nombre: [''],
+    Descripcion: [''],
+    num_folio: [''],
+    num_empleado: [''],
+    idstatusTicket: ['2'],
+
+
+  });
 
   openNew() {
     this.ticke = {};
@@ -163,7 +157,7 @@ export class TableTicketComponent {
     ) {
     console.log(
       "asunto", asunto,
-      "descripcion", Descripcion);
+      "descripcion", mensaje);
     let datosT = new insertTicket(
       idfolios,
       idusuarios,
@@ -184,9 +178,9 @@ export class TableTicketComponent {
       idstatusTicket
     );
     console.log("Datos Ticket", datosT);
-    this.ticketservice.saveTicket(datosT).subscribe({
+    this.customerService.saveTicket(datosT).subscribe({
       next: (resp: RespuestaDto) => {
-
+        console.log("VERRRRRRRRRRRRRREEEEEEEE",this.saveTicket);
         let respuestaDto = <RespuestaDto>resp;
         if (respuestaDto.valido == 0) {
           console.log("next", respuestaDto.mensaje)
@@ -204,6 +198,11 @@ export class TableTicketComponent {
       }
     });
   }
-  
+  confirmDelete() {
+    this.deleteProductDialog = false;
+    this.ticket = this.ticket.filter(val => val.idfolios !== this.products.idfolios);
+    this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
+    this.products = {};
+  }
 
 }

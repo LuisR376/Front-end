@@ -5,6 +5,7 @@ import { CustomerService } from '../../service/CustomerService';
 import { RespuestaDto } from '../model/respuestaDto';
 import { AlertaComponent } from '../../util/alerta.component';
 import { authGuardService } from '../../service/auth-guard.service';
+import { Lugar } from '../model/lugar.model';
 @Component({
   selector: 'app-reasignacion',
   templateUrl: './reasignacion.component.html',
@@ -13,8 +14,8 @@ import { authGuardService } from '../../service/auth-guard.service';
 export class ReasignacionComponent {
   @ViewChild(AlertaComponent, { static: false }) mensajeAlerta!: AlertaComponent;
   token : string;
-  tickets !: Ticket[];
-  clonedProducts: { [s: string]: Ticket; } = {};
+  lugar !: Lugar[];
+  clonedProducts: { [s: string]: Lugar; } = {};
   constructor(
     private customerService: CustomerService,
     public _authGuardService: authGuardService
@@ -34,7 +35,7 @@ obtenerTickets(){
         console.log("Obtener tickets",resp);
         let respuestaDto = <RespuestaDto>resp;
         if (respuestaDto.ok) {
-          this.tickets = resp.addenda;
+          this.lugar = resp.addenda;
         } else {
 
         } // if
@@ -46,8 +47,8 @@ obtenerTickets(){
       });
 
   }
-    onRowEditInit(product: Ticket) {
-        this.clonedProducts[product.idfolios] = {...product};
+    onRowEditInit(product: Lugar) {
+        this.clonedProducts[product.idlugar] = {...product};
 }
 }
 
