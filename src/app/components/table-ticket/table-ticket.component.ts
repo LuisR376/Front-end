@@ -8,8 +8,9 @@ import { authGuardService } from '../../service/auth-guard.service';
 import { Usuario } from '../model/usuario.model';
 import { FormBuilder, Validators } from '@angular/forms';
 import { insertTicket } from '../model/insertTicket';
-import { ticketService } from 'src/app/service/ticket.service';
 
+import { Imagen } from '../model/imagene.model';
+import { ImagenesBase64 } from '../model/imagenes.model';
 
 @Component({
   selector: 'app-table-ticket',
@@ -20,7 +21,7 @@ export class TableTicketComponent {
   @ViewChild(AlertaComponent, { static: false }) mensajeAlerta!: AlertaComponent;
   @Input() displayAddModal: boolean = true;
   @Output() clickClose: EventEmitter<boolean> = new EventEmitter<boolean>();
-  products : Ticket = {};
+  products: Ticket = {};
   token: string;
   ticket: Ticket[] = [];
   tickets !: Ticket[];
@@ -28,6 +29,7 @@ export class TableTicketComponent {
   text !: boolean;
   texts !: boolean;
   ticke: any;
+  arrayImagenes = new Array();
 
   deleteProductDialog: boolean = false;
 
@@ -42,7 +44,7 @@ export class TableTicketComponent {
     this.sesionUsuario = this._authGuardService.getUser();
   }
   ngOnInit() {
-    debugger
+    
     console.log("entraa")
     this.obtenerTickets();
 
@@ -83,7 +85,7 @@ export class TableTicketComponent {
     this.recoInfo.reset();
     this.obtenerTickets();
   }
-  
+
   obtenerTickets() {
     console.log("Token", this.token);
     this.customerService.getTicket(this.token).subscribe({
@@ -154,7 +156,7 @@ export class TableTicketComponent {
     num_empleado: string | undefined | null,
     idstatusTicket: string | undefined | null
 
-    ) {
+  ) {
     console.log(
       "asunto", asunto,
       "descripcion", mensaje);
@@ -180,7 +182,7 @@ export class TableTicketComponent {
     console.log("Datos Ticket", datosT);
     this.customerService.saveTicket(datosT).subscribe({
       next: (resp: RespuestaDto) => {
-        console.log("VERRRRRRRRRRRRRREEEEEEEE",this.saveTicket);
+        console.log("VERRRRRRRRRRRRRREEEEEEEE", this.saveTicket);
         let respuestaDto = <RespuestaDto>resp;
         if (respuestaDto.valido == 0) {
           console.log("next", respuestaDto.mensaje)
@@ -204,5 +206,32 @@ export class TableTicketComponent {
     this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
     this.products = {};
   }
+  async subirimg(event: any) {
+    let conversion : ImagenesBase64<Imagen> = await this.convertB64(event);
+    console.log("arrayimg", conversion);
+    //this.arrayImagenes= conversion;
+  
+  }
+  async  convertB64(event: any):  Promise<ImagenesBase64<Imagen>> {
+    return new Promise((resolve, reject) => {
+      var lista = new Array();
 
+      let imagenes = event.files;
+      let imagen;
+        for (let key in  imagenes) {
+          let reader = new FileReader();
+          imagen = imagenes[key];
+          reader.readAsDataURL(event.files[key]);
+          reader.onload = (imagen) => {
+            console.log("succes");
+            lista.push({imagen : reader.result?.toString()});      }
+          reader.onerror = function (error) {
+            console.log('Error', error);
+            reject(error);
+          }
+        
+      }
+      resolve({imagenes : lista});
+    })
+  }
 }
