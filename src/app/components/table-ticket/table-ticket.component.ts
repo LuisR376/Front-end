@@ -206,25 +206,28 @@ export class TableTicketComponent {
     this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
     this.products = {};
   }
+  /*
   async subirimg(event: any) {
     let conversion : ImagenesBase64<Imagen> = await this.convertB64(event);
-    console.log("arrayimg", conversion);
+    console.log("arrayimg", conversion.imagenes); //jalar las imagenes y ponerlas dentro del arreglo
     //this.arrayImagenes= conversion;
   
   }
   async  convertB64(event: any):  Promise<ImagenesBase64<Imagen>> {
     return new Promise((resolve, reject) => {
-      var lista = new Array();
-
+      var lista  :  ImagenesBase64<Imagen>[];
+      
       let imagenes = event.files;
       let imagen;
-        for (let key in  imagenes) {
+        
+      for (let key in  imagenes) {
+
           let reader = new FileReader();
           imagen = imagenes[key];
           reader.readAsDataURL(event.files[key]);
           reader.onload = (imagen) => {
-            console.log("succes");
-            lista.push({imagen : reader.result?.toString()});      }
+          console.log("succes");
+          lista.push({ imagenes : reader.result?.toString()});      }
           reader.onerror = function (error) {
             console.log('Error', error);
             reject(error);
@@ -234,4 +237,5 @@ export class TableTicketComponent {
       resolve({imagenes : lista});
     })
   }
+  */
 }

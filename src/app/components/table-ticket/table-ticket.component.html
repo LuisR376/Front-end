@@ -94,7 +94,7 @@ styleClass="p-fluid">
             <textarea formControlName="mensaje" inputId="mensaje" rows="3" style="resize: none;" cols="30" pInputTextarea></textarea>
             <small class="p-error" *ngIf="text && !ticke.mensaje">Name is required.</small>
         </div>
-        <p-fileUpload [customUpload]="true" (uploadHandler)="subirimg($event)" name="foto1" accept=".jpg, .jpeg, .png" [fileLimit]="4" [maxFileSize]="2000000" [multiple]="true"></p-fileUpload>
+        <p-fileUpload [customUpload]="true"  name="foto1" accept=".jpg, .jpeg, .png" [fileLimit]="4" [maxFileSize]="2000000" [multiple]="true"></p-fileUpload> <!--(uploadHandler)="subirimg($event)"-->
         <p-button (click)="closeModal()" label="Cancel" styleClass="p-button-text"></p-button>
         <p-button (click)="addTicket()" label="ENVIAR" [disabled]="ticke.invalid"></p-button>
     </form>
