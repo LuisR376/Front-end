@@ -15,6 +15,7 @@ import { Paso1ActivoComponent } from '../paso1-activo/paso1-activo.component';
 import { NuevoUsuarioComponent } from '../components/nuevo-usuario/nuevo-usuario.component';
 import { UsuarioComponent } from '../components/usuario/usuario.component';
 import { SelectComponent } from '../components/select/select.component';
+import { InfoTicketComponent } from '../components/info-ticket/info-ticket.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { SelectComponent } from '../components/select/select.component';
     Paso1ActivoComponent,
     NuevoUsuarioComponent,
     UsuarioComponent,
-    SelectComponent
+    SelectComponent,
+    InfoTicketComponent
   ],
   imports: [
     MainRoutingModule,

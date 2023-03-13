@@ -1,37 +1,41 @@
 <section class="container">
     <div>
-        <div class="flex align-items-center justify-content-between fondo">
-            <div>
-                <h1>Solicitudes</h1>
-                <p>Dar de alta un Ticket</p>
-            </div>
-        </div>
-        <div class="p-fluid p-formgrid grid">
-            <div class="field col-12 md:col-6">
-                <label htmlFor="firstname2">Modalidad</label>
-                <input pInputText id="firstname2" type="text" />
-            </div>
-            <div class="field col-12 md:col-6">
-                <label htmlFor="lastname2">Nivel de Prioridad</label>
-                <input pInputText id="lastname2" type="text" />
-            </div>
-            <div class="field col-12">
-                <label htmlFor="address">Asunto</label>
-                <input pInputTextarea id="address" rows="4" />
-            </div>
-            <div class="field col-12 md:col-6">
-                <label htmlFor="city">Ligar</label>
-                <input pInputText id="city" type="text" />
-            </div>
-            <div class="field col-12 md:col-3">
-                <label htmlFor="state">Cliente</label>
-                <p-dropdown [options]="dropdownItems" optionLabel="name" ></p-dropdown>
-            </div>
-            <div class="field col-12 md:col-3">
-                <label htmlFor="imagen">Zip</label>
-                <input pInputText id="zip" type="text" />
-            </div>
-        </div>
+        <p-table [value]="tickets" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+            styleClass="p-datatable-sm" [scrollable]="true" [rowsPerPageOptions]="[10,25,50]"  selectionMode="single" [selection]="selectedProduct1">
+            <ng-template pTemplate="caption">
+                <div class="flex align-items-center justify-content-between fondo">
+                    <div>
+                        <h1>SOLICITUDES</h1>
+                        <p>Atiende los nuevos tickets</p>
+                    </div>
 
-    </div>
+                </div>
+            </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Folio</th>
+                        <th>Nombre</th>
+                        <th>Asunto</th>
+                        <th>Estado</th>
+                        <th>Lugar</th>
+                        <th>Area</th>
+                        <th style="width: 5rem"></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-ver>
+                    <tr>
+                        <td>{{ver.num_folio}}</td>
+                        <td>{{ver.nombre}}</td>
+                        <td>{{ver.asunto}}</td>
+                        <td>{{ver.estado_ticket}}</td>
+                        <td>{{ver.Lugar}}</td>
+                        <td>{{ver.area}}</td>
+                        <td>
+                            <button type="button" pButton pRipple icon="pi pi-search" (click)="selectProduct(ver)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                
+            </p-table>
+        </div>
 </section>
