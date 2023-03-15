@@ -13,6 +13,7 @@
             </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
+                        <th>ID Folios</th>
                         <th>Folio</th>
                         <th>Nombre</th>
                         <th>Asunto</th>
@@ -24,6 +25,7 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-ver>
                     <tr>
+                        <td>{{ver.idfolios}}</td>
                         <td>{{ver.num_folio}}</td>
                         <td>{{ver.nombre}}</td>
                         <td>{{ver.asunto}}</td>
@@ -31,7 +33,7 @@
                         <td>{{ver.Lugar}}</td>
                         <td>{{ver.area}}</td>
                         <td>
-                            <button type="button" pButton pRipple icon="pi pi-search" (click)="selectProduct(ver)"></button>
+                            <button  type="button" [routerLink]="['InfoTicketComponent',ver.idfolios]" pButton pRipple icon="pi pi-search"></button>
                         </td>
                     </tr>
                 </ng-template>

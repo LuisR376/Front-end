@@ -4,8 +4,12 @@ import { AlertaComponent } from '../../util/alerta.component';
 import { authGuardService } from '../../service/auth-guard.service';
 import { RespuestaDto } from '../model/respuestaDto';
 import { CustomerService } from '../../service/CustomerService';
-
+import { Router,ActivatedRoute,ParamMap} from '@angular/router';
+import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { Ticket } from '../model/ticket.model';
+import { identifierName } from '@angular/compiler';
+
 @Component({
   selector: 'app-solicitudes',
   templateUrl: './solicitudes.component.html',
@@ -16,17 +20,31 @@ export class SolicitudesComponent implements OnInit {
   token: string;
   tickets !: Ticket[];
   selectedProduct1 !: Ticket;
+  ver!:any;
   constructor(
     private messageService: MessageService,
     private customerService: CustomerService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
     public _authGuardService: authGuardService
     ) {
       this.token = this._authGuardService.getToken();
+      this.router.navigate(['/InfoTicketComponent']);
+      this.activatedRoute.params.subscribe(params =>{
+        console.log(params['idfolios']);
+      })
   }
   
   ngOnInit() {
     this.obtenerTickets();
+   
+
   }
+
+  btnClick() {
+    this.router.navigate(['InfoTicketComponent']);
+  };
+
   obtenerTickets() {
     console.log("Token", this.token);
     this.customerService.getTicket(this.token).subscribe({
@@ -48,5 +66,7 @@ export class SolicitudesComponent implements OnInit {
   selectProduct(solicitud: Ticket) {
     this.messageService.add({severity:'info', summary:'Product Selected', detail: solicitud.nombre});
 }
-
+onGlobalFilter(table: any, event: Event) {
+  table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+}
 }

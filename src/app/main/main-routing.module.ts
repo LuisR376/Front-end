@@ -10,6 +10,7 @@ import { InicioComponent } from '../components/inicio/inicio.component';
 import{ NuevoActivoComponent }from '../components/nuevo-activo/nuevo-activo.component';
 import { Paso1ActivoComponent } from '../paso1-activo/paso1-activo.component';
 import { SelectComponent } from '../components/select/select.component';
+import { InfoTicketComponent } from '../components/info-ticket/info-ticket.component';
 const routes: Routes = [
   {
       path: 'main', component: InicioComponent,
@@ -17,13 +18,15 @@ const routes: Routes = [
       { path: 'Tusuario', component: TableUsuarioComponent },
       { path: 'Ticket', component: TableTicketComponent },
       { path: 'Tactivos', component: TableActivosComponent },
-      { path: 'solicitudes', component: SolicitudesComponent },
+      { path: 'solicitudes', component: SolicitudesComponent},
+      
       { path: 'lugarArea', component: LugarAreaComponent },
       { path: 'reasignacion', component: ReasignacionComponent },
       {path: 'NuevoActivo', component: NuevoActivoComponent},
       {path: 'Paso1', component: Paso1ActivoComponent},
       {path: 'select', component: SelectComponent},
-      
+      {path: 'InfoTicketComponent:idfolios', component: InfoTicketComponent, pathMatch: 'full'},
+      { path: '', redirectTo: '/solicitudes', pathMatch: 'full' },
     ]
   }
 ];
