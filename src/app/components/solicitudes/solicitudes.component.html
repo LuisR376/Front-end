@@ -23,17 +23,21 @@
                         <th style="width: 5rem"></th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-ver>
+                <ng-template pTemplate="body" let-ticket>
                     <tr>
-                        <td>{{ver.idfolios}}</td>
-                        <td>{{ver.num_folio}}</td>
-                        <td>{{ver.nombre}}</td>
-                        <td>{{ver.asunto}}</td>
-                        <td>{{ver.estado_ticket}}</td>
-                        <td>{{ver.Lugar}}</td>
-                        <td>{{ver.area}}</td>
+                        <td>{{ticket.idfolios}}</td>
+                        <td>{{ticket.num_folio}}</td>
+                        <td>{{ticket.nombre}}</td>
+                        <td>{{ticket.asunto}}</td>
+                        <td>{{ticket.estado_ticket}}</td>
+                        <td>{{ticket.Lugar}}</td>
+                        <td>{{ticket.area}}</td>
                         <td>
-                            <button  type="button" [routerLink]="['InfoTicketComponent',ver.idfolios]" pButton pRipple icon="pi pi-search"></button>
+                            <ul>
+                                <li *ngFor="let ticket of tickets">
+                                  <a [routerLink]="['/info', ticket]">{{ ticket.num_folio }}</a>
+                                </li>
+                              </ul>
                         </td>
                     </tr>
                 </ng-template>
@@ -41,3 +45,55 @@
             </p-table>
         </div>
 </section>
+<h4>Formularios <small> Template </small></h4>
+<hr>
+<form autocomplete="off" (ngSubmit)="guardar(forma)" #forma="ngForm">
+
+  <div>
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Nombre</label>
+      <div class="col-8">
+
+        <input class="form-control"
+               type="text"
+               name="nombre"
+               [ngModel]="tickets[1].nombre"
+               placeholder="Nombre">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Modalidad</label>
+      <div class="col-8">
+
+        <input class="form-control"
+               type="text"
+               placeholder="Modalidad">
+      </div>
+    </div>
+
+  </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Nievel de Prioridad</label>
+    <div class="col-8">
+
+      <input class="form-control"
+             type="email"
+             placeholder="Prioridad">
+    </div>
+  </div>
+
+
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">&nbsp;</label>
+    <div class="input-group col-md-8">
+      <button type="submit" class="btn btn-outline-primary btn-block">
+        Guardar
+      </button>
+    </div>
+  </div>
+
+</form>

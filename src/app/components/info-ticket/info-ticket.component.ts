@@ -16,14 +16,17 @@ export class InfoTicketComponent implements OnInit {
   @ViewChild(AlertaComponent, { static: false }) mensajeAlerta!: AlertaComponent;
   token: string;
   tickets !: Ticket[];
-  
-  constructor(
-    private messageService: MessageService,
-    private customerService: CustomerService,
-    public _authGuardService: authGuardService
-    ) {
-      this.token = this._authGuardService.getToken();
-  }
+  id : number;   
+    constructor(
+      private messageService: MessageService,
+      private customerService: CustomerService,
+      public _authGuardService: authGuardService,
+      private route: ActivatedRoute
+      ) {
+        this.token = this._authGuardService.getToken();
+        this.id = this.route.snapshot.params['idfolios'];
+      }
+      
   ngOnInit() {
     this.obtenerTickets();
   }
@@ -48,4 +51,5 @@ export class InfoTicketComponent implements OnInit {
   selectProduct(solicitud: Ticket) {
     this.messageService.add({severity:'info', summary:'Product Selected', detail: solicitud.nombre});
 }
+
 }

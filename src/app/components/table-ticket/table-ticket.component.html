@@ -49,7 +49,7 @@
             <ng-template pTemplate="body" let-ticket>
                 <tr>
                     <td>{{ticket.num_folio}}</td>
-                    <td>{{ticket.fecha_registro}}</td>
+                    <td>{{ticket.fecha_registro | date:'short'}}</td>
                     <td>{{ticket.descripcion}}</td>
                     <td>{{ticket.asunto}}</td>
                     <td>{{ticket.estado_ticket}}</td>
@@ -58,7 +58,7 @@
 
                     <td>
                         <div *ngIf="sesionUsuario.clave== 'ADM' ||   sesionUsuario.clave == 'TEC'">
-                            {{ticket.foto1}}
+                            {{ticket.foto1 | slice:0:4}}
                         </div>
                     </td>
                    
@@ -69,7 +69,7 @@
                     </td>
                     <td>
                         <div *ngIf="sesionUsuario.clave== 'ADM' ||   sesionUsuario.clave == 'TEC'">
-                            {{ticket.firma}}
+                            {{ticket.firma | slice:0:4}}
                         </div>
                     </td>
                 </tr>
@@ -96,6 +96,7 @@ styleClass="p-fluid">
         </div>
         <p-fileUpload [customUpload]="true"  name="foto1" accept=".jpg, .jpeg, .png" [fileLimit]="4" [maxFileSize]="2000000" [multiple]="true"></p-fileUpload> <!--(uploadHandler)="subirimg($event)"-->
         <p-button (click)="closeModal()" label="Cancel" styleClass="p-button-text"></p-button>
+        
         <p-button (click)="addTicket()" label="ENVIAR" [disabled]="ticke.invalid"></p-button>
     </form>
 <p-dialog  header="Confirm" [modal]="true" [style]="{width:'450px'}">

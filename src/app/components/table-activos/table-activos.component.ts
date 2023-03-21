@@ -6,6 +6,8 @@ import { CustomerService } from '../../service/CustomerService';
 import { authGuardService } from '../../service/auth-guard.service';
 import { AlertaComponent } from '../../util/alerta.component';
 import { RespuestaDto } from '../model/respuestaDto';
+
+import { FormBuilder, Validators } from '@angular/forms';
 @Component({
   selector: 'app-table-activos',
   templateUrl: './table-activos.component.html',
@@ -15,7 +17,7 @@ import { RespuestaDto } from '../model/respuestaDto';
 
 export class TableActivosComponent {
   @ViewChild(AlertaComponent, { static: false }) mensajeAlerta!: AlertaComponent;
-
+  
   productDialog !: boolean;
   activos: Activos[] = [];
   product: Activos = {};
@@ -36,7 +38,8 @@ export class TableActivosComponent {
     private customerService: CustomerService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
-    public _authGuardService: authGuardService
+    public _authGuardService: authGuardService,
+    private fb: FormBuilder
   ) {
     this.token = this._authGuardService.getToken();
   }
@@ -52,7 +55,29 @@ export class TableActivosComponent {
     ];
   } 
 
-  
+  recoInfo = this.fb.group({
+    id:[''], 
+    idactivos:[''],
+    idlugar:[''],
+    idarea:[''],
+    nombre_propietario:[''],
+    nombre_equipo:[''],
+    num_empleado:[''],
+    password:[''],
+    fecha_mantenimien:[''],
+    valor_monetario:[''],
+    estado:[''],
+    descripcion:[''],
+    tipo_de_conexion:[''],
+    iddetallepc:[''],
+    idLicencias:[''],
+    idtipoactivo:[''],
+    host_teamviewer:[''],
+    password_teamviewer:[''],
+    calculoEstimado:[''],
+    Pertenencia:['']
+    
+  });
   obtenerActivos() {
     console.log("Token", this.token);
     this.customerService.getActivos(this.token).subscribe({
@@ -89,5 +114,9 @@ export class TableActivosComponent {
 
   onGlobalFilter(table: any, event: Event) {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+  }
+  guardar(){
+    console.log(this.recoInfo.value);
+    
   }
 }

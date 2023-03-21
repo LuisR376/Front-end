@@ -12,7 +12,7 @@ import { UsuarioService } from './service/usuario.service';
 import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
-
+import {CheckboxModule} from 'primeng/checkbox';
 import {CalendarModule} from 'primeng/calendar';
 import {SliderModule} from 'primeng/slider';
 import {MultiSelectModule} from 'primeng/multiselect';
@@ -78,7 +78,8 @@ import { BrowserModule } from '@angular/platform-browser';
     RatingModule,
     RadioButtonModule,
     InputNumberModule,
-    InputTextareaModule
+    InputTextareaModule,
+    CheckboxModule
 
   ],
   providers: [

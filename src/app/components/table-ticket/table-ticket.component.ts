@@ -206,6 +206,7 @@ export class TableTicketComponent {
     this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
     this.products = {};
   }
+  
   /*
   async subirimg(event: any) {
     let conversion : ImagenesBase64<Imagen> = await this.convertB64(event);

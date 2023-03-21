@@ -1,95 +1,134 @@
-
 <section class="container">
-                <p-table #dt [value]="activos" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['nombre_equipo','country.nombre_equipo','representative.nombre_equipo','status']" 
-                [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" 
-                [(selection)]="selectedProducts" selectionMode="multiple" [rowHover]="true" dataKey="id">
-                <ng-template pTemplate="caption">
-                    <div class="flex justify-content-between fondo">
-                        <div>
-                            <h1>Activos</h1>
-                        </div>
-                           <div class="inline-flex">
-                            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"></button>
-                            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger mr-2" [disabled]="!selectedProducts || !selectedProducts.length"></button>
-                            <p-fileUpload mode="basic" accept="Pertenencia/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2"></p-fileUpload>
-                            <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help mr-2" (click)="dt.exportCSV()"></button>
-                        
-                        <span class=" p-input-icon-left">
-                            <i class="pi pi-search"></i>
-                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>
-                        </span>
+    <p-table #dt [value]="activos" [columns]="cols" responsiveLayout="scroll" [rows]="10"
+        [globalFilterFields]="['nombre_equipo','country.nombre_equipo','representative.nombre_equipo','status']"
+        [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedProducts"
+        selectionMode="multiple" [rowHover]="true" dataKey="id">
+        <ng-template pTemplate="caption">
+            <div class="flex justify-content-between fondo">
+                <div>
+                    <h1>Activos</h1>
+                </div>
+                <div class="inline-flex">
+                    <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"></button>
+                    <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger mr-2"
+                        [disabled]="!selectedProducts || !selectedProducts.length"></button>
+                    <p-fileUpload mode="basic" accept="Pertenencia/*" [maxFileSize]="1000000" label="Import"
+                        chooseLabel="Import" class="mr-2"></p-fileUpload>
+                    <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help mr-2"
+                        (click)="dt.exportCSV()"></button>
 
-                           </div>
-                    </div>
-                </ng-template>
-                <ng-template pTemplate="header">
-                    <tr>
-                      
-                        <th >Folio <p-sortIcon field="code"></p-sortIcon></th>
-                        <th >Nombre de equipo 
-                        <p-sortIcon field="nombre_equipo"></p-sortIcon></th>
-                        <th>Nombre Propietario</th>
-                        <th>Modelo <p-sortIcon field="price"></p-sortIcon></th>
-                        <th>Marca <p-sortIcon field=""></p-sortIcon></th>
-                        <th>Num. Serie <p-sortIcon field="Pertenencia"></p-sortIcon></th>
-                        <th>Tipo de Activo<p-sortIcon field="tipo_activo_desc"></p-sortIcon></th>
-                        <th>Estado <p-sortIcon field="estado"></p-sortIcon></th>
-                        
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-product>
-                    <tr>
-                     
-                        <td style="width:14%; min-width:10rem;"><span class="p-column-title">Code</span>
-                            {{product.folio}}
-                        </td>
-                        <td style="width:14%; min-width:10rem;">
-                            <span class="p-column-title">Name</span>
-                            {{product.nombre_equipo}}
-                        </td>
-                        <td style="width:14%; min-width:10rem;"><span class="p-column-title">Image</span>
-                            {{product.nombre_propietario}}
-                        </td>
-                        <td style="width:14%; min-width:8rem;">
-                            <span class="p-column-title">Price</span>
-                            {{product.modelo}}
-                        </td>
-                        <td style="width:14%; min-width:10rem;">
-                            <span class="p-column-title">Pertenencia</span>
-                            {{product.marca}}
-                        </td>
-                        <td style="width:14%; min-width:10rem;">
-                            <span class="p-column-title">Numero</span>
-                            {{product.num_serie}}
-                        </td>
-                        <td style="width:14%; min-width:10rem;">
-                            <span class="p-column-title">Tipo de Activo</span>
-                            {{product.tipo_activo_desc}}
-                        </td>
-                        
-                        <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Status</span>
-                            <span >{{product.estado}}</span>
-                        </td>
-                        <td>
-                            <div class="flex">
-                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" ></button>
-                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" ></button>
-                            </div>
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </section>
+                    <span class=" p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."
+                            class="w-full sm:w-auto" />
+                    </span>
 
-   
-
-        <p-dialog [(visible)]="deleteProductDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
-            <div class="flex align-items-center justify-content-center">
-                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span *ngIf="product">Are you sure you want to delete <b>{{product.nombre_equipo}}</b>?</span>
+                </div>
             </div>
-            <ng-template pTemplate="footer">
-                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteProductDialog = false"></button>
-                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDelete()"></button>
-            </ng-template>
-        </p-dialog>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+
+                <th>Folio <p-sortIcon field="code"></p-sortIcon></th>
+                <th>Nombre de equipo
+                    <p-sortIcon field="nombre_equipo"></p-sortIcon>
+                </th>
+                <th>Nombre Propietario</th>
+                <th>Modelo <p-sortIcon field="price"></p-sortIcon></th>
+                <th>Marca <p-sortIcon field=""></p-sortIcon></th>
+                <th>Num. Serie <p-sortIcon field="Pertenencia"></p-sortIcon></th>
+                <th>Tipo de Activo<p-sortIcon field="tipo_activo_desc"></p-sortIcon></th>
+                <th>Estado <p-sortIcon field="estado"></p-sortIcon></th>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product>
+            <tr>
+
+                <td style="width:14%; min-width:10rem;"><span class="p-column-title">Code</span>
+                    {{product.folio}}
+                </td>
+                <td style="width:14%; min-width:10rem;">
+                    <span class="p-column-title">Name</span>
+                    {{product.nombre_equipo}}
+                </td>
+                <td style="width:14%; min-width:10rem;"><span class="p-column-title">Image</span>
+                    {{product.nombre_propietario}}
+                </td>
+                <td style="width:14%; min-width:8rem;">
+                    <span class="p-column-title">Price</span>
+                    {{product.modelo}}
+                </td>
+                <td style="width:14%; min-width:10rem;">
+                    <span class="p-column-title">Pertenencia</span>
+                    {{product.marca}}
+                </td>
+                <td style="width:14%; min-width:10rem;">
+                    <span class="p-column-title">Numero</span>
+                    {{product.num_serie}}
+                </td>
+                <td style="width:14%; min-width:10rem;">
+                    <span class="p-column-title">Tipo de Activo</span>
+                    {{product.tipo_activo_desc}}
+                </td>
+
+                <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Status</span>
+                    <span>{{product.estado}}</span>
+                </td>
+                <td>
+                    <div c>
+                        <button pButton pRipple icon="pi pi-pencil"
+                            class="p-button-rounded p-button-success mr-2"></button>
+                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"></button>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</section>
+<section class="container">
+
+    <h3>
+        inicio de formulario
+    </h3>
+    <form>
+        <div class="field-checkbox">
+            <p-checkbox [formGroup]="recoInfo" >
+                <input type="checkbox" name="tipo_servicio" value="E">
+            </p-checkbox>
+            <label for="tipo_servicio">{{activos[22].Pertenencia}}</label>
+        </div>
+        
+        <div class="field-checkbox">
+            <p-checkbox [formGroup]="recoInfo" >
+                <input type="checkbox" name="Personal" value="P">
+            </p-checkbox>
+            <label for="Personal">Personal</label>
+        </div>
+        
+    </form>
+<form [formGroup]="recoInfo">
+    <div class="p-fluid grid">
+        <div class="field col-12 md:col-4">
+            <span class="p-float-label">
+                <input type="text" id="idtipoactivo" pInputText formControlName="idtipoactivo"> 
+                <label for="idtipoactivo">Tipo de Activo</label>
+            </span>
+        </div>
+    </div>
+    <button pButton pRipple label="Guardar"class="p-button-success mr-2" (click)="guardar()"></button>
+</form>
+</section>
+
+<p-dialog [(visible)]="deleteProductDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+    <div class="flex align-items-center justify-content-center">
+        <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+        <span *ngIf="product">Are you sure you want to delete <b>{{product.nombre_equipo}}</b>?</span>
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
+            (click)="deleteProductDialog = false"></button>
+        <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDelete()"></button>
+    </ng-template>
+</p-dialog>

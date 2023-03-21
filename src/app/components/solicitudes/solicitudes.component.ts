@@ -9,18 +9,16 @@ import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { Ticket } from '../model/ticket.model';
 import { identifierName } from '@angular/compiler';
-
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-solicitudes',
   templateUrl: './solicitudes.component.html',
-  styleUrls: ['./solicitudes.component.css']
 })
 export class SolicitudesComponent implements OnInit {
   @ViewChild(AlertaComponent, { static: false }) mensajeAlerta!: AlertaComponent;
   token: string;
   tickets !: Ticket[];
   selectedProduct1 !: Ticket;
-  ver!:any;
   constructor(
     private messageService: MessageService,
     private customerService: CustomerService,
@@ -29,33 +27,21 @@ export class SolicitudesComponent implements OnInit {
     public _authGuardService: authGuardService
     ) {
       this.token = this._authGuardService.getToken();
-      this.router.navigate(['/InfoTicketComponent']);
-      this.activatedRoute.params.subscribe(params =>{
-        console.log(params['idfolios']);
-      })
   }
-  
   ngOnInit() {
     this.obtenerTickets();
-   
-
   }
-
   btnClick() {
     this.router.navigate(['InfoTicketComponent']);
   };
 
   obtenerTickets() {
-    console.log("Token", this.token);
     this.customerService.getTicket(this.token).subscribe({
       next: (resp: RespuestaDto) => {
-        console.log("Obtener tickets", resp);
         let respuestaDto = <RespuestaDto>resp;
         if (respuestaDto.ok) {
           this.tickets = resp.addenda;
-        } else {
-
-        } // if
+        } 
       },
       error: (error) => {
         let mensaje = <any>error;
@@ -68,5 +54,10 @@ export class SolicitudesComponent implements OnInit {
 }
 onGlobalFilter(table: any, event: Event) {
   table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+}
+guardar(forma:NgForm){
+  console.log('submit disparado', forma);
+  console.log(forma.value);
+
 }
 }

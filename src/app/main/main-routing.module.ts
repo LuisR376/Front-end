@@ -25,8 +25,8 @@ const routes: Routes = [
       {path: 'NuevoActivo', component: NuevoActivoComponent},
       {path: 'Paso1', component: Paso1ActivoComponent},
       {path: 'select', component: SelectComponent},
-      {path: 'InfoTicketComponent:idfolios', component: InfoTicketComponent, pathMatch: 'full'},
-      { path: '', redirectTo: '/solicitudes', pathMatch: 'full' },
+      {path: 'info:addenda', component: InfoTicketComponent},
+      
     ]
   }
 ];
