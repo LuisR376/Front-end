@@ -1,1 +1,35 @@
-<p>info-ticket works!</p>
+<section class="container">
+    <div>
+        <div class="flex align-items-center justify-content-between fondo">
+            <div>
+                <h1>INFORMACION DEL TICKET</h1>
+                <p>FORMULARIO PARA EL TECNICO</p>
+            </div>
+        </div>
+        <div>
+            <form [formGroup]="recoInfo">
+                    <div class="field col-12 md:col-2">
+                        <span class="p-float-label">
+                            <input type="text" 
+                            pInputText
+                            formControlName="nombre">
+                            <label >{{tickets[1].nombre}}</label>
+                        </span>
+                            <span class="p-float-label" >
+                                <input type="text" pInputText formControlName="Modalidad">
+                                <label >Modalidad</label>
+                            </span>
+                            <span class="p-float-label">
+                                <input type="text" pInputText formControlName="Prioridad">
+                                <label >Nievel de Prioridad</label>
+                            </span>
+                            <button pButton pRipple label="Guardar" class="p-button-success mr-2"></button>
+                  </div>
+                 
+            </form>
+            
+        </div>
+        
+    </div>
+    
+</section>

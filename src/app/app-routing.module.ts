@@ -18,6 +18,7 @@ const routes: Routes = [
         path: 'inicio',
         loadChildren: () => import('./main/main.module').then(x => x.MainModule)
       },
+     
     ]
   }
 

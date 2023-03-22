@@ -10,6 +10,7 @@ import { switchMap } from 'rxjs/operators';
 import { Ticket } from '../model/ticket.model';
 import { identifierName } from '@angular/compiler';
 import { NgForm } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 @Component({
   selector: 'app-solicitudes',
   templateUrl: './solicitudes.component.html',
@@ -24,6 +25,7 @@ export class SolicitudesComponent implements OnInit {
     private customerService: CustomerService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
+    private fb: FormBuilder,
     public _authGuardService: authGuardService
     ) {
       this.token = this._authGuardService.getToken();
@@ -31,8 +33,31 @@ export class SolicitudesComponent implements OnInit {
   ngOnInit() {
     this.obtenerTickets();
   }
+  recoInfo = this.fb.group({
+
+
+    idfolios: ['1'],
+    idusuarios: ['26'],
+    idtipo_servicio: ['1'],
+    asunto: [''],
+    mensaje: [''],
+    foto1: ['1'],
+    foto2: ['1'],
+    foto3: ['1'],
+    foto4: ['1'],
+    solucion: ['1'],
+    firma: ['1'],
+    estado_ticket: ['1'],
+    nombre: [''],
+    Descripcion: [''],
+    num_folio: [''],
+    num_empleado: [''],
+    idstatusTicket: ['2'],
+
+
+  });
   btnClick() {
-    this.router.navigate(['InfoTicketComponent']);
+    this.router.navigate(['info','recoInfo[1]']);
   };
 
   obtenerTickets() {

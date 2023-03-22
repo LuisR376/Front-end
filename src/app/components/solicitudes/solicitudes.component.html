@@ -33,11 +33,8 @@
                         <td>{{ticket.Lugar}}</td>
                         <td>{{ticket.area}}</td>
                         <td>
-                            <ul>
-                                <li *ngFor="let ticket of tickets">
-                                  <a [routerLink]="['/info', ticket]">{{ ticket.num_folio }}</a>
-                                </li>
-                              </ul>
+                            <button pButton [routerLink]="['../solicitud', ticket.idfolios]" >{{ticket.num_folio}}</button>
+                            
                         </td>
                     </tr>
                 </ng-template>
@@ -45,55 +42,3 @@
             </p-table>
         </div>
 </section>
-<h4>Formularios <small> Template </small></h4>
-<hr>
-<form autocomplete="off" (ngSubmit)="guardar(forma)" #forma="ngForm">
-
-  <div>
-
-    <div class="form-group row">
-      <label class="col-2 col-form-label">Nombre</label>
-      <div class="col-8">
-
-        <input class="form-control"
-               type="text"
-               name="nombre"
-               [ngModel]="tickets[1].nombre"
-               placeholder="Nombre">
-      </div>
-    </div>
-
-    <div class="form-group row">
-      <label class="col-2 col-form-label">Modalidad</label>
-      <div class="col-8">
-
-        <input class="form-control"
-               type="text"
-               placeholder="Modalidad">
-      </div>
-    </div>
-
-  </div>
-
-  <div class="form-group row">
-    <label class="col-2 col-form-label">Nievel de Prioridad</label>
-    <div class="col-8">
-
-      <input class="form-control"
-             type="email"
-             placeholder="Prioridad">
-    </div>
-  </div>
-
-
-
-  <div class="form-group row">
-    <label class="col-2 col-form-label">&nbsp;</label>
-    <div class="input-group col-md-8">
-      <button type="submit" class="btn btn-outline-primary btn-block">
-        Guardar
-      </button>
-    </div>
-  </div>
-
-</form>

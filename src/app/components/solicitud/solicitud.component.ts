@@ -10,11 +10,11 @@ import { Observable } from 'rxjs';
 import { Ticket } from '../model/ticket.model';
 import { NgForm } from '@angular/forms';
 @Component({
-  selector: 'app-info-ticket',
-  templateUrl: './info-ticket.component.html',
-  styleUrls: ['./info-ticket.component.css']
+  selector: 'app-solicitud',
+  templateUrl: './solicitud.component.html',
+  styleUrls: ['./solicitud.component.css']
 })
-export class InfoTicketComponent implements OnInit {
+export class SolicitudComponent {
   @ViewChild(AlertaComponent, { static: false }) mensajeAlerta!: AlertaComponent;
   token: string;
   tickets !: Ticket[];
@@ -76,8 +76,8 @@ export class InfoTicketComponent implements OnInit {
   selectProduct(solicitud: Ticket) {
     this.messageService.add({severity:'info', summary:'Product Selected', detail: solicitud.nombre});
 }
-guardar(forma:NgForm){
-  console.log('submit disparado', forma);
-  console.log(forma.value);
+guardar(f:NgForm){
+  console.log('submit disparado', f);
+  console.log(f.value);
 }
 }

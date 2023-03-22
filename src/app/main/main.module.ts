@@ -16,6 +16,7 @@ import { NuevoUsuarioComponent } from '../components/nuevo-usuario/nuevo-usuario
 import { UsuarioComponent } from '../components/usuario/usuario.component';
 import { SelectComponent } from '../components/select/select.component';
 import { InfoTicketComponent } from '../components/info-ticket/info-ticket.component';
+import { SolicitudComponent } from '../components/solicitud/solicitud.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { InfoTicketComponent } from '../components/info-ticket/info-ticket.compo
     NuevoUsuarioComponent,
     UsuarioComponent,
     SelectComponent,
-    InfoTicketComponent
+    InfoTicketComponent,
+    SolicitudComponent
   ],
   imports: [
     MainRoutingModule,

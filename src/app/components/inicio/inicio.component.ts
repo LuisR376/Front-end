@@ -14,6 +14,7 @@ export class InicioComponent {
   token : string;
   usuarios !: Usuario[];
   sesionUsuario !: Usuario;
+  
   constructor(
 
     public _authGuardService: authGuardService,

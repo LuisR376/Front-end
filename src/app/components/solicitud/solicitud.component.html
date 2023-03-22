@@ -1,0 +1,67 @@
+<section class="container">
+    <div>
+        <div class="flex align-items-center justify-content-between fondo">
+            <div>
+                <h1>INFORMACION DEL TICKET</h1>
+                <p>FORMULARIO PARA EL TECNICO</p>
+            </div>
+        </div>
+    </div>
+    <form (ngSubmit)=" guardar( f )" #f="ngForm">
+
+
+
+        <div class="grid">
+            <div class="col-6">
+                <label for="folio" type="text">FOLIO: {{tickets[1].num_folio}}</label>
+                
+            </div>
+
+
+            <div class="col-6"> <div class="field col-12 md:col-3">
+                <span class="p-float-label">
+                    <input id="float-input" type="text" pInputText > 
+                    <label for="float-input">Modalidad</label>
+                </span>
+    
+            </div></div>
+
+
+            <div class="col-6"><label for="folio" type="text">Nombre: {{tickets[1].nombre}}</label></div>
+
+
+            
+            <div class="col-6"><div class="field col-12 md:col-3">
+                <span class="p-float-label">
+                    <input id="float-input" type="text" pInputText > 
+                    <label for="float-input">Prioridad</label>
+                </span>
+    
+            </div></div>
+        </div>
+        <div class="grid">
+            <div class="col-6">
+                <label for="folio" type="text">Asunto: {{tickets[1].asunto}}</label>
+            </div>
+            <div class="col-6">6</div>
+            <div class="col-6">6</div>
+            <div class="col-6">6</div>
+        </div>
+
+
+
+  
+            
+   
+       
+        
+        <div class="field col-12 md:col-3">
+            <span class="p-float-label">
+                <textarea rows="5" cols="30" pInputTextarea [autoResize]="true"></textarea>
+                <label for="float-input">Solucion</label>
+            </span>    
+        </div>
+        
+
+    </form>
+</section>
