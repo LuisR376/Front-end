@@ -17,6 +17,7 @@ import { UsuarioComponent } from '../components/usuario/usuario.component';
 import { SelectComponent } from '../components/select/select.component';
 import { InfoTicketComponent } from '../components/info-ticket/info-ticket.component';
 import { SolicitudComponent } from '../components/solicitud/solicitud.component';
+import { PerfilComponent } from '../components/perfil/perfil.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { SolicitudComponent } from '../components/solicitud/solicitud.component'
     UsuarioComponent,
     SelectComponent,
     InfoTicketComponent,
-    SolicitudComponent
+    SolicitudComponent,
+    PerfilComponent
   ],
   imports: [
     MainRoutingModule,

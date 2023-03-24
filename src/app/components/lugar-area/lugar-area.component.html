@@ -18,7 +18,7 @@
             </ng-template>
             <ng-template pTemplate="header">
                 <tr>
-                    <th>ID</th>
+                    <th pSortableColumn="idarea">ID<p-sortIcon field="idarea"></p-sortIcon></th>
                     <th>Area</th>
                     <th>Lugar</th>
                 </tr>
@@ -36,24 +36,34 @@
         </p-table>
     </div>
 </section>
-            <p-dialog [(visible)]="texts" [style]="{width: '450px'}" header="Agregar Area" [modal]="true"
-                styleClass="p-fluid">
+<p-dialog header="Header" [(visible)]="displayAddModal" [modal]="true"  [style]="{height:'30vw', width: '50vw' }" styleClass="p-fluid"  >
+    <ng-template pTemplate="header">
+        <span class="text-xl font-bold">Agregar Area</span>
+    </ng-template>
+    <form [formGroup]="agregarAreaForm" (ngSubmit)="addProduct()">
+        <div class="field">
+            <label for="name">Nombre del Area</label>
+            <input 
+            formControlName="nombre_area" 
+            pInputText 
+            required 
+            autofocus
+           
+            >
+            <small class="p-error" *ngIf="agregarAreaForm.touched && agregarAreaForm.invalid">El nombre es requerido</small>
 
-                <ng-template pTemplate="content">
-                    <img [src]="'https://primefaces.org/cdn/primeng/images/demo/areas/' + areas.image"
-                        [alt]="areas.image" class="areas-image" *ngIf="areas.image">
-                    <form [formGroup]="productForm" (ngSubmit)="addProduct()">
-                        <div class="field">
-                            <label for="name">Nombre del Area</label>
-                            <input formControlName="nombre_area" pInputText id="ubi" required autofocus>
-                            <small class="p-error" *ngIf="text && !areas.nombre_area">Name is required.</small>
-                        </div>
-                        <div class="field">
-                            <label for="ubi">Lugar</label>
-                            <p-dropdown [options]="lugares" placeholder="Seleccione un lugar" formControlName="idlugar" optionLabel="ubicacion" optionValue="idlugar"></p-dropdown>
-                            <small class="p-error" *ngIf="text && !areas.ubicacion">Name is required.</small>
-                        </div>
-                        <p-button (click)="closeModal()" label="Cancel" styleClass="p-button-text"></p-button>
-
-                        <p-button (click)="addProduct()" label="AÑADIR" [disabled]="areas.invalid"></p-button>
-                    </form>
+        </div>
+        <div class="field">
+            <label for="ubi">Lugar</label>
+            <p-dropdown [options]="lugares" placeholder="Seleccione un lugar" formControlName="idlugar" optionLabel="ubicacion" optionValue="idlugar" ></p-dropdown>
+            <small class="p-error" *ngIf="agregarAreaForm.touched && agregarAreaForm.invalid">Elige un lugar</small>
+        </div>
+        </form>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-times" (click)="closeModal()" label="Cancelar" styleClass="p-button-text"></p-button>
+        <p-button type="button" icon="pi pi-check" (click)="addProduct()" label="Agregar" styleClass="p-button-text"></p-button>
+        
+    </ng-template>
+</p-dialog>
+<p-toast position="top-right"></p-toast>
+<app-alerta></app-alerta>

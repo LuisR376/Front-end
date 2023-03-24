@@ -133,7 +133,7 @@ export class TableTicketComponent {
 
       );
     }
-    this.displayAddModal = false;
+    this.obtenerTickets;
   }
 
   async saveTicket(

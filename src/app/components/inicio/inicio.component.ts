@@ -3,6 +3,8 @@ import {MenuItem} from 'primeng/api';
 import { Usuario } from '../model/usuario.model';
 import { AlertaComponent } from '../../util/alerta.component';
 import { authGuardService } from '../../service/auth-guard.service';
+import { UsuarioService } from '../../service/usuario.service';
+
 
 @Component({
   selector: 'inicio',
@@ -14,11 +16,10 @@ export class InicioComponent {
   token : string;
   usuarios !: Usuario[];
   sesionUsuario !: Usuario;
-  
   constructor(
 
     public _authGuardService: authGuardService,
-
+    private authService: UsuarioService,
     public _auth: authGuardService
     
     ) {
@@ -27,16 +28,22 @@ export class InicioComponent {
 
     }
 
-  
+  get auth(){
+    return this.authService.auth;
+    
+  }
   ngOnInit() {
+    console.log("hola",this.auth);
       this.items = [
-          {label: 'Perfil', icon: 'pi pi-user', routerLink: ['']},
+        
+          {label: 'Perfil', icon: 'pi pi-user', routerLink: ['perfil'] },
           {separator:true},
           {label: 'Exit', icon: 'pi pi-sign-out' , command: () => this.logout() , routerLink: [''] }
-
+          
       ];
   }
   logout() {
+    
     this._auth.logout()
   }
 

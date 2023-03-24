@@ -69,6 +69,7 @@ export class LoginComponent {
           this._authGuardService.sendKey(respuestaDto.token);
           this.router.navigate(["/home/inicio/main/Ticket"]);
         } // if
+        
       },
         error : (error) => {
           let mensaje = <any>error;

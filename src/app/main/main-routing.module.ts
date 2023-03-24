@@ -12,6 +12,7 @@ import { Paso1ActivoComponent } from '../paso1-activo/paso1-activo.component';
 import { SelectComponent } from '../components/select/select.component';
 import { InfoTicketComponent } from '../components/info-ticket/info-ticket.component';
 import { SolicitudComponent } from '../components/solicitud/solicitud.component';
+import {PerfilComponent} from '../components/perfil/perfil.component';
 const routes: Routes = [
   {
       path: 'main', component: InicioComponent,
@@ -27,7 +28,8 @@ const routes: Routes = [
       {path: 'select', component: SelectComponent},
       {path: 'info', component: InfoTicketComponent},
       { path: 'solicitudes', component: SolicitudesComponent},
-      {path: 'solicitud/:id', component: SolicitudComponent}
+      {path: 'solicitud/:id', component: SolicitudComponent},
+      {path:'perfil',component: PerfilComponent}
     ]
   }
 ];
