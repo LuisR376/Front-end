@@ -14,12 +14,12 @@
 
                 
                 <div class="inline-flex">
-                    <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
+                    <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success mr-2"
                         (click)="openNew()"></button>
                     
-                    <p-fileUpload mode="basic" accept="Pertenencia/*" [maxFileSize]="1000000" label="Import"
-                        chooseLabel="Import" class="mr-2"></p-fileUpload>
-                    <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help mr-2"
+                    <p-fileUpload mode="basic" accept="Pertenencia/*" [maxFileSize]="1000000" label="Importar"
+                        chooseLabel="Importar" class="mr-2"></p-fileUpload>
+                    <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-help mr-2"
                         (click)="dt.exportCSV()"></button>
 
                     <span class=" p-input-icon-left">
@@ -38,6 +38,7 @@
                 <th>Apellido Paterno</th>
                 <th>Apellido Materno <p-sortIcon field="price"></p-sortIcon></th>
                 <th>Email <p-sortIcon field=""></p-sortIcon></th>
+                <th></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-altaEmpleado>
@@ -61,7 +62,7 @@
                     {{altaEmpleado.email}}
                 </td>
                 <td>
-                    <div class="flex">
+                    <div class="flex" style="padding-left:10rem;">
                         <button pButton pRipple icon="pi pi-pencil"
                             class="p-button-rounded p-button-success mr-2"></button><!--Editar-->
                         <button pButton pRipple icon="pi pi-trash"

@@ -78,11 +78,10 @@
     </div>
 </section>
 
-<p-dialog [(visible)]="texts" [style]="{width: '450px'}" header="Agregar Ticket" [modal]="true"
-styleClass="p-fluid">
-
-<ng-template pTemplate="content">
-
+<p-dialog [(visible)]="displayAddModal" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        <b>Agregar Ticket</b>
+    </ng-template>
     <form [formGroup]="recoInfo" (ngSubmit)="addTicket()">
         <div class="field">
             <label for="insertUsuario">ASUNTO</label>
@@ -95,17 +94,11 @@ styleClass="p-fluid">
             <small class="p-error" *ngIf="text && !ticke.mensaje">Name is required.</small>
         </div>
         <p-fileUpload [customUpload]="true"  name="foto1" accept=".jpg, .jpeg, .png" [fileLimit]="4" [maxFileSize]="2000000" [multiple]="true"></p-fileUpload> <!--(uploadHandler)="subirimg($event)"-->
-        <p-button (click)="closeModal()" label="Cancel" styleClass="p-button-text"></p-button>
-        
-        <p-button (click)="addTicket()" label="ENVIAR" [disabled]="ticke.invalid"></p-button>
     </form>
-<p-dialog  header="Confirm" [modal]="true" [style]="{width:'450px'}">
-<div class="flex align-items-center justify-content-center">
-    <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-  <span *ngIf="products">Are you sure you want to delete <b>{{products.num_empleado}}</b>?</span>
-</div>
-<ng-template pTemplate="footer">
-    <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"   ></button>
-    <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" ></button>
-</ng-template>
+        <ng-template pTemplate="footer">
+            <p-button icon="pi pi-trash" (click)="closeModal()" label="Limpiar" styleClass="p-button-text"></p-button>
+            <p-button icon="pi pi-check" (click)="addTicket()" label="Confirmar" styleClass="p-button-text"></p-button>
+        </ng-template>
+    
+
 </p-dialog>

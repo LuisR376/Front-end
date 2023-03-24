@@ -19,7 +19,7 @@ import { ImagenesBase64 } from '../model/imagenes.model';
 })
 export class TableTicketComponent {
   @ViewChild(AlertaComponent, { static: false }) mensajeAlerta!: AlertaComponent;
-  @Input() displayAddModal: boolean = true;
+  @Input() 
   @Output() clickClose: EventEmitter<boolean> = new EventEmitter<boolean>();
   products: Ticket = {};
   token: string;
@@ -30,7 +30,7 @@ export class TableTicketComponent {
   texts !: boolean;
   ticke: any;
   arrayImagenes = new Array();
-
+  displayAddModal: boolean = false;
   deleteProductDialog: boolean = false;
 
   constructor(
@@ -76,9 +76,8 @@ export class TableTicketComponent {
   });
 
   openNew() {
-    this.ticke = {};
-    this.text = false;
-    this.texts = true;
+  
+    this.displayAddModal = true;
   }
 
   closeModal() {
@@ -134,6 +133,7 @@ export class TableTicketComponent {
 
       );
     }
+    this.displayAddModal = false;
   }
 
   async saveTicket(
