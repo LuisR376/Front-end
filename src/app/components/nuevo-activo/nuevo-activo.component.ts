@@ -20,7 +20,7 @@ export class NuevoActivoComponent implements OnInit{
         
      }
      activoInformacion!: MenuItem[];
-  tablaActivos !: Activos;
+     tablaActivos !: Activos;
   
   ngOnInit() {
       this.activoInformacion =  [{
