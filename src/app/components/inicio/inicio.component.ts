@@ -33,7 +33,6 @@ export class InicioComponent {
     
   }
   ngOnInit() {
-    console.log("hola",this.auth);
       this.items = [
         
           {label: 'Perfil', icon: 'pi pi-user', routerLink: ['perfil'] },
