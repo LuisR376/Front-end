@@ -7,8 +7,35 @@
             </div>
         </div>
         <div>
-            <p-toast></p-toast>
-            <p-steps [model]="items" [readonly]="true"></p-steps>
+            <div class="card apartado1">
+                <p-toast></p-toast>
+                <p-steps [model]="items" [readonly]="false "></p-steps>
+            </div>
+            <form [formGroup]="recoInfo">
+            <p-card>
+                <ng-template pTemplate="title"> Tipo de Activo </ng-template>
+                <ng-template pTemplate="subtitle">A quien pertenece el activo</ng-template>
+                <ng-template pTemplate="content">
+                    <div class="p-fluid">
+                        <div class="field">
+                            <label for="firstname">Tipo de Activo</label> <!--HACER ESTE INPUT UN SELECT-->
+                            <input
+                                formControlName="idtipoactivo"
+                                type="text"
+                                required
+                                pInputText
+                            />
+                            <p></p><!--if de validacion-->
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <div class="grid grid-nogutter justify-content-end">
+                        <p-button label="Siguiente"  icon="pi pi-angle-right" iconPos="right"></p-button> <p></p><!--On clic de siguiente pagina-->
+                    </div>
+                </ng-template>
+            </p-card>
+        </form>
         </div>
         <router-outlet></router-outlet>
     </div>

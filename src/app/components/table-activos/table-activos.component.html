@@ -10,7 +10,7 @@
                     <h1>Activos</h1>
                 </div>
                 <div class="inline-flex">
-                    <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"></button>
+                    <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success mr-2" routerLink="../NuevoActivo"></button>
                     <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger mr-2"
                         [disabled]="!selectedProducts || !selectedProducts.length"></button>
                     <p-fileUpload mode="basic" accept="Pertenencia/*" [maxFileSize]="1000000" label="Import"
