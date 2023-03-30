@@ -30,7 +30,7 @@
         <ng-template pTemplate="header">
             <tr>
 
-                <th>Folio <p-sortIcon field="code"></p-sortIcon></th>
+              
                 <th>Nombre de equipo
                     <p-sortIcon field="nombre_equipo"></p-sortIcon>
                 </th>
@@ -46,9 +46,7 @@
         <ng-template pTemplate="body" let-product>
             <tr>
 
-                <td style="width:14%; min-width:10rem;"><span class="p-column-title">Code</span>
-                    {{product.folio}}
-                </td>
+               
                 <td style="width:14%; min-width:10rem;">
                     <span class="p-column-title">Name</span>
                     {{product.nombre_equipo}}
@@ -87,48 +85,3 @@
         </ng-template>
     </p-table>
 </section>
-<section class="container">
-
-    <h3>
-        inicio de formulario
-    </h3>
-    <form>
-        <div class="field-checkbox">
-            <p-checkbox [formGroup]="recoInfo" >
-                <input type="checkbox" name="tipo_servicio" value="E">
-            </p-checkbox>
-            <label for="tipo_servicio">{{activos[22].Pertenencia}}</label>
-        </div>
-        
-        <div class="field-checkbox">
-            <p-checkbox [formGroup]="recoInfo" >
-                <input type="checkbox" name="Personal" value="P">
-            </p-checkbox>
-            <label for="Personal">Personal</label>
-        </div>
-        
-    </form>
-<form [formGroup]="recoInfo">
-    <div class="p-fluid grid">
-        <div class="field col-12 md:col-4">
-            <span class="p-float-label">
-                <input type="text" id="idtipoactivo" pInputText formControlName="idtipoactivo"> 
-                <label for="idtipoactivo">Tipo de Activo</label>
-            </span>
-        </div>
-    </div>
-    <button pButton pRipple label="Guardar"class="p-button-success mr-2" (click)="guardar()"></button>
-</form>
-</section>
-
-<p-dialog [(visible)]="deleteProductDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
-    <div class="flex align-items-center justify-content-center">
-        <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-        <span *ngIf="product">Are you sure you want to delete <b>{{product.nombre_equipo}}</b>?</span>
-    </div>
-    <ng-template pTemplate="footer">
-        <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
-            (click)="deleteProductDialog = false"></button>
-        <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDelete()"></button>
-    </ng-template>
-</p-dialog>

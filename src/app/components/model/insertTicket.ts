@@ -17,7 +17,12 @@ public nombre: string | undefined | null,
 public Descripcion : string | undefined | null,
 public num_folio: string | undefined | null,
 public num_empleado: string | undefined | null,
-public idstatusTicket: string | undefined  | null
-    ){}
+public idstatusTicket: string | undefined  | null,
+
+public nombre_area: string | undefined  | null,
+public lugares: string | undefined  | null
+
+
+){}
     
 }

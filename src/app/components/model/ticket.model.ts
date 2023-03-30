@@ -18,6 +18,7 @@ descripcion ?: string;
 num_folio?:string;
 num_empleado?:number;
 estado_ticket?:string;
-
+nombre_area?:string;
+lugares?:string;
 
 }

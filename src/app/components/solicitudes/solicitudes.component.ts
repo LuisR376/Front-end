@@ -53,7 +53,8 @@ export class SolicitudesComponent implements OnInit {
     num_folio: [''],
     num_empleado: [''],
     idstatusTicket: ['2'],
-
+    nombre_area:[],
+    lugares:[]
 
   });
   btnClick() {

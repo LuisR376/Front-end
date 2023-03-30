@@ -71,6 +71,8 @@ export class TableTicketComponent {
     num_folio: [''],
     num_empleado: [''],
     idstatusTicket: ['2'],
+    nombre_area:[''],
+    ubicacion:['']
 
 
   });
@@ -129,8 +131,10 @@ export class TableTicketComponent {
         this.recoInfo.value.Descripcion,
         this.recoInfo.value.num_folio,
         this.recoInfo.value.num_empleado,
-        this.recoInfo.value.idstatusTicket
-
+        this.recoInfo.value.idstatusTicket,
+        this.recoInfo.value.nombre_area,
+        this.recoInfo.value.ubicacion
+        
       );
     }
     this.obtenerTickets;
@@ -154,7 +158,9 @@ export class TableTicketComponent {
     Descripcion: string | undefined | null,
     num_folio: string | undefined | null,
     num_empleado: string | undefined | null,
-    idstatusTicket: string | undefined | null
+    idstatusTicket: string | undefined | null,
+    nombre_area: string | undefined  | null,
+    ubicacion: string | undefined  | null
 
   ) {
     console.log(
@@ -177,7 +183,9 @@ export class TableTicketComponent {
       Descripcion,
       num_folio,
       num_empleado,
-      idstatusTicket
+      idstatusTicket,
+      nombre_area,
+      ubicacion
     );
     console.log("Datos Ticket", datosT);
     this.customerService.saveTicket(datosT).subscribe({
