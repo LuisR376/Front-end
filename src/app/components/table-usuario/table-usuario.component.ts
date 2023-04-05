@@ -14,12 +14,15 @@ import { Rol } from '../model/rol.model';
 
 @Component({
   selector: 'app-table-usuario',
-  templateUrl: './table-usuario.component.html',
+  templateUrl: './table-usuario.component.html'
 })
 export class TableUsuarioComponent {
   @ViewChild(AlertaComponent, { static: false }) mensajeAlerta!: AlertaComponent;
-  @Input() displayAddModal: boolean = true;
+  @Input() 
   @Output() clickClose: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  displayAddModal: boolean = false;
+
   token: string;
   usuarios: Usuario[] = [];
   usuari: any;
@@ -213,9 +216,7 @@ export class TableUsuarioComponent {
   }
 
   openNew() {
-    this.usuari = {};
-    this.text = false;
-    this.texts = true;
+    this.displayAddModal = true;
   }
   closeModal() {
     this.recoInfo.reset();

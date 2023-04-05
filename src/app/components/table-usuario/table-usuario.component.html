@@ -3,7 +3,7 @@
         [globalFilterFields]="['num_empleado','country.num_empleado','representative.num_empleado','status']"
         [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedProducts"
-         [rowHover]="true" dataKey="id">
+        [rowHover]="true" dataKey="id">
 
 
         <ng-template pTemplate="caption">
@@ -12,11 +12,11 @@
                     <h1>Usuarios</h1>
                 </div>
 
-                
+
                 <div class="inline-flex">
                     <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success mr-2"
                         (click)="openNew()"></button>
-                    
+
                     <p-fileUpload mode="basic" accept="Pertenencia/*" [maxFileSize]="1000000" label="Importar"
                         chooseLabel="Importar" class="mr-2"></p-fileUpload>
                     <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-help mr-2"
@@ -24,8 +24,8 @@
 
                     <span class=" p-input-icon-left">
                         <i class="pi pi-search"></i>
-                        <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Numero de Empleado"
-                            class="w-full sm:w-auto" />
+                        <input pInputText type="text" (input)="onGlobalFilter(dt, $event)"
+                            placeholder="Numero de Empleado" class="w-full sm:w-auto" />
                     </span>
 
                 </div>
@@ -74,78 +74,120 @@
     </p-table>
 </section>
 
-<p-dialog [(visible)]="texts" [style]="{width: '450px'}" header="Agregar Usuario" [modal]="true" styleClass="p-fluid">
-
-    <ng-template pTemplate="content">
+<div class="card flex justify-content-center">
+    <p-button (click)="openNew()" icon="pi pi-external-link" label="Show"></p-button>
+    <p-dialog header="Añadir nuevo Usuario" [(visible)]="displayAddModal" [maximizable]="true" [style]="{width: '50vw'}">
 
         <form [formGroup]="recoInfo" (ngSubmit)="addUsuario()">
-            <div class="field">
-                <label for="insertUsuario">N° Empleado</label>
-                <input formControlName="num_empleado" type="number" pInputText id="num_empleado" required autofocus>
-                <small class="p-error" *ngIf="text && !usuari.num_empleado">Name is required.</small>
+            <section class="container">
+            <div class="grid">
+                <div class="col-3">
+                    <div class="field">
+                        <span class="p-float-label">
+                            <input formControlName="num_empleado" pInputText id="num_empleado" />
+                            <label htmlFor="num_empleado">N° Empleado</label>
+                        <small class="p-error" *ngIf="text && !usuari.num_empleado">Name is required.</small>
+                    </span>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="field">
+                        <span class="p-float-label">
+                        <label htmlFor="Nombre">Nombre</label>
+                        <input formControlName="nombre" pInputText id="ubi" required autofocus>
+                        <small class="p-error" *ngIf="text && !usuari.nombre">Name is required.</small>
+                    </span>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="field">
+                        <span class="p-float-label">
+                        <label htmlFor="apellidoP">Apellido Paterno</label>
+                        <input formControlName="apellidoP" pInputText id="apellidoP" required autofocus>
+                        <small class="p-error" *ngIf="text && !usuari.apellidoP">Name is required.</small>
+                    </span>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="field">
+                        <span class="p-float-label">
+                        <label htmlFor="apellidoM">Apellido Materno</label>
+                        <input formControlName="apellidoM" pInputText id="apellidoM" required autofocus>
+                        <small class="p-error" *ngIf="text && !usuari.apellidoM">Name is required.</small>
+                    </span>
+                    </div>
+                </div>
             </div>
-            <div class="field">
-                <label for="name">Nombre</label>
-                <input formControlName="nombre" pInputText id="ubi" required autofocus>
-                <small class="p-error" *ngIf="text && !usuari.nombre">Name is required.</small>
+            <div class="grid">
+                <div class="col-3">
+                    <div class="field">
+                        <span class="p-float-label">
+                        <label htmlFor="email">Email</label>
+                        <input formControlName="email" pInputText id="email" required autofocus>
+                        <small class="p-error" *ngIf="text && !usuari.email">Name is required.</small>
+                    </span>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="field">
+                        <span class="p-float-label">
+                        <label htmlFor="status">Estado</label>
+                        <input formControlName="status" placeholder="1 Activo" type="number" pInputText id="status" required autofocus>
+                        <small class="p-error" *ngIf="text && !usuari.status">Name is required.</small>
+                    </span>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="field">
+                        <span class="p-float-label">
+                        <label htmlFor="idrol">Rol</label>
+                        <p-dropdown [options]="roles" placeholder="Seleccione un Rol" formControlName="idrol"
+                            optionLabel="descripcion_rol" optionValue="idrol"></p-dropdown>
+                        <small class="p-error" *ngIf="text && !usuari.idrol">Name is required.</small>
+                    </span>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="field">
+                        <span class="p-float-label">
+                        <label htmlFor="ubi">Lugar</label>
+                        <p-dropdown [options]="lugares" placeholder="Seleccione un lugar" formControlName="idlugar"
+                            optionLabel="ubicacion" optionValue="idlugar"></p-dropdown>
+                        <small class="p-error" *ngIf="text && !usuari.idlugar">Name is required.</small>
+                    </span>
+                    </div>
+                </div>
             </div>
-            <div class="field">
-                <label for="apellidoP">Apellido Paterno</label>
-                <input formControlName="apellidoP" pInputText id="apellidoP" required autofocus>
-                <small class="p-error" *ngIf="text && !usuari.apellidoP">Name is required.</small>
+            <div class="grid">
+                <div class="col-3">
+                    <div class="field">
+                        <span class="p-float-label">
+                        <label htmlFor="Area">Area</label>
+                       
+                        <p-dropdown [options]="area" placeholder="Seleccione un Area" formControlName="idarea"
+                            optionLabel="nombre_area" optionValue="idarea"></p-dropdown>
+                        <small class="p-error" *ngIf="text && !usuari.idarea">Name is required.</small>
+                    </span>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="field">
+                        <span class="p-float-label">
+                        <label htmlFor="password">Contraseña</label>
+                        <input formControlName="password" pInputText id="password" required autofocus>
+                        <small class="p-error" *ngIf="text && !usuari.password">Name is required.</small>
+                    </span>
+                    </div>
+                </div>
             </div>
-            <div class="field">
-                <label for="apellidoM">Apellido Materno</label>
-                <input formControlName="apellidoM" pInputText id="apellidoM" required autofocus>
-                <small class="p-error" *ngIf="text && !usuari.apellidoM">Name is required.</small>
-            </div>
-            <div class="field">
-                <label for="email">Email</label>
-                <input formControlName="email" pInputText id="email" required autofocus>
-                <small class="p-error" *ngIf="text && !usuari.email">Name is required.</small>
-            </div>
-            <div class="field">
-                <label for="status">Estado</label>
-                <input formControlName="status" type="number" pInputText id="status" required autofocus>
-                <small class="p-error" *ngIf="text && !usuari.status">Name is required.</small>
-            </div>
-            <div class="field">
-                <label for="idrol">Rol</label>
-                <p-dropdown [options]="roles" placeholder="Seleccione un Rol" formControlName="idrol"
-                    optionLabel="descripcion_rol" optionValue="idrol"></p-dropdown>
-                <small class="p-error" *ngIf="text && !usuari.idrol">Name is required.</small>
-            </div>
-            <div class="field">
-                <label for="ubi">Lugar</label>
-                <p-dropdown [options]="lugares" placeholder="Seleccione un lugar" formControlName="idlugar"
-                    optionLabel="ubicacion" optionValue="idlugar"></p-dropdown>
-                <small class="p-error" *ngIf="text && !usuari.idlugar">Name is required.</small>
-            </div>
-            <div class="field">
-                <label for="idarea">Area</label>
-                <p-dropdown [options]="area" placeholder="Seleccione un Area" formControlName="idarea"
-                    optionLabel="nombre_area" optionValue="idarea"></p-dropdown>
-                <small class="p-error" *ngIf="text && !usuari.idarea">Name is required.</small>
-            </div>
-            <div class="field">
-                <label for="password">Contraseña</label>
-                <input formControlName="password" pInputText id="password" required autofocus>
-                <small class="p-error" *ngIf="text && !usuari.password">Name is required.</small>
-            </div>
-            <p-button (click)="closeModal()" label="Cancel" styleClass="p-button-text"></p-button>
-            <p-button (click)="addUsuario()" label="AÑADIR" [disabled]="usuari.invalid"></p-button>
+        </section>
         </form>
+        
+        <ng-template pTemplate="footer">
+            <p-button icon="pi pi-check" (click)="closeModal()" label="Cancel"  styleClass="p-button-text"></p-button>
+            <p-button icon="pi pi-check" (click)="addUsuario()" label="Añadir"  styleClass="p-button-text"></p-button>
+            
+        </ng-template>
+    </p-dialog>
 
-
-        <p-dialog [(visible)]="deleteProductDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
-            <div class="flex align-items-center justify-content-center">
-                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span *ngIf="products">Are you sure you want to delete <b>{{products.num_empleado}}</b>?</span>
-            </div>
-            <ng-template pTemplate="footer">
-                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
-                    (click)="deleteProductDialog = false"></button>
-                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
-                    (click)="confirmDelete()"></button>
-            </ng-template>
-        </p-dialog>
+</div>
