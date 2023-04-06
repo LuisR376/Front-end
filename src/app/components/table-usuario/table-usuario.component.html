@@ -76,111 +76,126 @@
 
 <div class="card flex justify-content-center">
     <p-button (click)="openNew()" icon="pi pi-external-link" label="Show"></p-button>
-    <p-dialog header="Añadir nuevo Usuario" [(visible)]="displayAddModal" [maximizable]="true" [style]="{width: '50vw'}">
+    <p-dialog header="Añadir nuevo Usuario" [(visible)]="displayAddModal" [maximizable]="true" [style]="{height:'35vw', width: '90vw' }">
 
         <form [formGroup]="recoInfo" (ngSubmit)="addUsuario()">
             <section class="container">
+
             <div class="grid">
+                
                 <div class="col-3">
                     <div class="field">
                         <span class="p-float-label">
                             <input formControlName="num_empleado" pInputText id="num_empleado" />
-                            <label htmlFor="num_empleado">N° Empleado</label>
-                        <small class="p-error" *ngIf="text && !usuari.num_empleado">Name is required.</small>
+                            <label htmlFor="num_empleado">N°Empleado</label>
+                        <small class="p-error" *ngIf="recoInfo.dirty && recoInfo.invalid">Numero de empleado es requerido.</small>
                     </span>
                     </div>
                 </div>
+            
                 <div class="col-3">
                     <div class="field">
                         <span class="p-float-label">
-                        <label htmlFor="Nombre">Nombre</label>
-                        <input formControlName="nombre" pInputText id="ubi" required autofocus>
-                        <small class="p-error" *ngIf="text && !usuari.nombre">Name is required.</small>
+                            <input formControlName="nombre" pInputText id="nombre">
+                            <label htmlFor="nombre">Nombre</label>
+                        <small class="p-error" *ngIf="recoInfo.dirty && recoInfo.invalid">El nombre es requerido.</small>
                     </span>
                     </div>
                 </div>
+            
+                    <div class="col-3">
+                    <div class="field">
+                        <span class="p-float-label">
+                            <input formControlName="apellidoP" pInputText id="apellidoP" required autofocus>
+                            <label htmlFor="apellidoP">A.Paterno</label>
+                        <small class="p-error" *ngIf="recoInfo.dirty && recoInfo.invalid">El Apellido es requerido.</small>
+                    </span>
+                    </div>
+                </div>
+            
                 <div class="col-3">
                     <div class="field">
                         <span class="p-float-label">
-                        <label htmlFor="apellidoP">Apellido Paterno</label>
-                        <input formControlName="apellidoP" pInputText id="apellidoP" required autofocus>
-                        <small class="p-error" *ngIf="text && !usuari.apellidoP">Name is required.</small>
+                            <input formControlName="apellidoM" pInputText id="apellidoM" required autofocus>
+                            <label htmlFor="apellidoM">A.Materno</label>
+                        <small class="p-error" *ngIf="recoInfo.dirty && recoInfo.invalid">El Apellido es requerido.</small>
                     </span>
                     </div>
                 </div>
-                <div class="col-3">
-                    <div class="field">
-                        <span class="p-float-label">
-                        <label htmlFor="apellidoM">Apellido Materno</label>
-                        <input formControlName="apellidoM" pInputText id="apellidoM" required autofocus>
-                        <small class="p-error" *ngIf="text && !usuari.apellidoM">Name is required.</small>
-                    </span>
-                    </div>
-                </div>
+            
             </div>
+        </section>
+       
+        <section class="container">
             <div class="grid">
                 <div class="col-3">
                     <div class="field">
                         <span class="p-float-label">
-                        <label htmlFor="email">Email</label>
-                        <input formControlName="email" pInputText id="email" required autofocus>
-                        <small class="p-error" *ngIf="text && !usuari.email">Name is required.</small>
+                            <input formControlName="email" pInputText id="email" required autofocus>
+                            <label htmlFor="email">Email</label>
+                        <small class="p-error" *ngIf="recoInfo.dirty && recoInfo.invalid">Verifique el correo electronico.</small>
                     </span>
                     </div>
                 </div>
+           
                 <div class="col-3">
                     <div class="field">
                         <span class="p-float-label">
-                        <label htmlFor="status">Estado</label>
-                        <input formControlName="status" placeholder="1 Activo" type="number" pInputText id="status" required autofocus>
-                        <small class="p-error" *ngIf="text && !usuari.status">Name is required.</small>
+                            <input formControlName="status" placeholder="1 Activo" type="number" pInputText id="status" required autofocus>
+                            <label htmlFor="status">Estado</label>
+                        <small class="p-error" *ngIf="recoInfo.dirty && recoInfo.invalid">El estado es requerido</small>
                     </span>
                     </div>
                 </div>
+            
                 <div class="col-3">
                     <div class="field">
-                        <span class="p-float-label">
-                        <label htmlFor="idrol">Rol</label>
+                        
                         <p-dropdown [options]="roles" placeholder="Seleccione un Rol" formControlName="idrol"
-                            optionLabel="descripcion_rol" optionValue="idrol"></p-dropdown>
-                        <small class="p-error" *ngIf="text && !usuari.idrol">Name is required.</small>
-                    </span>
+                        optionLabel="descripcion_rol" optionValue="idrol"></p-dropdown>
+                        <label htmlFor="idrol"></label>
+                        <small class="p-error" *ngIf="recoInfo.dirty && recoInfo.invalid">El rol es requerido.</small>
+                    
                     </div>
                 </div>
+            
+            
                 <div class="col-3">
                     <div class="field">
-                        <span class="p-float-label">
-                        <label htmlFor="ubi">Lugar</label>
-                        <p-dropdown [options]="lugares" placeholder="Seleccione un lugar" formControlName="idlugar"
-                            optionLabel="ubicacion" optionValue="idlugar"></p-dropdown>
-                        <small class="p-error" *ngIf="text && !usuari.idlugar">Name is required.</small>
-                    </span>
-                    </div>
-                </div>
-            </div>
-            <div class="grid">
-                <div class="col-3">
-                    <div class="field">
-                        <span class="p-float-label">
-                        <label htmlFor="Area">Area</label>
                        
-                        <p-dropdown [options]="area" placeholder="Seleccione un Area" formControlName="idarea"
-                            optionLabel="nombre_area" optionValue="idarea"></p-dropdown>
-                        <small class="p-error" *ngIf="text && !usuari.idarea">Name is required.</small>
-                    </span>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="field">
-                        <span class="p-float-label">
-                        <label htmlFor="password">Contraseña</label>
-                        <input formControlName="password" pInputText id="password" required autofocus>
-                        <small class="p-error" *ngIf="text && !usuari.password">Name is required.</small>
-                    </span>
+                        <p-dropdown [options]="lugares" placeholder="Seleccione un lugar" formControlName="idlugar"
+                        optionLabel="ubicacion" optionValue="idlugar"></p-dropdown>
+                        <label htmlFor="Seleccione un lugar"></label>
+                        <small class="p-error" *ngIf="recoInfo.dirty && recoInfo.invalid">El lugar es requerido.</small>
+                    
                     </div>
                 </div>
             </div>
         </section>
+        <section class="container">
+            <div class="grid">
+                <div class="col-3">
+                    <div class="field">
+                        
+                        
+                        <p-dropdown [options]="area" placeholder="Seleccione un Area" formControlName="idarea"
+                        optionLabel="nombre_area" optionValue="idarea"></p-dropdown>
+                        <label htmlFor="Area"></label>
+                        <small class="p-error" *ngIf="recoInfo.dirty && recoInfo.invalid">El area es requerida</small>
+                   
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="field">
+                        <span class="p-float-label">
+                            <input formControlName="password" pInputText id="password" required autofocus>
+                            <label htmlFor="password">Contraseña</label>
+                        <small class="p-error" >La contraseña es requerida.</small>
+                    </span>
+                    </div>
+                </div>
+            </div>
+            </section>
         </form>
         
         <ng-template pTemplate="footer">
@@ -189,5 +204,6 @@
             
         </ng-template>
     </p-dialog>
-
+    <p-toast position="top-right"></p-toast>
+    <app-alerta></app-alerta>
 </div>

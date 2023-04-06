@@ -5,7 +5,7 @@ import { RespuestaDto } from '../model/respuestaDto';
 import { authGuardService } from '../../service/auth-guard.service';
 import { MessageService } from 'primeng/api';
 import { AlertaComponent } from 'src/app/util/alerta.component';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { insertUsuario } from '../model/insertUsuario';
 import { UsuarioService } from '../../service/usuario.service';
 import { Lugar } from '../model/lugar.model';
@@ -36,6 +36,7 @@ export class TableUsuarioComponent {
   lugares !: Lugar[];
   area !: lugarAreas[];
   roles !: Rol[];
+  recoInfo!:FormGroup;
   constructor(
     private fb: FormBuilder,
     private messageService: MessageService,
@@ -44,13 +45,15 @@ export class TableUsuarioComponent {
     private usuarioService: UsuarioService
   ) {
     this.token = this._authGuardService.getToken();
+    this.formulario();
   }
-  recoInfo = this.fb.group({
+  formulario(){
+  this.recoInfo = this.fb.group({
     num_empleado: ['', Validators.required],
     nombre: ['', Validators.required],
     apellidoP: ['', Validators.required],
     apellidoM: ['', Validators.required],
-    email: ['', Validators.required],
+    email: ['', Validators.required,Validators.email],
     status:['', Validators.required],
     idrol: ['', Validators.required],
     idlugar: ['', Validators.required],
@@ -59,6 +62,7 @@ export class TableUsuarioComponent {
     
     
   });
+}
   ngOnInit() {
     this.obtenerUsuarios();
     this.obtenerArea();
