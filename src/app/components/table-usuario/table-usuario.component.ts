@@ -46,7 +46,58 @@ export class TableUsuarioComponent {
   ) {
     this.token = this._authGuardService.getToken();
     this.formulario();
+
   }
+get num_empleadoNovalidado(){
+  
+  return this.recoInfo.get('num_empleado')?.invalid && this.recoInfo.get('num_empleado')?.touched;
+
+}
+get nombreNovalidado(){
+  
+  return this.recoInfo.get('nombre')?.invalid && this.recoInfo.get('nombre')?.touched;
+
+}
+get apellidoPNovalidado(){
+  
+  return this.recoInfo.get('apellidoP')?.invalid && this.recoInfo.get('apellidoP')?.touched;
+
+}
+get apellidoMNovalidado(){
+  
+  return this.recoInfo.get('apellidoM')?.invalid && this.recoInfo.get('apellidoM')?.touched;
+
+}
+get emailNovalidado(){
+  
+  return this.recoInfo.get('email')?.invalid && this.recoInfo.get('email')?.touched;
+
+}
+get statusNovalidado(){
+  
+  return this.recoInfo.get('status')?.invalid && this.recoInfo.get('status')?.touched;
+
+}
+get idrolNovalidado(){
+  
+  return this.recoInfo.get('idrol')?.invalid && this.recoInfo.get('idrol')?.touched;
+
+}
+get idlugarNovalidado(){
+  
+  return this.recoInfo.get('idlugar')?.invalid && this.recoInfo.get('idlugar')?.touched;
+
+}
+get idareaNovalidado(){
+  
+  return this.recoInfo.get('idarea')?.invalid && this.recoInfo.get('idarea')?.touched;
+
+}
+get passwordNovalidado(){
+  
+  return this.recoInfo.get('password')?.invalid && this.recoInfo.get('password')?.touched;
+
+}
   formulario(){
   this.recoInfo = this.fb.group({
     num_empleado: ['', Validators.required],

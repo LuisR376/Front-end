@@ -86,9 +86,15 @@
                 <div class="col-3">
                     <div class="field">
                         <span class="p-float-label">
-                            <input formControlName="num_empleado" pInputText id="num_empleado" />
+                            <input formControlName="num_empleado" 
+                            pInputText 
+                            id="num_empleado"
+                            [class.is-invalid]="num_empleadoNovalidado"
+                            required 
+                            autofocus
+                             />
                             <label htmlFor="num_empleado">N°Empleado</label>
-                        <small class="p-error" *ngIf="recoInfo.dirty && recoInfo.invalid">Numero de empleado es requerido.</small>
+                        <small class="p-error" *ngIf="num_empleadoNovalidado">Este campo es requerido</small>
                     </span>
                     </div>
                 </div>
@@ -96,9 +102,12 @@
                 <div class="col-3">
                     <div class="field">
                         <span class="p-float-label">
-                            <input formControlName="nombre" pInputText id="nombre">
+                            <input formControlName="nombre" 
+                            pInputText 
+                            id="nombre"
+                            [class.is-invalid]="nombreNovalidado">
                             <label htmlFor="nombre">Nombre</label>
-                        <small class="p-error" *ngIf="recoInfo.dirty && recoInfo.invalid">El nombre es requerido.</small>
+                            <small class="p-error" *ngIf="nombreNovalidado">El nombre es requerido.</small>
                     </span>
                     </div>
                 </div>
@@ -106,9 +115,9 @@
                     <div class="col-3">
                     <div class="field">
                         <span class="p-float-label">
-                            <input formControlName="apellidoP" pInputText id="apellidoP" required autofocus>
+                            <input formControlName="apellidoP" pInputText id="apellidoP" [class.is-invalid]="apellidoPNovalidado" >
                             <label htmlFor="apellidoP">A.Paterno</label>
-                        <small class="p-error" *ngIf="recoInfo.dirty && recoInfo.invalid">El Apellido es requerido.</small>
+                            <small class="p-error" *ngIf="apellidoPNovalidado">El apellido es requerido.</small>
                     </span>
                     </div>
                 </div>
@@ -116,9 +125,9 @@
                 <div class="col-3">
                     <div class="field">
                         <span class="p-float-label">
-                            <input formControlName="apellidoM" pInputText id="apellidoM" required autofocus>
+                            <input formControlName="apellidoM" pInputText id="apellidoM" [class.is-invalid]="apellidoMNovalidado" required autofocus>
                             <label htmlFor="apellidoM">A.Materno</label>
-                        <small class="p-error" *ngIf="recoInfo.dirty && recoInfo.invalid">El Apellido es requerido.</small>
+                            <small class="p-error" *ngIf="apellidoMNovalidado">El apellido es requerido.</small>
                     </span>
                     </div>
                 </div>
@@ -131,9 +140,9 @@
                 <div class="col-3">
                     <div class="field">
                         <span class="p-float-label">
-                            <input formControlName="email" pInputText id="email" required autofocus>
+                            <input formControlName="email" pInputText id="email" [class.is-invalid]="emailNovalidado" required autofocus>
                             <label htmlFor="email">Email</label>
-                        <small class="p-error" *ngIf="recoInfo.dirty && recoInfo.invalid">Verifique el correo electronico.</small>
+                            <small class="p-error" *ngIf="emailNovalidado">El email es requerido.</small>
                     </span>
                     </div>
                 </div>
@@ -141,9 +150,9 @@
                 <div class="col-3">
                     <div class="field">
                         <span class="p-float-label">
-                            <input formControlName="status" placeholder="1 Activo" type="number" pInputText id="status" required autofocus>
+                            <input formControlName="status" placeholder="1 Activo" type="number" pInputText id="status" [class.is-invalid]="statusNovalidado" required autofocus>
                             <label htmlFor="status">Estado</label>
-                        <small class="p-error" *ngIf="recoInfo.dirty && recoInfo.invalid">El estado es requerido</small>
+                            <small class="p-error" *ngIf="statusNovalidado">Estado es requerido.</small>
                     </span>
                     </div>
                 </div>
@@ -151,10 +160,10 @@
                 <div class="col-3">
                     <div class="field">
                         
-                        <p-dropdown [options]="roles" placeholder="Seleccione un Rol" formControlName="idrol"
+                        
+                        <p-dropdown [options]="roles" placeholder="Seleccione un Rol" formControlName="idrol" [class.is-invalid]="idrolNovalidado"
                         optionLabel="descripcion_rol" optionValue="idrol"></p-dropdown>
-                        <label htmlFor="idrol"></label>
-                        <small class="p-error" *ngIf="recoInfo.dirty && recoInfo.invalid">El rol es requerido.</small>
+                        <small class="p-error" *ngIf="idrolNovalidado">Email es requerido.</small>
                     
                     </div>
                 </div>
@@ -163,11 +172,11 @@
                 <div class="col-3">
                     <div class="field">
                        
-                        <p-dropdown [options]="lugares" placeholder="Seleccione un lugar" formControlName="idlugar"
+                        <p-dropdown [options]="lugares" placeholder="Seleccione un lugar" formControlName="idlugar" [class.is-invalid]="idlugarNovalidado"
                         optionLabel="ubicacion" optionValue="idlugar"></p-dropdown>
                         <label htmlFor="Seleccione un lugar"></label>
-                        <small class="p-error" *ngIf="recoInfo.dirty && recoInfo.invalid">El lugar es requerido.</small>
-                    
+                        
+                        <small class="p-error" *ngIf="idlugarNovalidado">Lugar es requerido.</small>
                     </div>
                 </div>
             </div>
@@ -178,19 +187,18 @@
                     <div class="field">
                         
                         
-                        <p-dropdown [options]="area" placeholder="Seleccione un Area" formControlName="idarea"
+                        <p-dropdown [options]="area" placeholder="Seleccione un Area" formControlName="idarea" [class.is-invalid]="idareaNovalidado"
                         optionLabel="nombre_area" optionValue="idarea"></p-dropdown>
-                        <label htmlFor="Area"></label>
-                        <small class="p-error" *ngIf="recoInfo.dirty && recoInfo.invalid">El area es requerida</small>
-                   
+                        
+                        <small class="p-error" *ngIf="idareaNovalidado">Area es requerido.</small>
                     </div>
                 </div>
                 <div class="col-3">
                     <div class="field">
                         <span class="p-float-label">
-                            <input formControlName="password" pInputText id="password" required autofocus>
+                            <input formControlName="password" pInputText id="password" [class.is-invalid]="passwordNovalidado" required autofocus>
                             <label htmlFor="password">Contraseña</label>
-                        <small class="p-error" >La contraseña es requerida.</small>
+                            <small class="p-error" *ngIf="passwordNovalidado">La contraseña es requerida.</small>
                     </span>
                     </div>
                 </div>
