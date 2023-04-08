@@ -6,12 +6,8 @@
                 <p>Alta de activos</p>
             </div>
         </div>
-       
-
-       
-         
-                <p-toast></p-toast>
-            <p-steps  [model]="items" [readonly]="false" [(activeIndex)]="activeIndex" (activeIndexChange)="onActiveIndexChange($event)"></p-steps>
+        <p-toast></p-toast>
+        <p-steps  [model]="items" [readonly]="false" [(activeIndex)]="activeIndex" (activeIndexChange)="onActiveIndexChange($event)"></p-steps>
          
         
             <div *ngIf="activeIndex === 0">
@@ -21,13 +17,14 @@
                         <ng-template pTemplate="subtitle">A quien pertenece el activo</ng-template>
                         <ng-template pTemplate="content">
                             <div class="form-group">
-                                <label for="firstname">Tipo de Activo</label> <!--HACER ESTE INPUT UN SELECT-->
+                                <label for="pertenencia">Tipo de Activo</label> <!--HACER ESTE INPUT UN SELECT  empresa o personal-->
                                 <input formControlName="pertenencia" type="text" required pInputText />
                                 <p></p><!--if de validacion-->
                             </div>
                             <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" id="email" class="form-control" formControlName="email">
+                                <label for="pertenencia">Tipo de Activo</label> 
+                                <input formControlName="pertenencia" type="text" required pInputText />
+                                <p></p><!--if de validacion-->
                             </div>
                         </ng-template>
 
@@ -92,48 +89,202 @@
             </div>
             <div *ngIf="activeIndex === 2">
                 <form [formGroup]="step3Form">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" class="form-control" formControlName="name">
-                    </div>
+                    <p-card>
+                        <ng-template pTemplate="title">Lugar y Area</ng-template>
+                        <ng-template pTemplate="subtitle">Lugar y area del activo</ng-template>
+                        <ng-template pTemplate="content">
+                            <div class="grid">
+                                <div class="form-group col-6">
+                                    <span class="p-float-label">
+                                        <label for="float-input">Lugar</label>
+                                        <input formControlName="idlugar" type="text" pInputText>
+                                        <p></p><!--if de validacion-->
+                                    </span>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <span class="p-float-label">
+                                            <label for="float-input">Area</label>
+                                            <input formControlName="idarea" type="text" pInputText>
+                                            <p></p><!--if de validacion-->
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    
+                                </div>
+                                <div class="col-6">
+        
+                                </div>
+                            </div>
+                        </ng-template>
 
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" class="form-control" formControlName="email">
-                    </div>
+                        <ng-template pTemplate="footer">
+                            <div class="grid grid-nogutter justify-content-end">
+                                <p-button type="button" label="Siguiente" (click)="activeIndex = 3"
+                                    icon="pi pi-angle-right" iconPos="right"></p-button>
+                                <p></p><!--On clic de siguiente pagina-->
+                            </div>
+                        </ng-template>
 
-                    <button type="button" class="btn btn-primary" (click)="activeIndex = 3">Next</button>
+                    </p-card>
                 </form>
             </div>
 
             <div *ngIf="activeIndex === 3">
                 <form [formGroup]="step4Form">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" class="form-control" formControlName="name">
-                    </div>
+                    <p-card>
+                        <ng-template pTemplate="title"> Datos Del Equipo</ng-template>
+                        <ng-template pTemplate="subtitle">Descripcion de todo el equipo</ng-template>
+                        <ng-template pTemplate="content">
+                            <div class="grid">
+                                <div class="form-group col-3">
+                                    <span class="p-float-label">
+                                        <label for="float-input">Nombre del Equipo</label>
+                                        <input formControlName="nombre" type="text" pInputText>
+                                        <p></p><!--if de validacion-->
+                                    </span>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <span class="p-float-label">
+                                            <label for="float-input">Numero de Serie</label>
+                                            <input formControlName="num_serie" type="text" pInputText>
+                                            <p></p><!--if de validacion-->
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-6">
+                                   <!--Boton del modal disco duro-->
+                                   <button>Disco duro</button>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <span class="p-float-label">
+                                            <label for="float-input">Valor monetario</label>
+                                            <input formControlName="valor_monetario" type="text" pInputText>
+                                            <p></p><!--if de validacion-->
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <span class="p-float-label">
+                                            <label for="float-input">Modelo</label>
+                                            <input formControlName="modelo" type="text" pInputText>
+                                            <p></p><!--if de validacion-->
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <!--Boton modal de Ram-->
+                                    <button>ram</button>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <span class="p-float-label">
+                                            <label for="float-input">Procesador</label>
+                                            <input formControlName="procesador" type="text" pInputText>
+                                            <p></p><!--if de validacion-->
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <span class="p-float-label">
+                                            <label for="float-input">Marca</label>
+                                            <input formControlName="marca" type="text" pInputText>
+                                            <p></p><!--if de validacion-->
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <span class="p-float-label">
+                                            <label for="float-input">Sistema Operativo</label>
+                                            <input formControlName="Sistema Operativo" type="text" pInputText>
+                                            <p></p><!--if de validacion-->
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <span class="p-float-label">
+                                            <label for="float-input">Folio al Accesorio</label>
+                                            <input formControlName="Folio" type="text" pInputText>
+                                            <p></p><!--if de validacion-->
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
 
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" class="form-control" formControlName="email">
-                    </div>
+                        <ng-template pTemplate="footer">
+                            <div class="grid grid-nogutter justify-content-end">
+                                <p-button type="button" label="Siguiente" (click)="activeIndex = 4"
+                                    icon="pi pi-angle-right" iconPos="right"></p-button>
+                                <p></p><!--On clic de siguiente pagina-->
+                            </div>
+                        </ng-template>
 
-                    <button type="button" class="btn btn-primary" (click)="activeIndex = 4">Next</button>
+                    </p-card>
                 </form>
             </div>
             <div *ngIf="activeIndex === 4">
                 <form [formGroup]="step5Form">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" class="form-control" formControlName="name">
-                    </div>
+                    <p-card>
+                        <ng-template pTemplate="title"> Accesorio</ng-template>
+                        <ng-template pTemplate="subtitle">Datos del accesorio a agregar</ng-template>
+                        <ng-template pTemplate="content">
+                            <div class="grid">
+                                <div class="form-group col-3">
+                                    <span class="p-float-label">
+                                        <label for="float-input">Tipo de accesorio</label>
+                                        <input formControlName="tipo_accesorio" type="text" pInputText>
+                                        <p></p><!--if de validacion-->
+                                    </span>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <span class="p-float-label">
+                                            <label for="float-input">Modelo</label>
+                                            <input formControlName="modelo" type="text" pInputText>
+                                            <p></p><!--if de validacion-->
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-6">
+                                    <span class="p-float-label">
+                                        <label for="float-input">N° de Serie</label>
+                                        <input formControlName="num_serie" type="text" pInputText>
+                                        <p></p><!--if de validacion-->
+                                    </span>
+                                </div>
+                                <div class="col-3">
+                                    <span class="p-float-label">
+                                        <label for="float-input">Descripcion</label>
+                                        <input formControlName="descripcion" type="text" pInputText>
+                                        <p></p><!--if de validacion-->
+                                    </span>
+                                </div>
+                                <div class="col-6">
+                                    <span class="p-float-label">
+                                        <label for="float-input">Estado</label>
+                                        <input formControlName="status" type="text" pInputText>
+                                        <p></p><!--if de validacion-->
+                                    </span>
+                                </div>
+                            </div>
+                        </ng-template>
 
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" class="form-control" formControlName="email">
-                    </div>
+                        <ng-template pTemplate="footer">
+                            <div class="grid grid-nogutter justify-content-end">
+                                <p-button type="button" label="Guardar" (click)="activeIndex = 5" icon="pi pi-check" iconPos="right"></p-button>
+                                <p></p><!--On clic de siguiente pagina-->
+                            </div>
+                        </ng-template>
 
-                    <button type="button" class="btn btn-primary" (click)="activeIndex = 5">Next</button>
+                    </p-card>
                 </form>
             </div>
 
