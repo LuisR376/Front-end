@@ -26,6 +26,7 @@ export class NuevoActivoComponent implements OnInit {
     this.token = this._authGuardService.getToken();
   }
   token: string;
+  displayAddModal: boolean = false;
   activoInformacion!: MenuItem[];
   tablaActivos !: Activos;
   tipo_activo_desc !: tipoactivo[];
@@ -33,11 +34,11 @@ export class NuevoActivoComponent implements OnInit {
   opciones = [  { label: 'Empresa', value: 'Empresa' },
               { label: 'Personal', value: 'Personal' }];
   items = [
-    { label: 'Tipo de Activo' },
-    { label: 'Datos del cliente' },
-    { label: 'Ubicacion' },
-    { label: 'Datos del Equipo' },
-    { label: 'Accesorio' }
+    { label: 'Tipo de Activo'           },
+    { label: 'Datos del cliente'        },
+    { label: 'Ubicacion'                },
+    { label: 'Datos del Activo'         },
+    { label: 'Licencias y Mantenimiento'}
   ];
   activeIndex = 0;
   step1Form!: FormGroup;
@@ -50,27 +51,51 @@ export class NuevoActivoComponent implements OnInit {
   ngOnInit() {
     this.step1Form = this.fb.group({
       tipo_activo_desc: ['', [Validators.required]],
-      pertenencia: ['', [Validators.required]]
+           pertenencia: ['', [Validators.required]]
     });
 
     this.step2Form = this.fb.group({
       nombre_propietario: ['', [Validators.required]],
-      num_empleado: ['', [Validators.required]],
-      password: ['', [Validators.required]]
+            num_empleado: ['', [Validators.required]],
+                password: ['', [Validators.required]]
     });
 
     this.step3Form = this.fb.group({
       idlugar: ['', [Validators.required]],
-      idarea: ['', [Validators.required]]
+       idarea: ['', [Validators.required]]
     });
 
     this.step4Form = this.fb.group({
-      nombre_equipo: ['', [Validators.required]],
-      valor_monetario: ['', [Validators.required]]
+      tipo_de_pc        : ['', [Validators.required]],
+      modelo            : ['', [Validators.required]],
+      num_serie         : ['', [Validators.required]],
+      folio_compra      : ['', [Validators.required]],
+      procesador        : ['', [Validators.required]],
+      iddiscoduro       : ['', [Validators.required]],
+      idram             : ['', [Validators.required]],
+      marca             : ['', [Validators.required]],
+      Sistema_Operativo : ['', [Validators.required]],
+      idioma            : ['', [Validators.required]]
+      
     });
 
     this.step5Form = this.fb.group({
-      descripcion: ['', [Validators.required]]
+      nombre_equipo         : ['', [Validators.required]],
+      fecha_mantenimiento   : ['', [Validators.required]],
+      valor_monetario       : ['', [Validators.required]],
+      estado                : ['', [Validators.required]],
+      descripcion           : ['', [Validators.required]],
+      tipo_de_conexion      : ['', [Validators.required]],
+      iddetallepc           : ['', [Validators.required]],
+      idLicencias           : ['', [Validators.required]],
+      host_teamviewer       : ['', [Validators.required]],
+      password_teamviewer   : ['', [Validators.required]],
+      calculoEstimado       : ['', [Validators.required]],
+      marca                 : ['', [Validators.required]],
+      modelo                : ['', [Validators.required]],
+      num_inventario        : ['', [Validators.required]],
+      fecha_compra          : ['', [Validators.required]],
+      accesorio             : ['', [Validators.required]]
     });
   }
   onActiveIndexChange(event: any) {
@@ -93,5 +118,12 @@ export class NuevoActivoComponent implements OnInit {
         this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
       }
     });
+  }
+  openNew() {
+    this.displayAddModal = true;
+
+  }
+  closeModal() {
+    this.displayAddModal = false;
   }
 }
