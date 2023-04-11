@@ -7,7 +7,7 @@
             </div>
         </div>
         <p-toast></p-toast>
-        <p-steps  [model]="items" [readonly]="false" [(activeIndex)]="activeIndex" (activeIndexChange)="onActiveIndexChange($event)"></p-steps>
+        <p-steps  [model]="items" [readonly]="true" [(activeIndex)]="activeIndex" (activeIndexChange)="onActiveIndexChange($event)"></p-steps>
          
         
             <div *ngIf="activeIndex === 0">
@@ -17,27 +17,31 @@
                         <ng-template pTemplate="subtitle">A quien pertenece el activo</ng-template>
                         <ng-template pTemplate="content">
                             <div class="form-group">
-                                <label for="pertenencia">Tipo de Activo</label> <!--HACER ESTE INPUT UN SELECT  empresa o personal-->
-                                <input formControlName="pertenencia" type="text" required pInputText />
+                                <label for="ubi">Seleccione Tipo de activo</label>
+                                <p-dropdown 
+                                [options]="tipo_activo_desc" 
+                                placeholder="Seleccione Tipo de activo" 
+                                formControlName="tipo_activo_desc" 
+                                optionLabel="descripcion" 
+                                optionValue="idtipoactivo" ></p-dropdown>
                                 <p></p><!--if de validacion-->
                             </div>
                             <div class="form-group">
-                                <label for="pertenencia">Tipo de Activo</label> 
-                                <input formControlName="pertenencia" type="text" required pInputText />
+                                    <p-dropdown 
+                                    formControlName="pertenencia" [options]="opciones" placeholder="Pertenencia" [showClear]="true"></p-dropdown>
                                 <p></p><!--if de validacion-->
                             </div>
                         </ng-template>
 
                         <ng-template pTemplate="footer">
                             <div class="grid grid-nogutter justify-content-end">
-                                <p-button type="button" label="Siguiente" (click)="activeIndex = 1"
-                                    icon="pi pi-angle-right" iconPos="right"></p-button>
-                                <p></p><!--On clic de siguiente pagina-->
+                                <p-button type="button" label="Siguiente" (click)= 'activeIndex = 1' icon="pi pi-angle-right" iconPos="right"></p-button>
                             </div>
                         </ng-template>
 
                     </p-card>
                 </form>
+                
             </div>
 
             <div *ngIf="activeIndex === 1">
@@ -50,7 +54,7 @@
                                 <div class="form-group col-6">
                                     <span class="p-float-label">
                                         <label for="float-input">Nombre del propietario</label>
-                                        <input formControlName="nombre" type="text" pInputText>
+                                        <input formControlName="nombre_propietario" type="text" pInputText>
                                         <p></p><!--if de validacion-->
                                     </span>
                                 </div>
@@ -78,8 +82,7 @@
 
                         <ng-template pTemplate="footer">
                             <div class="grid grid-nogutter justify-content-end">
-                                <p-button type="button" label="Siguiente" (click)="activeIndex = 2"
-                                    icon="pi pi-angle-right" iconPos="right"></p-button>
+                                <p-button type="button" label="Siguiente" (click)="activeIndex = 2" icon="pi pi-angle-right" iconPos="right"></p-button>
                                 <p></p><!--On clic de siguiente pagina-->
                             </div>
                         </ng-template>
@@ -121,8 +124,7 @@
 
                         <ng-template pTemplate="footer">
                             <div class="grid grid-nogutter justify-content-end">
-                                <p-button type="button" label="Siguiente" (click)="activeIndex = 3"
-                                    icon="pi pi-angle-right" iconPos="right"></p-button>
+                                <p-button type="button" label="Siguiente" (click)="activeIndex = 3" icon="pi pi-angle-right" iconPos="right"></p-button>
                                 <p></p><!--On clic de siguiente pagina-->
                             </div>
                         </ng-template>
@@ -141,7 +143,7 @@
                                 <div class="form-group col-3">
                                     <span class="p-float-label">
                                         <label for="float-input">Nombre del Equipo</label>
-                                        <input formControlName="nombre" type="text" pInputText>
+                                        <input formControlName="nombre_equipo" type="text" pInputText>
                                         <p></p><!--if de validacion-->
                                     </span>
                                 </div>
@@ -221,7 +223,7 @@
 
                         <ng-template pTemplate="footer">
                             <div class="grid grid-nogutter justify-content-end">
-                                <p-button type="button" label="Siguiente" (click)="activeIndex = 4"
+                                <p-button type="button" label="Siguiente" (onClick)="activeIndex = 4"
                                     icon="pi pi-angle-right" iconPos="right"></p-button>
                                 <p></p><!--On clic de siguiente pagina-->
                             </div>
@@ -279,7 +281,7 @@
 
                         <ng-template pTemplate="footer">
                             <div class="grid grid-nogutter justify-content-end">
-                                <p-button type="button" label="Guardar" (click)="activeIndex = 5" icon="pi pi-check" iconPos="right"></p-button>
+                                <p-button type="button" label="Guardar" (input)="activeIndex = 5" icon="pi pi-check" iconPos="right"></p-button>
                                 <p></p><!--On clic de siguiente pagina-->
                             </div>
                         </ng-template>

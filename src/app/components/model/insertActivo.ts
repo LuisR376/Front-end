@@ -15,7 +15,9 @@ export class insertActivo{
    public host_teamviewer:string| undefined | null,
    public password_teamviewer:string| undefined | null,
    public calculoEstimado:string| undefined | null,
-   public Pertenencia:string| undefined | null
+   public Pertenencia:string| undefined | null,
+
+   public tipo_activo_desc: string | undefined  | null
     ){}
     
 }

@@ -55,7 +55,12 @@
         </div>
         <div class="field">
             <label for="ubi">Lugar</label>
-            <p-dropdown [options]="lugares" placeholder="Seleccione un lugar" formControlName="idlugar" optionLabel="ubicacion" optionValue="idlugar" ></p-dropdown>
+            <p-dropdown 
+            [options]="lugares" 
+            placeholder="Seleccione un lugar" 
+            formControlName="idlugar" 
+            optionLabel="ubicacion" 
+            optionValue="idlugar" ></p-dropdown>
             <small class="p-error" *ngIf="agregarAreaForm.touched && agregarAreaForm.invalid">Elige un lugar</small>
         </div>
         </form>

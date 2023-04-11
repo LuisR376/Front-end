@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { MessageService } from "primeng/api";
 import { authGuardService } from "src/app/service/auth-guard.service";
 import { CustomerService } from '../../service/CustomerService';
 import { Activos } from '../model/activos.model'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { tipoactivo } from '../model/tipoactivo.model';
+import { RespuestaDto } from '../model/respuestaDto';
+import { AlertaComponent } from 'src/app/util/alerta.component';
 
 @Component({
   selector: 'app-nuevo-activo',
@@ -12,16 +15,23 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./nuevo-activo.component.css']
 })
 export class NuevoActivoComponent implements OnInit {
+  @ViewChild(AlertaComponent, { static: false }) mensajeAlerta!: AlertaComponent;
   constructor(
     private messageService: MessageService,
     public _authGuardService: authGuardService,
     public ticketService: CustomerService,
+    private customerService: CustomerService,
     private fb: FormBuilder
   ) {
-
+    this.token = this._authGuardService.getToken();
   }
+  token: string;
   activoInformacion!: MenuItem[];
   tablaActivos !: Activos;
+  tipo_activo_desc !: tipoactivo[];
+  pertenencia!: any[];
+  opciones = [  { label: 'Empresa', value: 'Empresa' },
+              { label: 'Personal', value: 'Personal' }];
   items = [
     { label: 'Tipo de Activo' },
     { label: 'Datos del cliente' },
@@ -37,10 +47,10 @@ export class NuevoActivoComponent implements OnInit {
   step5Form!: FormGroup;
 
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.step1Form = this.fb.group({
-      pertenencias: ['', [Validators.required]],
-      idtipoactivo: ['', [Validators.required, Validators.email]]
+      tipo_activo_desc: ['', [Validators.required]],
+      pertenencia: ['', [Validators.required]]
     });
 
     this.step2Form = this.fb.group({
@@ -64,6 +74,24 @@ export class NuevoActivoComponent implements OnInit {
     });
   }
   onActiveIndexChange(event: any) {
+    console.log('Nuevo índice activo:', event.index);
+  }
+  obtenertipoActivo() {
+    console.log("Token", this.token);
+    this.customerService.getLugar(this.token).subscribe({
+      next: (resp: RespuestaDto) => {
+        console.log("TipoActivo", resp);
+        let respuestaDto = <RespuestaDto>resp;
+        if (respuestaDto.ok) {
+          this.tipo_activo_desc = resp.addenda;
+        } else {
 
+        } // if
+      },
+      error: (error) => {
+        let mensaje = <any>error;
+        this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
+      }
+    });
   }
 }
