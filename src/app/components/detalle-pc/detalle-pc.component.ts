@@ -4,9 +4,9 @@ import { MessageService } from "primeng/api";
 import { authGuardService } from "src/app/service/auth-guard.service";
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { AlertaComponent } from 'src/app/util/alerta.component';
-import { CustomerService } from '../service/CustomerService';
-import { detallePc } from '../components/model/detallePc.model';
-import { RespuestaDto } from '../components/model/respuestaDto';
+import { CustomerService } from '../../service/CustomerService';
+import { detallePc } from '../model/detallePc.model';
+import { RespuestaDto } from '../model/respuestaDto';
 
 @Component({
   selector: 'app-detalle-pc',

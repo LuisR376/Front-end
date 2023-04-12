@@ -10,48 +10,47 @@
                 <button pButton pRipple type="button" (click)="openNew('Dd')" label="Disco Duro"></button>
             </div>
         </div>
+        <section>
+            <form [formGroup]="recoInfo">
+                <div>
+                    <div class="grid">
+                        <div class="form-group col-3">
+                        <span class="p-float-label">
+                            <input formControlName="tipo_de_pc" type="text" pInputText>
+                            <label for="float-input">Tipo de PC</label>
+                            <p></p><!--if de validacion-->
+                        </span>
+                    </div>
+                    <div class="col-3 ">
+                        <div class="form-group">
+                            <span class="p-float-label">
+                                <input formControlName="num_serie" type="text" pInputText>
+                                <label for="float-input">Numero de Serie</label>
+                                <p></p><!--if de validacion-->
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <p-multiSelect placeholder="Seleccione Disco Duro" formControlName="iddiscoduro"
+                                optionLabel="name"></p-multiSelect> <!--[options]=-->
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <span class="p-float-label">
+                            <input formControlName="folio_compra" type="text" pInputText>
+                            <label for="float-input">folio_compra</label>
+                            <p></p><!--if de validacion-->
+                        </span>
+                    </div>
+                    
+                </div>
+            
+            </div>
+            </form>
+            </section>
     </div>
 </section>
-<section>
-<form [formGroup]="recoInfo">
-    <div>
-        <div class="grid">
-            <div class="form-group col-3">
-            <span class="p-float-label">
-                <input formControlName="tipo_de_pc" type="text" pInputText>
-                <label for="float-input">Tipo de PC</label>
-                <p></p><!--if de validacion-->
-            </span>
-        </div>
-        <div class="col-3 ">
-            <div class="form-group">
-                <span class="p-float-label">
-                    <input formControlName="num_serie" type="text" pInputText>
-                    <label for="float-input">Numero de Serie</label>
-                    <p></p><!--if de validacion-->
-                </span>
-            </div>
-        </div>
-        <div class="col-3">
-            <div class="form-group">
-                <p-multiSelect placeholder="Seleccione Disco Duro" formControlName="iddiscoduro"
-                    optionLabel="name"></p-multiSelect> <!--[options]=-->
-            </div>
-        </div>
-        <div class="col-3">
-            <span class="p-float-label">
-                <input formControlName="folio_compra" type="text" pInputText>
-                <label for="float-input">folio_compra</label>
-                <p></p><!--if de validacion-->
-            </span>
-        </div>
-        
-    </div>
-
-</div>
-</form>
-</section>
-
 
 
 

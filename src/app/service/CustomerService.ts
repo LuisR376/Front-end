@@ -35,7 +35,7 @@ export class CustomerService {
             return this._apiService.sendGetRequest(this.url + "rol/get",token);
         }
         getDetallePc(token:string): Observable<RespuestaDto> {
-            return this._apiService.sendGetRequest(this.url + "detallepc/get",token);
+            return this._apiService.sendGetRequest(this.url + "detallePc/detallePcget",token);
         }
         
         saveTicket(datosT : insertTicket): Observable<RespuestaDto> {
