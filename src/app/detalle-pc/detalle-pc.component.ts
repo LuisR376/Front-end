@@ -2,10 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { MessageService } from "primeng/api";
 import { authGuardService } from "src/app/service/auth-guard.service";
-
-
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { AlertaComponent } from 'src/app/util/alerta.component';
 import { CustomerService } from '../service/CustomerService';
 import { detallePc } from '../components/model/detallePc.model';
@@ -49,15 +46,14 @@ export class DetallePcComponent {
   ngOnInit() {
     this.getdetallePc();
   }
-  openNew() {
-    let displayAddModal : boolean = true;
-    if (displayAddModal == true) {
-      displayAddModal == true;
-    }else{
-    let  displayAddModalDd : boolean = true;
-    displayAddModalDd == true;
+  openNew(modal: string) {
+    if (modal === 'ram') {
+      this.displayAddModal = true;
+    } else if (modal === 'Dd') {
+      this.displayAddModalDd = true;
+    } else {
+      console.log('Modal no encontrado');
     }
-
   }
 
   closeModal() {
@@ -65,7 +61,7 @@ export class DetallePcComponent {
   }
   getdetallePc() {
     console.log("Token", this.token);
-    this.customerService.getArea(this.token).subscribe({
+    this.customerService.getDetallePc(this.token).subscribe({
       next: (resp: RespuestaDto) => {
         console.log("Obtener DetallePc", resp);
         let respuestaDto = <RespuestaDto>resp;

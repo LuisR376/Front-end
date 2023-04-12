@@ -6,64 +6,135 @@
                 <p>Datos de la PC</p>
             </div>
             <div class="inline-flex">
-                <button pButton pRipple type="button" (click)="openNew()" label="RAM" class="mr-2"></button>
-                <button pButton pRipple type="button" (click)="openNew()" label="Disco Duro"></button>
+                <button pButton pRipple type="button" (click)="openNew('ram')" label="RAM" class="mr-2"></button>
+                <button pButton pRipple type="button" (click)="openNew('Dd')" label="Disco Duro"></button>
             </div>
         </div>
-
+    </div>
+</section>
+<section>
+<form [formGroup]="recoInfo">
+    <div>
+        <div class="grid">
+            <div class="form-group col-3">
+            <span class="p-float-label">
+                <input formControlName="tipo_de_pc" type="text" pInputText>
+                <label for="float-input">Tipo de PC</label>
+                <p></p><!--if de validacion-->
+            </span>
+        </div>
+        <div class="col-3 ">
+            <div class="form-group">
+                <span class="p-float-label">
+                    <input formControlName="num_serie" type="text" pInputText>
+                    <label for="float-input">Numero de Serie</label>
+                    <p></p><!--if de validacion-->
+                </span>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-group">
+                <p-multiSelect placeholder="Seleccione Disco Duro" formControlName="iddiscoduro"
+                    optionLabel="name"></p-multiSelect> <!--[options]=-->
+            </div>
+        </div>
+        <div class="col-3">
+            <span class="p-float-label">
+                <input formControlName="folio_compra" type="text" pInputText>
+                <label for="float-input">folio_compra</label>
+                <p></p><!--if de validacion-->
+            </span>
+        </div>
+        
     </div>
 
+</div>
+</form>
 </section>
-<p-dialog header="Header" [(visible)]="displayAddModal" [modal]="true" [style]="{height:'30vw', width: '50vw' }"
-    styleClass="p-fluid">
-    <ng-template pTemplate="header">
-        <span class="text-xl font-bold">Agregar Memoria Ram</span>
-    </ng-template>
-    <form [formGroup]="recoInfo"><!--(ngSubmit)="addProduct()"-->
-        <div class="field">
-            <label for="nombre">nombre</label>
-            <input formControlName="nombre" pInputText required autofocus>
-        </div>
-        <div class="field">
-            <label for="capacidad">capacidad</label>
-            <input formControlName="capacidad" pInputText required autofocus>
-        </div>
-        <div class="field">
-            <label for="marca">marca</label>
-            <input formControlName="marca" pInputText required autofocus>
-        </div>
-    </form>
-    <ng-template pTemplate="footer">
-        <p-button icon="pi pi-times" (click)="closeModal()" label="Cancelar" styleClass="p-button-text"></p-button>
-        <p-button type="button" icon="pi pi-check" label="Agregar"
-            styleClass="p-button-text"></p-button><!--(click)="addProduct()"-->
 
-    </ng-template>
-</p-dialog>
 
-<p-dialog header="Header" [(visible)]="displayAddModalDd" [modal]="false" [style]="{height:'30vw', width: '50vw' }"
-    styleClass="p-fluid">
-    <ng-template pTemplate="header">
-        <span class="text-xl font-bold">Agregar Disco Duro</span>
-    </ng-template>
-    <form [formGroup]="recoInfo"><!--(ngSubmit)="addProduct()"-->
-        <div class="field">
-            <label for="iddiscoduro">cap_almacenamiento</label>
-            <input formControlName="iddiscoduro" pInputText required autofocus>
-        </div>
-        <div class="field">
-            <label for="tecnologia_M_S">tecnologia_M_S</label>
-            <input formControlName="tecnologia_M_S" pInputText required autofocus>
-        </div>
-        <div class="field">
-            <label for="marca">marca</label>
-            <input formControlName="marca" pInputText required autofocus>
-        </div>
-    </form>
-    <ng-template pTemplate="footer">
-        <p-button icon="pi pi-times" (click)="closeModal()" label="Cancelar" styleClass="p-button-text"></p-button>
-        <p-button type="button" icon="pi pi-check" label="Agregar"
-            styleClass="p-button-text"></p-button><!--(click)="addProduct()"-->
 
-    </ng-template>
-</p-dialog>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div *ngIf="displayAddModal">
+    <p-dialog header="Header" [(visible)]="displayAddModal" [modal]="true" [style]="{height:'30vw', width: '50vw' }"
+        styleClass="p-fluid">
+        <ng-template pTemplate="header">
+            <span class="text-xl font-bold">Agregar Memoria Ram</span>
+        </ng-template>
+        <form [formGroup]="recoInfo"><!--(ngSubmit)="addProduct()"-->
+            <div class="field">
+                <label for="nombre">nombre</label>
+                <input formControlName="nombre" pInputText required autofocus>
+            </div>
+            <div class="field">
+                <label for="capacidad">capacidad</label>
+                <input formControlName="capacidad" pInputText required autofocus>
+            </div>
+            <div class="field">
+                <label for="marca">marca</label>
+                <input formControlName="marca" pInputText required autofocus>
+            </div>
+        </form>
+        <ng-template pTemplate="footer">
+            <p-button icon="pi pi-times" (click)="closeModal()" label="Cancelar" styleClass="p-button-text"></p-button>
+            <p-button type="button" icon="pi pi-check" label="Agregar"
+                styleClass="p-button-text"></p-button><!--(click)="addProduct()"-->
+
+        </ng-template>
+    </p-dialog>
+</div>
+<div *ngIf="displayAddModalDd">
+    <p-dialog header="Header" [(visible)]="displayAddModalDd" [modal]="true" [style]="{height:'30vw', width: '50vw' }"
+        styleClass="p-fluid">
+        <ng-template pTemplate="header">
+            <span class="text-xl font-bold">Agregar Disco Duro</span>
+        </ng-template>
+        <form [formGroup]="recoInfo"><!--(ngSubmit)="addProduct()"-->
+            <div class="field">
+                <label for="iddiscoduro">cap_almacenamiento</label>
+                <input formControlName="iddiscoduro" pInputText required autofocus>
+            </div>
+            <div class="field">
+                <label for="tecnologia_M_S">tecnologia_M_S</label>
+                <input formControlName="tecnologia_M_S" pInputText required autofocus>
+            </div>
+            <div class="field">
+                <label for="marca">marca</label>
+                <input formControlName="marca" pInputText required autofocus>
+            </div>
+        </form>
+        <ng-template pTemplate="footer">
+            <p-button icon="pi pi-times" (click)="closeModal()" label="Cancelar" styleClass="p-button-text"></p-button>
+            <p-button type="button" icon="pi pi-check" label="Agregar"
+                styleClass="p-button-text"></p-button><!--(click)="addProduct()"-->
+
+        </ng-template>
+    </p-dialog>
+</div>
