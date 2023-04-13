@@ -6,11 +6,20 @@ import { RespuestaDto } from '../model/respuestaDto';
 import { AlertaComponent } from '../../util/alerta.component';
 import { authGuardService } from '../../service/auth-guard.service';
 import { Usuario } from '../model/usuario.model';
-import { FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { insertTicket } from '../model/insertTicket';
+import { ElementRef } from '@angular/core';
+
 
 import { Imagen } from '../model/imagene.model';
 import { ImagenesBase64 } from '../model/imagenes.model';
+import { EstatusTicket } from '../model/estatusTicket.model';
+import { lugarAreas } from '../model/lugarArea.model';
+import { Lugar } from '../model/lugar.model';
+import { FolioService } from 'src/app/service/folio.service';
+import { Folio } from '../model/folio.model';
+import { resolve } from 'path';
+import { debug } from 'console';
 
 @Component({
   selector: 'app-table-ticket',
@@ -19,7 +28,9 @@ import { ImagenesBase64 } from '../model/imagenes.model';
 })
 export class TableTicketComponent {
   @ViewChild(AlertaComponent, { static: false }) mensajeAlerta!: AlertaComponent;
-  @Input() 
+  @ViewChild('fileUploader', {static: false}) fileUpload: any;
+
+  @Input()
   @Output() clickClose: EventEmitter<boolean> = new EventEmitter<boolean>();
   products: Ticket = {};
   token: string;
@@ -32,54 +43,54 @@ export class TableTicketComponent {
   arrayImagenes = new Array();
   displayAddModal: boolean = false;
   deleteProductDialog: boolean = false;
-
+  altaTicket !: Ticket;
+  estatusTicket !: EstatusTicket;
+  area !: lugarAreas[];
+  lugares !: Lugar[];
+  idFolio !: number;
   constructor(
     private fb: FormBuilder,
     private messageService: MessageService,
     private customerService: CustomerService,
+    private _folioService: FolioService,
     public _authGuardService: authGuardService,
 
   ) {
     this.token = this._authGuardService.getToken();
     this.sesionUsuario = this._authGuardService.getUser();
   }
-  ngOnInit() {
-    
-    console.log("entraa")
-    this.obtenerTickets();
 
+  ngOnInit() {
+    this.obtenerTickets();
+    this.obtenerArea();
+    this.obtenerLugar();
   }
 
 
   recoInfo = this.fb.group({
-
-
-    idfolios: ['1'],
-    idusuarios: ['26'],
-    idtipo_servicio: ['1'],
-    asunto: [''],
-    mensaje: [''],
-    foto1: ['1'],
-    foto2: ['1'],
-    foto3: ['1'],
-    foto4: ['1'],
-    solucion: ['1'],
-    firma: ['1'],
-    estado_ticket: ['1'],
-    nombre: [''],
-    Descripcion: [''],
-    num_folio: [''],
-    num_empleado: [''],
-    idstatusTicket: ['2'],
-    nombre_area:[''],
-    ubicacion:['']
-
+    idfolios: [''],
+    idlugar: ['', [Validators.required]],
+    idarea: ['', [Validators.required]],
+    idusuarios: [''],
+    asunto: ['', [Validators.required]],
+    mensaje: ['', [Validators.required]],
+    foto1: [''],
+    foto2: [''],
+    foto3: [''],
+    foto4: [''],
 
   });
 
+  get form(): { [key: string]: AbstractControl } {
+    return this.recoInfo.controls;
+  }
+
   openNew() {
-  
+    
     this.displayAddModal = true;
+    this.recoInfo.reset();
+    this.clearSelectedPhoto();
+    
   }
 
   closeModal() {
@@ -88,118 +99,11 @@ export class TableTicketComponent {
   }
 
   obtenerTickets() {
-    console.log("Token", this.token);
     this.customerService.getTicket(this.token).subscribe({
       next: (resp: RespuestaDto) => {
-        console.log("Obtener tickets", resp);
         let respuestaDto = <RespuestaDto>resp;
         if (respuestaDto.ok) {
           this.tickets = resp.addenda;
-        } else {
-
-        } // if
-      },
-      error: (error) => {
-        let mensaje = <any>error;
-        this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
-      }
-    });
-  }
-
-
-  addTicket() {
-    console.log("this.recoInfo", this.recoInfo.value);
-
-    if (this.recoInfo.invalid) {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Porfavor verifique todos los campos' });
-    } else {
-      console.log("this.ecolecta informacion nombre", this.recoInfo.value.asunto)
-      this.saveTicket(
-        this.recoInfo.value.idfolios,
-        this.recoInfo.value.idusuarios,
-        this.recoInfo.value.idtipo_servicio,
-        this.recoInfo.value.asunto,
-        this.recoInfo.value.mensaje,
-        this.recoInfo.value.foto1,
-        this.recoInfo.value.foto2,
-        this.recoInfo.value.foto3,
-        this.recoInfo.value.foto4,
-        this.recoInfo.value.solucion,
-        this.recoInfo.value.firma,
-        this.recoInfo.value.estado_ticket,
-        this.recoInfo.value.nombre,
-        this.recoInfo.value.Descripcion,
-        this.recoInfo.value.num_folio,
-        this.recoInfo.value.num_empleado,
-        this.recoInfo.value.idstatusTicket,
-        this.recoInfo.value.nombre_area,
-        this.recoInfo.value.ubicacion
-        
-      );
-    }
-    this.obtenerTickets;
-  }
-
-  async saveTicket(
-
-    idfolios: string | undefined | null,
-    idusuarios: string | undefined | null,
-    idtipo_servicio: string | undefined | null,
-    asunto: string | undefined | null,
-    mensaje: string | undefined | null,
-    foto1: string | undefined | null,
-    foto2: string | undefined | null,
-    foto3: string | undefined | null,
-    foto4: string | undefined | null,
-    solucion: string | undefined | null,
-    firma: string | undefined | null,
-    estado_ticket: string | undefined | null,
-    nombre: string | undefined | null,
-    Descripcion: string | undefined | null,
-    num_folio: string | undefined | null,
-    num_empleado: string | undefined | null,
-    idstatusTicket: string | undefined | null,
-    nombre_area: string | undefined  | null,
-    ubicacion: string | undefined  | null
-
-  ) {
-    console.log(
-      "asunto", asunto,
-      "descripcion", mensaje);
-    let datosT = new insertTicket(
-      idfolios,
-      idusuarios,
-      idtipo_servicio,
-      asunto,
-      mensaje,
-      foto1,
-      foto2,
-      foto3,
-      foto4,
-      solucion,
-      firma,
-      estado_ticket,
-      nombre,
-      Descripcion,
-      num_folio,
-      num_empleado,
-      idstatusTicket,
-      nombre_area,
-      ubicacion
-    );
-    console.log("Datos Ticket", datosT);
-    this.customerService.saveTicket(datosT).subscribe({
-      next: (resp: RespuestaDto) => {
-        console.log("VERRRRRRRRRRRRRREEEEEEEE", this.saveTicket);
-        let respuestaDto = <RespuestaDto>resp;
-        if (respuestaDto.valido == 0) {
-          console.log("next", respuestaDto.mensaje)
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: respuestaDto.mensaje });
-        } else {
-          this.ticke = <Ticket>respuestaDto.addenda;
-          console.log("obtenerTickets", this.obtenerTickets);
-
-          this.obtenerTickets();
         }
       },
       error: (error) => {
@@ -208,43 +112,189 @@ export class TableTicketComponent {
       }
     });
   }
+
+
+
+  obtenerArea() {
+    console.log("Token", this.token);
+    this.customerService.getArea(this.token).subscribe({
+      next: (resp: RespuestaDto) => {
+        let respuestaDto = <RespuestaDto>resp;
+        if (respuestaDto.ok) {
+          this.area = resp.addenda;
+        }
+      },
+      error: (error) => {
+        let mensaje = <any>error;
+        this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
+      }
+    });
+  }
+  obtenerLugar() {
+    this.customerService.getLugar(this.token).subscribe({
+      next: (resp: RespuestaDto) => {
+        let respuestaDto = <RespuestaDto>resp;
+        if (respuestaDto.ok) {
+          this.lugares = resp.addenda;
+        }
+      },
+      error: (error) => {
+        let mensaje = <any>error;
+        this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
+      }
+    });
+  }
+
+
+  async addTicket() {
+
+    if (this.recoInfo.invalid) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Porfavor verifique todos los campos' });
+    } else if (this.arrayImagenes.length == 0) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Porfavor adjunte algunas imagenes' });
+
+    } else {
+      let datosTicket: Ticket = this.recoInfo.value as Ticket;
+      let idFolio: number = await this.saveFolio();
+      datosTicket.idfolios = idFolio;
+      this.saveTicket(datosTicket);
+    }
+
+  }
+
+
+  async saveFolio(): Promise<number> {
+    return new Promise((resolve, reject) => {
+      this._folioService.saveFolio(this.token).subscribe({
+        next: (resp: RespuestaDto) => {
+          let respuestaDto = <RespuestaDto>resp;
+          if (respuestaDto.valido == 0) {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: respuestaDto.mensaje });
+          } else {
+            this.idFolio = <number>respuestaDto.addenda[0].idfolios;
+            resolve(this.idFolio);
+          }
+        },
+        error: (error) => {
+          let mensaje = <any>error;
+          reject(mensaje);
+          this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
+        }
+      });
+
+    });
+  }
+
+
+  async saveTicket(recoInfo: Ticket) {
+    console.log("datos del ticket", recoInfo)
+    recoInfo.idusuarios = this.sesionUsuario.idUsuario;
+    await this.getSetterImages(recoInfo);
+    this.customerService.saveTicket(recoInfo).subscribe({
+      next: (resp: RespuestaDto) => {
+        console.log("Respeusta", resp)
+        let respuestaDto = <RespuestaDto>resp;
+        if (respuestaDto.valido == 0) {
+
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: respuestaDto.mensaje });
+        } else {
+          this.messageService.add({ severity: 'success', summary: 'Mensaje', detail: respuestaDto.mensaje });
+
+          this.ticke = <Ticket>respuestaDto.addenda;
+          this.obtenerTickets();
+          this.displayAddModal = false;
+          this.recoInfo.reset();
+          this.clearSelectedPhoto();
+        }
+      },
+      error: (error) => {
+        let mensaje = <any>error;
+        this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
+      }
+    });
+  }
+  async getSetterImages(recoInfo: Ticket) {
+    return new Promise((resolve, reject) => {
+      switch (this.arrayImagenes.length) {
+        case 1:
+          recoInfo.foto1 = this.arrayImagenes[0].imagen;
+          break;
+        case 2:
+          recoInfo.foto2 = this.arrayImagenes[1].imagen;
+          break;
+        case 3:
+          recoInfo.foto3 = this.arrayImagenes[2].imagen;
+          break;
+        case 4:
+          recoInfo.foto4 = this.arrayImagenes[3].imagen;
+          break;
+
+        default:
+          recoInfo.foto1 = '';
+      }
+
+      resolve(recoInfo);
+    });
+
+
+
+  }
+
+
   confirmDelete() {
     this.deleteProductDialog = false;
     this.ticket = this.ticket.filter(val => val.idfolios !== this.products.idfolios);
     this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
     this.products = {};
   }
-  
-  /*
-  async subirimg(event: any) {
-    let conversion : ImagenesBase64<Imagen> = await this.convertB64(event);
-    console.log("arrayimg", conversion.imagenes); //jalar las imagenes y ponerlas dentro del arreglo
-    //this.arrayImagenes= conversion;
-  
-  }
-  async  convertB64(event: any):  Promise<ImagenesBase64<Imagen>> {
-    return new Promise((resolve, reject) => {
-      var lista  :  ImagenesBase64<Imagen>[];
-      
-      let imagenes = event.files;
-      let imagen;
-        
-      for (let key in  imagenes) {
 
-          let reader = new FileReader();
-          imagen = imagenes[key];
-          reader.readAsDataURL(event.files[key]);
-          reader.onload = (imagen) => {
-          console.log("succes");
-          lista.push({ imagenes : reader.result?.toString()});      }
-          reader.onerror = function (error) {
-            console.log('Error', error);
-            reject(error);
+
+  async subirimg(event: any) {
+    this.arrayImagenes = [];
+    let conversion: ImagenesBase64 = await this.convertB64(event);   //jalar las imagenes y ponerlas dentro del arreglo
+    this.arrayImagenes = conversion;
+    console.log("arrayImagenes", this.arrayImagenes);
+
+  }
+
+  async convertB64(event: any): Promise<ImagenesBase64> {
+
+    return new Promise((resolve, reject) => {
+      var lista: ImagenesBase64 = [];
+      var imagenes = event.currentFiles;
+      let imagen: Imagen;
+      var terminados = 0;
+      for (let key in imagenes) {
+        let reader = new FileReader();
+        imagen = imagenes[key];
+        reader.readAsDataURL(imagenes[key]);
+        reader.onload = (imagen) => {
+          lista.push({ imagen: reader.result?.toString() });
+        }
+        reader.onerror = function (error) {
+          console.log('Error', error);
+          reject(error);
+        }
+        reader.onloadend = function (end) {
+          terminados++;
+          if (imagenes.length == terminados) {
+            resolve(lista);
           }
-        
+        }
       }
-      resolve({imagenes : lista});
     })
   }
-  */
+
+  eliminaImagen(event: any) {
+    setTimeout(() => {
+      let files = { currentFiles: event._files };
+      this.subirimg(files);
+    }, 500)
+  }
+
+  clearSelectedPhoto() {
+    this.fileUpload.clear();
+  }
+
+
 }

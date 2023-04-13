@@ -63,7 +63,8 @@ export class LoginComponent {
         } else {
 
           this.usuario = <Usuario>respuestaDto.addenda;
-
+        console.log("Response de logeo",this.usuario );
+        
           // this.obtenerMenu(respuestaDto.token , this.usuario);
           this._authGuardService.sendToken(this.usuario);
           this._authGuardService.sendKey(respuestaDto.token);

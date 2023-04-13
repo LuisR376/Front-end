@@ -194,52 +194,25 @@ get passwordNovalidado(){
       this.messageService.add({ severity: 'error', summary: 'No es posible acceder', detail: 'Porfavor verifique todos los campos' });
     } else {
       console.log("this.ecolecta informacion nombre", this.recoInfo.value.nombre)
-      this.saveUsuario(
-        this.recoInfo.value.nombre, 
-        this.recoInfo.value.apellidoP, 
-        this.recoInfo.value.apellidoM, 
-        this.recoInfo.value.email,
-        this.recoInfo.value.idrol,
-        this.recoInfo.value.num_empleado,
-        this.recoInfo.value.idlugar,
-        this.recoInfo.value.idarea,
-        this.recoInfo.value.password,
-        this.recoInfo.value.status,
-        );
+      this.saveUsuario(this.recoInfo.value);
     }
   }
   
-  async saveUsuario(
-    
-    nombre: string | undefined | null, 
-    apellidoP: string | undefined | null, 
-    apellidoM: string | undefined | null, 
-    email: string | undefined | null,
-    idrol: string | undefined | null,
-    num_empleado: string | undefined | null,
-    idlugar: string | undefined | null,
-    idarea:string | undefined | null,
-    password: string | undefined | null,
-    status:string | undefined | null,
-
-    ) {
+  async saveUsuario(recoInfo  : Usuario ) {
       console.log("VERRRRRRRRRRRRRREEEEEEEE",this.saveUsuario);
     console.log(
-    "Usuario", nombre, 
-    "apellidoP", apellidoP, 
-    "apellidoM", apellidoM, 
-    "email", email,
-    "idrol",idrol,
-    "num_empleado",num_empleado,
-    "idlugar",idlugar,
-    "idarea", idarea, 
-    "password",password, 
-    "status", status);
-    let datosA = new insertUsuario(nombre, 
-      apellidoP, apellidoM, email, idrol, num_empleado, idlugar, idarea, password, status);
-    console.log("VERRRRRRRRRRRRRREEEEEEEE",this.saveUsuario);
-    console.log("Datos Area", datosA);
-    this.usuarioService.saveUsuario(datosA).subscribe({
+    "Usuario", recoInfo.nombre, 
+    "apellidoP", recoInfo.apellidoP, 
+    "apellidoM", recoInfo.apellidoM, 
+    "email", recoInfo.email,
+    "idrol",recoInfo.idrol,
+    "num_empleado",recoInfo.num_empleado,
+    "idlugar",recoInfo.idlugar,
+    "idarea", recoInfo.idarea, 
+    "password",recoInfo.password, 
+    "status", recoInfo.status);
+
+    this.usuarioService.saveUsuario(recoInfo).subscribe({
       next: (resp: RespuestaDto) => {
 
         let respuestaDto = <RespuestaDto>resp;

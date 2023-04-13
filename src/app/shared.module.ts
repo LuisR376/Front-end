@@ -46,6 +46,7 @@ import {MegaMenuItem} from 'primeng/api';
 import { RouterModule } from "@angular/router";
 import { CommonModule } from '@angular/common';
 import {StepsModule} from 'primeng/steps';
+import { FolioService } from "./service/folio.service";
 
 @NgModule({
   declarations: [
@@ -110,7 +111,7 @@ import {StepsModule} from 'primeng/steps';
     ConfirmationService, 
     authGuardService,
      LocalService,
-      LocalService, UtilApiService],
+      LocalService, UtilApiService, FolioService],
   bootstrap: []
 })
 export class SharedModule { }

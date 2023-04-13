@@ -17,7 +17,6 @@ import { Lugar } from '../model/lugar.model';
 })
 export class LugarAreaComponent {
   @ViewChild(AlertaComponent, { static: false }) mensajeAlerta!: AlertaComponent;
-  @Input()
   @Output() clickClose: EventEmitter<boolean> = new EventEmitter<boolean>();
   constructor(
     private fb: FormBuilder,

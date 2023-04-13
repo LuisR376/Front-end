@@ -9,10 +9,10 @@
                         <p>Atiende los nuevos tickets</p>
                     </div>
                     <div>
-                        <button pButton pRipple type="button" (click)="openNew()" label="Nuevo" ></button>
-                        
+                        <button pButton pRipple type="button" (click)="openNew()" label="Nuevo"></button>
+
                     </div>
-                    
+
                 </div>
             </ng-template>
             <ng-template pTemplate="header">
@@ -31,7 +31,7 @@
                             foto1
                         </div>
                     </th>
-                   
+
                     <th>
                         <div *ngIf="sesionUsuario.clave== 'ADM' ||   sesionUsuario.clave == 'TEC'">
 
@@ -61,7 +61,7 @@
                             {{ticket.foto1 | slice:0:4}}
                         </div>
                     </td>
-                   
+
                     <td>
                         <div *ngIf="sesionUsuario.clave== 'ADM' ||   sesionUsuario.clave == 'TEC'">
                             {{ticket.Solucion}}
@@ -83,23 +83,56 @@
         <b>Agregar Ticket</b>
     </ng-template>
     <form [formGroup]="recoInfo" (ngSubmit)="addTicket()">
+
         <div class="field">
-            <label for="insertUsuario">ASUNTO</label>
-            <input formControlName="asunto"pInputText id="asunto" required autofocus>
-            <small class="p-error" *ngIf="text && !ticke.asunto">Name is required.</small>
+            <label for="insertarAsunto">Asunto</label>
+            <input formControlName="asunto" pInputText id="asunto" required autofocus>
+            <div *ngIf="recoInfo.touched && recoInfo.invalid" >     
+                <small *ngIf="form['asunto'].errors?.['required']" id="blErrorasunto" class="p-error"
+                >El campo asunto se encuentra vacío.</small>
+              </div>
         </div>
+
         <div class="field">
-            <label for="name">mensaje</label>
-            <textarea formControlName="mensaje" inputId="mensaje" rows="3" style="resize: none;" cols="30" pInputTextarea></textarea>
-            <small class="p-error" *ngIf="text && !ticke.mensaje">Name is required.</small>
+            <label for="name">Mensaje</label>
+            <textarea formControlName="mensaje" inputId="mensaje" rows="3" style="resize: none;" cols="30"
+                pInputTextarea></textarea>
+                <div *ngIf="recoInfo.touched && recoInfo.invalid" >     
+                    <small *ngIf="form['mensaje'].errors?.['required']" id="blErrormensaje" class="p-error"
+                    >El campo mensaje se encuentra vacío.</small>
+                  </div>
+
         </div>
-        <p-fileUpload [customUpload]="true"   name="foto1" accept=".jpg, .jpeg, .png" [fileLimit]="4" [maxFileSize]="2000000" [multiple]="true"></p-fileUpload> <!--(uploadHandler)="subirimg($event)"-->
+
+
+        <div class="field">
+            <label for="name">Lugar</label>
+            <p-dropdown formControlName="idlugar"  placeholder="Seleccione un Lugar" [options]="lugares" optionLabel="ubicacion" optionValue="idlugar"></p-dropdown>
+            <div *ngIf="recoInfo.touched && recoInfo.invalid" >     
+                <small *ngIf="form['idlugar'].errors?.['required']" id="blErroridlugar" class="p-error"
+                >Seleccione un Lugar.</small>
+              </div>
+        </div>
+
+        <div class="field">
+            <label for="name">Area</label>
+            <p-dropdown formControlName="idarea" placeholder="Seleccione un Area" [options]="area" optionLabel="nombre_area" optionValue="idarea"></p-dropdown>
+            <div *ngIf="recoInfo.touched && recoInfo.invalid" >     
+                <small *ngIf="form['idarea'].errors?.['required']" id="blErroridarea" class="p-error"
+                >Seleccione un Area.</small>
+              </div>
+        </div>
+
+        <p-fileUpload [customUpload]="true" #fileUploader [showUploadButton]="false"
+            (onRemove)="eliminaImagen(fileUploader)" chooseLabel="Seleccionar imagen" cancelLabel="Quitar Imagenes"
+            (onSelect)="subirimg($event)" id="imagenTicket" name="foto1" accept=".jpg, .jpeg, .png" [fileLimit]="4"
+            [maxFileSize]="2000000" [multiple]="true"></p-fileUpload> <!--(uploadHandler)="subirimg($event)"-->
     </form>
-        <ng-template pTemplate="footer">
-            <p-button icon="pi pi-trash" (click)="closeModal()" label="Limpiar" styleClass="p-button-text"></p-button>
-            <p-button icon="pi pi-check" (click)="addTicket()" label="Confirmar" styleClass="p-button-text"></p-button>
-        </ng-template>
-    
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-trash" (click)="closeModal()" label="Limpiar" styleClass="p-button-text"></p-button>
+        <p-button icon="pi pi-check" (click)="addTicket()" label="Confirmar" styleClass="p-button-text"></p-button>
+    </ng-template>
+
 
 </p-dialog>
 <p-toast position="top-right"></p-toast>

@@ -1,5 +1,5 @@
 export interface Imagen
 {
-    imagen: String
+    imagen: string | undefined;
   
 }

@@ -41,7 +41,7 @@ export class UsuarioService {
        
     } //get Usuario
 
-        saveUsuario(datosA : insertUsuario): Observable<RespuestaDto> {
+        saveUsuario(datosA : Usuario): Observable<RespuestaDto> {
         return this._apiService.sendPostRequest(datosA, this.url + "usuario/post");
     }// Post usuario
 }

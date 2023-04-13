@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import  { environment }  from '../../environments/environment';
 import { RespuestaDto } from '../components/model/respuestaDto';
-import { lugarAreas } from '../components/model/lugarArea.model';
 import { UtilApiService } from './util-api.service';
 import { Observable } from 'rxjs';
 import { insertArea } from '../components/model/insertArea'
