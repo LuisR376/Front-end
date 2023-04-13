@@ -11,6 +11,7 @@ import { Ticket } from '../model/ticket.model';
 import { identifierName } from '@angular/compiler';
 import { NgForm } from '@angular/forms';
 import { FormBuilder, Validators } from '@angular/forms';
+import { FolioService } from 'src/app/service/folio.service';
 @Component({
   selector: 'app-solicitudes',
   templateUrl: './solicitudes.component.html',
@@ -34,33 +35,27 @@ export class SolicitudesComponent implements OnInit {
     this.obtenerTickets();
   }
   recoInfo = this.fb.group({
-
-
-    idfolios: ['1'],
-    idusuarios: ['26'],
-    idtipo_servicio: ['1'],
+    idfolios: [''],
+    idusuarios: [''],
+    idtipo_servicio: [''],
     asunto: [''],
     mensaje: [''],
-    foto1: ['1'],
-    foto2: ['1'],
-    foto3: ['1'],
-    foto4: ['1'],
-    solucion: ['1'],
-    firma: ['1'],
-    estado_ticket: ['1'],
+    foto1: [''],
+    foto2: [''],
+    foto3: [''],
+    foto4: [''],
+    solucion: [''],
+    firma: [''],
+    estado_ticket: [''],
     nombre: [''],
     Descripcion: [''],
     num_folio: [''],
     num_empleado: [''],
-    idstatusTicket: ['2'],
+    idstatusTicket: [''],
     nombre_area:[],
     lugares:[]
 
   });
-  btnClick() {
-    this.router.navigate(['info','recoInfo[1]']);
-  };
-
   obtenerTickets() {
     this.customerService.getTicket(this.token).subscribe({
       next: (resp: RespuestaDto) => {
@@ -84,6 +79,5 @@ onGlobalFilter(table: any, event: Event) {
 guardar(forma:NgForm){
   console.log('submit disparado', forma);
   console.log(forma.value);
-
 }
 }

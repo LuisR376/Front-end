@@ -9,6 +9,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Ticket } from '../model/ticket.model';
 import { NgForm } from '@angular/forms';
+import { FolioService } from 'src/app/service/folio.service';
 @Component({
   selector: 'app-solicitud',
   templateUrl: './solicitud.component.html',
@@ -18,13 +19,15 @@ export class SolicitudComponent {
   @ViewChild(AlertaComponent, { static: false }) mensajeAlerta!: AlertaComponent;
   token: string;
   tickets !: Ticket[];
-  id : number;   
+  id : number;
+  idFolio !: number;
     constructor(
       private messageService: MessageService,
       private customerService: CustomerService,
       public _authGuardService: authGuardService,
       private route: ActivatedRoute,
       private fb: FormBuilder,
+      private _folioService: FolioService
       ) {
         this.token = this._authGuardService.getToken();
         this.id = this.route.snapshot.params['idfolios'];
@@ -79,5 +82,27 @@ export class SolicitudComponent {
 guardar(f:NgForm){
   console.log('submit disparado', f);
   console.log(f.value);
+}
+
+async saveFolio(): Promise<number> {
+  return new Promise((resolve, reject) => {
+    this._folioService.saveFolio(this.token).subscribe({
+      next: (resp: RespuestaDto) => {
+        let respuestaDto = <RespuestaDto>resp;
+        if (respuestaDto.valido == 0) {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: respuestaDto.mensaje });
+        } else {
+          this.idFolio = <number>respuestaDto.addenda[0].idfolios;
+          resolve(this.idFolio);
+        }
+      },
+      error: (error) => {
+        let mensaje = <any>error;
+        reject(mensaje);
+        this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
+      }
+    });
+
+  });
 }
 }
