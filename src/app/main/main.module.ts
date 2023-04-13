@@ -18,7 +18,7 @@ import { SelectComponent } from '../components/select/select.component';
 import { InfoTicketComponent } from '../components/info-ticket/info-ticket.component';
 import { SolicitudComponent } from '../components/solicitud/solicitud.component';
 import { PerfilComponent } from '../components/perfil/perfil.component';
-import { DetallePcComponent } from '../detalle-pc/detalle-pc.component';
+import { DetallePcComponent } from '../components/detalle-pc/detalle-pc.component';
 
 
 @NgModule({
