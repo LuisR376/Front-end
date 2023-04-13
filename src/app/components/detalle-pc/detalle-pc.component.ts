@@ -40,10 +40,14 @@ export class DetallePcComponent {
       idram             : ['', [Validators.required]],
       marca             : ['', [Validators.required]],
       Sistema_Operativo : ['', [Validators.required]],
-      idioma            : ['', [Validators.required]]
+      idioma            : ['', [Validators.required]],
+      tecnologia_M_S : ['', [Validators.required]],
+      nombre : ['', [Validators.required]],
+      capacidad : ['', [Validators.required]],
     });
   }
   ngOnInit() {
+    this.formulario();
     this.getdetallePc();
   }
   openNew(modal: string) {
