@@ -58,7 +58,8 @@
 
                     <td>
                         <div *ngIf="sesionUsuario.clave== 'ADM' ||   sesionUsuario.clave == 'TEC'">
-                            {{ticket.foto1 | slice:0:4}}
+                            <img src="{{ticket.foto1}}" [alt]="ticket.foto1" width="100" class="shadow-4">
+                           
                         </div>
                     </td>
 
