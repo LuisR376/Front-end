@@ -51,7 +51,8 @@ export class NuevoActivoComponent implements OnInit {
   ngOnInit() {
     this.step1Form = this.fb.group({
       tipo_activo_desc: ['', [Validators.required]],
-           pertenencia: ['', [Validators.required]]
+           pertenencia: ['', [Validators.required]],
+           iddetallepc: ['', [Validators.required]],
     });
 
     this.step2Form = this.fb.group({
@@ -66,35 +67,25 @@ export class NuevoActivoComponent implements OnInit {
     });
 
     this.step4Form = this.fb.group({
-      tipo_de_pc        : ['', [Validators.required]],
-      modelo            : ['', [Validators.required]],
-      num_serie         : ['', [Validators.required]],
-      folio_compra      : ['', [Validators.required]],
-      procesador        : ['', [Validators.required]],
-      iddiscoduro       : ['', [Validators.required]],
-      idram             : ['', [Validators.required]],
-      marca             : ['', [Validators.required]],
-      Sistema_Operativo : ['', [Validators.required]],
-      idioma            : ['', [Validators.required]]
-      
+      num_inventario        : ['', [Validators.required]],
+      fecha_compra          : ['', [Validators.required]],
+      valor_monetario       : ['', [Validators.required]],
+      nombre_equipo         : ['', [Validators.required]],
+      estado                : ['', [Validators.required]],
+      descripcion           : ['', [Validators.required]],
+      marca                 : ['', [Validators.required]],
+      modelo                : ['', [Validators.required]],
+      tipo_de_conexion      : ['', [Validators.required]],
     });
 
     this.step5Form = this.fb.group({
-      nombre_equipo         : ['', [Validators.required]],
-      fecha_mantenimiento   : ['', [Validators.required]],
-      valor_monetario       : ['', [Validators.required]],
-      estado                : ['', [Validators.required]],
-      descripcion           : ['', [Validators.required]],
-      tipo_de_conexion      : ['', [Validators.required]],
-      iddetallepc           : ['', [Validators.required]],
-      idLicencias           : ['', [Validators.required]],
+
+      idLicencias           : ['', [Validators.required]],
       host_teamviewer       : ['', [Validators.required]],
       password_teamviewer   : ['', [Validators.required]],
+      fecha_mantenimiento   : ['', [Validators.required]],
       calculoEstimado       : ['', [Validators.required]],
-      marca                 : ['', [Validators.required]],
-      modelo                : ['', [Validators.required]],
-      num_inventario        : ['', [Validators.required]],
-      fecha_compra          : ['', [Validators.required]],
+
       accesorio             : ['', [Validators.required]]
     });
   }
