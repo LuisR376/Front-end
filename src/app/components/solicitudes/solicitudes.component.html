@@ -26,7 +26,7 @@
                 <ng-template pTemplate="body" let-ticket>
                     <tr>
                         <td>{{ticket.idfolios}}</td>
-                        <td>{{ticket.num_folio}}</td>
+                        <td>{{ticket.num_folio.slice(-5)}}</td>
                         <td>{{ticket.nombre}}</td>
                         <td>{{ticket.asunto}}</td>
                         <td>{{ticket.estado_ticket}}</td>

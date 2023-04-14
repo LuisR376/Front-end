@@ -9,6 +9,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Ticket } from '../model/ticket.model';
 import { NgForm } from '@angular/forms';
+import { ticketService } from 'src/app/service/ticket.service';
 @Component({
   selector: 'app-info-ticket',
   templateUrl: './info-ticket.component.html',
@@ -23,6 +24,7 @@ export class InfoTicketComponent implements OnInit {
       private messageService: MessageService,
       private customerService: CustomerService,
       public _authGuardService: authGuardService,
+      public _ticketService: ticketService,
       private route: ActivatedRoute,
       private fb: FormBuilder,
       ) {
@@ -57,7 +59,7 @@ export class InfoTicketComponent implements OnInit {
   }
   obtenerTickets() {
     console.log("Token", this.token);
-    this.customerService.getTicket(this.token).subscribe({
+    this._ticketService.getTicket(this.token).subscribe({
       next: (resp: RespuestaDto) => {
         console.log("Obtener tickets", resp);
         let respuestaDto = <RespuestaDto>resp;

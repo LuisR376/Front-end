@@ -47,6 +47,7 @@ import { RouterModule } from "@angular/router";
 import { CommonModule } from '@angular/common';
 import {StepsModule} from 'primeng/steps';
 import { FolioService } from "./service/folio.service";
+import { ticketService } from "./service/ticket.service";
 
 @NgModule({
   declarations: [
@@ -111,7 +112,7 @@ import { FolioService } from "./service/folio.service";
     ConfirmationService, 
     authGuardService,
      LocalService,
-      LocalService, UtilApiService, FolioService],
+      LocalService, UtilApiService, FolioService, ticketService],
   bootstrap: []
 })
 export class SharedModule { }

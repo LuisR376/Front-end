@@ -48,7 +48,7 @@
             </ng-template>
             <ng-template pTemplate="body" let-ticket>
                 <tr>
-                    <td>{{ticket.num_folio}}</td>
+                    <td>{{ticket.num_folio.slice(-5)}}</td>
                     <td>{{ticket.fecha_registro | date:'short'}}</td>
                     <td>{{ticket.descripcion}}</td>
                     <td>{{ticket.asunto}}</td>
@@ -70,7 +70,7 @@
                     </td>
                     <td>
                         <div *ngIf="sesionUsuario.clave== 'ADM' ||   sesionUsuario.clave == 'TEC'">
-                            {{ticket.firma | slice:0:4}}
+                            <img src="{{ticket.firma}}" [alt]="ticket.firma" width="100" class="shadow-4">
                         </div>
                     </td>
                 </tr>

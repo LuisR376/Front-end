@@ -6,79 +6,11 @@
                 <p>FORMULARIO PARA EL TECNICO</p>
             </div>
         </div>
+        <span>Nombre: {{sesionUsuario.nombre}}  {{sesionUsuario.apellidoP}} {{sesionUsuario.apellidoM}} </span>
+        <br><br>
+        <div>
+            <span>Ticket:{{tickets}}</span>
+        </div>
+        
     </div>
-    <form (ngSubmit)=" guardar( f )" #f="ngForm">
-        <div class="grid">
-            <div class="col-6">
-                <label for="folio" type="text">FOLIO: {{tickets[1].num_folio}}</label>
-            </div>
-            <div class="col-6">
-                <div class="field md">
-                    <span class="p-float-label">
-                        <input id="float-input" type="text" pInputText>
-                        <label for="float-input">Modalidad</label>
-                    </span>
-                </div>
-            </div>
-            <div class="col-6">
-                <label for="folio" type="text">Nombre: {{tickets[1].nombre}}</label>
-            </div>
-            <div class="col-6">
-                <div class="field md">
-                    <span class="p-float-label">
-                        <input id="float-input" type="text" pInputText>
-                        <label for="float-input">Prioridad</label>
-                    </span>
-                </div>
-            </div>
-        </div>
-        <div class="grid">
-            <div class="col-6">
-                <label for="folio" type="text">Asunto: {{tickets[1].asunto}}</label>
-            </div>
-            <div class="col-6">
-                <span class="p-float-label">
-                    <input id="float-input" type="text" pInputText>
-                    <label for="float-input">Especialista</label>
-                </span>
-            </div>
-            <div class="col-6">
-                <label for="folio" type="text">Mensaje: {{tickets[1].mensaje}}</label>
-            </div>
-            <div class="col-6">
-                <div class="field">
-                    <span class="p-float-label">
-                        <textarea rows="5" cols="30" pInputTextarea [autoResize]="true"></textarea>
-                        <label for="float-input">Solucion</label>
-                    </span>
-                </div>
-            </div>
-            <div class="col-4">
-                
-            </div>
-        </div>
-        <div class="grid">
-            <div class="col-8">
-                <div class="grid">
-                    <div class="col-6">
-                        
-                    </div>
-                    <div class="col-6">
-                        
-                    </div>
-                    <div class="col-12">
-                        <p-button label="Guargar"></p-button> <p-button styleClass="p-button-secondary" label="Cancelar"></p-button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-4">
-                <div>
-                    <label for="folio" type="text">imagenes</label>
-                </div>
-                <div><label for="folio" type="text">imagenes</label>
-                </div>
-                <div>firma</div>
-            </div>
-        </div>
-    </form>
 </section>

@@ -4,8 +4,6 @@ import { RespuestaDto } from '../components/model/respuestaDto';
 import { Observable } from 'rxjs';
 import { UtilApiService } from './util-api.service';
 import { environment } from 'src/environments/environment';
-import { insertTicket } from '../components/model/insertTicket';
-import { Ticket } from '../components/model/ticket.model';
 @Injectable()
 
 export class CustomerService {
@@ -20,9 +18,7 @@ export class CustomerService {
         fnusuario(token:string): Observable<RespuestaDto> {
             return this._apiService.sendGetRequest(this.url + "usuario/getUsuarios",token);
         }
-        getTicket(token:string): Observable<RespuestaDto> {
-            return this._apiService.sendGetRequest(this.url + "ticket/getticket",token);
-        }
+       
         getActivos(token:string): Observable<RespuestaDto> {
             return this._apiService.sendGetRequest(this.url + "activos/getActivos",token);
         }
@@ -39,13 +35,7 @@ export class CustomerService {
             return this._apiService.sendGetRequest(this.url + "detallePc/detallePcget",token);
         }
         
-        saveTicket(datosT : Ticket): Observable<RespuestaDto> {
-            return this._apiService.sendPostRequest(datosT, this.url + "ticket/post");
-        }// Post usuario
-
-        catalogEstatusTicket(token:string): Observable<RespuestaDto> {
-            return this._apiService.sendGetRequest(this.url + "ticket/obtenCatalogEstatusTicket",token);
-        }
+       
         
     }
         

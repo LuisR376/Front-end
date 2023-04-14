@@ -20,6 +20,7 @@ import { FolioService } from 'src/app/service/folio.service';
 import { Folio } from '../model/folio.model';
 import { resolve } from 'path';
 import { debug } from 'console';
+import { ticketService } from 'src/app/service/ticket.service';
 
 @Component({
   selector: 'app-table-ticket',
@@ -54,7 +55,7 @@ export class TableTicketComponent {
     private customerService: CustomerService,
     private _folioService: FolioService,
     public _authGuardService: authGuardService,
-
+    public _ticketService: ticketService,
   ) {
     this.token = this._authGuardService.getToken();
     this.sesionUsuario = this._authGuardService.getUser();
@@ -99,7 +100,7 @@ export class TableTicketComponent {
   }
 
   obtenerTickets() {
-    this.customerService.getTicket(this.token).subscribe({
+    this._ticketService.getTicket(this.token).subscribe({
       next: (resp: RespuestaDto) => {
         let respuestaDto = <RespuestaDto>resp;
         if (respuestaDto.ok) {
@@ -190,7 +191,7 @@ export class TableTicketComponent {
     console.log("datos del ticket", recoInfo)
     recoInfo.idusuarios = this.sesionUsuario.idUsuario;
     await this.getSetterImages(recoInfo);
-    this.customerService.saveTicket(recoInfo).subscribe({
+    this._ticketService.saveTicket(recoInfo).subscribe({
       next: (resp: RespuestaDto) => {
         console.log("Respeusta", resp)
         let respuestaDto = <RespuestaDto>resp;

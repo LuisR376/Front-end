@@ -1,11 +1,11 @@
 import { Component,ViewChild} from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Ticket } from '../model/ticket.model';
-import { CustomerService } from '../../service/CustomerService';
 import { RespuestaDto } from '../model/respuestaDto';
 import { AlertaComponent } from '../../util/alerta.component';
 import { authGuardService } from '../../service/auth-guard.service';
 import { Lugar } from '../model/lugar.model';
+import { ticketService } from 'src/app/service/ticket.service';
 @Component({
   selector: 'app-reasignacion',
   templateUrl: './reasignacion.component.html',
@@ -17,8 +17,9 @@ export class ReasignacionComponent {
   lugar !: Lugar[];
   clonedProducts: { [s: string]: Lugar; } = {};
   constructor(
-    private customerService: CustomerService,
-    public _authGuardService: authGuardService
+    
+    public _authGuardService: authGuardService,
+    public _ticketService: ticketService,
     ) {
       this.token = this._authGuardService.getToken();
     }
@@ -30,7 +31,7 @@ export class ReasignacionComponent {
 //
 obtenerTickets(){
   console.log("Token",this.token);
-    this.customerService.getTicket(this.token).subscribe({
+    this._ticketService.getTicket(this.token).subscribe({
       next : (resp: RespuestaDto)  => {
         console.log("Obtener tickets",resp);
         let respuestaDto = <RespuestaDto>resp;
