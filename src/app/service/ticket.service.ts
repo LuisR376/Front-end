@@ -23,8 +23,8 @@ export class ticketService {
     getTicket(token: string): Observable<RespuestaDto> {
         return this._apiService.sendGetRequest(this.url + "ticket/getticket", token);
     }
-    getTickets(): Ticket {
-        return this.localService.getJsonValue('currentTicket');
+    getTicketsByid(token : string,idfolios : string): Observable<RespuestaDto> {
+        return this._apiService.sendGetRequest(this.url + `ticket/getticketByid/${idfolios}`, token);
     }
     saveTicket(datosT : Ticket): Observable<RespuestaDto> {
         return this._apiService.sendPostRequest(datosT, this.url + "ticket/post");

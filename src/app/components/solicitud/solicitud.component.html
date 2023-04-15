@@ -7,10 +7,92 @@
             </div>
         </div>
         <span>Nombre: {{sesionUsuario.nombre}}  {{sesionUsuario.apellidoP}} {{sesionUsuario.apellidoM}} </span>
-        <br><br>
-        <div>
-            <span>Ticket:{{tickets}}</span>
-        </div>
-        
     </div>
+    <form (ngSubmit)=" guardar( f )" #f="ngForm">
+        <div class="grid">
+            <div class="col-6">
+                <span for="folio" type="text">FOLIO: {{tickets.num_folio}}</span>
+            </div>
+            <div class="col-6">
+                <div class="field md">
+                    <span class="p-float-label">
+                        <input id="float-input" type="text" pInputText>
+                        <label for="float-input">Modalidad</label>
+                    </span>
+                </div>
+            </div>
+            <div class="col-6">
+                <span for="folio" type="text">Nombre: {{tickets.nombre}}</span>
+            </div>
+            <div class="col-6">
+                <div class="field md">
+                    <span class="p-float-label">
+                        <input id="float-input" type="text" pInputText>
+                        <label for="float-input">Prioridad</label>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="grid">
+            <div class="col-6">
+                <span for="folio" type="text">Asunto: {{tickets.asunto}}</span>
+            </div>
+            <div class="col-6">
+                <span class="p-float-label">
+                    <input id="float-input" type="text" pInputText>
+                    <label for="float-input">Especialista</label>
+                </span>
+            </div>
+            <div class="col-6">
+                <span for="folio" type="text">Mensaje: {{tickets.mensaje}}</span>
+            </div>
+            <div class="col-6">
+                <div class="field">
+                    <span class="p-float-label">
+                        <textarea rows="5" cols="30" pInputTextarea [autoResize]="true"></textarea>
+                        <label for="float-input">Solucion</label>
+                    </span>
+                </div>
+            </div>
+            <div class="col-4">
+                
+            </div>
+        </div>
+        <div class="grid">
+            <div class="col-8">
+                <div class="grid">
+                    <div class="col-6">
+                        
+                    </div>
+                    <div class="col-6">
+                        
+                    </div>
+                    <div class="col-12">
+                        <p-button label="Guargar"></p-button> <p-button styleClass="p-button-secondary" label="Cancelar"></p-button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div>
+                    <img src="{{tickets.foto1}}" [alt]="tickets.foto1" width="100" class="shadow-4">
+                </div>
+                <div>
+                    <img src="{{tickets.foto2}}" [alt]="tickets.foto2" width="100" class="shadow-4">
+                </div>
+                <div>
+                    <img src="{{tickets.foto3}}" [alt]="tickets.foto3" width="100" class="shadow-4">
+                </div>
+                <div>
+                    <img src="{{tickets.foto4}}" [alt]="tickets.foto4" width="100" class="shadow-4">
+                </div>
+                
+                <div>
+                    <p-fileUpload [customUpload]="true" #fileUploader [showUploadButton]="false"
+           chooseLabel="Subir Firma" cancelLabel="Quitar Imagenes"
+             id="imagenTicket" name="firma" accept=".jpg, .jpeg, .png" [fileLimit]="1"
+            [maxFileSize]="2000000" [multiple]="true"></p-fileUpload>
+                </div>
+            </div>
+        </div>
+    </form>
 </section>

@@ -19,14 +19,14 @@ import { ticketService } from 'src/app/service/ticket.service'
 export class SolicitudComponent {
   @ViewChild(AlertaComponent, { static: false }) mensajeAlerta!: AlertaComponent;
   token: string;
-  tickets !: Ticket[];
+  tickets !: Ticket;
   
   idFolio !: number;
   sesionUsuario !: Usuario;
   arrayImagenes = new Array();
-  id !: Ticket;
+  id !:number;
   recoInfo:FormGroup;
-  
+  idFolios!:string;
   constructor(
     private messageService: MessageService,
     private router: Router,
@@ -59,21 +59,25 @@ export class SolicitudComponent {
     });
     this.token = this._authGuardService.getToken();
     this.sesionUsuario = this._authGuardService.getUser();
-    const id = this.route.snapshot.paramMap.get('id');
-    console.log(id);
+    this.idFolios = this.route.snapshot.paramMap.get('id') as any;
+    console.log(this.idFolios);
     
   }
   ngOnInit():void{
-  this.route.params.subscribe(console.log)
+ this.obtenerTickets(this.idFolios);
+
+ 
 }
 
-  obtenerTickets() {
-    this._ticketService.getTicket(this.token).subscribe({
+  obtenerTickets(idFolios : string) {
+    this._ticketService.getTicketsByid(this.token,idFolios).subscribe({
       next: (resp: RespuestaDto) => {
         let respuestaDto = <RespuestaDto>resp;
+       
         if (respuestaDto.ok) {
-          this.tickets = resp.addenda;
-        }
+          this.tickets = resp.addenda[0];
+          console.log(this.tickets);
+        } 
       },
       error: (error) => {
         let mensaje = <any>error;
