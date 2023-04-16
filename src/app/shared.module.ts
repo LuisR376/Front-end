@@ -48,7 +48,7 @@ import { CommonModule } from '@angular/common';
 import {StepsModule} from 'primeng/steps';
 import { FolioService } from "./service/folio.service";
 import { ticketService } from "./service/ticket.service";
-
+import { GalleriaModule } from 'primeng/galleria';
 @NgModule({
   declarations: [
     AlertaComponent,
@@ -63,7 +63,8 @@ import { ticketService } from "./service/ticket.service";
     SplitButtonModule,
     AvatarModule,
     ToolbarModule,
-    CommonModule
+    CommonModule,
+    InputTextModule
   ],
   exports: [
     InicioComponent,
@@ -102,7 +103,8 @@ import { ticketService } from "./service/ticket.service";
     MenuModule,
     RippleModule,
     TableModule,
-    StepsModule
+    StepsModule,
+    GalleriaModule
     
 
 
@@ -111,8 +113,7 @@ import { ticketService } from "./service/ticket.service";
   providers: [MessageService, 
     ConfirmationService, 
     authGuardService,
-     LocalService,
-      LocalService, UtilApiService, FolioService, ticketService],
+     LocalService, UtilApiService, FolioService, ticketService],
   bootstrap: []
 })
 export class SharedModule { }

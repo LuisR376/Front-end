@@ -1,5 +1,6 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, NgModule } from '@angular/core';
 import { MessageService } from 'primeng/api';
+
 import { AlertaComponent } from '../../util/alerta.component';
 import { authGuardService } from '../../service/auth-guard.service';
 import { RespuestaDto } from '../model/respuestaDto';
@@ -10,23 +11,32 @@ import { Ticket } from '../model/ticket.model';
 import { NgForm } from '@angular/forms';
 import { Usuario } from '../model/usuario.model';
 import { FolioService } from 'src/app/service/folio.service';
-import { ticketService } from 'src/app/service/ticket.service'
+import { ticketService } from 'src/app/service/ticket.service';
 @Component({
   selector: 'app-solicitud',
   templateUrl: './solicitud.component.html',
   styleUrls: ['./solicitud.component.css']
 })
 export class SolicitudComponent {
+
+  images =  [] as any;
+  displayCustom!: boolean;
+  activeIndex: number = 0;
+
+
   @ViewChild(AlertaComponent, { static: false }) mensajeAlerta!: AlertaComponent;
   token: string;
   tickets !: Ticket;
-  
+
   idFolio !: number;
   sesionUsuario !: Usuario;
   arrayImagenes = new Array();
-  id !:number;
-  recoInfo:FormGroup;
-  idFolios!:string;
+  id !: number;
+  recoInfo: FormGroup;
+  idFolios!: string;
+  displayBasic2: boolean = true;
+  responsiveOptions!: any[];
+  texto: string = '';
   constructor(
     private messageService: MessageService,
     private router: Router,
@@ -54,30 +64,95 @@ export class SolicitudComponent {
       num_folio: ['', [Validators.required]],
       num_empleado: [''],
       idstatusTicket: [''],
-  
-  
+
+
     });
     this.token = this._authGuardService.getToken();
     this.sesionUsuario = this._authGuardService.getUser();
     this.idFolios = this.route.snapshot.paramMap.get('id') as any;
-    console.log(this.idFolios);
     
-  }
-  ngOnInit():void{
- this.obtenerTickets(this.idFolios);
+    console.log(this.idFolios);
 
- 
+  }
+
+  imageClick(index: number) {
+    this.activeIndex = index;
+    this.displayCustom = true;
 }
 
-  obtenerTickets(idFolios : string) {
-    this._ticketService.getTicketsByid(this.token,idFolios).subscribe({
+  ngOnInit(): void {
+
+
+    this.obtenerTickets(this.idFolios);
+    
+    this.responsiveOptions = [
+      {
+        breakpoint: '1500px',
+        numVisible: 4
+      },
+      {
+        breakpoint: '1024px',
+        numVisible: 4
+      },
+      {
+        breakpoint: '768px',
+        numVisible: 2
+      },
+      {
+        breakpoint: '560px',
+        numVisible: 1
+      }
+    ];
+   
+    
+  }
+  openNew() {
+    this.displayBasic2 = true;
+  }
+
+
+  obtenerTickets(idFolios: string) {
+    this._ticketService.getTicketsByid(this.token, idFolios).subscribe({
       next: (resp: RespuestaDto) => {
         let respuestaDto = <RespuestaDto>resp;
-       
+
         if (respuestaDto.ok) {
           this.tickets = resp.addenda[0];
-          console.log(this.tickets);
-        } 
+          if( this.tickets.foto1 ){
+            this.images.push(
+              {
+                  "previewImageSrc": this.tickets.foto1,
+                  "thumbnailImageSrc": this.tickets.foto1,
+              }
+           )  as any;
+          }
+          if( this.tickets.foto2 ){
+            this.images.push(
+              {
+                  "previewImageSrc": this.tickets.foto2,
+                  "thumbnailImageSrc": this.tickets.foto2,
+              }
+           )  as any;
+          }
+          if( this.tickets.foto3 ){
+            this.images.push(
+              {
+                  "previewImageSrc": this.tickets.foto3,
+                  "thumbnailImageSrc": this.tickets.foto3,
+              }
+           )  as any;
+          }
+          if( this.tickets.foto4 ){
+            this.images.push(
+              {
+                  "previewImageSrc": this.tickets.foto4,
+                  "thumbnailImageSrc": this.tickets.foto4,
+              }
+           )  as any;
+          }
+          console.log("icketddd", this.tickets);
+          
+        }
       },
       error: (error) => {
         let mensaje = <any>error;
