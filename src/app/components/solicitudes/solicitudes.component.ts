@@ -3,15 +3,10 @@ import { MessageService } from 'primeng/api';
 import { AlertaComponent } from '../../util/alerta.component';
 import { authGuardService } from '../../service/auth-guard.service';
 import { RespuestaDto } from '../model/respuestaDto';
-import { CustomerService } from '../../service/CustomerService';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { ActivatedRoute} from '@angular/router';
 import { Ticket } from '../model/ticket.model';
-import { identifierName } from '@angular/compiler';
 import { NgForm } from '@angular/forms';
-import { FormBuilder, Validators } from '@angular/forms';
-import { FolioService } from 'src/app/service/folio.service';
+import { FormBuilder } from '@angular/forms';
 import { ticketService } from 'src/app/service/ticket.service';
 @Component({
   selector: 'app-solicitudes',
@@ -26,9 +21,9 @@ export class SolicitudesComponent implements OnInit {
   
   constructor(
     private messageService: MessageService,
-    private customerService: CustomerService,
+  
     private activatedRoute: ActivatedRoute,
-    private router: Router,
+
     private fb: FormBuilder,
     
     public _authGuardService: authGuardService,

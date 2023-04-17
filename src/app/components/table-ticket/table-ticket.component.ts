@@ -7,8 +7,7 @@ import { AlertaComponent } from '../../util/alerta.component';
 import { authGuardService } from '../../service/auth-guard.service';
 import { Usuario } from '../model/usuario.model';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
-import { insertTicket } from '../model/insertTicket';
-import { ElementRef } from '@angular/core';
+
 
 
 import { Imagen } from '../model/imagene.model';
@@ -17,9 +16,7 @@ import { EstatusTicket } from '../model/estatusTicket.model';
 import { lugarAreas } from '../model/lugarArea.model';
 import { Lugar } from '../model/lugar.model';
 import { FolioService } from 'src/app/service/folio.service';
-import { Folio } from '../model/folio.model';
-import { resolve } from 'path';
-import { debug } from 'console';
+
 import { ticketService } from 'src/app/service/ticket.service';
 
 @Component({

@@ -12,8 +12,6 @@ import { TableUsuarioComponent } from '../components/table-usuario/table-usuario
 import { CommonModule } from '@angular/common';
 import { NuevoActivoComponent } from '../components/nuevo-activo/nuevo-activo.component';
 import { Paso1ActivoComponent } from '../paso1-activo/paso1-activo.component';
-import { NuevoUsuarioComponent } from '../components/nuevo-usuario/nuevo-usuario.component';
-import { UsuarioComponent } from '../components/usuario/usuario.component';
 import { SelectComponent } from '../components/select/select.component';
 import { InfoTicketComponent } from '../components/info-ticket/info-ticket.component';
 import { SolicitudComponent } from '../components/solicitud/solicitud.component';
@@ -32,8 +30,6 @@ import { DetallePcComponent } from '../components/detalle-pc/detalle-pc.componen
     ReasignacionComponent,
     NuevoActivoComponent,
     Paso1ActivoComponent,
-    NuevoUsuarioComponent,
-    UsuarioComponent,
     SelectComponent,
     InfoTicketComponent,
     SolicitudComponent,

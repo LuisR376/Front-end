@@ -101,15 +101,15 @@ get passwordNovalidado(){
   formulario(){
   this.recoInfo = this.fb.group({
     num_empleado: ['', Validators.required],
-    nombre: ['', Validators.required],
-    apellidoP: ['', Validators.required],
-    apellidoM: ['', Validators.required],
-    email: ['', Validators.required,Validators.email],
-    status:['', Validators.required],
-    idrol: ['', Validators.required],
-    idlugar: ['', Validators.required],
-    idarea: ['', Validators.required],
-    password: ['', Validators.required],
+    nombre      : ['', Validators.required],
+    apellidoP   : ['', Validators.required],
+    apellidoM   : ['', Validators.required],
+    email       : ['', Validators.required,Validators.email],
+    status      : ['', Validators.required],
+    idrol       : ['', Validators.required],
+    idlugar     : ['', Validators.required],
+    idarea      : ['', Validators.required],
+    password    : ['', Validators.required],
     
     
   });
@@ -199,18 +199,17 @@ get passwordNovalidado(){
   }
   
   async saveUsuario(recoInfo  : Usuario ) {
-      console.log("VERRRRRRRRRRRRRREEEEEEEE",this.saveUsuario);
     console.log(
-    "Usuario", recoInfo.nombre, 
-    "apellidoP", recoInfo.apellidoP, 
-    "apellidoM", recoInfo.apellidoM, 
-    "email", recoInfo.email,
-    "idrol",recoInfo.idrol,
+    "Usuario",    recoInfo.nombre, 
+    "apellidoP",  recoInfo.apellidoP, 
+    "apellidoM",  recoInfo.apellidoM, 
+    "email",      recoInfo.email,
+    "idrol",      recoInfo.idrol,
     "num_empleado",recoInfo.num_empleado,
-    "idlugar",recoInfo.idlugar,
-    "idarea", recoInfo.idarea, 
-    "password",recoInfo.password, 
-    "status", recoInfo.status);
+    "idlugar",    recoInfo.idlugar,
+    "idarea",     recoInfo.idarea, 
+    "password",   recoInfo.password, 
+    "status",     recoInfo.status);
 
     this.usuarioService.saveUsuario(recoInfo).subscribe({
       next: (resp: RespuestaDto) => {

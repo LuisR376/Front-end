@@ -331,7 +331,7 @@ p-checkbox {
 .p-float-label textarea.p-filled ~ label,
 .p-float-label .p-inputwrapper-focus ~ label,
 .p-float-label .p-inputwrapper-filled ~ label {
-    top: -.75rem;
+    top: -.25rem;
     font-size: 12px;
 }
 

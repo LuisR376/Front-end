@@ -6,7 +6,6 @@
                 <p>FORMULARIO PARA EL TECNICO</p>
             </div>
         </div>
-        <span>Nombre: {{sesionUsuario.nombre}} {{sesionUsuario.apellidoP}} {{sesionUsuario.apellidoM}} </span>
     </div>
 
 </section>
@@ -14,9 +13,18 @@
 <section class="container">
 
     <div class="grid">
-        <div class="col-12 md:col-6">
+        <p-card class="col-12 md:col-6">
             <div class="">
-                la informacion
+                <p>FOLIO: {{tickets.num_folio}}</p>
+            </div>
+            <div>
+                <p>Cliente: {{tickets.nombre}}</p>
+            </div>
+            <div>
+                <p>Asunto: {{tickets.asunto}}</p>
+            </div>
+            <div>
+                <p>Mensaje: {{tickets.mensaje}}</p>
             </div>
             <div>
                 <p-galleria [value]="images" [(visible)]="displayCustom" [(activeIndex)]="activeIndex"
@@ -34,14 +42,54 @@
                 </p-galleria>
                 <div *ngIf="images" class="grid">
                     <div *ngFor="let image of images; let index = index;" class="col-3 m-1 border-img" key="index">
-                        <img class="size-img" [src]="image.thumbnailImageSrc" [alt]="image.alt" style="cursor: pointer; width:100%"
-                            (click)="imageClick(index)" />
+                        <img class="size-img" [src]="image.thumbnailImageSrc" [alt]="image.alt"
+                            style="cursor: pointer; width:100%" (click)="imageClick(index)" />
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-12 md:col-6" style="background-color: coral;">
-            formulario
+            <div>
+                <p>Area: {{tickets.nombre_area}}</p>
+            </div>
+            <div>
+                <p>Ubicacion: {{tickets.ubicacion}}</p>
+            </div>
+        </p-card>
+        <div class="col-12 md:col-6">
+            <Form [formGroup]="recoInfo" >
+                <div class="grid">
+                    <div class="col-12 md:col-6">
+                        <span class="p-float-label">
+                            <input type="text" value="{{sesionUsuario.num_empleado}}" pInputText>
+                            <label>Numero de Empleado:</label>
+                        </span>
+                    </div>
+                    <div class="col-12 md:col-6">
+                        <span class="p-float-label">
+                            <input id="idtipo_servicio" type="text" pInputText>
+                            <label formControlName="idtipo_servicio" for="float-input">Tipo de Servicio</label>
+                        </span>
+                    </div>
+
+                    <div class="col-12 md:col-12">
+                        <p-fileUpload class="" [customUpload]="true" #fileUploader [showUploadButton]="false"
+                            (onRemove)="eliminaImagen(fileUploader)" chooseLabel="Subir Firma"
+                            cancelLabel="Quitar Firma" (onSelect)="subirimg($event)" id="imagenTicket" name="firma"
+                            accept=".jpg, .jpeg, .png" [fileLimit]="1" [maxFileSize]="2000000"
+                            [multiple]="true"></p-fileUpload>
+                    </div>
+                    <div class="col-12 md:col-12">
+                        <span class="p-float-label">
+                            <textarea rows="5" cols="65" type="text" pInputTextarea></textarea>
+                            <label formControlName="solucion" for="float-input">Solucion</label>
+                        </span>
+                    </div>
+
+                </div>
+                <div class="col-12 md:col-12 text-right">
+                    <p-button styleClass="p-button-secondary mr-2" label="Cancelar"></p-button>
+                    <p-button (click)="addTicket()" label="Guardar"></p-button>
+                </div>
+            </Form>
         </div>
     </div>
 </section>

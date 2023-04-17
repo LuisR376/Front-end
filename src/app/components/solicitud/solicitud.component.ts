@@ -12,31 +12,30 @@ import { NgForm } from '@angular/forms';
 import { Usuario } from '../model/usuario.model';
 import { FolioService } from 'src/app/service/folio.service';
 import { ticketService } from 'src/app/service/ticket.service';
+import { Imagen } from '../model/imagene.model';
+import { ImagenesBase64 } from '../model/imagenes.model';
+import { Folio } from '../model/folio.model';
 @Component({
   selector: 'app-solicitud',
   templateUrl: './solicitud.component.html',
   styleUrls: ['./solicitud.component.css']
 })
 export class SolicitudComponent {
-
-  images =  [] as any;
-  displayCustom!: boolean;
-  activeIndex: number = 0;
-
-
+  
   @ViewChild(AlertaComponent, { static: false }) mensajeAlerta!: AlertaComponent;
-  token: string;
-  tickets !: Ticket;
-
-  idFolio !: number;
-  sesionUsuario !: Usuario;
-  arrayImagenes = new Array();
-  id !: number;
-  recoInfo: FormGroup;
-  idFolios!: string;
-  displayBasic2: boolean = true;
+  
+  images            = [] as any;
+  displayCustom!    : boolean;
+  activeIndex       : number = 0;
+  token             : string;
+  tickets!          : Ticket;
+  sesionUsuario!    : Usuario;
+  arrayImagenes     = new Array();
+  recoInfo          : FormGroup;
+  idFolios!         : string;
   responsiveOptions!: any[];
-  texto: string = '';
+  folio!            : Folio[];
+
   constructor(
     private messageService: MessageService,
     private router: Router,
@@ -47,30 +46,19 @@ export class SolicitudComponent {
     private _folioService: FolioService
   ) {
     this.recoInfo = this.fb.group({
-      idfolios: ['', [Validators.required]],
-      idusuarios: [''],
-      idtipo_servicio: [''],
-      asunto: [''],
-      mensaje: [''],
-      foto1: [''],
-      foto2: [''],
-      foto3: [''],
-      foto4: [''],
-      solucion: ['', [Validators.required]],
-      firma: [''],
-      estado_ticket: [''],
-      nombre: [''],
-      Descripcion: [''],
-      num_folio: ['', [Validators.required]],
-      num_empleado: [''],
-      idstatusTicket: [''],
-
-
+      idtipo_servicio : [''],
+      solucion        : ['', [Validators.required]],
+      firma           : ['', [Validators.required]],
+      estado_ticket   : [''],
+      nombre          : [''],
+      num_folio       : [''],
+      num_empleado    : [''],
+      idstatusTicket  : ['']
     });
     this.token = this._authGuardService.getToken();
     this.sesionUsuario = this._authGuardService.getUser();
     this.idFolios = this.route.snapshot.paramMap.get('id') as any;
-    
+
     console.log(this.idFolios);
 
   }
@@ -78,36 +66,26 @@ export class SolicitudComponent {
   imageClick(index: number) {
     this.activeIndex = index;
     this.displayCustom = true;
-}
-
-  ngOnInit(): void {
-
-
-    this.obtenerTickets(this.idFolios);
-    
-    this.responsiveOptions = [
-      {
-        breakpoint: '1500px',
-        numVisible: 4
-      },
-      {
-        breakpoint: '1024px',
-        numVisible: 4
-      },
-      {
-        breakpoint: '768px',
-        numVisible: 2
-      },
-      {
-        breakpoint: '560px',
-        numVisible: 1
-      }
-    ];
-   
-    
   }
-  openNew() {
-    this.displayBasic2 = true;
+  ngOnInit(): void {
+    this.obtenerTickets(this.idFolios);
+  }
+  obtenerFolio() {
+    console.log("Token", this.token);
+    this._folioService.saveFolio(this.token).subscribe({
+      next: (resp: RespuestaDto) => {
+        console.log("Obtener num_folio", resp);
+        let respuestaDto = <RespuestaDto>resp;
+        if (respuestaDto.ok) {
+          this.folio = resp.addenda;
+        } else {
+        } // if
+      },
+      error: (error) => {
+        let mensaje = <any>error;
+        this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
+      }
+    });
   }
 
 
@@ -118,40 +96,40 @@ export class SolicitudComponent {
 
         if (respuestaDto.ok) {
           this.tickets = resp.addenda[0];
-          if( this.tickets.foto1 ){
+          if (this.tickets.foto1) {
             this.images.push(
               {
-                  "previewImageSrc": this.tickets.foto1,
-                  "thumbnailImageSrc": this.tickets.foto1,
+                "previewImageSrc": this.tickets.foto1,
+                "thumbnailImageSrc": this.tickets.foto1,
               }
-           )  as any;
+            ) as any;
           }
-          if( this.tickets.foto2 ){
+          if (this.tickets.foto2) {
             this.images.push(
               {
-                  "previewImageSrc": this.tickets.foto2,
-                  "thumbnailImageSrc": this.tickets.foto2,
+                "previewImageSrc": this.tickets.foto2,
+                "thumbnailImageSrc": this.tickets.foto2,
               }
-           )  as any;
+            ) as any;
           }
-          if( this.tickets.foto3 ){
+          if (this.tickets.foto3) {
             this.images.push(
               {
-                  "previewImageSrc": this.tickets.foto3,
-                  "thumbnailImageSrc": this.tickets.foto3,
+                "previewImageSrc": this.tickets.foto3,
+                "thumbnailImageSrc": this.tickets.foto3,
               }
-           )  as any;
+            ) as any;
           }
-          if( this.tickets.foto4 ){
+          if (this.tickets.foto4) {
             this.images.push(
               {
-                  "previewImageSrc": this.tickets.foto4,
-                  "thumbnailImageSrc": this.tickets.foto4,
+                "previewImageSrc": this.tickets.foto4,
+                "thumbnailImageSrc": this.tickets.foto4,
               }
-           )  as any;
+            ) as any;
           }
-          console.log("icketddd", this.tickets);
-          
+          console.log("this.tickets", this.tickets);
+
         }
       },
       error: (error) => {
@@ -167,37 +145,8 @@ export class SolicitudComponent {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Porfavor verifique todos los campos' });
     } else if (this.arrayImagenes.length == 0) {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Porfavor adjunte algunas imagenes' });
-
+      this.saveTicket(this.recoInfo.value);
     }
-  }
-  selectProduct(solicitud: Ticket) {
-    this.messageService.add({ severity: 'info', summary: 'Product Selected', detail: solicitud.nombre });
-  }
-  guardar(f: NgForm) {
-    console.log('submit disparado', f);
-    console.log(f.value);
-  }
-
-  async saveFolio(): Promise<number> {
-    return new Promise((resolve, reject) => {
-      this._folioService.saveFolio(this.token).subscribe({
-        next: (resp: RespuestaDto) => {
-          let respuestaDto = <RespuestaDto>resp;
-          if (respuestaDto.valido == 0) {
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: respuestaDto.mensaje });
-          } else {
-            this.idFolio = <number>respuestaDto.addenda[0].idfolios;
-            resolve(this.idFolio);
-          }
-        },
-        error: (error) => {
-          let mensaje = <any>error;
-          reject(mensaje);
-          this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
-        }
-      });
-
-    });
   }
   async saveTicket(recoInfo: Ticket) {
     console.log("datos del ticket", recoInfo)
@@ -234,8 +183,45 @@ export class SolicitudComponent {
 
       resolve(recoInfo);
     });
-
-
-
   }
+  async subirimg(event: any) {
+    this.arrayImagenes = [];
+    let conversion: ImagenesBase64 = await this.convertB64(event);   //jalar las imagenes y ponerlas dentro del arreglo
+    this.arrayImagenes = conversion;
+    console.log("arrayImagenes", this.arrayImagenes);
+  }
+  async convertB64(event: any): Promise<ImagenesBase64> {
+
+    return new Promise((resolve, reject) => {
+      var lista: ImagenesBase64 = [];
+      var imagenes = event.currentFiles;
+      let imagen: Imagen;
+      var terminados = 0;
+      for (let key in imagenes) {
+        let reader = new FileReader();
+        imagen = imagenes[key];
+        reader.readAsDataURL(imagenes[key]);
+        reader.onload = (imagen) => {
+          lista.push({ imagen: reader.result?.toString() });
+        }
+        reader.onerror = function (error) {
+          console.log('Error', error);
+          reject(error);
+        }
+        reader.onloadend = function (end) {
+          terminados++;
+          if (imagenes.length == terminados) {
+            resolve(lista);
+          }
+        }
+      }
+    })
+  }
+  eliminaImagen(event: any) {
+    setTimeout(() => {
+      let files = { currentFiles: event._files };
+      this.subirimg(files);
+    }, 500)
+  }
+
 }
