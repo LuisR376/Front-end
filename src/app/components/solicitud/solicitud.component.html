@@ -15,16 +15,16 @@
     <div class="grid">
         <p-card class="col-12 md:col-6">
             <div class="">
-                <p>FOLIO: {{tickets.num_folio}}</p>
+                <p>FOLIO: {{tickets?.num_folio}}</p>
             </div>
             <div>
-                <p>Cliente: {{tickets.nombre}}</p>
+                <p>Cliente: {{tickets?.nombre}}</p>
             </div>
             <div>
-                <p>Asunto: {{tickets.asunto}}</p>
+                <p>Asunto: {{tickets?.asunto}}</p>
             </div>
             <div>
-                <p>Mensaje: {{tickets.mensaje}}</p>
+                <p>Mensaje: {{tickets?.mensaje}}</p>
             </div>
             <div>
                 <p-galleria [value]="images" [(visible)]="displayCustom" [(activeIndex)]="activeIndex"
@@ -48,10 +48,10 @@
                 </div>
             </div>
             <div>
-                <p>Area: {{tickets.nombre_area}}</p>
+                <p>Area: {{tickets?.nombre_area}}</p>
             </div>
             <div>
-                <p>Ubicacion: {{tickets.ubicacion}}</p>
+                <p>Ubicacion: {{tickets?.ubicacion}}</p>
             </div>
         </p-card>
         <div class="col-12 md:col-6">

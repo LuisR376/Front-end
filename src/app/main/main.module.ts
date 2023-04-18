@@ -17,6 +17,7 @@ import { InfoTicketComponent } from '../components/info-ticket/info-ticket.compo
 import { SolicitudComponent } from '../components/solicitud/solicitud.component';
 import { PerfilComponent } from '../components/perfil/perfil.component';
 import { DetallePcComponent } from '../components/detalle-pc/detalle-pc.component';
+import { ReasignacionByidComponent } from '../components/reasignacion-byid/reasignacion-byid.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { DetallePcComponent } from '../components/detalle-pc/detalle-pc.componen
     InfoTicketComponent,
     SolicitudComponent,
     PerfilComponent,
-    DetallePcComponent
+    DetallePcComponent,
+    ReasignacionByidComponent
   ],
   imports: [
     MainRoutingModule,

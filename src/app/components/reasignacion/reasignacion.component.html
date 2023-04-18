@@ -1,87 +1,35 @@
 <section class="container">
     <div>
+         <p-table [value]="tickets" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+            styleClass="p-datatable-sm" [scrollable]="true" [rowsPerPageOptions]="[10,25,50]"  selectionMode="single" [selection]="selectInfo">
+            <ng-template pTemplate="caption">
         <div class="flex align-items-center justify-content-between fondo">
             <div>
                 <h1>REASIGNACION</h1>
                 <p>Reasigna al tecnico</p>
             </div>
         </div>
-            <p-table [value]="lugar" dataKey="id" editMode="row" [tableStyle]="{'min-width': '50rem'}">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th style="width:20%">Folio</th>
-                        <th style="width:20%">N° Empleado</th>
-                        <th style="width:20%">Estado de Ticket</th>
-                        <th style="width:20%">Mensaje</th>
-                        <th style="width:20%">Fecha</th>
-                        <th></th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-product let-editing="editing" let-ri="rowIndex">
-                    <tr [pEditableRow]="product">
-                        <td>
-                            <p-cellEditor>
-                                <ng-template pTemplate="input">
-                                    <input pInputText type="text">
-                                </ng-template>
-                                <ng-template pTemplate="output">
-                                    {{product.num_folio.slice(-12)}}
-                                </ng-template>
-                            </p-cellEditor>
-                        </td>
-                        <td>
-                            <p-cellEditor>
-                                <ng-template pTemplate="input">
-                                    <input pInputText type="text" >
-                                </ng-template>
-                                <ng-template pTemplate="output">
-                                    {{product.num_empleado}}
-                                </ng-template>
-                            </p-cellEditor>
-                        </td>
-                        <td>
-                            <p-cellEditor>
-                                <ng-template pTemplate="input">
-                                    <p-dropdown appendTo="body" 
-                                        ></p-dropdown>
-                                </ng-template>
-                                <ng-template pTemplate="output">
-                                    {{product.Descripcion}}
-                                </ng-template>
-                            </p-cellEditor>
-                        </td>
-                        <td>
-                            <p-cellEditor>
-                                <ng-template pTemplate="input">
-                                    <input pInputText type="text">
-                                </ng-template>
-                                <ng-template pTemplate="output">
-                                    {{product.mensaje}}
-                                </ng-template>
-                            </p-cellEditor>
-                        </td>
-                        <td>
-                            <p-cellEditor>
-                                <ng-template pTemplate="input">
-                                    <input pInputText type="text">
-                                </ng-template>
-                                <ng-template pTemplate="output">
-                                    {{product.fecha_registro}}
-                                </ng-template>
-                            </p-cellEditor>
-                        </td>
-                        <td>
-                            <div class="flex align-items-center justify-content-center gap-2">
-                                <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow
-                                    icon="pi pi-pencil" (click)="onRowEditInit(product)"
-                                    class="p-button-rounded p-button-text"></button>
-                                <!--  <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(product)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
-                        <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(product, ri)" class="p-button-rounded p-button-text p-button-danger"></button>-->
-                            </div>
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>
-           
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Fecha</th>
+                <th>Folio</th>
+               
+                <th style="width: 5rem"></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-ticket>
+            <tr>
+            <td>{{ticket.fecha_registro | date:'short'}}</td>
+                <td>{{ticket.num_folio.slice(-5)}}</td>
+                
+                <td>
+                    <p-button [routerLink]="['../ReasignacionByid', ticket.idfolios]" label="servicio"
+                        icon="pi pi pi-arrow-circle-right" styleClass="p-button-sm"></p-button>
+                </td>
+            </tr>
+        </ng-template>
+        
+        </p-table>
         </div>
 </section>

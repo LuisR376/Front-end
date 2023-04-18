@@ -4,8 +4,9 @@ import { Ticket } from '../model/ticket.model';
 import { RespuestaDto } from '../model/respuestaDto';
 import { AlertaComponent } from '../../util/alerta.component';
 import { authGuardService } from '../../service/auth-guard.service';
-import { Lugar } from '../model/lugar.model';
+
 import { ticketService } from 'src/app/service/ticket.service';
+import { FormBuilder } from '@angular/forms';
 @Component({
   selector: 'app-reasignacion',
   templateUrl: './reasignacion.component.html',
@@ -14,10 +15,10 @@ import { ticketService } from 'src/app/service/ticket.service';
 export class ReasignacionComponent {
   @ViewChild(AlertaComponent, { static: false }) mensajeAlerta!: AlertaComponent;
   token : string;
-  lugar !: Lugar[];
-  clonedProducts: { [s: string]: Lugar; } = {};
+  tickets !: Ticket[];
+  selectInfo!: Ticket;
   constructor(
-    
+    private fb: FormBuilder,
     public _authGuardService: authGuardService,
     public _ticketService: ticketService,
     ) {
@@ -28,28 +29,28 @@ export class ReasignacionComponent {
   ngOnInit() {
     this.obtenerTickets();
   }
+   recoInfo = this.fb.group({
+     idfolios: [''],
+     fecha_registro : [''],
+    idtipo_servicio: [''],
+    num_folio: [''],
+    num_empleado: [''],
+    idstatusTicket: [''],
+  });
 //
-obtenerTickets(){
-  console.log("Token",this.token);
+obtenerTickets() {
     this._ticketService.getTicket(this.token).subscribe({
-      next : (resp: RespuestaDto)  => {
-        console.log("Obtener tickets",resp);
+      next: (resp: RespuestaDto) => {
         let respuestaDto = <RespuestaDto>resp;
         if (respuestaDto.ok) {
-          this.lugar = resp.addenda;
-        } else {
-
-        } // if
-      },
-        error : (error) => {
-          let mensaje = <any>error;
-          this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
+          this.tickets = resp.addenda;
         }
-      });
-
+      },
+      error: (error) => {
+        let mensaje = <any>error;
+        this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
+      }
+    });
   }
-    onRowEditInit(product: Lugar) {
-        this.clonedProducts[product.idlugar] = {...product};
-}
 }
 

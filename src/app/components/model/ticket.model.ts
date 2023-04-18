@@ -1,6 +1,7 @@
 export interface Ticket {
 
-idfolios ?: number;
+    idfolios?: number;
+    idasignacion?: number;
 fecha_registro?:Date,
 idusuarios?:number,
 idtipo_servicio?:number,
@@ -22,5 +23,6 @@ num_empleado?:number;
 estado_ticket?:string;
 nombre_area?:string;
 lugares?:string;
-ubicacion?:string;
+    ubicacion?: string;
+    nombre_asignacion?: string;
 }

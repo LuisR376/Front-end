@@ -14,6 +14,7 @@ import { InfoTicketComponent } from '../components/info-ticket/info-ticket.compo
 import { SolicitudComponent } from '../components/solicitud/solicitud.component';
 import {PerfilComponent} from '../components/perfil/perfil.component';
 import { DetallePcComponent } from '../components/detalle-pc/detalle-pc.component';
+import {ReasignacionByidComponent} from '../components/reasignacion-byid/reasignacion-byid.component'
 const routes: Routes = [
   {
       path: 'main', component: InicioComponent,
@@ -32,7 +33,7 @@ const routes: Routes = [
       {path: 'solicitud/:id', component: SolicitudComponent},
       {path:'perfil',component: PerfilComponent},
       {path:'detallePc',component: DetallePcComponent},
-      
+      {path: 'ReasignacionByid/:id', component: ReasignacionByidComponent},
     ]
   }
 ];

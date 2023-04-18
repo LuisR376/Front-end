@@ -16,7 +16,7 @@ export class SolicitudesComponent implements OnInit {
   @ViewChild(AlertaComponent, { static: false }) mensajeAlerta!: AlertaComponent;
   token: string;
   tickets !: Ticket[];
-  selectedProduct1 !: Ticket;
+  selectInfo !: Ticket;
   ticket!: Ticket;
   
   constructor(

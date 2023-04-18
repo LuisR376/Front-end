@@ -1,0 +1,55 @@
+<section class="container">
+    <div>
+        <div class="flex align-items-center justify-content-between fondo">
+            <div>
+                <h1>REASIGNACION DEL TICKET</h1>
+                <p>Asignar al tecnico y nivel de prioridad</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="container">
+
+    <div class="grid">
+        <p-card class="col-12 md:col-6">
+            <div class="">
+                <p>FOLIO: {{tickets?.num_folio}}</p>
+            </div>
+            <div>
+                <p>Cliente: {{tickets?.nombre}}</p>
+            </div>
+            <div>
+                <p>Asunto: {{tickets?.asunto}}</p>
+            </div>
+            <div>
+                <p>Mensaje: {{tickets?.mensaje}}</p>
+            </div>
+            <div>
+                <p>Area: {{tickets?.nombre_area}}</p>
+            </div>
+            <div>
+                <p>Ubicacion: {{tickets?.ubicacion}}</p>
+            </div>
+        </p-card>
+        <div class="col-12 md:col-6">
+            <Form [formGroup]="recoInfo">
+                <div class="grid">
+                    <div class="col-12 md:col-6">
+                        <p-dropdown [options]="prioridad" placeholder="Seleccione el nivel de prioridad"
+                            formControlName="idtipo_servicio" optionLabel="descripcion"
+                            optionValue="idtipo_servicio"></p-dropdown>
+                    </div>
+                    <div class="col-12 md:col-6">
+                        <p-dropdown [options]="prioridad" placeholder="Asigado"
+                            formControlName="idasignacion" optionLabel="nombre_asignacion"
+                            optionValue="idasignacion"></p-dropdown>
+                    </div>
+                </div>
+                <div class="col-12 md:col-12 text-right">
+                    <p-button styleClass="p-button-secondary mr-2" label="Cancelar"></p-button>
+                    <p-button (click)="addTicket()" label="Guardar"></p-button>
+                </div>
+            </Form>
+        </div>
+    </div>
+</section>

@@ -1,20 +1,16 @@
 import { Component, ViewChild, OnInit, NgModule } from '@angular/core';
 import { MessageService } from 'primeng/api';
-
 import { AlertaComponent } from '../../util/alerta.component';
 import { authGuardService } from '../../service/auth-guard.service';
 import { RespuestaDto } from '../model/respuestaDto';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { Observable } from 'rxjs';
 import { Ticket } from '../model/ticket.model';
-import { NgForm } from '@angular/forms';
 import { Usuario } from '../model/usuario.model';
-import { FolioService } from 'src/app/service/folio.service';
 import { ticketService } from 'src/app/service/ticket.service';
 import { Imagen } from '../model/imagene.model';
 import { ImagenesBase64 } from '../model/imagenes.model';
-import { Folio } from '../model/folio.model';
+
 @Component({
   selector: 'app-solicitud',
   templateUrl: './solicitud.component.html',
@@ -34,16 +30,15 @@ export class SolicitudComponent {
   recoInfo          : FormGroup;
   idFolios!         : string;
   responsiveOptions!: any[];
-  folio!            : Folio[];
+
 
   constructor(
-    private messageService: MessageService,
-    private router: Router,
-    public _authGuardService: authGuardService,
-    public _ticketService: ticketService,
-    private route: ActivatedRoute,
-    private fb: FormBuilder,
-    private _folioService: FolioService
+    private messageService    : MessageService,
+    private router            : Router,
+    public _authGuardService  : authGuardService,
+    public _ticketService     : ticketService,
+    private route             : ActivatedRoute,
+    private fb                : FormBuilder,
   ) {
     this.recoInfo = this.fb.group({
       idtipo_servicio : [''],
@@ -55,40 +50,21 @@ export class SolicitudComponent {
       num_empleado    : [''],
       idstatusTicket  : ['']
     });
-    this.token = this._authGuardService.getToken();
-    this.sesionUsuario = this._authGuardService.getUser();
-    this.idFolios = this.route.snapshot.paramMap.get('id') as any;
+    this.token         =      this._authGuardService.getToken();
+    this.sesionUsuario =      this._authGuardService.getUser();
+    this.idFolios      =      this.route.snapshot.paramMap.get('id') as any;
 
     console.log(this.idFolios);
 
   }
 
   imageClick(index: number) {
-    this.activeIndex = index;
+      this.activeIndex = index;
     this.displayCustom = true;
   }
   ngOnInit(): void {
     this.obtenerTickets(this.idFolios);
   }
-  obtenerFolio() {
-    console.log("Token", this.token);
-    this._folioService.saveFolio(this.token).subscribe({
-      next: (resp: RespuestaDto) => {
-        console.log("Obtener num_folio", resp);
-        let respuestaDto = <RespuestaDto>resp;
-        if (respuestaDto.ok) {
-          this.folio = resp.addenda;
-        } else {
-        } // if
-      },
-      error: (error) => {
-        let mensaje = <any>error;
-        this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
-      }
-    });
-  }
-
-
   obtenerTickets(idFolios: string) {
     this._ticketService.getTicketsByid(this.token, idFolios).subscribe({
       next: (resp: RespuestaDto) => {
