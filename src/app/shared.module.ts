@@ -48,7 +48,9 @@ import { CommonModule } from '@angular/common';
 import {StepsModule} from 'primeng/steps';
 import { FolioService } from "./service/folio.service";
 import { ticketService } from "./service/ticket.service";
+import {tipodeservicioService} from "./service/tipodeservicio.service";
 import { GalleriaModule } from 'primeng/galleria';
+import { reasignacionService } from "./service/reasignacion.service";
 @NgModule({
   declarations: [
     AlertaComponent,
@@ -113,7 +115,7 @@ import { GalleriaModule } from 'primeng/galleria';
   providers: [MessageService, 
     ConfirmationService, 
     authGuardService,
-     LocalService, UtilApiService, FolioService, ticketService],
+     LocalService, UtilApiService, FolioService, ticketService,tipodeservicioService,reasignacionService],
   bootstrap: []
 })
 export class SharedModule { }

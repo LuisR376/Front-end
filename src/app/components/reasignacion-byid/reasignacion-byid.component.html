@@ -35,14 +35,14 @@
             <Form [formGroup]="recoInfo">
                 <div class="grid">
                     <div class="col-12 md:col-6">
-                        <p-dropdown [options]="prioridad" placeholder="Seleccione el nivel de prioridad"
+                        <p-dropdown [options]="servicio" placeholder="Seleccione el nivel de prioridad"
                             formControlName="idtipo_servicio" optionLabel="descripcion"
                             optionValue="idtipo_servicio"></p-dropdown>
                     </div>
                     <div class="col-12 md:col-6">
-                        <p-dropdown [options]="prioridad" placeholder="Asigado"
-                            formControlName="idasignacion" optionLabel="nombre_asignacion"
-                            optionValue="idasignacion"></p-dropdown>
+                        <p-dropdown [options]="tecnico" placeholder="Asigado"
+                            formControlName="ididreasignacion" optionLabel="idusuarios"
+                            optionValue="ididreasignacion"></p-dropdown>
                     </div>
                 </div>
                 <div class="col-12 md:col-12 text-right">

@@ -11,7 +11,6 @@ import { TableActivosComponent } from '../components/table-activos/table-activos
 import { TableUsuarioComponent } from '../components/table-usuario/table-usuario.component';
 import { CommonModule } from '@angular/common';
 import { NuevoActivoComponent } from '../components/nuevo-activo/nuevo-activo.component';
-import { Paso1ActivoComponent } from '../paso1-activo/paso1-activo.component';
 import { SelectComponent } from '../components/select/select.component';
 import { InfoTicketComponent } from '../components/info-ticket/info-ticket.component';
 import { SolicitudComponent } from '../components/solicitud/solicitud.component';
@@ -30,7 +29,6 @@ import { ReasignacionByidComponent } from '../components/reasignacion-byid/reasi
     LugarAreaComponent,
     ReasignacionComponent,
     NuevoActivoComponent,
-    Paso1ActivoComponent,
     SelectComponent,
     InfoTicketComponent,
     SolicitudComponent,

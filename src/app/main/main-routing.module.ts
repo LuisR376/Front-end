@@ -8,7 +8,7 @@ import { TableTicketComponent } from '../components/table-ticket/table-ticket.co
 import { TableUsuarioComponent } from '../components/table-usuario/table-usuario.component';
 import { InicioComponent } from '../components/inicio/inicio.component';
 import{ NuevoActivoComponent }from '../components/nuevo-activo/nuevo-activo.component';
-import { Paso1ActivoComponent } from '../paso1-activo/paso1-activo.component';
+
 import { SelectComponent } from '../components/select/select.component';
 import { InfoTicketComponent } from '../components/info-ticket/info-ticket.component';
 import { SolicitudComponent } from '../components/solicitud/solicitud.component';
@@ -26,7 +26,7 @@ const routes: Routes = [
       { path: 'lugarArea', component: LugarAreaComponent },
       { path: 'reasignacion', component: ReasignacionComponent },
       {path: 'NuevoActivo', component: NuevoActivoComponent},
-      {path: 'Paso1', component: Paso1ActivoComponent},
+
       {path: 'select', component: SelectComponent},
       {path: 'info', component: InfoTicketComponent},
       { path: 'solicitudes', component: SolicitudesComponent},
