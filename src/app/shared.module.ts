@@ -51,6 +51,7 @@ import { ticketService } from "./service/ticket.service";
 import {tipodeservicioService} from "./service/tipodeservicio.service";
 import { GalleriaModule } from 'primeng/galleria';
 import { reasignacionService } from "./service/reasignacion.service";
+import { tecnicoService } from "./service/tecnico.service";
 @NgModule({
   declarations: [
     AlertaComponent,
@@ -115,7 +116,7 @@ import { reasignacionService } from "./service/reasignacion.service";
   providers: [MessageService, 
     ConfirmationService, 
     authGuardService,
-     LocalService, UtilApiService, FolioService, ticketService,tipodeservicioService,reasignacionService],
+     LocalService, UtilApiService, FolioService, ticketService,tipodeservicioService,reasignacionService,tecnicoService],
   bootstrap: []
 })
 export class SharedModule { }

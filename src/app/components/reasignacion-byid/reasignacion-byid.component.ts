@@ -11,8 +11,7 @@ import {tipodeservicioService} from 'src/app/service/tipodeservicio.service'
 import {tipodeservicio} from '../model/tipodeservicio.model'
 import { reasignacionService } from 'src/app/service/reasignacion.service';
 import { reasignacion } from '../model/reasignacion.model';
-import { CustomerService } from 'src/app/service/CustomerService';
-import { UsuarioService } from 'src/app/service/usuario.service';
+import { tecnicoService } from 'src/app/service/tecnico.service';
 @Component({
   selector: 'app-reasignacion-byid',
   templateUrl: './reasignacion-byid.component.html',
@@ -25,9 +24,8 @@ export class ReasignacionByidComponent {
   selectInfo  !: Ticket;
   idFolios    !: string;
   recoInfo     : FormGroup;
-  tecnico   !: reasignacion[];
   servicio    !: tipodeservicio[];
-  usuarios !:UsuarioService[];
+  tecnicos    !:  tecnicoService[];
   constructor(
     private fb: FormBuilder,
     public _authGuardService: authGuardService,
@@ -36,14 +34,15 @@ export class ReasignacionByidComponent {
     private route: ActivatedRoute,
     public _tipodeservicioService:tipodeservicioService,
     public _reasignacionService:reasignacionService,
-    public customerService:CustomerService
+    public _tecnicoService:tecnicoService
   ) {
        this.token = this._authGuardService.getToken();
     this.idFolios = this.route.snapshot.paramMap.get('id') as any;
     console.log(this.idFolios);
     this.recoInfo = this.fb.group({
       idfolios        : [''],
-      fecha_registro  : [''],
+      fecha_registro: [''],
+      idusuarios: [''],
       idtipo_servicio : [''],
       num_folio       : [''],
       num_empleado    : [''],
@@ -54,8 +53,7 @@ export class ReasignacionByidComponent {
   ngOnInit(): void {
     this.obtenerTickets(this.idFolios);
     this.obtenerTipodeServicio();
-    this.obtenerReasignacion();
-    this.obtenerUsuarios();
+    this.obtenerTecnicos();
   }
  obtenerTickets(idFolios: string) {
     this._ticketService.getTicketsByid(this.token, idFolios).subscribe({
@@ -117,33 +115,16 @@ export class ReasignacionByidComponent {
       }
     });
   }
-  obtenerReasignacion() {
+  obtenerTecnicos() {
     console.log("Token", this.token);
-    this._reasignacionService.getReasignacion(this.token).subscribe({
+    this._tecnicoService.fntecnico(this.token).subscribe({
       next: (resp: RespuestaDto) => {
-        console.log("tecnico", resp);
+        console.log("Obtener tecnicos", resp);
         let respuestaDto = <RespuestaDto>resp;
         if (respuestaDto.ok) {
-          this.tecnico = resp.addenda;
-        }
-        console.log("this.tecnico", this.tecnico);
-      },
-      error: (error) => {
-        let mensaje = <any>error;
-        this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
-      }
-    });
-  }
-  obtenerUsuarios() {
-    console.log("Token", this.token);
-    this.customerService.fnusuario(this.token).subscribe({
-      next: (resp: RespuestaDto) => {
-        console.log("Obtener usuarios", resp);
-        let respuestaDto = <RespuestaDto>resp;
-        if (respuestaDto.ok) {
-          this.usuarios = resp.addenda;
+          this.tecnicos = resp.addenda;
         } else {
-        }  console.log("this.usuarios", this.usuarios);
+        }  console.log("this.tecnicos", this.tecnicos);
       },
       error: (error) => {
         let mensaje = <any>error;
