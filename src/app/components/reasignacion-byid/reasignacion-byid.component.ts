@@ -11,6 +11,8 @@ import {tipodeservicioService} from 'src/app/service/tipodeservicio.service'
 import {tipodeservicio} from '../model/tipodeservicio.model'
 import { reasignacionService } from 'src/app/service/reasignacion.service';
 import { reasignacion } from '../model/reasignacion.model';
+import { CustomerService } from 'src/app/service/CustomerService';
+import { UsuarioService } from 'src/app/service/usuario.service';
 @Component({
   selector: 'app-reasignacion-byid',
   templateUrl: './reasignacion-byid.component.html',
@@ -25,6 +27,7 @@ export class ReasignacionByidComponent {
   recoInfo     : FormGroup;
   tecnico   !: reasignacion[];
   servicio    !: tipodeservicio[];
+  usuarios !:UsuarioService[];
   constructor(
     private fb: FormBuilder,
     public _authGuardService: authGuardService,
@@ -32,7 +35,8 @@ export class ReasignacionByidComponent {
     private messageService: MessageService,
     private route: ActivatedRoute,
     public _tipodeservicioService:tipodeservicioService,
-    public _reasignacionService:reasignacionService
+    public _reasignacionService:reasignacionService,
+    public customerService:CustomerService
   ) {
        this.token = this._authGuardService.getToken();
     this.idFolios = this.route.snapshot.paramMap.get('id') as any;
@@ -51,6 +55,7 @@ export class ReasignacionByidComponent {
     this.obtenerTickets(this.idFolios);
     this.obtenerTipodeServicio();
     this.obtenerReasignacion();
+    this.obtenerUsuarios();
   }
  obtenerTickets(idFolios: string) {
     this._ticketService.getTicketsByid(this.token, idFolios).subscribe({
@@ -122,6 +127,23 @@ export class ReasignacionByidComponent {
           this.tecnico = resp.addenda;
         }
         console.log("this.tecnico", this.tecnico);
+      },
+      error: (error) => {
+        let mensaje = <any>error;
+        this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
+      }
+    });
+  }
+  obtenerUsuarios() {
+    console.log("Token", this.token);
+    this.customerService.fnusuario(this.token).subscribe({
+      next: (resp: RespuestaDto) => {
+        console.log("Obtener usuarios", resp);
+        let respuestaDto = <RespuestaDto>resp;
+        if (respuestaDto.ok) {
+          this.usuarios = resp.addenda;
+        } else {
+        }  console.log("this.usuarios", this.usuarios);
       },
       error: (error) => {
         let mensaje = <any>error;
