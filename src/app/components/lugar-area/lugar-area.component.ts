@@ -90,7 +90,7 @@ export class LugarAreaComponent {
     this.obtenerArea();
     this.displayAddModal = false;
   }
-  addProduct() {
+  addArea() {
     console.log("this.loginFormLugare area", this.agregarAreaForm.value)
     if (this.agregarAreaForm.invalid) {
       this.messageService.add({ severity: 'error', summary: 'No es posible agregar', detail: 'Porfavor verifique todos los campos' });

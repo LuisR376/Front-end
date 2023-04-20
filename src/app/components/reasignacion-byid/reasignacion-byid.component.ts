@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup,Validators } from '@angular/forms';
 import { authGuardService } from 'src/app/service/auth-guard.service';
 import { ticketService } from 'src/app/service/ticket.service';
 import { AlertaComponent } from 'src/app/util/alerta.component';
@@ -21,9 +21,9 @@ export class ReasignacionByidComponent {
   @ViewChild(AlertaComponent, { static: false }) mensajeAlerta!: AlertaComponent;
   token        : string;
   tickets     !: Ticket;
-  selectInfo  !: Ticket;
+  selectInfo  !: Ticket [] ;
   idFolios    !: string;
-  recoInfo     : FormGroup;
+  recoInfo    !: FormGroup;
   servicio    !: tipodeservicio[];
   tecnicos    !:  tecnicoService[];
   constructor(
@@ -39,18 +39,22 @@ export class ReasignacionByidComponent {
        this.token = this._authGuardService.getToken();
     this.idFolios = this.route.snapshot.paramMap.get('id') as any;
     console.log(this.idFolios);
+   
+  }
+  formulario() {
     this.recoInfo = this.fb.group({
-      idfolios        : [''],
-      fecha_registro: [''],
-      idusuarios: [''],
-      idtipo_servicio : [''],
-      num_folio       : [''],
-      num_empleado    : [''],
-      idstatusTicket  : [''],
+      numEmpl_Tecnicos  :['',Validators.required],
+      idfolios          : ['',Validators.required],
+      idusuarios        : ['',Validators.required],
+      idtipo_servicio   : ['', Validators.required],
+      solucion          : [''],
+      firma             : [''],
+      idstatusticket    : ['',Validators.required],
     });
   }
 
   ngOnInit(): void {
+    this.formulario();
     this.obtenerTickets(this.idFolios);
     this.obtenerTipodeServicio();
     this.obtenerTecnicos();
@@ -61,6 +65,8 @@ export class ReasignacionByidComponent {
         let respuestaDto = <RespuestaDto>resp;
         if (respuestaDto.ok) {
           this.tickets = resp.addenda[0];
+          console.log("tickets", this.tickets);
+        
         }
       },
       error: (error) => {
@@ -68,10 +74,19 @@ export class ReasignacionByidComponent {
         this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
       }
     });
+ }
+  addTicket() {
+    console.log("Datos ingresados:", this.recoInfo.value)
+    if (this.recoInfo.invalid) {
+      this.messageService.add({ severity: 'error', summary: 'No es posible agregar', detail: 'Porfavor verifique todos los campos' });
+    } else {
+      console.log("this.loginForm.value.usuarioLogin", this.recoInfo.value.numEmpl_Tecnicos)
+      this.actualizarTicket(this.recoInfo.value.numEmpl_Tecnicos, this.recoInfo.value.idtipo_servicio);
+    }
   }
-  async saveTicket(recoInfo: Ticket) {
+  async actualizarTicket(recoInfo: Ticket, idfolios: string) {
     console.log("datos del ticket", recoInfo)
-    this._ticketService.saveTicket(recoInfo).subscribe({
+    this._ticketService.actualizarTicket(recoInfo, idfolios).subscribe({
       next: (resp: RespuestaDto) => {
         console.log("Respeusta", resp)
         let respuestaDto = <RespuestaDto>resp;
@@ -93,11 +108,8 @@ export class ReasignacionByidComponent {
     });
   }
   
-  addTicket() {
-    if (this.recoInfo.invalid) {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Por favor verifique todos los campos' });
-    }
-  }
+  
+
   obtenerTipodeServicio() {
     console.log("Token", this.token);
     this._tipodeservicioService.getServicio(this.token).subscribe({

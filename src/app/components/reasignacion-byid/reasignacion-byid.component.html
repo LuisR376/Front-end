@@ -42,16 +42,17 @@
                     <div class="col-12 md:col-6">
                         <p-dropdown [options]="tecnicos" 
                         placeholder="Asignar ticket a:"
-                            formControlName="idusuarios" 
+                            formControlName="numEmpl_Tecnicos" 
                             optionLabel="nombre"
-                            optionValue="idusuarios"></p-dropdown>
+                            optionValue="num_empleado"></p-dropdown>
                     </div>
                 </div>
-                <div class="col-12 md:col-12 text-right">
-                    <p-button styleClass="p-button-secondary mr-2" label="Cancelar"></p-button>
-                    <p-button (click)="addTicket()" label="Guardar"></p-button>
-                </div>
+                
             </Form>
+            <div class="col-12 md:col-12 text-right">
+                <p-button styleClass="p-button-secondary mr-2" label="Cancelar"></p-button>
+                <p-button icon="pi pi-check" pRipple (ngSubmit)="addTicket()" label="Guardar" styleClass="p-button-text"></p-button>
+            </div>
         </div>
     </div>
 </section>

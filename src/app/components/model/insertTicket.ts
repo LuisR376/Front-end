@@ -1,7 +1,7 @@
 export class insertTicket{
     constructor(
 public idfolios : string | undefined | null,
-public idasignacion : string | undefined | null,
+public numEmpl_Tecnicos : string | undefined | null,
 
 public idusuarios: string | undefined | null,
 public idtipo_servicio: string | undefined | null,
@@ -23,7 +23,8 @@ public idstatusTicket: string | undefined  | null,
 
 public nombre_area: string | undefined  | null,
 public lugares: string | undefined  | null,
-public nombre_asignacion: string | undefined  | null,
+public idusuarios_tec: string | undefined  | null,
+
 
 ){}
     

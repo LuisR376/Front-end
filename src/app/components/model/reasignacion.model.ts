@@ -1,4 +1,3 @@
 export interface reasignacion {
-    descripcion:string;
-    idusuarios:number;
+    idusuarios_tec:number;
 }
