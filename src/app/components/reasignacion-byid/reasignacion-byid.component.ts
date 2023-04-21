@@ -43,14 +43,10 @@ export class ReasignacionByidComponent {
   }
   formulario() {
     this.recoInfo = this.fb.group({
-      numEmpl_Tecnicos  :['',Validators.required],
-      idfolios          : ['',Validators.required],
-      idusuarios        : ['',Validators.required],
+      numEmpl_Tecnicos  : ['',Validators.required],
       idtipo_servicio   : ['', Validators.required],
-      solucion          : [''],
-      firma             : [''],
-      idstatusticket    : ['',Validators.required],
-    });
+      idstatusticket    : ['',Validators.required]
+        });
   }
 
   ngOnInit(): void {
@@ -65,8 +61,11 @@ export class ReasignacionByidComponent {
         let respuestaDto = <RespuestaDto>resp;
         if (respuestaDto.ok) {
           this.tickets = resp.addenda[0];
+         
           console.log("tickets", this.tickets);
-        
+         this.recoInfo.patchValue({
+        idstatusticket: this.tickets.idstatusticket
+      });
         }
       },
       error: (error) => {
@@ -81,12 +80,16 @@ export class ReasignacionByidComponent {
       this.messageService.add({ severity: 'error', summary: 'No es posible agregar', detail: 'Porfavor verifique todos los campos' });
     } else {
       console.log("this.loginForm.value.usuarioLogin", this.recoInfo.value.numEmpl_Tecnicos)
-      this.actualizarTicket(this.recoInfo.value.numEmpl_Tecnicos, this.recoInfo.value.idtipo_servicio);
+      this.recoInfo.patchValue({
+        idstatusticket: this.tickets.idstatusticket,
+      });
+      this.actualizarTicket(this.recoInfo.value);
     }
   }
-  async actualizarTicket(recoInfo: Ticket, idfolios: string) {
+  async actualizarTicket(recoInfo: Ticket) {
     console.log("datos del ticket", recoInfo)
-    this._ticketService.actualizarTicket(recoInfo, idfolios).subscribe({
+    recoInfo.idfolios = this.tickets.idfolios;
+    this._ticketService.actualizarTicket(recoInfo, this.idFolios).subscribe({
       next: (resp: RespuestaDto) => {
         console.log("Respeusta", resp)
         let respuestaDto = <RespuestaDto>resp;
