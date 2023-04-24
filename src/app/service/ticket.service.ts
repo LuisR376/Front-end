@@ -33,6 +33,10 @@ export class ticketService {
         return this._apiService.sendPostRequest(nuevosDatos, this.url + `ticket/actualizar/${idfolios}`);
     }// Post usuario administrador
 
+    actualizarTicketabierto(nuevosDatos: any,idfolios : string): Observable<RespuestaDto> {
+        return this._apiService.sendPostRequest(nuevosDatos, this.url + `ticket/actualizarAbierto/${idfolios}`);
+    }// Post usuario administrador
+
     catalogEstatusTicket(token: string): Observable<RespuestaDto> {
         return this._apiService.sendGetRequest(this.url + "ticket/obtenCatalogEstatusTicket", token);
     }

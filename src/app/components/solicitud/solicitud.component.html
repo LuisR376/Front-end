@@ -53,43 +53,36 @@
             <div>
                 <p>Ubicacion: {{tickets.ubicacion}}</p>
             </div>
+           <br>
+            <div>
+                <p>Asistente: {{tickets.numEmpl_Tecnicos}}</p>
+            </div>
+            <div>
+                <p>Prioridad: {{tickets.descripcion}}</p>
+            </div>
         </p-card>
         <div class="col-12 md:col-6">
-            <Form [formGroup]="recoInfo" >
+            <Form [formGroup]="recoInfo" (ngSubmit)="addTicket()">
                 <div class="grid">
-                    <div class="col-12 md:col-6">
-                        <span class="p-float-label">
-                            <input type="text" value="{{sesionUsuario.num_empleado}}" pInputText>
-                            <label>Numero de Empleado:</label>
-                        </span>
-                    </div>
-                    <div class="col-12 md:col-6">
-                        <span class="p-float-label">
-                            <input id="idtipo_servicio" type="text" pInputText>
-                            <label formControlName="idtipo_servicio" for="float-input">Tipo de Servicio</label>
-                        </span>
-                    </div>
-
                     <div class="col-12 md:col-12">
-                        <p-fileUpload class="" [customUpload]="true" #fileUploader [showUploadButton]="false"
-                            (onRemove)="eliminaImagen(fileUploader)" chooseLabel="Subir Firma"
-                            cancelLabel="Quitar Firma" (onSelect)="subirimg($event)" id="imagenTicket" name="firma"
-                            accept=".jpg, .jpeg, .png" [fileLimit]="1" [maxFileSize]="2000000"
-                            [multiple]="true"></p-fileUpload>
+                        <p-fileUpload [customUpload]="true" #fileUploader [showUploadButton]="false" (onRemove)="eliminaImagen(fileUploader)"
+                            chooseLabel="Seleccionar imagen" cancelLabel="Quitar Imagenes" (onSelect)="subirimg($event)" id="imagenTicket"
+                            name="firma" accept=".jpg, .jpeg, .png" [fileLimit]="1" [maxFileSize]="2000000" [multiple]="true"></p-fileUpload>
                     </div>
                     <div class="col-12 md:col-12">
                         <span class="p-float-label">
-                            <textarea rows="5" cols="65" type="text" pInputTextarea></textarea>
-                            <label formControlName="solucion" for="float-input">Solucion</label>
+                            <textarea  formControlName="solucion" rows="5" cols="65"  id="solucion" type="text" pInputTextarea></textarea>
+                            <label for="float-input">Solucion</label>
+                            <small *ngIf="form['solucion'].errors?.['required']" id="blErrorsolucion" class="p-error">El campo solucion se encuentra
+                                vacío.</small>
                         </span>
                     </div>
-
                 </div>
+                </Form>
                 <div class="col-12 md:col-12 text-right">
                     <p-button styleClass="p-button-secondary mr-2" label="Cancelar"></p-button>
-                    <p-button (click)="addTicket()" label="Guardar"></p-button>
+                    <p-button icon="pi pi-check" pRipple (click)="addTicket()" label="Guardar" styleClass="p-button-text"></p-button>
                 </div>
-            </Form>
         </div>
     </div>
 </section>

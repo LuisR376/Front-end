@@ -3,7 +3,7 @@ import { MessageService } from 'primeng/api';
 import { AlertaComponent } from '../../util/alerta.component';
 import { authGuardService } from '../../service/auth-guard.service';
 import { RespuestaDto } from '../model/respuestaDto';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Ticket } from '../model/ticket.model';
 import { Usuario } from '../model/usuario.model';
@@ -17,54 +17,55 @@ import { ImagenesBase64 } from '../model/imagenes.model';
   styleUrls: ['./solicitud.component.css']
 })
 export class SolicitudComponent {
-  
-  @ViewChild(AlertaComponent, { static: false }) mensajeAlerta!: AlertaComponent;
-  
-  images            = [] as any;
-  displayCustom!    : boolean;
-  activeIndex       : number = 0;
-  token             : string;
-  tickets!          : Ticket;
-  sesionUsuario!    : Usuario;
-  arrayImagenes     = new Array();
-  recoInfo          : FormGroup;
-  idFolios!         : string;
-  responsiveOptions!: any[];
 
+  @ViewChild(AlertaComponent, { static: false }) mensajeAlerta!: AlertaComponent;
+  @ViewChild('fileUploader', { static: false }) fileUpload: any;
+  images = [] as any;
+  displayCustom!: boolean;
+  activeIndex: number = 0;
+  token: string;
+  tickets!: Ticket;
+  sesionUsuario!: Usuario;
+  arrayImagenes = new Array();
+  recoInfo          !: FormGroup;
+  idFolios!: string;
+  responsiveOptions !: any[];
+  ticke: any;
 
   constructor(
-    private messageService    : MessageService,
-    private router            : Router,
-    public _authGuardService  : authGuardService,
-    public _ticketService     : ticketService,
-    private route             : ActivatedRoute,
-    private fb                : FormBuilder,
+    private messageService: MessageService,
+    private router: Router,
+    public _authGuardService: authGuardService,
+    public _ticketService: ticketService,
+    private route: ActivatedRoute,
+    private fb: FormBuilder,
   ) {
-    this.recoInfo = this.fb.group({
-      idtipo_servicio : [''],
-      solucion        : ['', [Validators.required]],
-      firma           : ['', [Validators.required]],
-      estado_ticket   : [''],
-      nombre          : [''],
-      num_folio       : [''],
-      num_empleado    : [''],
-      idstatusTicket  : ['']
-    });
-    this.token         =      this._authGuardService.getToken();
-    this.sesionUsuario =      this._authGuardService.getUser();
-    this.idFolios      =      this.route.snapshot.paramMap.get('id') as any;
-
+    this.token = this._authGuardService.getToken();
+    this.sesionUsuario = this._authGuardService.getUser();
+    this.idFolios = this.route.snapshot.paramMap.get('id') as any;
     console.log(this.idFolios);
-
   }
-
-  imageClick(index: number) {
-      this.activeIndex = index;
-    this.displayCustom = true;
+  formulario() {
+    this.recoInfo = this.fb.group({
+      solucion: ['', [Validators.required]],
+      firma: ['', [Validators.required]],
+      idstatusticket: ['', Validators.required]
+    });
   }
   ngOnInit(): void {
     this.obtenerTickets(this.idFolios);
+    this.formulario();
   }
+
+  get form(): { [key: string]: AbstractControl } {
+    return this.recoInfo.controls;
+  }
+
+  imageClick(index: number) {
+    this.activeIndex = index;
+    this.displayCustom = true;
+  }
+
   obtenerTickets(idFolios: string) {
     this._ticketService.getTicketsByid(this.token, idFolios).subscribe({
       next: (resp: RespuestaDto) => {
@@ -115,20 +116,26 @@ export class SolicitudComponent {
     });
   }
   //Si el formulario es invalido
+  
   async addTicket() {
 
     if (this.recoInfo.invalid) {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Porfavor verifique todos los campos' });
-    } else if (this.arrayImagenes.length == 0) {
+    } else if (this.arrayImagenes.length == 0) {  
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Porfavor adjunte algunas imagenes' });
-      this.saveTicket(this.recoInfo.value);
+    } else {
+       this.recoInfo.patchValue({
+        idstatusticket: this.tickets.idstatusticket,
+      });
+      let datosTicket: Ticket = this.recoInfo.value as Ticket;
+      this.actualizarTicketabierto(datosTicket);
     }
   }
-  async saveTicket(recoInfo: Ticket) {
-    console.log("datos del ticket", recoInfo)
-    recoInfo.idusuarios = this.sesionUsuario.idUsuario;
+  async actualizarTicketabierto(recoInfo: Ticket) {
+    console.log("datoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooos del ticket", recoInfo)
+    recoInfo.idfolios = this.tickets.idfolios;
     await this.getSetterImages(recoInfo);
-    this._ticketService.saveTicket(recoInfo).subscribe({
+    this._ticketService.actualizarTicketabierto(recoInfo, this.idFolios).subscribe({
       next: (resp: RespuestaDto) => {
         console.log("Respeusta", resp)
         let respuestaDto = <RespuestaDto>resp;
@@ -138,9 +145,10 @@ export class SolicitudComponent {
         } else {
           this.messageService.add({ severity: 'success', summary: 'Mensaje', detail: respuestaDto.mensaje });
 
-
+          this.ticke = <Ticket>respuestaDto.addenda;
+          this.obtenerTickets(this.idFolios);
           this.recoInfo.reset();
-
+          this.clearSelectedPhoto();
         }
       },
       error: (error) => {
@@ -149,11 +157,14 @@ export class SolicitudComponent {
       }
     });
   }
+  clearSelectedPhoto() {
+    this.fileUpload.clear();
+  }
   async getSetterImages(recoInfo: Ticket) {
     return new Promise((resolve, reject) => {
       switch (this.arrayImagenes.length) {
         case 1:
-          recoInfo.foto1 = this.arrayImagenes[0].imagen;
+          recoInfo.firma = this.arrayImagenes[0].imagen;
           break;
       }
 

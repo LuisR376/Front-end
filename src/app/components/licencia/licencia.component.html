@@ -1,0 +1,44 @@
+<section class="container">
+    <div>
+        <p-table [value]="licencias" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+            [tableStyle]="{'min-width': '50rem'}"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[10,25,50]">
+            <ng-template pTemplate="caption">
+                <div class="flex align-items-center justify-content-between fondo">
+                    <div>
+                        <h1>Licencias</h1>
+                        <p>Tabla de licencias</p>
+                    </div>
+                    <div>
+                        <button pButton pRipple type="button" label="Nuevo" ></button>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="idLicencias">ID<p-sortIcon field="idLicencias "></p-sortIcon></th>
+                    <th>numserie_licencia</th>
+                    <th>tipo_licencia</th>   
+                    <th>nombre</th>
+                    <th>folio_compra</th>
+                    <th>formato</th>
+                    <th>descripcion</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-lic>
+                <tr>
+                    <td>{{lic.idLicencias}}</td>
+                    <td>{{lic.numserie_licencia}}</td>
+                    <td>{{lic.tipo_licencia}}</td>                 
+                    <td>{{lic.nombre}}</td>          
+                    <td>{{lic.folio_compra}}</td>                
+                    <td>{{lic.formato}}</td>           
+                    <td>{{lic.descripcion}}</td>            
+                </tr>
+            </ng-template>
+            <ng-template>
+            </ng-template>
+        </p-table>
+    </div>
+</section>

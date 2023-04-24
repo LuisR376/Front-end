@@ -72,7 +72,8 @@ export class MenuComponent implements OnInit {
                   },
                   {
                      label: 'Licencia',
-                     icon: 'pi pi-microsoft'
+                     icon: 'pi pi-microsoft',
+                     routerLink: ['licencia']
                   },
                ]
             },

@@ -12,11 +12,12 @@ import { TableUsuarioComponent } from '../components/table-usuario/table-usuario
 import { CommonModule } from '@angular/common';
 import { NuevoActivoComponent } from '../components/nuevo-activo/nuevo-activo.component';
 import { SelectComponent } from '../components/select/select.component';
-import { InfoTicketComponent } from '../components/info-ticket/info-ticket.component';
+
 import { SolicitudComponent } from '../components/solicitud/solicitud.component';
 import { PerfilComponent } from '../components/perfil/perfil.component';
 import { DetallePcComponent } from '../components/detalle-pc/detalle-pc.component';
 import { ReasignacionByidComponent } from '../components/reasignacion-byid/reasignacion-byid.component';
+import { LicenciaComponent } from '../components/licencia/licencia.component';
 
 
 @NgModule({
@@ -30,11 +31,11 @@ import { ReasignacionByidComponent } from '../components/reasignacion-byid/reasi
     ReasignacionComponent,
     NuevoActivoComponent,
     SelectComponent,
-    InfoTicketComponent,
     SolicitudComponent,
     PerfilComponent,
     DetallePcComponent,
-    ReasignacionByidComponent
+    ReasignacionByidComponent,
+    LicenciaComponent
   ],
   imports: [
     MainRoutingModule,
