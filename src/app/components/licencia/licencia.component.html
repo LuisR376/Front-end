@@ -29,7 +29,7 @@
             </ng-template>
             <ng-template pTemplate="body" let-lic let-editing="editing" let-ri="rowIndex">
         <tr >
-                <tr pEditableRow="lic">
+                <tr pEditableRow="lic" (ngSubmit)="onRowEditSave(lic)" >
 
                     <td>
                         <p-cellEditor>
@@ -99,11 +99,9 @@
                         </td>     
                     <td>
                         <div class="flex align-items-center justify-content-center gap-2">
-                            <button *ngIf="!editing" pButton pRipple type="button"  icon="pi pi-pencil" pInitEditableRow (click)="onRowEditInit(lic)" class="p-button-rounded p-button-text"></button> <!--pInitEditableRow-->
-                            <button *ngIf="editing" pButton pRipple type="button" icon="pi pi-check"
-                               pSaveEditableRow (click)="onRowEditSave(lic)" class="p-button-rounded p-button-text p-button-success mr-2"></button><!--pSaveEditableRow-->
-                            <button *ngIf="editing" pButton pRipple type="button"  icon="pi pi-times"
-                               pCancelEditableRow (click)="onRowEditCancel(lic, ri)" class="p-button-rounded p-button-text p-button-danger"></button><!--pCancelEditableRow-->
+                            <button *ngIf="!editing" pButton pRipple type="button"  icon="pi pi-pencil" pInitEditableRow  (click)="onRowEditInit(lic)" class="p-button-rounded p-button-text"></button> <!--pInitEditableRow-->
+                            <button *ngIf="!editing" pButton pRipple type="button" icon="pi pi-check" pSaveEditableRow (click)="onRowEditSave(lic)" class="p-button-rounded p-button-text p-button-success mr-2"></button><!--pSaveEditableRow-->
+                            <button *ngIf="!editing" pButton pRipple type="button"  icon="pi pi-times" pCancelEditableRow (click)="onRowEditCancel(lic, ri)" class="p-button-rounded p-button-text p-button-danger"></button><!--pCancelEditableRow-->
                         </div>
                     </td>
                 </tr>
