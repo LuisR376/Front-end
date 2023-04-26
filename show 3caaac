@@ -1,0 +1,179 @@
+[33mcommit 3caac7f83f6a2c846e45617ed64f3a52512b6cc2[m
+Author: Becario Morales <luis_muscul30@hotmail.com>
+Date:   Wed Apr 5 15:10:13 2023 -0600
+
+    modificacion modal de usuarios (modificar div)
+
+[33mcommit 5ed6907bbc85325033be8a87c709f68a41e75cf0[m
+Author: Becario Morales <luis_muscul30@hotmail.com>
+Date:   Thu Mar 30 14:21:20 2023 -0600
+
+    se agrego area y lugar al ticket
+
+[33mcommit 1dcac4256dc651b3d7fd90ec7aed98b62b2b806b[m
+Author: Becario Morales <luis_muscul30@hotmail.com>
+Date:   Tue Mar 28 15:19:55 2023 -0600
+
+    nuevo-activo steps
+
+[33mcommit 6413faa21d65043fa0d7e8e876062e93cde9dc71[m
+Author: Becario Morales <luis_muscul30@hotmail.com>
+Date:   Mon Mar 27 17:27:24 2023 -0600
+
+    MenuItem de steps
+
+[33mcommit 78fc07ab2d011d9fc6aea82b2e1d6dd377da1f67[m
+Author: Becario Morales <luis_muscul30@hotmail.com>
+Date:   Mon Mar 27 17:24:40 2023 -0600
+
+    crear service de activos y nuevo activo
+
+[33mcommit a745e0e2b97cac6dbaf0c6507643e67c7e6c5e7d[m
+Author: AndresXD <luis.morales35367@gmail.com>
+Date:   Mon Mar 27 09:54:10 2023 -0600
+
+    mostar datos del usuario al iniciar
+
+[33mcommit c3d818732686ef10b458aa667a708e390d76bf41[m
+Author: Becario Morales <luis_muscul30@hotmail.com>
+Date:   Fri Mar 24 17:15:53 2023 -0600
+
+    Error mostrar informacion del usuario activo
+
+[33mcommit 4eea59ffeef0d46b96edf41b6caa33eb4740bc2d[m
+Author: Becario Morales <luis_muscul30@hotmail.com>
+Date:   Thu Mar 23 18:04:38 2023 -0600
+
+    estilos de ticket e usuarios
+
+[33mcommit 07e6afc9ede0869c30a50082885237ffd5355a17[m
+Author: Becario Morales <luis_muscul30@hotmail.com>
+Date:   Tue Mar 21 18:31:41 2023 -0600
+
+    INFORMACION DEL TICKET
+
+[33mcommit 885c697b66eb2c22c4091c94d8358a99bc711bf9[m
+Author: AndresXD <luis.morales35367@gmail.com>
+Date:   Tue Mar 21 00:54:03 2023 -0600
+
+    validando asincrono e idea de nuevo formulario
+
+[33mcommit b3f3276f380d341e387fc32ac851043a16b2a946[m
+Author: Becario Morales <luis_muscul30@hotmail.com>
+Date:   Tue Mar 14 18:22:13 2023 -0600
+
+    router.navigate de Solicitudes a info-ticket
+
+[33mcommit ea5633d2ead433c7049beb098894d03ef6f940f3[m
+Author: Becario Morales <luis_muscul30@hotmail.com>
+Date:   Mon Mar 13 12:42:27 2023 -0600
+
+    tabla solicitudes y componente informacion-ticket
+
+[33mcommit 7ce41c744d5d030fc9c9793e5cad3046deea7713[m
+Author: AndresXD <luis.morales35367@gmail.com>
+Date:   Sun Mar 12 15:34:43 2023 -0600
+
+    Upload imagenes
+
+[33mcommit 20874d85ebe003d9dccdb772f2eb8d5924624240[m
+Author: AndresXD <luis.morales35367@gmail.com>
+Date:   Sat Mar 11 16:00:32 2023 -0600
+
+    Insertar imagenes y convertirlo en array
+
+[33mcommit b3ff231468f3e12ce9e7a7bf89c02bbffa96800d[m
+Author: Becario Morales <luis_muscul30@hotmail.com>
+Date:   Thu Mar 9 18:28:58 2023 -0600
+
+    insert ticket
+
+[33mcommit 4ff80fbffaf413f1f2e1ad7a7385be042818dd51[m
+Author: Becario Morales <luis_muscul30@hotmail.com>
+Date:   Tue Mar 7 17:26:55 2023 -0600
+
+    insert Ticket pendiente
+
+[33mcommit ed9fe388f1ef7fb37aef1bed4af3b1b571d1ce4b[m
+Author: Becario Morales <luis_muscul30@hotmail.com>
+Date:   Mon Mar 6 18:20:17 2023 -0600
+
+    comienzo modal tickets
+
+[33mcommit 692dd9eadb247c9f0f94f5848759cc0574e4c35b[m
+Author: AndresXD <luis.morales35367@gmail.com>
+Date:   Sun Mar 5 20:58:15 2023 -0600
+
+    Se logro un insert de area -lugar y usuario
+
+[33mcommit f12d2d0af2c2c8a0fc1a1452ca4e90dc8715965b[m
+Author: Becario Morales <luis_muscul30@hotmail.com>
+Date:   Fri Mar 3 15:37:21 2023 -0600
+
+    insert usuario + vistas de roles
+
+[33mcommit f399abac9d0295218cc6a7eb1ca0331d5969de98[m
+Author: AndresXD <luis.morales35367@gmail.com>
+Date:   Fri Mar 3 08:12:07 2023 -0600
+
+    insert usuarios
+
+[33mcommit b6c5d76fc3422d51d978b2fee68b0fc9601620f4[m
+Author: Becario Morales <luis_muscul30@hotmail.com>
+Date:   Thu Mar 2 15:32:21 2023 -0600
+
+    Pruebas insertar usuario
+
+[33mcommit ce240da18d3aecb4a238f65cea842f935b16f801[m
+Author: AndresXD <luis.morales35367@gmail.com>
+Date:   Wed Mar 1 23:14:05 2023 -0600
+
+    usuario.ts
+
+[33mcommit 4ca6615d6d1fc78a926cd8258ee9b7c423e88075[m
+Author: Becario Morales <luis_muscul30@hotmail.com>
+Date:   Tue Feb 28 16:22:26 2023 -0600
+
+    post usuarios e intento de activos
+
+[33mcommit a261576d9843fb1819e60cf7ac0bc3cc0b42b612[m
+Author: AndresXD <luis.morales35367@gmail.com>
+Date:   Sun Feb 26 20:25:24 2023 -0600
+
+    style
+
+[33mcommit b34ec6443dcfda5b76c07f5f8d4aa4e5889a8d5c[m
+Author: AndresXD <luis.morales35367@gmail.com>
+Date:   Sun Feb 26 17:46:19 2023 -0600
+
+    obtenerArea
+
+[33mcommit 682674098c04204ab796317a3101a1e8ea62aea5[m
+Author: Becario Morales <luis_muscul30@hotmail.com>
+Date:   Fri Feb 24 15:54:59 2023 -0600
+
+    tabla activos
+
+[33mcommit 1069a2a146d5ccfd67330c20701f0a3b13bcb35e[m
+Author: Becario Morales <luis_muscul30@hotmail.com>
+Date:   Thu Feb 23 15:12:21 2023 -0600
+
+    post lugar area
+
+[33mcommit 7f64e40b67f85bae919693e3689d33ed54e34480[m
+Author: Becario Morales <luis_muscul30@hotmail.com>
+Date:   Wed Feb 22 16:58:02 2023 -0600
+
+    Lugar area
+
+[33mcommit a36a3519eb928e3b6ae2b9a9548dfd604046f420[m
+Author: Becario Morales <luis_muscul30@hotmail.com>
+Date:   Tue Feb 21 18:24:05 2023 -0600
+
+    lugar area
+
+[33mcommit 728963e443877477536b5c628cd6d800a198e819[m
+Author: Angel <angel.cordero@agilethought.com>
+Date:   Mon Feb 20 00:36:28 2023 -0600
+
+    lazyloading modulos

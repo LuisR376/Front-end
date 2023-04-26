@@ -20,6 +20,7 @@ import { ReasignacionByidComponent } from '../components/reasignacion-byid/reasi
 import { LicenciaComponent } from '../components/licencia/licencia.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,

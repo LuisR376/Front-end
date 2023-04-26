@@ -1,6 +1,5 @@
 export interface licencia {
-    idLicencias: number;
-
+    idLicencias:string;
     numserie_licencia:      string;
     tipo_licencia:          string;
     nombre:                 string;

@@ -3,7 +3,7 @@
         <p-table [value]="licencias" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
             [tableStyle]="{'min-width': '50rem'}"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-            [rowsPerPageOptions]="[10,25,50]">
+            [rowsPerPageOptions]="[10,25,50]" editMode="lics" editMode="row" dataKey="idLicencias">
             <ng-template pTemplate="caption">
                 <div class="flex align-items-center justify-content-between fondo">
                     <div>
@@ -18,23 +18,94 @@
             <ng-template pTemplate="header">
                 <tr>
                     <th pSortableColumn="idLicencias">ID<p-sortIcon field="idLicencias "></p-sortIcon></th>
-                    <th>numserie_licencia</th>
-                    <th>tipo_licencia</th>   
-                    <th>nombre</th>
-                    <th>folio_compra</th>
-                    <th>formato</th>
-                    <th>descripcion</th>
+                    <th style="width:14%">numserie_licencia</th>
+                    <th style="width:14%">tipo_licencia</th>   
+                    <th style="width:14%">nombre</th>
+                    <th style="width:14%">folio_compra</th>
+                    <th style="width:14%">formato</th>
+                    <th style="width:14%">descripcion</th>
+                    <th style="width:16%"></th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-lic>
-                <tr>
-                    <td>{{lic.idLicencias}}</td>
-                    <td>{{lic.numserie_licencia}}</td>
-                    <td>{{lic.tipo_licencia}}</td>                 
-                    <td>{{lic.nombre}}</td>          
-                    <td>{{lic.folio_compra}}</td>                
-                    <td>{{lic.formato}}</td>           
-                    <td>{{lic.descripcion}}</td>            
+            <ng-template pTemplate="body" let-lic let-editing="editing" let-ri="rowIndex">
+        <tr >
+                <tr pEditableRow="lic">
+
+                    <td>
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input pInputText type="text" [(ngModel)]="lic.idLicencias">
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{lic.idLicencias}}
+                            </ng-template>
+                        </p-cellEditor>
+                       
+                    </td>
+                    <td >
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input pInputText type="text"  [(ngModel)]="lic.numserie_licencia">
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{lic.numserie_licencia}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td>  <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input pInputText type="text"  [(ngModel)]="lic.tipo_licencia">
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{lic.tipo_licencia}}
+                            </ng-template>
+                        </p-cellEditor>
+                      </td>                 
+                    <td>  <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input pInputText type="text"  [(ngModel)]="lic.nombre">
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                            {{lic.nombre}}
+                            </ng-template>
+                        </p-cellEditor>
+                        </td>         
+                    <td>  <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input pInputText type="text"  [(ngModel)]="lic.folio_compra">
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{lic.folio_compra}}
+                            </ng-template>
+                        </p-cellEditor>
+                       </td>
+                    <td>  <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input pInputText type="text"  [(ngModel)]="lic.formato">
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                            {{lic.formato}}
+                            </ng-template>
+                        </p-cellEditor>
+                       </td>           
+                    <td>  <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input pInputText type="text"  [(ngModel)]="lic.descripcion">
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                            {{lic.descripcion}}
+                            </ng-template>
+                        </p-cellEditor>
+                        </td>     
+                    <td>
+                        <div class="flex align-items-center justify-content-center gap-2">
+                            <button *ngIf="!editing" pButton pRipple type="button"  icon="pi pi-pencil" pInitEditableRow (click)="onRowEditInit(lic)" class="p-button-rounded p-button-text"></button> <!--pInitEditableRow-->
+                            <button *ngIf="editing" pButton pRipple type="button" icon="pi pi-check"
+                               pSaveEditableRow (click)="onRowEditSave(lic)" class="p-button-rounded p-button-text p-button-success mr-2"></button><!--pSaveEditableRow-->
+                            <button *ngIf="editing" pButton pRipple type="button"  icon="pi pi-times"
+                               pCancelEditableRow (click)="onRowEditCancel(lic, ri)" class="p-button-rounded p-button-text p-button-danger"></button><!--pCancelEditableRow-->
+                        </div>
+                    </td>
                 </tr>
             </ng-template>
             <ng-template>

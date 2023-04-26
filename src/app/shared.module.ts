@@ -36,7 +36,6 @@ import { AvatarModule } from "primeng/avatar";
 import { SplitButtonModule } from "primeng/splitbutton";
 import { SidebarModule } from "primeng/sidebar";
 
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MenuModule } from "primeng/menu";
 import { RippleModule } from "primeng/ripple";
 import { TableModule } from "primeng/table";
@@ -53,6 +52,7 @@ import { GalleriaModule } from 'primeng/galleria';
 import { reasignacionService } from "./service/reasignacion.service";
 import { tecnicoService } from "./service/tecnico.service";
 import { licenciaService } from "./service/licencia.service";
+
 @NgModule({
   declarations: [
     AlertaComponent,
@@ -68,7 +68,8 @@ import { licenciaService } from "./service/licencia.service";
     AvatarModule,
     ToolbarModule,
     CommonModule,
-    InputTextModule
+    InputTextModule,
+    
   ],
   exports: [
     InicioComponent,
@@ -108,8 +109,8 @@ import { licenciaService } from "./service/licencia.service";
     RippleModule,
     TableModule,
     StepsModule,
-    GalleriaModule
-    
+    GalleriaModule,
+  
 
 
 

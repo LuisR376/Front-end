@@ -12,7 +12,7 @@ import { SelectComponent }             from '../components/select/select.compone
 import { SolicitudComponent }          from '../components/solicitud/solicitud.component';
 import { PerfilComponent}              from '../components/perfil/perfil.component';
 import { DetallePcComponent }          from '../components/detalle-pc/detalle-pc.component';
-import { LicenciaComponent } from '../components/licencia/licencia.component';
+import { LicenciaComponent }           from '../components/licencia/licencia.component';
 import { ReasignacionByidComponent } from '../components/reasignacion-byid/reasignacion-byid.component';
 const routes: Routes = [
   {
