@@ -6,8 +6,7 @@ import { RespuestaDto } from '../model/respuestaDto';
 import { licencia } from '../model/licencia.model';
 import { MessageService } from 'primeng/api';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { insertLicencia } from '../model/insertLicencia';
-import { log } from 'console';
+
 
 @Component({
   selector: 'app-licencia',
@@ -70,37 +69,34 @@ export class LicenciaComponent {
     this.licencias[index] = this.clonedlicencias[lic.idLicencias];
     delete this.clonedlicencias[lic.idLicencias];
   }
-  async onRowEditSave(info: licencia) {
-    info.idLicencias = this.licen.idLicencias;
-    if (parseInt(info.folio_compra) > 0) {
-      delete this.clonedlicencias[info.idLicencias];
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Product is updated' });
-    } else {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid folio_compra' });
-      return;
-    }
-
-    // Obtener el objeto actualizado del clonedlicencias
-    const updatedLicencia = this.clonedlicencias[info.idLicencias];
-
-    // Llamar a la función updateLincencia de licenciaService y pasarle el objeto actualizado
-    this._licenciaService.updateLincencia(updatedLicencia).subscribe({
-      next: (resp: RespuestaDto) => {
-        let respuestaDto = <RespuestaDto>resp;
-        if (respuestaDto.valido == 0) {
-          console.log("next", respuestaDto.mensaje)
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: respuestaDto.mensaje });
-        } else {
-          this.licen = <licencia>respuestaDto.addenda;
-
-          this.obtenerLicencias();
-        }
-      },
-      error: (error) => {
-        let mensaje = <any>error;
-        this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
-      }
-    });
+async onRowEditSave(info: licencia) {
+  if (parseInt(info.folio_compra) > 0) {
+    delete this.clonedlicencias[info.idLicencias];
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Product is updated' });
+  } else {
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid folio_compra' });
+    return;
   }
+
+  // Llamar a la función updateLincencia de licenciaService y pasarle el objeto de licencias actualizado
+  this._licenciaService.updateLincencia(this.licencias[0]).subscribe({
+    next: (resp: RespuestaDto) => {
+      let respuestaDto = <RespuestaDto>resp;
+      if (respuestaDto.valido == 0) {
+        console.log("next", respuestaDto.mensaje)
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: respuestaDto.mensaje });
+      } else {
+        this.licen = <licencia>respuestaDto.addenda;
+
+        // Llamar a la función obtenerLicencias para mostrar los datos actualizados
+        this.obtenerLicencias();
+      }
+    },
+    error: (error) => {
+      let mensaje = <any>error;
+      this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
+    }
+  });
+}
 
 }
