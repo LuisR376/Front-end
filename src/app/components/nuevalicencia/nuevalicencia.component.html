@@ -1,1 +1,68 @@
-<p>nuevalicencia works!</p>
+<section class="container">
+    <div>
+        <div class="flex align-items-center justify-content-between fondo">
+            <div>
+                <h1>Nueva Licencia</h1>
+                <p>Ingresa una Nueva Licencia</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="container">
+        <div class="col-12 md:col-6">
+            <Form [formGroup]="userInput" (ngSubmit)="addLicencia()">
+                <div class="grid">
+                    <div class="col-12 md:col-6">
+                        <span class="p-float-label">
+                            <input formControlName="numserie_licencia" pInputText id="numserie_licencia" required
+                                autofocus>
+                            <label htmlFor="numserie_licencia">Numero de serie de la licencia</label>
+                            
+                        </span>
+                    </div>
+                    <div class="col-12 md:col-6">
+                        <span class="p-float-label">
+                            <input formControlName="nombre" pInputText id="nombre" required autofocus>
+                            <label htmlFor="nombre">Nombre de la licencia</label>
+                           
+                        </span>
+                    </div>
+                    <div class="col-12 md:col-6">
+                        <span class="p-float-label">
+                            <input formControlName="tipo_licencia" pInputText id="tipo_licencia" required autofocus>
+                            <label htmlFor="tipo_licencia">Tipo de licencia</label>
+                           
+                        </span>
+                    </div>
+                    
+                    <div class="col-12 md:col-6">
+                        <span class="p-float-label">
+                            <input formControlName="folio_compra" pInputText id="folio_compra" required autofocus>
+                            <label htmlFor="folio_compra">Numero de folio de compra</label>
+                           
+                        </span>
+                    </div>
+                    
+                    <div class="col-12 md:col-6">
+                       
+                        <p-dropdown formControlName="formato" [options]="opciones"id="formato" placeholder="formato" [showClear]="true"></p-dropdown>
+                       
+                    </div>
+
+                    <div class="col-12 md:col-6">
+                        <span class="p-float-label">
+                            <textarea formControlName="descripcion" rows="5" cols="65" id="descripcion" type="text"
+                                pInputTextarea></textarea>
+                            <label for="float-input">Descripcion</label>
+                        </span>
+                    </div>
+                </div>
+
+            </Form>
+            <div class="col-12 md:col-12 text-right">
+                <p-button styleClass="p-button-secondary mr-6" (click)="Cancelar()" label="Cancelar"></p-button>
+                <p-button icon="pi pi-check" pRipple (click)="addLicencia()" label="Guardar" styleClass="p-button-text"></p-button>
+            </div>
+        </div>
+
+</section>

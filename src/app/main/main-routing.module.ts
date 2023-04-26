@@ -14,6 +14,8 @@ import { PerfilComponent}              from '../components/perfil/perfil.compone
 import { DetallePcComponent }          from '../components/detalle-pc/detalle-pc.component';
 import { LicenciaComponent }           from '../components/licencia/licencia.component';
 import { ReasignacionByidComponent } from '../components/reasignacion-byid/reasignacion-byid.component';
+import { NuevalicenciaComponent } from '../components/nuevalicencia/nuevalicencia.component';
+
 const routes: Routes = [
   {
       path: 'main', component: InicioComponent,
@@ -28,10 +30,10 @@ const routes: Routes = [
       { path: 'solicitudes',        component: SolicitudesComponent   },
       { path: 'solicitud/:id',      component: SolicitudComponent     },
       { path: 'perfil',             component: PerfilComponent        },
-      { path: 'detallePc',          component: DetallePcComponent },
-      { path: 'licencia',           component: LicenciaComponent},
+      { path: 'detallePc',          component: DetallePcComponent     },
+      { path: 'licencia',           component: LicenciaComponent      },
       { path: 'ReasignacionByid/:id', component: ReasignacionByidComponent },
-      
+      { path: 'NewLicencia',        component: NuevalicenciaComponent }
     ]
   }
 ];
