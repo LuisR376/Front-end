@@ -1,0 +1,48 @@
+<section class="containerReporte">
+    <p-table #dt [value]="activos" responsiveLayout="scroll" [rows]="10"
+        [globalFilterFields]="['nombre_equipo','country.nombre_equipo','representative.nombre_equipo','status']"
+        [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" selectionMode="multiple"
+        [rowHover]="true" dataKey="id">
+        <ng-template pTemplate="caption">
+            <div class="flex justify-content-between fondo">
+                <div>
+                    <h1>INVENTARIO SISTEMAS</h1>
+                </div>
+
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Nombre de equipo
+                    <p-sortIcon field="nombre_equipo"></p-sortIcon>
+                </th>
+                <th>Modelo <p-sortIcon field="price"></p-sortIcon></th>
+                <th>Marca <p-sortIcon field=""></p-sortIcon></th>
+                <th>Num. Serie <p-sortIcon field="Pertenencia"></p-sortIcon></th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-inventario>
+            <tr>
+                <td>
+                    {{inventario.nombre_equipo}}
+                </td>
+                <td>
+                    {{inventario.modelo}}
+                </td>
+                <td>
+                    {{inventario.marca}}
+                </td>
+                <td>
+                    {{inventario.num_serie}}
+                </td>
+                <td>
+                    <button (click)="Imprimir()" type="button" label="Primary"
+                        class="p-element p-ripple p-button-outlined p-button-rounded p-button p-component p-button-sm"><span
+                            class="pi pi-print"></span></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</section>

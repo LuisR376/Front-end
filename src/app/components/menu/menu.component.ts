@@ -79,7 +79,8 @@ export class MenuComponent implements OnInit {
             },
             {
                label: 'Inventario',
-               icon: 'pi pi-chart-pie'
+               icon: 'pi pi-chart-pie',
+               routerLink: ['inventario']
             },
             {
                label: 'Reportes',

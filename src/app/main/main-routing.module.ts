@@ -16,6 +16,8 @@ import { LicenciaComponent }           from '../components/licencia/licencia.com
 import { ReasignacionByidComponent } from '../components/reasignacion-byid/reasignacion-byid.component';
 import { NuevalicenciaComponent } from '../components/nuevalicencia/nuevalicencia.component';
 import { CompServicioComponent } from '../components/comp-servicio/comp-servicio.component';
+import { InventarioComponent } from '../components/inventario/inventario.component';
+import { InventarioRASComponent } from '../components/inventario-ras/inventario-ras.component';
 
 const routes: Routes = [
   {
@@ -35,7 +37,10 @@ const routes: Routes = [
       { path: 'licencia',           component: LicenciaComponent      },
       { path: 'ReasignacionByid/:id', component: ReasignacionByidComponent },
       { path: 'NewLicencia',        component: NuevalicenciaComponent },
-      { path: 'servicio',           component: CompServicioComponent  }
+      { path: 'servicio',           component: CompServicioComponent  },
+      { path: 'inventario',         component: InventarioComponent  },
+      { path: 'inventarioRas/:id',         component: InventarioRASComponent  }
+      
       
     ]
   }

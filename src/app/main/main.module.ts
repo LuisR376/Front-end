@@ -20,6 +20,9 @@ import { ReasignacionByidComponent } from '../components/reasignacion-byid/reasi
 import { LicenciaComponent } from '../components/licencia/licencia.component';
 import { NuevalicenciaComponent } from '../components/nuevalicencia/nuevalicencia.component';
 import { CompServicioComponent } from '../components/comp-servicio/comp-servicio.component';
+import { InventarioComponent } from '../components/inventario/inventario.component';
+
+import { InventarioRASComponent } from '../components/inventario-ras/inventario-ras.component';
 
 
 
@@ -40,7 +43,10 @@ import { CompServicioComponent } from '../components/comp-servicio/comp-servicio
     ReasignacionByidComponent,
     LicenciaComponent,
     NuevalicenciaComponent,
-    CompServicioComponent
+    CompServicioComponent,
+    InventarioComponent,
+
+    InventarioRASComponent
   ],
   imports: [
     MainRoutingModule,

@@ -52,6 +52,7 @@ import { GalleriaModule } from 'primeng/galleria';
 import { reasignacionService } from "./service/reasignacion.service";
 import { tecnicoService } from "./service/tecnico.service";
 import { licenciaService } from "./service/licencia.service";
+import { servicioService } from "./service/Servicio.service";
 
 @NgModule({
   declarations: [
@@ -118,7 +119,7 @@ import { licenciaService } from "./service/licencia.service";
   providers: [MessageService, 
     ConfirmationService, 
     authGuardService,
-     LocalService, UtilApiService, FolioService, ticketService,tipodeservicioService,reasignacionService,tecnicoService,licenciaService],
+     LocalService, UtilApiService, FolioService, ticketService,tipodeservicioService,reasignacionService,tecnicoService,licenciaService,servicioService],
   bootstrap: []
 })
 export class SharedModule { }

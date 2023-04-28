@@ -58,6 +58,16 @@
   width: 100%;
   padding: 20px 100px;
 }
+.containerReporte{
+  width: 100%;
+  padding: 0px 230px;
+}
+@media screen and (max-width: 640px) {
+  .containerReporte {
+    width: 100%;
+    max-width: none;
+  }
+}
 
 h1{
   margin-top: 2px !important;

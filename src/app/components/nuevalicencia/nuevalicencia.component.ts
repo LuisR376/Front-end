@@ -73,17 +73,17 @@ export class NuevalicenciaComponent {
     }
  }
   async saveLincencia(numserie_licencia: string | undefined | null,
-        tipo_licencia: string | undefined | null,
-        nombre: string | undefined | null,
-        folio_compra: string | undefined | null,
-        formato: string | undefined | null,
-        descripcion: string | undefined | null) {
+        tipo_licencia : string | undefined | null,
+        nombre        : string | undefined | null,
+        folio_compra  : string | undefined | null,
+        formato       : string | undefined | null,
+        descripcion   : string | undefined | null) {
     let datosA = new insertLicencia(
-        numserie_licencia,
-        tipo_licencia,
-        nombre,
-        folio_compra,
-        formato,
+        numserie_licencia ,
+        tipo_licencia     ,
+        nombre            ,
+        folio_compra      ,
+        formato           ,
         descripcion
     );
     this._licenciaService.saveLincencia(datosA).subscribe({
