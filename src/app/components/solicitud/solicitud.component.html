@@ -71,17 +71,23 @@
                     </div>
                     <div class="col-12 md:col-12">
                         <span class="p-float-label">
-                            <textarea  formControlName="solucion" rows="5" cols="65"  id="solucion" type="text" pInputTextarea></textarea>
+                            <textarea  formControlName="solucion" rows="5" cols="100"  id="solucion" type="text" pInputTextarea></textarea>
                             <label for="float-input">Solucion</label>
                             <small *ngIf="form['solucion'].errors?.['required']" id="blErrorsolucion" class="p-error">El campo solucion se encuentra
                                 vacío.</small>
                         </span>
                     </div>
                 </div>
-                </Form>
                 <div class="col-12 md:col-12 text-right">
-                    <p-button styleClass="p-button-secondary mr-2" label="Cancelar"></p-button>
+                    <p-button label="Agregar Servicio" icon="pi pi-plus" (click)="Servicio()" styleClass="p-button-mx"></p-button>
+                </div>
+                </Form>
+               <br>
+               <br>
+                <div class="col-12 md:col-12 text-right">
+                    <p-button styleClass="p-button-secondary mr-2" (click)="Cancelar()" label="Cancelar"></p-button>
                     <p-button icon="pi pi-check" pRipple (click)="addTicket()" label="Guardar" styleClass="p-button-text"></p-button>
+               
                 </div>
         </div>
     </div>

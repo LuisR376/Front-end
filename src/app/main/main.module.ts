@@ -19,6 +19,7 @@ import { DetallePcComponent } from '../components/detalle-pc/detalle-pc.componen
 import { ReasignacionByidComponent } from '../components/reasignacion-byid/reasignacion-byid.component';
 import { LicenciaComponent } from '../components/licencia/licencia.component';
 import { NuevalicenciaComponent } from '../components/nuevalicencia/nuevalicencia.component';
+import { CompServicioComponent } from '../components/comp-servicio/comp-servicio.component';
 
 
 
@@ -38,7 +39,8 @@ import { NuevalicenciaComponent } from '../components/nuevalicencia/nuevalicenci
     DetallePcComponent,
     ReasignacionByidComponent,
     LicenciaComponent,
-    NuevalicenciaComponent
+    NuevalicenciaComponent,
+    CompServicioComponent
   ],
   imports: [
     MainRoutingModule,

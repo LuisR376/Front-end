@@ -15,6 +15,7 @@ import { DetallePcComponent }          from '../components/detalle-pc/detalle-pc
 import { LicenciaComponent }           from '../components/licencia/licencia.component';
 import { ReasignacionByidComponent } from '../components/reasignacion-byid/reasignacion-byid.component';
 import { NuevalicenciaComponent } from '../components/nuevalicencia/nuevalicencia.component';
+import { CompServicioComponent } from '../components/comp-servicio/comp-servicio.component';
 
 const routes: Routes = [
   {
@@ -33,7 +34,9 @@ const routes: Routes = [
       { path: 'detallePc',          component: DetallePcComponent     },
       { path: 'licencia',           component: LicenciaComponent      },
       { path: 'ReasignacionByid/:id', component: ReasignacionByidComponent },
-      { path: 'NewLicencia',        component: NuevalicenciaComponent }
+      { path: 'NewLicencia',        component: NuevalicenciaComponent },
+      { path: 'servicio',           component: CompServicioComponent  }
+      
     ]
   }
 ];

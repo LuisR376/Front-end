@@ -210,5 +210,12 @@ export class SolicitudComponent {
       this.subirimg(files);
     }, 500)
   }
-
+ Cancelar() {
+    this.recoInfo.reset();
+   this.router.navigate(['/home/inicio/main/solicitudes']);
+ }
+   Servicio() {
+    this.recoInfo.reset();
+   this.router.navigate(['/home/inicio/main/servicio']);
+  }
 }

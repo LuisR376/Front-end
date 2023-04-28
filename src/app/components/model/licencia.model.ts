@@ -5,5 +5,6 @@ export interface licencia {
     nombre              :string;
     folio_compra        :string;
     formato             :string;
-    descripcion         :string;
+    descripcion: string;
+    isEditing?: boolean;
 }

@@ -7,11 +7,12 @@ import { Ticket } from '../model/ticket.model';
 import { RespuestaDto } from '../model/respuestaDto';
 import { MessageService } from 'primeng/api';
 import { ActivatedRoute } from '@angular/router';
-import {tipodeservicioService} from 'src/app/service/tipodeservicio.service'
-import {tipodeservicio} from '../model/tipodeservicio.model'
+import { tipodeservicioService} from 'src/app/service/tipodeservicio.service'
+import { tipodeservicio} from '../model/tipodeservicio.model'
 import { reasignacionService } from 'src/app/service/reasignacion.service';
 import { reasignacion } from '../model/reasignacion.model';
 import { tecnicoService } from 'src/app/service/tecnico.service';
+import { Router,} from '@angular/router';
 @Component({
   selector: 'app-reasignacion-byid',
   templateUrl: './reasignacion-byid.component.html',
@@ -32,6 +33,7 @@ export class ReasignacionByidComponent {
     public _ticketService: ticketService,
     private messageService: MessageService,
     private route: ActivatedRoute,
+    private router: Router,
     public _tipodeservicioService:tipodeservicioService,
     public _reasignacionService:reasignacionService,
     public _tecnicoService:tecnicoService
@@ -147,6 +149,9 @@ export class ReasignacionByidComponent {
       }
     });
   }
-
+ Cancelar() {
+    this.recoInfo.reset();
+   this.router.navigate(['/home/inicio/main/reasignacion']);
+  }
 }
 

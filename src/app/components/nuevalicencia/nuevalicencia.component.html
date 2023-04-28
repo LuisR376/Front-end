@@ -16,16 +16,12 @@
                         <span class="p-float-label">
                             <input formControlName="numserie_licencia" pInputText id="numserie_licencia" required
                                 autofocus>
-                            <label htmlFor="numserie_licencia">Numero de serie de la licencia</label>
+                            <label htmlFor="numserie_licencia">Ingresa el NS de la licencia</label>
                             
                         </span>
                     </div>
                     <div class="col-12 md:col-6">
-                        <span class="p-float-label">
-                            <input formControlName="nombre" pInputText id="nombre" required autofocus>
-                            <label htmlFor="nombre">Nombre de la licencia</label>
-                           
-                        </span>
+                       
                     </div>
                     <div class="col-12 md:col-6">
                         <span class="p-float-label">
@@ -34,7 +30,13 @@
                            
                         </span>
                     </div>
+                    <div class="col-12 md:col-6">
+                        <span class="p-float-label">
+                            <input formControlName="nombre" pInputText id="nombre" required autofocus>
+                            <label htmlFor="nombre">Nombre de la licencia</label>
                     
+                        </span>
+                    </div>
                     <div class="col-12 md:col-6">
                         <span class="p-float-label">
                             <input formControlName="folio_compra" pInputText id="folio_compra" required autofocus>
@@ -43,13 +45,13 @@
                         </span>
                     </div>
                     
-                    <div class="col-12 md:col-6">
+                    <div class="col-12 md:col-6 wider-dropdown">
                        
-                        <p-dropdown formControlName="formato" [options]="opciones"id="formato" placeholder="formato" [showClear]="true"></p-dropdown>
+                        <p-dropdown formControlName="formato" [options]="opciones"id="formato" placeholder="formato" [showClear]="true" ></p-dropdown>
                        
                     </div>
 
-                    <div class="col-12 md:col-6">
+                    <div class="col-12 md:col-12 wider-textarea" >
                         <span class="p-float-label">
                             <textarea formControlName="descripcion" rows="5" cols="65" id="descripcion" type="text"
                                 pInputTextarea></textarea>
@@ -59,8 +61,9 @@
                 </div>
 
             </Form>
-            <div class="col-12 md:col-12 text-right">
+            <div class="col-12 md:col-9 text-right">
                 <p-button styleClass="p-button-secondary mr-6" (click)="Cancelar()" label="Cancelar"></p-button>
+                
                 <p-button icon="pi pi-check" pRipple (click)="addLicencia()" label="Guardar" styleClass="p-button-text"></p-button>
             </div>
         </div>

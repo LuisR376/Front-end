@@ -94,3 +94,29 @@ hr{
   border:3px solid rgb(231, 231, 231);
   border-radius:22px;
 }
+ @media (max-width: 768px) {
+   .wider-textarea textarea {
+     width: 200px;
+   }
+ }
+
+ @media (min-width: 768px) {
+   .wider-textarea textarea {
+     width: 650px;
+   }
+ }
+
+@media (max-width: 768px) {
+    .wider-dropdown .p-dropdown {
+      width: 200px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .wider-dropdown .p-dropdown {
+      width: 220px;
+    }
+  }
+
+   
+  
