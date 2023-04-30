@@ -1,5 +1,30 @@
+<section class="seccion-perfil-usuario">
+    <div class="perfil-usuario-header">
+        <div class="perfil-usuario-portada">
+            <div class="perfil-usuario-avatar">
+                <span class="pi pi-user p-avatar-icon ng-star-inserted" style="font-size: 6.5em; color: #eee7e7;"></span>
+            </div>
+        </div>
+    </div>
+    <div class="perfil-usuario-body">
+        <div class="perfil-usuario-bio">
+            <h3 class="titulo">{{sesionUsuario.nombre}} {{sesionUsuario.apellidoP}} {{sesionUsuario.apellidoM}} </h3>
+            <p class="texto">{{sesionUsuario.descripcion_rol}}</p>
+        </div>
+        <div class="perfil-usuario-footer">
+            <ul class="lista-datos">
+                <li><i class="icono pi pi-at"></i> Email: {{sesionUsuario.email}}</li>
+                <br>
+                <li><i class="icono pi pi-user"></i> Numero de empleado: {{sesionUsuario.num_empleado}}</li>
 
-<div class="container">
-<h1><span>Nombre: {{sesionUsuario.nombre}}  {{sesionUsuario.apellidoP}} {{sesionUsuario.apellidoM}} </span></h1>
-<span>Usuario: {{sesionUsuario | json }}</span>
-</div>
+            </ul>
+            <ul class="lista-datos">
+                <li><i class="icono pi  pi-calendar"></i> Fecha de registro: {{sesionUsuario.fecha  | date:'short'}}</li>
+                <br>
+                <li><i class="icono pi pi-ellipsis-h"></i> Estado: {{sesionUsuario.status}}</li>
+               
+            </ul>
+        </div>
+       
+    </div>
+</section>

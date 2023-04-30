@@ -5,12 +5,11 @@
             <app-menu></app-menu>
             
         </div>
-        <span>Nombre: {{sesionUsuario.nombre}}  {{sesionUsuario.apellidoP}} {{sesionUsuario.apellidoM}} </span>
+        
         <div class="flex-inline">
-            <p-avatar shape="circle" icon="pi pi-user" pBadge value="4" severity="success" styleClass="mr-2"
-            [style]="{'background-color':'#E30521','opacity':'0.2;', 'color': '#ffffff'}" size="large">
-        </p-avatar>
-            <p-splitButton label="Cuenta" [model]="this.items" styleClass="p-button-text p-button-danger mr-2 mb-2 ">  
+            <p-button icon="pi pi-bell" styleClass="p-button-rounded p-button-danger p-button-outlined"></p-button>
+
+            <p-splitButton label="{{sesionUsuario.nombre}}  {{sesionUsuario.apellidoP}} {{sesionUsuario.apellidoM}} " [model]="this.items" styleClass="p-button-text p-button-danger mr-2 mb-2 ">  
             </p-splitButton>
         </div>
         
