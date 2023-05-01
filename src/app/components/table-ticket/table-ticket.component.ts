@@ -212,31 +212,14 @@ export class TableTicketComponent {
     });
   }
   async getSetterImages(recoInfo: Ticket) {
-    return new Promise((resolve, reject) => {
-      switch (this.arrayImagenes.length) {
-        case 1:
-          recoInfo.foto1 = this.arrayImagenes[0].imagen;
-          break;
-        case 2:
-          recoInfo.foto2 = this.arrayImagenes[1].imagen;
-          break;
-        case 3:
-          recoInfo.foto3 = this.arrayImagenes[2].imagen;
-          break;
-        case 4:
-          recoInfo.foto4 = this.arrayImagenes[3].imagen;
-          break;
-
-        default:
-          recoInfo.foto1 = '';
-      }
-
-      resolve(recoInfo);
+    this.arrayImagenes.slice(0, 4).forEach((img, idx) => {
+      const key = `foto${idx + 1}` as keyof Ticket;
+      recoInfo[key] = img.imagen;
     });
-
-
-
   }
+  
+  
+  
 
 
   confirmDelete() {
