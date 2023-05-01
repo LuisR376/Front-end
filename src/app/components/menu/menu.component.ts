@@ -34,7 +34,7 @@ export class MenuComponent implements OnInit {
       this.items.push(
          {
             label: 'Solicitudes',
-            icon: 'pi pi-fw pi-file',
+            icon: 'pi pi-file',
             routerLink: ['solicitudes']
          },
          {
@@ -53,11 +53,11 @@ export class MenuComponent implements OnInit {
             },
             {
                label: 'Utilerías',
-               icon: 'pi pi-file-import',
+              
                items: [
                   {
                      label: 'Usuarios',
-                     icon: 'pi pi-fw pi-user',
+                     icon: 'pi pi-user',
                      routerLink: ['Tusuario']
                   },
                   {
@@ -77,6 +77,7 @@ export class MenuComponent implements OnInit {
                   },
                ]
             },
+          
             {
                label: 'Inventario',
                icon: 'pi pi-chart-pie',

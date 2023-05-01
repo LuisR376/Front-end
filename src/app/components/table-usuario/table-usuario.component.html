@@ -75,7 +75,7 @@
 </section>
 
 <div class="card flex justify-content-center">
-    <p-button (click)="openNew()" icon="pi pi-external-link" label="Show"></p-button>
+   
     <p-dialog header="Añadir nuevo Usuario" [(visible)]="displayAddModal" [maximizable]="true" [style]="{height:'35vw', width: '90vw' }">
 
         <form [formGroup]="recoInfo" (ngSubmit)="addUsuario()">
