@@ -128,14 +128,14 @@ export class SolicitudComponent {
         idstatusticket: this.tickets.idstatusticket,
       });
       let datosTicket: Ticket = this.recoInfo.value as Ticket;
-      this.actualizarTicketabierto(datosTicket);
+      this.actualizarTicket(datosTicket);
     }
   }
-  async actualizarTicketabierto(recoInfo: Ticket) {
+  async actualizarTicket(recoInfo: Ticket) {
     console.log("datoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooos del ticket", recoInfo)
     recoInfo.idfolios = this.tickets.idfolios;
     await this.getSetterImages(recoInfo);
-    this._ticketService.actualizarTicketabierto(recoInfo, this.idFolios).subscribe({
+    this._ticketService.actualizarTicket(recoInfo, this.idFolios).subscribe({
       next: (resp: RespuestaDto) => {
         console.log("Respeusta", resp)
         let respuestaDto = <RespuestaDto>resp;

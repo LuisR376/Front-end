@@ -18,7 +18,10 @@ export class tipodeservicioService {
         this.url = environment.url;   
     }
     getServicio(token:string): Observable<RespuestaDto> {
-        return this._apiService.sendGetRequest(this.url + "tipodeServicio/get",token);
+        return this._apiService.sendGetRequest(this.url + "tipodeServicio/servicio",token);
+    }
+    getServicioaddi(token:string): Observable<RespuestaDto> {
+        return this._apiService.sendGetRequest(this.url + "tipodeServicio/servicioadicional",token);
     }
     saveTipodeSevicio(datosservice : insertServicio): Observable<RespuestaDto> {
         console.log("*******-> save service",datosservice)

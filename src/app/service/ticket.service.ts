@@ -29,13 +29,15 @@ export class ticketService {
     saveTicket(datosT : Ticket): Observable<RespuestaDto> {
         return this._apiService.sendPostRequest(datosT, this.url + "ticket/post");
     }// Post usuario cliente
+
+
     actualizarTicket(nuevosDatos: any,idfolios : string): Observable<RespuestaDto> {
         return this._apiService.sendPostRequest(nuevosDatos, this.url + `ticket/actualizar/${idfolios}`);
     }// Post usuario administrador
 
-    actualizarTicketabierto(nuevosDatos: any,idfolios : string): Observable<RespuestaDto> {
-        return this._apiService.sendPostRequest(nuevosDatos, this.url + `ticket/actualizarAbierto/${idfolios}`);
-    }// Post usuario administrador
+    actualizarTicketabierto(datosT : Ticket): Observable<RespuestaDto> {
+        return this._apiService.sendPostRequest(datosT, this.url + "ticket/actualizarAbierto");
+    }// Post usuario cliente
 
     catalogEstatusTicket(token: string): Observable<RespuestaDto> {
         return this._apiService.sendGetRequest(this.url + "ticket/obtenCatalogEstatusTicket", token);

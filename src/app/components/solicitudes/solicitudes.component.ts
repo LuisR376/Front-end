@@ -18,7 +18,6 @@ export class SolicitudesComponent implements OnInit {
   tickets !: Ticket[];
   selectInfo !: Ticket;
   ticket!: Ticket;
-  
   constructor(
     private messageService: MessageService,
   
@@ -38,25 +37,7 @@ export class SolicitudesComponent implements OnInit {
   }
   recoInfo = this.fb.group({
     idfolios: [''],
-    idusuarios: [''],
-    idtipo_servicio: [''],
-    asunto: [''],
-    mensaje: [''],
-    foto1: [''],
-    foto2: [''],
-    foto3: [''],
-    foto4: [''],
-    solucion: [''],
-    firma: [''],
     estado_ticket: [''],
-    nombre: [''],
-    Descripcion: [''],
-    num_folio: [''],
-    num_empleado: [''],
-    idstatusTicket: [''],
-    nombre_area: [],
-    lugares: ['']
-
   });
   obtenerTickets() {
     this._ticketService.getTicket(this.token).subscribe({
@@ -78,9 +59,15 @@ export class SolicitudesComponent implements OnInit {
   onGlobalFilter(table: any, event: Event) {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
   }
-  guardar(forma: NgForm) {
-    console.log('submit disparado', forma);
-    console.log(forma.value);
-  }
-  
+  actualizarEstado(tickets: Ticket) {
+
+    if (tickets.idfolios) {
+      tickets.idstatusticket=1
+      this._ticketService.actualizarTicketabierto(tickets)
+        .subscribe(
+          (response) => console.log('Estado actualizado correctamente'),
+          (error) => console.log('Error al actualizar el estado', error)
+        );
+    }
+  }    
 }

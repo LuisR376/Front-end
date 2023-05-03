@@ -33,7 +33,7 @@
                         <td>{{ticket.ubicacion}}</td>
                         <td>{{ticket.nombre_area}}</td>
                         <td>
-                            <p-button [routerLink]="['../solicitud', ticket.idfolios]" label="servicio" icon="pi pi pi-arrow-circle-right" styleClass="p-button-sm"></p-button>
+                            <p-button [routerLink]="['../solicitud', ticket.idfolios]" label="servicio" icon="pi pi pi-arrow-circle-right" styleClass="p-button-sm"  (click)="actualizarEstado(ticket)"></p-button>
                         </td>
                     </tr>
                 </ng-template>

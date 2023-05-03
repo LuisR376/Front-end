@@ -18,5 +18,11 @@ export class UtilApiService {
         let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'authorization': ': ' + token + '' });
         return this._http.get<RespuestaDto>(url, { headers: headers });
     } // sendGetRequest
-  
+    public sendPutRequest(aEnviar: any, url: string): Observable<any> {
+        let json = JSON.stringify(aEnviar);
+        let params = "json=" + json;
+        let headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this._http.put(url, json, { headers: headers });
+      } // sendPutRequest
+      
 }
