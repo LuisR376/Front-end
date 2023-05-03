@@ -63,7 +63,6 @@ export class NuevalicenciaComponent {
   
  addLicencia() {
     console.log("this.userInput", this.userInput.value);
-    
     if (this.userInput.invalid) {
       this.messageService.add({ severity: 'error', summary: 'No es posible acceder', detail: 'Porfavor verifique todos los campos' });
     } else {

@@ -1,1 +1,72 @@
-<h2><small>{{servicios | json}}</small></h2>
+<section class="container">
+    <div>
+        <div class="flex align-items-center justify-content-between fondo">
+            <div>
+                <h1>Nuevo Servicio</h1>
+                <p>Ingresa un Nuevo Servicio</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="container">
+    <div class="col-12 md:col-12">
+        <Form>
+            <div class="grid">
+                <div class="col-12 md:col-4 ">
+                    <span class="p-float-label">
+                        <input formControlName="idfolios" pInputText id="idfolios" required autofocus>
+                        <label htmlFor="idfolios">Ingresa id del Folio</label>
+                    </span>
+                </div>
+                <div class="col-12 md:col-4 ">
+                    <span class="p-float-label">
+                        <input formControlName="fecha_pedido" pInputText id="fecha_pedido" required autofocus>
+                        <label htmlFor="fecha_pedido">fecha_pedido</label>
+                    </span>
+                </div>
+                <div class="col-12 md:col-4 ">
+                    <span class="p-float-label">
+                        <input formControlName="fecha_termino" pInputText id="fecha_termino" required autofocus>
+                        <label htmlFor="fecha_termino">fecha_termino</label>
+                    </span>
+                </div>              
+                
+                <div class="col-12 md:col-4  wider-dropdown">
+                    <p-dropdown formControlName="idactivos" id="idtipo_servicio" placeholder="num_inventario"
+                        [showClear]="true"></p-dropdown><!--[options]="opciones"-->
+                </div>
+                
+                <div class="col-12 md:col-4  wider-dropdown">
+
+                    <p-dropdown formControlName="idtipo_servicio" id="idtipo_servicio"
+                        placeholder="Elige el tipo de servicio"
+                        [showClear]="true"></p-dropdown><!--[options]="opciones"-->
+
+                </div>
+                <div class="col-12 md:col-4 wider-dropdown">
+                    <p-dropdown formControlName="idlugar" id="idlugar" placeholder="idlugar"
+                        [showClear]="true"></p-dropdown><!--[options]="opciones"-->
+                </div>
+                <div class="col-12 md:col-6">
+                    <span class="p-float-label">
+                        <textarea formControlName="descripcion" rows="5" cols="60" id="descripcion" type="text"
+                            pInputTextarea></textarea>
+                        <label for="float-input">Descripcion</label>
+                    </span>
+                </div>
+                <div class="col-12 md:col-6">
+                    <span class="p-float-label">
+                        <textarea formControlName="observaciones" rows="5" cols="60" id="observaciones" type="text"
+                            pInputTextarea></textarea>
+                        <label for="float-input">observaciones</label>
+                    </span>
+                </div>
+            </div>
+        </Form>
+        <div class="col-12 md:col-12 text-right">
+            <p-button styleClass="p-button-secondary mr-6" label="Cancelar"></p-button>
+
+            <p-button icon="pi pi-check" pRipple label="Guardar" styleClass="p-button-text"></p-button>
+        </div>
+    </div>
+</section>

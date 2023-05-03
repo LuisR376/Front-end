@@ -11,8 +11,8 @@
 <section class="container">
 
     <div class="grid">
-        <p-card class="col-12 md:col-6">
-            <div class="">
+        <p-card class="col-12 md:col-6" *ngIf="tickets">
+            <div>
                 <p>FOLIO: {{tickets.num_folio}}</p>
             </div>
             <div>

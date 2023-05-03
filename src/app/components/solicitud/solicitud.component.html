@@ -13,8 +13,8 @@
 <section class="container">
 
     <div class="grid">
-        <p-card class="col-12 md:col-6">
-            <div class="">
+        <p-card class="col-12 md:col-6" *ngIf="tickets">
+            <div>
                 <p>FOLIO: {{tickets.num_folio}}</p>
             </div>
             <div>
@@ -64,11 +64,7 @@
         <div class="col-12 md:col-6">
             <Form [formGroup]="recoInfo" (ngSubmit)="addTicket()">
                 <div class="grid">
-                    <div class="col-12 md:col-12">
-                        <p-fileUpload [customUpload]="true" #fileUploader [showUploadButton]="false" (onRemove)="eliminaImagen(fileUploader)"
-                            chooseLabel="Seleccionar imagen" cancelLabel="Quitar Imagenes" (onSelect)="subirimg($event)" id="imagenTicket"
-                            name="firma" accept=".jpg, .jpeg, .png" [fileLimit]="1" [maxFileSize]="2000000" [multiple]="true"></p-fileUpload>
-                    </div>
+                   
                     <div class="col-12 md:col-12">
                         <span class="p-float-label">
                             <textarea  formControlName="solucion" rows="5" cols="100"  id="solucion" type="text" pInputTextarea></textarea>
