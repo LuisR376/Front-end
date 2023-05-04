@@ -48,8 +48,6 @@ export class SolicitudComponent {
   formulario() {
     this.recoInfo = this.fb.group({
       solucion: ['', [Validators.required]],
-      firma: ['', [Validators.required]],
-      idstatusticket: ['', Validators.required]
     });
   }
   ngOnInit(): void {
@@ -115,101 +113,18 @@ export class SolicitudComponent {
       }
     });
   }
-  //Si el formulario es invalido
-  
-  async addTicket() {
-
-    if (this.recoInfo.invalid) {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Porfavor verifique todos los campos' });
-    } else if (this.arrayImagenes.length == 0) {  
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Porfavor adjunte algunas imagenes' });
-    } else {
-       this.recoInfo.patchValue({
-        idstatusticket: this.tickets.idstatusticket,
-      });
-      let datosTicket: Ticket = this.recoInfo.value as Ticket;
-      this.actualizarTicket(datosTicket);
-    }
+ 
+actualizaradd(tickets: Ticket) {
+  if (tickets.idfolios) {
+    tickets.idstatusticket = 4;
+    tickets.solucion = this.recoInfo.value.solucion;
+    this._ticketService.actualizarTicketsolved(tickets)
+      .subscribe(
+        (response) => console.log('Estado actualizado correctamente'),
+        (error) => console.log('Error al actualizar el estado', error)
+      );
   }
-  async actualizarTicket(recoInfo: Ticket) {
-    console.log("datoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooos del ticket", recoInfo)
-    recoInfo.idfolios = this.tickets.idfolios;
-    await this.getSetterImages(recoInfo);
-    this._ticketService.actualizarTicket(recoInfo, this.idFolios).subscribe({
-      next: (resp: RespuestaDto) => {
-        console.log("Respeusta", resp)
-        let respuestaDto = <RespuestaDto>resp;
-        if (respuestaDto.valido == 0) {
-
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: respuestaDto.mensaje });
-        } else {
-          this.messageService.add({ severity: 'success', summary: 'Mensaje', detail: respuestaDto.mensaje });
-
-          this.ticke = <Ticket>respuestaDto.addenda;
-          this.obtenerTickets(this.idFolios);
-          this.recoInfo.reset();
-          this.clearSelectedPhoto();
-        }
-      },
-      error: (error) => {
-        let mensaje = <any>error;
-        this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
-      }
-    });
-  }
-  clearSelectedPhoto() {
-    this.fileUpload.clear();
-  }
-  async getSetterImages(recoInfo: Ticket) {
-    return new Promise((resolve, reject) => {
-      switch (this.arrayImagenes.length) {
-        case 1:
-          recoInfo.firma = this.arrayImagenes[0].imagen;
-          break;
-      }
-
-      resolve(recoInfo);
-    });
-  }
-  async subirimg(event: any) {
-    this.arrayImagenes = [];
-    let conversion: ImagenesBase64 = await this.convertB64(event);   //jalar las imagenes y ponerlas dentro del arreglo
-    this.arrayImagenes = conversion;
-    console.log("arrayImagenes", this.arrayImagenes);
-  }
-  async convertB64(event: any): Promise<ImagenesBase64> {
-
-    return new Promise((resolve, reject) => {
-      var lista: ImagenesBase64 = [];
-      var imagenes = event.currentFiles;
-      let imagen: Imagen;
-      var terminados = 0;
-      for (let key in imagenes) {
-        let reader = new FileReader();
-        imagen = imagenes[key];
-        reader.readAsDataURL(imagenes[key]);
-        reader.onload = (imagen) => {
-          lista.push({ imagen: reader.result?.toString() });
-        }
-        reader.onerror = function (error) {
-          console.log('Error', error);
-          reject(error);
-        }
-        reader.onloadend = function (end) {
-          terminados++;
-          if (imagenes.length == terminados) {
-            resolve(lista);
-          }
-        }
-      }
-    })
-  }
-  eliminaImagen(event: any) {
-    setTimeout(() => {
-      let files = { currentFiles: event._files };
-      this.subirimg(files);
-    }, 500)
-  }
+}
  Cancelar() {
     this.recoInfo.reset();
    this.router.navigate(['/home/inicio/main/solicitudes']);
