@@ -14,7 +14,7 @@
             <tr>
                 <th>Fecha</th>
                 <th>Folio</th>
-               
+                <th>Estado</th>
                 <th style="width: 5rem"></th>
             </tr>
         </ng-template>
@@ -22,7 +22,7 @@
             <tr>
             <td>{{ticket.fecha_registro | date:'short'}}</td>
                 <td>{{ticket.num_folio.slice(-5)}}</td>
-                
+                <td>{{ticket.estado_ticket}}</td>
                 <td>
                     <p-button [routerLink]="['../ReasignacionByid', ticket.idfolios]" label="servicio"
                         icon="pi pi pi-arrow-circle-right" styleClass="p-button-sm"></p-button>

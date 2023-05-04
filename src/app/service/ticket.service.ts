@@ -34,10 +34,14 @@ export class ticketService {
     actualizarTicket(nuevosDatos: any,idfolios : string): Observable<RespuestaDto> {
         return this._apiService.sendPostRequest(nuevosDatos, this.url + `ticket/actualizar/${idfolios}`);
     }// Post usuario administrador
+    
+    actualizarTicketsolved(datosT : Ticket): Observable<RespuestaDto> {
+        return this._apiService.sendPostRequest(datosT, this.url + "ticket/solved");
+    }// Cambio de estado a Solucionado
 
     actualizarTicketabierto(datosT : Ticket): Observable<RespuestaDto> {
         return this._apiService.sendPostRequest(datosT, this.url + "ticket/actualizarAbierto");
-    }// Post usuario cliente
+    }// Cambio de estado a abierto
 
     catalogEstatusTicket(token: string): Observable<RespuestaDto> {
         return this._apiService.sendGetRequest(this.url + "ticket/obtenCatalogEstatusTicket", token);

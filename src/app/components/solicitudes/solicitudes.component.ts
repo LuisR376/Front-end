@@ -35,10 +35,7 @@ export class SolicitudesComponent implements OnInit {
     this.obtenerTickets();
     const id = this.activatedRoute.snapshot.paramMap.get('id');
   }
-  recoInfo = this.fb.group({
-    idfolios: [''],
-    estado_ticket: [''],
-  });
+
   obtenerTickets() {
     this._ticketService.getTicket(this.token).subscribe({
       next: (resp: RespuestaDto) => {
@@ -62,7 +59,7 @@ export class SolicitudesComponent implements OnInit {
   actualizarEstado(tickets: Ticket) {
 
     if (tickets.idfolios) {
-      tickets.idstatusticket=1
+      tickets.idstatusticket=3
       this._ticketService.actualizarTicketabierto(tickets)
         .subscribe(
           (response) => console.log('Estado actualizado correctamente'),
