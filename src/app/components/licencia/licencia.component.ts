@@ -19,7 +19,7 @@ export class LicenciaComponent {
   licencias !: licencia[];
   licen !: licencia;
   clonedlicencias: { [s: string]: licencia } = {};
-  info    !: FormGroup;
+  infoForm    !: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -31,11 +31,10 @@ export class LicenciaComponent {
   }
   ngOnInit() {
     this.obtenerLicencias();
+    this.formulario();
   }
   formulario() {
-    this.info = this.fb.group({
-
-      idLicencias: ['', Validators.required],
+    this.infoForm = this.fb.group({
       numserie_licencia: ['', Validators.required],
       tipo_licencia: ['', Validators.required],
       nombre: ['', Validators.required],
@@ -51,6 +50,7 @@ export class LicenciaComponent {
         let respuestaDto = <RespuestaDto>resp;
         if (respuestaDto.ok) {
           this.licencias = resp.addenda;
+          
           console.log("this.licencias", this.licencias);
         }
       },
@@ -70,6 +70,7 @@ export class LicenciaComponent {
     delete this.clonedlicencias[lic.idLicencias];
   }
 async onRowEditSave(info: licencia) {
+  console.log("***edit",this.infoForm);
   if (parseInt(info.folio_compra) > 0) {
     delete this.clonedlicencias[info.idLicencias];
     this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Product is updated' });
