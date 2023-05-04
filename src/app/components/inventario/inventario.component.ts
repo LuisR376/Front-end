@@ -5,6 +5,7 @@ import { RespuestaDto } from '../model/respuestaDto';
 import { Activos } from '../model/activos.model';
 import { AlertaComponent } from 'src/app/util/alerta.component';
 import { Router } from '@angular/router';
+import { ActivosService } from 'src/app/service/Activos.service';
 
 @Component({
   selector: 'app-inventario',
@@ -14,7 +15,7 @@ import { Router } from '@angular/router';
 export class InventarioComponent {
   @ViewChild(AlertaComponent, { static: false }) mensajeAlerta!: AlertaComponent;
   constructor(
-    private customerService: CustomerService,
+    public _ActivosService:ActivosService,
     public _authGuardService: authGuardService,
     private router: Router
   ) {
@@ -27,7 +28,7 @@ export class InventarioComponent {
   }
   obtenerActivos() {
     console.log("Token", this.token);
-    this.customerService.getActivos(this.token).subscribe({
+    this._ActivosService.getActivos(this.token).subscribe({
       next: (resp: RespuestaDto) => {
         console.log("Obtener Activos", resp);
         let respuestaDto = <RespuestaDto>resp;

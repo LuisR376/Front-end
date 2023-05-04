@@ -7,6 +7,7 @@ export interface Servicios {
     descripcion     :string,
     observaciones   :string,
     idactivos       :string,
-    idluga          :string
+    idluga          :string,
+    num_inventario  :string
 }
 

@@ -60,15 +60,20 @@
             <div>
                 <p>Prioridad: {{tickets.descripcion}}</p>
             </div>
+            <div>
+                <p>Solucion: {{tickets.solucion}}</p>
+            </div>
         </p-card>
+       
         <div class="col-12 md:col-6">
-            <Form [formGroup]="recoInfo" >
+            <Form [formGroup]="recoInfo" *ngIf="sesionUsuario.clave== 'ADM' ||   sesionUsuario.clave == 'TEC'" >
                 <div class="grid">
-                    <div class="col-12 md:col-12">
+                    <div class="col-12 md:col-12" >
+
                         <span class="p-float-label">
                             <textarea formControlName="solucion" rows="5" cols="50" id="solucion" type="text"
                                 pInputTextarea></textarea>
-                            <label for="float-input">Solucion</label>
+                            <label for="float-input">SOLUCION</label>
                             <small *ngIf="form['solucion'].errors?.['required']" id="blErrorsolucion" class="p-error">El
                                 campo solucion se
                                 encuentra
@@ -77,13 +82,16 @@
                     </div>
                 </div>
             </Form>
-            <div class="col-12 md:col-12 text-right">
-                <p-button label="Agregar Servicio" icon="pi pi-plus" (click)="Servicio()" styleClass="p-button-mx"></p-button>
+            <div *ngIf="sesionUsuario.clave== 'ADM' ||   sesionUsuario.clave == 'TEC'">
+            <div class="col-12 md:col-12 text-right" *ngIf="tickets">
+                <p-button label="Agregar Servicio" icon="pi pi-plus" [routerLink]="['../../servicio',tickets.idfolios,tickets.num_folio,tickets.idlugar]" styleClass="p-button-mx"></p-button>
             </div>
             <div class="col-12 md:col-12 text-right">
                 <p-button styleClass="p-button-secondary mr-2" (click)="Cancelar()" label="Cancelar"></p-button>
                 <p-button icon="pi pi-check" pRipple (click)="actualizaradd(tickets)" label="Guardar"styleClass="p-button-text"></p-button>
             </div>
         </div>
+        </div>
     </div>
+
 </section>

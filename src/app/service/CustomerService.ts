@@ -18,10 +18,6 @@ export class CustomerService {
         fnusuario(token:string): Observable<RespuestaDto> {
             return this._apiService.sendGetRequest(this.url + "usuario/getUsuarios",token);
         }
-       
-        getActivos(token:string): Observable<RespuestaDto> {
-            return this._apiService.sendGetRequest(this.url + "activos/getActivos",token);
-        }
         getArea(token:string): Observable<RespuestaDto> {
             return this._apiService.sendGetRequest(this.url + "area/getarea",token);
         }
