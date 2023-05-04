@@ -3,7 +3,7 @@
         <p-table [value]="licencias" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
             [tableStyle]="{'min-width': '50rem'}"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-            [rowsPerPageOptions]="[10,25,50]" editMode="lics" editMode="row" dataKey="idLicencias">
+            [rowsPerPageOptions]="[10,25,50]"  editMode="row" dataKey="idLicencias">
             <ng-template pTemplate="caption">
                 <div class="flex align-items-center justify-content-between fondo">
                     <div>
@@ -29,7 +29,7 @@
             </ng-template>
             <ng-template pTemplate="body" let-lic let-editing="editing" let-ri="rowIndex">
         <tr >
-                <tr pEditableRow="lic" (ngSubmit)="onRowEditSave(lic)" >
+                <tr [pEditableRow]="lic" (ngSubmit)="onRowEditSave(lic)" >
 
                     <td>
                         <p-cellEditor>
