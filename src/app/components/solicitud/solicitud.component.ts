@@ -113,14 +113,7 @@ export class SolicitudComponent {
       }
     });
   }
-   addTicket() {
-    console.log("Datos ingresados:", this.recoInfo.value)
-    if (this.recoInfo.invalid) {
-      this.messageService.add({ severity: 'error', summary: 'No es posible agregar', detail: 'Porfavor verifique todos los campos' });
-    } else {
-      this.actualizaradd(this.recoInfo.value);
-    }
-  }
+ 
 actualizaradd(tickets: Ticket) {
   if (tickets.idfolios) {
     tickets.idstatusticket = 4;
