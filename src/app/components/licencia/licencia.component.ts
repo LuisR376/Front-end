@@ -6,7 +6,7 @@ import { RespuestaDto } from '../model/respuestaDto';
 import { licencia } from '../model/licencia.model';
 import { MessageService } from 'primeng/api';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { Table } from 'primeng/table'
 
 @Component({
   selector: 'app-licencia',
@@ -14,13 +14,19 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./licencia.component.css']
 })
 export class LicenciaComponent {
+  @ViewChild('dt', { static: false }) table!: Table
   @ViewChild(AlertaComponent, { static: false }) mensajeAlerta!: AlertaComponent;
+  opcionesFormato = [{ label: 'Digital', value: 'Digital' },
+  { label: 'Impreso', value: 'Impreso' },
+  { label: 'Tarjeta plástica', value: 'Tarjeta plástica' }];
   token: string;
   licencias !: licencia[];
   licen !: licencia;
   clonedlicencias: { [s: string]: licencia } = {};
+  licenciaSeleccionada !: licencia;
   infoForm    !: FormGroup;
-
+  elemenLicenciaSelected = new Array();
+  visibleNumLicencia !: boolean;
   constructor(
     private fb: FormBuilder,
     public _authGuardService: authGuardService,
@@ -35,6 +41,7 @@ export class LicenciaComponent {
   }
   formulario() {
     this.infoForm = this.fb.group({
+      idLicencias: [''],
       numserie_licencia: ['', Validators.required],
       tipo_licencia: ['', Validators.required],
       nombre: ['', Validators.required],
@@ -50,8 +57,6 @@ export class LicenciaComponent {
         let respuestaDto = <RespuestaDto>resp;
         if (respuestaDto.ok) {
           this.licencias = resp.addenda;
-          
-          console.log("this.licencias", this.licencias);
         }
       },
       error: (error) => {
@@ -60,44 +65,59 @@ export class LicenciaComponent {
       }
     });
   }
-  onRowEditInit(lic: licencia) {
+  onRowEditInit(lic: licencia, index: number, htmlTableRowElement: any) {
     this.clonedlicencias[lic.idLicencias] = { ...lic };
-    console.log("this.clonedlicencias", this.clonedlicencias);
+    this.licenciaSeleccionada = this.clonedlicencias[lic.idLicencias];
 
+    if (this.elemenLicenciaSelected.length > 0) {
+      let objetoLicencia = this.elemenLicenciaSelected[this.elemenLicenciaSelected.length - 1];
+      this.table.saveRowEdit(objetoLicencia.licencia, htmlTableRowElement)
+    }
+    this.setteaFormulario(this.licenciaSeleccionada, lic, index, htmlTableRowElement);
+
+  }
+
+  setteaFormulario(licenciaSelected: licencia, lic: licencia, index: number, htmlTableRowElement: any) {
+    this.elemenLicenciaSelected.push({ licencia: lic, htmlTableRowElement });
+    this.infoForm.patchValue({
+      idLicencias: licenciaSelected.idLicencias,
+      numserie_licencia: licenciaSelected.numserie_licencia,
+      tipo_licencia: licenciaSelected.tipo_licencia,
+      nombre: licenciaSelected.nombre,
+      folio_compra: licenciaSelected.folio_compra,
+      formato: licenciaSelected.formato,
+      descripcion: licenciaSelected.descripcion
+    });
   }
   onRowEditCancel(lic: licencia, index: number) {
     this.licencias[index] = this.clonedlicencias[lic.idLicencias];
     delete this.clonedlicencias[lic.idLicencias];
   }
-async onRowEditSave(info: licencia) {
-  console.log("***edit",this.infoForm);
-  if (parseInt(info.folio_compra) > 0) {
-    delete this.clonedlicencias[info.idLicencias];
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Product is updated' });
-  } else {
-    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid folio_compra' });
-    return;
+
+  prueba(rowData: any, htmlTableRowElement: any) {
+    this.table.saveRowEdit(rowData, htmlTableRowElement)
   }
+  async onRowEditSave(info: licencia) {
+    console.log("***edit infoForm", this.infoForm.value);
+    // Llamar a la función updateLincencia de licenciaService y pasarle el objeto de licencias actualizado
+    this._licenciaService.updateLincencia(this.infoForm.value).subscribe({
+      next: (resp: RespuestaDto) => {
+        let respuestaDto = <RespuestaDto>resp;
+        if (respuestaDto.valido == 0) {
+          console.log("next", respuestaDto.mensaje)
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: respuestaDto.mensaje });
+        } else {
+          this.licen = <licencia>respuestaDto.addenda;
 
-  // Llamar a la función updateLincencia de licenciaService y pasarle el objeto de licencias actualizado
-  this._licenciaService.updateLincencia(this.licencias[0]).subscribe({
-    next: (resp: RespuestaDto) => {
-      let respuestaDto = <RespuestaDto>resp;
-      if (respuestaDto.valido == 0) {
-        console.log("next", respuestaDto.mensaje)
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: respuestaDto.mensaje });
-      } else {
-        this.licen = <licencia>respuestaDto.addenda;
-
-        // Llamar a la función obtenerLicencias para mostrar los datos actualizados
-        this.obtenerLicencias();
+          // Llamar a la función obtenerLicencias para mostrar los datos actualizados
+          this.obtenerLicencias();
+        }
+      },
+      error: (error) => {
+        let mensaje = <any>error;
+        this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
       }
-    },
-    error: (error) => {
-      let mensaje = <any>error;
-      this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
-    }
-  });
-}
+    });
+  }
 
 }

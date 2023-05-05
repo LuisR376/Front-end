@@ -5,6 +5,7 @@ import { RespuestaDto } from '../components/model/respuestaDto';
 import { UtilApiService } from './util-api.service';
 import { Observable } from 'rxjs';
 import { insertLicencia } from '../components/model/insertLicencia';
+import { licencia } from '../components/model/licencia.model';
 
 @Injectable()
 export class licenciaService {
@@ -21,7 +22,7 @@ export class licenciaService {
     saveLincencia(datosA: insertLicencia): Observable<RespuestaDto> {
         return this._apiService.sendPostRequest(datosA, this.url + "licencias/post");
     }// Post licencia
-     updateLincencia(datosA: insertLicencia): Observable<RespuestaDto> {
+     updateLincencia(datosA: licencia): Observable<RespuestaDto> {
         return this._apiService.sendPostRequest(datosA, this.url + "licencias/updatelicencias");
     }// Update licencia
 }

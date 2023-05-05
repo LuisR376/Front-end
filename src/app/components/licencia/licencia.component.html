@@ -1,7 +1,7 @@
 <section class="container">
     <div>
         <form [formGroup]="infoForm">
-        <p-table [value]="licencias" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+        <p-table #dt [value]="licencias" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
             [tableStyle]="{'min-width': '50rem'}"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
             [rowsPerPageOptions]="[10,25,50]" editMode="row" dataKey="idLicencias">
@@ -18,13 +18,14 @@
             </ng-template>
             <ng-template pTemplate="header">
                 <tr>
-                    <th style="width:14%">numserie_licencia</th>
-                    <th style="width:14%">tipo_licencia</th>
-                    <th style="width:14%">nombre</th>
-                    <th style="width:14%">folio_compra</th>
-                    <th style="width:14%">formato</th>
-                    <th style="width:14%">descripcion</th>
-                    <th style="width:16%"></th>
+                    <th *ngIf="visibleNumLicencia"  style="width:14%">Id Licencia</th>
+                    <th style="width:14%">Tipo de Licencia</th>
+                    <th style="width:14%">Tipo de Licencia</th>
+                    <th style="width:14%">Nombre</th>
+                    <th style="width:14%">Folio compra</th>
+                    <th style="width:14%">Formato</th>
+                    <th style="width:14%">Descripcion</th>
+                    <th style="width:16%">Accion</th>
                 </tr>
             </ng-template>
            
@@ -32,9 +33,19 @@
 
 
                 
-                    <tr [pEditableRow]="lic" (ngSubmit)="onRowEditSave(lic)">
+                    <tr [pEditableRow]="lic" #htmlTableRowElement (ngSubmit)="onRowEditSave(lic)">
 
-
+                        <td *ngIf="visibleNumLicencia" >
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text" formControlName="idLicencias">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{lic.idLicencias}}
+                                </ng-template>
+                            </p-cellEditor>
+                           
+                        </td>
                         <td>
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
@@ -78,7 +89,7 @@
                         <td> 
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText type="text" formControlName="formato">
+                                    <p-dropdown formControlName="formato" [options]="opcionesFormato"id="formato" placeholder="formato"  ></p-dropdown>
                                 </ng-template>
                                 <ng-template pTemplate="output">
                                     {{lic.formato}}
@@ -98,14 +109,14 @@
                         <td>
                             <div class="flex align-items-center justify-content-center gap-2">
                                 <button *ngIf="!editing" pButton pRipple type="button" icon="pi pi-pencil"
-                                    pInitEditableRow (click)="onRowEditInit(lic)"
+                                    pInitEditableRow (click)="onRowEditInit(lic, ri  , htmlTableRowElement);"
                                     class="p-button-rounded p-button-text"></button>
                                 <!--pInitEditableRow-->
                                 <button *ngIf="editing" pButton pRipple type="button" icon="pi pi-check"
                                     pSaveEditableRow (click)="onRowEditSave(lic)"
                                     class="p-button-rounded p-button-text p-button-success mr-2"></button><!--pSaveEditableRow-->
                                 <button *ngIf="editing" pButton pRipple type="button" icon="pi pi-times"
-                                    pCancelEditableRow (click)="onRowEditCancel(lic, ri)"
+                                    pCancelEditableRow 
                                     class="p-button-rounded p-button-text p-button-danger"></button><!--pCancelEditableRow-->
                             </div>
                         </td>
