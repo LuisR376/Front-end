@@ -8,6 +8,7 @@ import { AlertaComponent } from '../../util/alerta.component';
 import { RespuestaDto } from '../model/respuestaDto';
 
 import { FormBuilder, Validators } from '@angular/forms';
+import { ActivosService } from 'src/app/service/Activos.service';
 @Component({
   selector: 'app-table-activos',
   templateUrl: './table-activos.component.html',
@@ -35,7 +36,7 @@ export class TableActivosComponent {
 
 
   constructor(
-    private customerService: CustomerService,
+    private _ActivosService: ActivosService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     public _authGuardService: authGuardService,
@@ -80,7 +81,7 @@ export class TableActivosComponent {
   });
   obtenerActivos() {
     console.log("Token", this.token);
-    this.customerService.getActivos(this.token).subscribe({
+    this._ActivosService.getActivos(this.token).subscribe({
       next: (resp: RespuestaDto) => {
         console.log("Obtener Activos", resp);
         let respuestaDto = <RespuestaDto>resp;

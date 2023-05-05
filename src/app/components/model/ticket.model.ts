@@ -13,6 +13,7 @@ export interface Ticket {
     solucion?: string;
     firma?: string;
     idstatusticket?:number;
+    idlugar?:number;
     
     nombre?: string;
     descripcion?: string;
