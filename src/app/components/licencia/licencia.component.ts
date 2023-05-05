@@ -108,6 +108,7 @@ export class LicenciaComponent {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: respuestaDto.mensaje });
         } else {
           this.licen = <licencia>respuestaDto.addenda;
+          this.messageService.add({ severity: 'success', summary: 'Muy bien! se ha guardado correctamente', detail: respuestaDto.mensaje });
 
           // Llamar a la función obtenerLicencias para mostrar los datos actualizados
           this.obtenerLicencias();
