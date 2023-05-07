@@ -17,33 +17,26 @@
             </ng-template>
             <ng-template pTemplate="header">
                 <tr>
-                    <th>idfolios</th>
-                    <th>fecha_registro</th>
-                    <th>idtipo_servicio</th>
-                    <th>asunto</th>
-                    <th>estado_ticket</th>
-                    <th>nombre Usuario</th>
-                    <th>mensaje</th>
+                    <th>FOLIO</th>
+                    <th>FECHA</th>
+                    <th>TIPO DE SERVICIO</th>
+                    <th>ASUNTO</th>
+                    <th>ESTADO</th>
+                    <th>CLIENTE</th>
+                    <th>MENSAJE</th>
 
                     <th>
                         <div *ngIf="sesionUsuario.clave== 'ADM' ||   sesionUsuario.clave == 'TEC'">
 
-                            foto1
+                            FOTO
                         </div>
                     </th>
 
                     <th>
                         <div *ngIf="sesionUsuario.clave== 'ADM' ||   sesionUsuario.clave == 'TEC'">
 
-                            solucion</div>
+                            SOLUCION</div>
                     </th>
-                    <th>
-                        <div *ngIf="sesionUsuario.clave== 'ADM' ||   sesionUsuario.clave == 'TEC'">
-
-                            Firma</div>
-                    </th>
-
-
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-ticket>
@@ -68,11 +61,7 @@
                             {{ticket.Solucion}}
                         </div>
                     </td>
-                    <td>
-                        <div *ngIf="sesionUsuario.clave== 'ADM' ||   sesionUsuario.clave == 'TEC'">
-                            <img src="{{ticket.firma}}" [alt]="ticket.firma" width="100" class="shadow-4">
-                        </div>
-                    </td>
+                   
                 </tr>
             </ng-template>
         </p-table>

@@ -82,6 +82,28 @@
                     </div>
                 </div>
             </Form>
+            <div class="col-12 md:col-4">
+            </div>
+            <div class="col-12 md:col-4">
+            </div>
+            <div class="col-12 md:col-4">
+            </div>
+            <div class="col-12 md:col-4" >
+                <div *ngIf="sesionUsuario.clave== 'ADM' ||   sesionUsuario.clave == 'CL'">
+                    <p-dialog header="Ingresa Contraseña" [(visible)]="visible" [modal]="true" [style]="{ width: '25vw' }" [draggable]="false" [resizable]="false">
+                        <ng-template pTemplate="header">
+                            <span class="text-xl font-bold">Ingresa Contraseña</span>
+                        </ng-template>
+                        <form [formGroup]="formUser">
+                        <input pInputText type="password" formControlName="password" class="p-inputtext-sm wtexto" placeholder="Ingresa contraseña"/>
+                    </form>
+                        <ng-template pTemplate="footer">
+                            <p-button type="button" icon="pi pi-check" (click)="verificaContrasena()" label="Ok" styleClass="p-button-text"></p-button>
+                        </ng-template>  
+                    </p-dialog>
+                <p-button (click)="showDialog('right')" icon="pi pi-times" label="Cerrar Ticket" styleClass="p-button-help"></p-button>
+                </div>
+            </div>
             <div *ngIf="sesionUsuario.clave== 'ADM' ||   sesionUsuario.clave == 'TEC'">
             <div class="col-12 md:col-12 text-right" *ngIf="tickets">
                 <p-button label="Agregar Servicio" icon="pi pi-plus" [routerLink]="['../../servicio',tickets.idfolios,tickets.num_folio,tickets.idlugar]" styleClass="p-button-mx"></p-button>
@@ -93,5 +115,6 @@
         </div>
         </div>
     </div>
-
+    <app-alerta></app-alerta>
+    <p-toast></p-toast>
 </section>

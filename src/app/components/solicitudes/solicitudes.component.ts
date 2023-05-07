@@ -8,6 +8,7 @@ import { Ticket } from '../model/ticket.model';
 import { NgForm } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { ticketService } from 'src/app/service/ticket.service';
+import { Usuario } from '../model/usuario.model';
 @Component({
   selector: 'app-solicitudes',
   templateUrl: './solicitudes.component.html',
@@ -18,6 +19,7 @@ export class SolicitudesComponent implements OnInit {
   tickets !: Ticket[];
   selectInfo !: Ticket;
   ticket!: Ticket;
+  sesionUsuario !: Usuario;
   constructor(
     private messageService: MessageService,
   
@@ -27,9 +29,10 @@ export class SolicitudesComponent implements OnInit {
     
     public _authGuardService: authGuardService,
     public _ticketService: ticketService,
+    
   ) {
     this.token = this._authGuardService.getToken();
-    
+    this.sesionUsuario = this._authGuardService.getUser();
   }
   ngOnInit() {
     this.obtenerTickets();
@@ -59,12 +62,16 @@ export class SolicitudesComponent implements OnInit {
   actualizarEstado(tickets: Ticket) {
 
     if (tickets.idfolios) {
-      tickets.idstatusticket=3
-      this._ticketService.actualizarTicketabierto(tickets)
+      
+      if((this.sesionUsuario.clave === 'TEC' || this.sesionUsuario.clave === 'ADM') ){
+        tickets.idstatusticket=3
+        this._ticketService.actualizarTicketabierto(tickets)
         .subscribe(
           (response) => console.log('Estado actualizado correctamente'),
           (error) => console.log('Error al actualizar el estado', error)
         );
+      }
+     
     }
   }    
 }

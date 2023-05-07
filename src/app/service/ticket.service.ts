@@ -29,8 +29,6 @@ export class ticketService {
     saveTicket(datosT : Ticket): Observable<RespuestaDto> {
         return this._apiService.sendPostRequest(datosT, this.url + "ticket/post");
     }// Post usuario cliente
-
-
     actualizarTicket(nuevosDatos: any,idfolios : string): Observable<RespuestaDto> {
         return this._apiService.sendPostRequest(nuevosDatos, this.url + `ticket/actualizar/${idfolios}`);
     }// Post usuario administrador
@@ -39,6 +37,11 @@ export class ticketService {
         return this._apiService.sendPostRequest(datosT, this.url + "ticket/solved");
     }// Cambio de estado a Solucionado
 
+    actualizaEstatusTerminado(datosT : Ticket): Observable<RespuestaDto> {
+        return this._apiService.sendPostRequest(datosT, this.url + "ticket/estatusTerminado");
+    }// Cambio de estado a terminado
+
+    
     actualizarTicketabierto(datosT : Ticket): Observable<RespuestaDto> {
         return this._apiService.sendPostRequest(datosT, this.url + "ticket/actualizarAbierto");
     }// Cambio de estado a abierto

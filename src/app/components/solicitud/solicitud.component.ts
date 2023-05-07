@@ -10,6 +10,9 @@ import { Usuario } from '../model/usuario.model';
 import { ticketService } from 'src/app/service/ticket.service';
 import { Imagen } from '../model/imagene.model';
 import { ImagenesBase64 } from '../model/imagenes.model';
+import { UsuarioService } from 'src/app/service/usuario.service';
+import { log } from 'console';
+import { servicioService } from 'src/app/service/Servicio.service';
 
 @Component({
   selector: 'app-solicitud',
@@ -31,7 +34,10 @@ export class SolicitudComponent {
   idFolios!: string;
   responsiveOptions !: any[];
   ticke: any;
-
+  visible: boolean = false;
+  position!: string;
+  usuari!: Usuario;
+  formUser !: FormGroup;
   constructor(
     private messageService: MessageService,
     private router: Router,
@@ -39,6 +45,8 @@ export class SolicitudComponent {
     public _ticketService: ticketService,
     private route: ActivatedRoute,
     private fb: FormBuilder,
+    private usuarioService: UsuarioService,
+    public _servicioService:servicioService
   ) {
     this.token = this._authGuardService.getToken();
     this.sesionUsuario = this._authGuardService.getUser();
@@ -50,9 +58,16 @@ export class SolicitudComponent {
       solucion: ['', [Validators.required]],
     });
   }
+  initFormUser() {
+    this.formUser = this.fb.group({
+      password: ['', [Validators.required]],
+    });
+  }
+
   ngOnInit(): void {
     this.obtenerTickets(this.idFolios);
     this.formulario();
+    this.initFormUser();
   }
 
   get form(): { [key: string]: AbstractControl } {
@@ -113,24 +128,90 @@ export class SolicitudComponent {
       }
     });
   }
- 
-actualizaradd(tickets: Ticket) {
-  if (tickets.idfolios) {
-    tickets.idstatusticket = 4;
-    tickets.solucion = this.recoInfo.value.solucion;
-    this._ticketService.actualizarTicketsolved(tickets)
-      .subscribe(
-        (response) => console.log('Estado actualizado correctamente'),
-        (error) => console.log('Error al actualizar el estado', error)
-      );
+
+  actualizaradd(tickets: Ticket) {
+    if (tickets.idfolios) {
+      tickets.idstatusticket = 4;
+      tickets.solucion = this.recoInfo.value.solucion;
+      this._ticketService.actualizarTicketsolved(tickets)
+        .subscribe(
+          (response) => console.log('Estado actualizado correctamente'),
+          (error) => console.log('Error al actualizar el estado', error)
+        );
+    }
   }
-}
- Cancelar() {
+  Cancelar() {
     this.recoInfo.reset();
-   this.router.navigate(['/home/inicio/main/solicitudes']);
- }
-   Servicio() {
+    this.router.navigate(['/home/inicio/main/solicitudes']);
+  }
+  Servicio() {
     this.recoInfo.reset();
-   this.router.navigate(['/home/inicio/main/servicio']);
+    this.router.navigate(['/home/inicio/main/servicio']);
+  }
+  verificaContrasena() {
+    let idUsuario = this.sesionUsuario.idUsuario;
+    this.formUser.value.idUsuario = idUsuario;
+
+    console.log("Datos:", this.formUser.value);
+    this.usuarioService.verificarContraseña(this.formUser.value).subscribe({
+      next: (resp: RespuestaDto) => {
+        let respuestaDto = <RespuestaDto>resp;
+        if (respuestaDto.valido == 0) {
+          console.log("next", respuestaDto.mensaje)
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: respuestaDto.mensaje });
+        } else {
+          this.actualizaEstatusTerminado(this.tickets);
+        }
+      },
+      error: (error) => {
+        let mensaje = <any>error;
+        this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
+      }
+    });
+  }
+
+
+  actualizaEstatusTerminado(tickets: Ticket) {
+    if (tickets.idfolios) {
+      tickets.idstatusticket = 5;
+      this._ticketService.actualizaEstatusTerminado(tickets).subscribe({
+        next: (resp: RespuestaDto) => {
+          let respuestaDto = <RespuestaDto>resp;
+          if (respuestaDto.ok) {
+            console.log("next", respuestaDto.mensaje)
+            this.actualizaServTeminado();
+          } else {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: respuestaDto.mensaje });
+          }
+        },
+        error: (error) => {
+          let mensaje = <any>error;
+          this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
+        }
+      })
+    }
+  }
+
+  actualizaServTeminado(){
+      this._servicioService.updateServicioTerm({ idFolios :this.idFolios}).subscribe({
+        next: (resp: RespuestaDto) => {
+          console.log("Obtener Servicios", resp);
+          let respuestaDto = <RespuestaDto>resp;
+          if (respuestaDto.ok) {
+            this.messageService.add({ severity: 'success', summary: 'Muy bien', detail: "El estatus ha sido actualizado a terminado"});
+
+          }
+        },
+        error: (error: any) => {
+          let mensaje = <any>error;
+          this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
+        }
+      });
+
+  }
+
+  showDialog(position: string) {
+    this.position = position;
+    this.visible = true;
   }
 }

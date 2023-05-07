@@ -15,6 +15,8 @@ import { insertServicio } from '../model/insertSevicio';
 import { tipodeservicio } from '../model/tipodeservicio.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivosService } from 'src/app/service/Activos.service';
+import { lugarAreas } from '../model/lugarArea.model';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-comp-servicio',
   templateUrl: './comp-servicio.component.html',
@@ -31,25 +33,26 @@ export class CompServicioComponent {
     public _ActivosService:ActivosService,
     public customerService:CustomerService,
     public _tipodeservicioService:tipodeservicioService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private messageService: MessageService
   ){
     this.token = this._authGuardService.getToken();
     this.idfolios = this.route.snapshot.paramMap.get('idfolio') as any;
     console.log(this.idfolios);
     this.num_folio = this.route.snapshot.paramMap.get('descFolio') as any;
     console.log(this.num_folio);
-    this.idlugar = this.route.snapshot.paramMap.get('idlugar') as any;
-    console.log(this.idlugar);
+    this.idLugar = this.route.snapshot.paramMap.get('idlugar') as any;
+    console.log(this.idLugar);
   }
   token: string;
   servicios !: Servicios[];
-  tickets !: Ticket[];
   num_folio!: string;
   idfolios!: string;
-  idlugar!:string;
+  idLugar!:string;
+  resp!:Lugar;
   lugares!:Lugar[];
   activos!:Activos;
-  servicio!:tipodeservicio[];
+  tiposervicio!:tipodeservicio[];
   num_inventario!:ActivosService[];
   recoInfo!:FormGroup;
   ngOnInit() {
@@ -57,10 +60,11 @@ export class CompServicioComponent {
     this.obtenerLugar();
     this.obtenerActivos();
     this.formulario();
+    this.obtenerTipodeServicio();
   }
   formulario(){
     this.recoInfo = this.fb.group({
-      idfolios        : ['', [Validators.required]],
+      idfolios        : [this.idfolios],
       idtipo_servicio : ['', [Validators.required]],
       descripcion     : ['', [Validators.required]],
       observaciones   : ['', [Validators.required]],
@@ -94,7 +98,9 @@ export class CompServicioComponent {
         let respuestaDto = <RespuestaDto>resp;
         if (respuestaDto.ok) {
           this.lugares = resp.addenda;
-        }
+        } else {
+
+        } // if
       },
       error: (error) => {
         let mensaje = <any>error;
@@ -102,6 +108,7 @@ export class CompServicioComponent {
       }
     });
   }
+  
   obtenerActivos() {
     console.log("Token", this.token);
     this._ActivosService.getActivoNumInventario(this.token).subscribe({
@@ -126,14 +133,39 @@ export class CompServicioComponent {
         console.log("servicios", resp);
         let respuestaDto = <RespuestaDto>resp;
         if (respuestaDto.ok) {
-          this.servicio = resp.addenda;
+          this.tiposervicio = resp.addenda;
         }
-        console.log("this.servicio", this.servicio);
+        console.log("this.tiposervicio", this.tiposervicio);
+
       },
       error: (error) => {
         let mensaje = <any>error;
         this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
       }
     });
+  }
+  addService() {
+    console.log("Datos ingresados:", this.recoInfo?.value); // Usamos ? para asegurar que recoInfo no sea nulo
+    if (!this.recoInfo || this.recoInfo.invalid) { // Validamos que recoInfo no sea nulo antes de utilizarlo
+      this.messageService.add({ severity: 'error', summary: 'No es posible agregar', detail: 'Porfavor verifique todos los campos' });
+    } else {
+      this.recoInfo.get('idfolios')?.setValue(this.idfolios); // Usamos ? para asegurar que recoInfo no sea nulo y accedemos al campo idfolios con ? también
+      this.saveServicio(this.recoInfo.value);
+    }
+  }
+  
+  
+  saveServicio(servicio: Servicios) {
+    if (servicio.idfolios) {
+      this._servicioService.saveServicio(servicio)
+        .subscribe(
+          (response) => console.log('Insertado correctamente'),
+          (error) => console.log('Error al Insertar', error)
+        );
+    }
+  }
+  Cancelar() {
+    this.recoInfo.reset();
+
   }
 }

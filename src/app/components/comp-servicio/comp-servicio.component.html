@@ -12,36 +12,46 @@
     <div class="col-12 md:col-12">
         <Form [formGroup]="recoInfo">
             <div class="grid">
-                <div class="col-12 md:col-4 ">
-                        <label htmlFor="idfolios">Ingresa id del Folio</label>
+                <div class="col-12 md:col-12">
+                    <p>EL NUMERO DE FOLIO ES: {{num_folio}}</p>
                 </div>
-                <div class="col-12 md:col-4 ">
-                </div>
-                <div class="col-12 md:col-4 ">
-                </div>
-                <div class="col-12 md:col-4  wider-dropdown" *ngIf="num_inventario">
+                <div class="col-12 md:col-4" *ngIf="num_inventario">
                     <p-dropdown formControlName="idactivos"  [options]="num_inventario" id="idactivos" placeholder="Seleccione num_inventario"
-                    optionLabel="num_inventario" optionValue="idactivos" [showClear]="true"></p-dropdown><!--[options]="opciones"-->
+                    optionLabel="num_inventario" optionValue="idactivos" [showClear]="true"></p-dropdown>
+                    <small class="p-error" *ngIf="recoInfo.touched && recoInfo.invalid">Elige el N° de Invenario</small>
                 </div>
                 
-                <div class="col-12 md:col-4  wider-dropdown" *ngIf="servicio">
+                <div class="col-12 md:col-4" *ngIf="tiposervicio">
 
-                    <p-dropdown formControlName="idtipo_servicio" [options]="servicio" id="idtipo_servicio" placeholder="Elige el tipo de servicio"
-                        optionLabel="servicio" optionValue="idtipo_servicio" [showClear]="true"></p-dropdown><!--[options]="opciones"-->
+                    <p-dropdown 
+                    [options]="tiposervicio" 
+                    placeholder="Elige el tipo de servicio"
+                    formControlName="idtipo_servicio" 
+                    optionLabel="descripcion" 
+                    optionValue="idtipo_servicio" 
+                    
+                    [showClear]="true"></p-dropdown><small class="p-error" *ngIf="recoInfo.touched && recoInfo.invalid">Elige un Servicio</small>
 
                 </div>
-                <div class="col-12 md:col-4 wider-dropdown">
-                    <p-dropdown formControlName="idlugar" [options]="lugares" id="idlugar" placeholder="idlugar" 
-                    optionLabel="lugares" optionValue="idlugar" [showClear]="true"></p-dropdown><!--[options]="opciones"-->
+                <div class="col-12 md:col-4" >
+                    <p-dropdown 
+                   
+                    [options]="lugares" 
+                    placeholder="Seleccione un lugar" 
+                    formControlName="idlugar" 
+                    optionLabel="ubicacion" 
+                    optionValue="idlugar" ></p-dropdown>
+                    <small class="p-error" *ngIf="recoInfo.touched && recoInfo.invalid">Elige un lugar</small>
                 </div>
-                <div class="col-12 md:col-6">
+
+                <div class="col-12 md:col-6 " >
                     <span class="p-float-label">
                         <textarea formControlName="descripcion" rows="5" cols="60" id="descripcion" type="text"
                             pInputTextarea></textarea>
                         <label for="float-input">Descripcion</label>
                     </span>
                 </div>
-                <div class="col-12 md:col-6">
+                <div class="col-12 md:col-6 ">
                     <span class="p-float-label">
                         <textarea formControlName="observaciones" rows="5" cols="60" id="observaciones" type="text"
                             pInputTextarea></textarea>
@@ -51,9 +61,9 @@
             </div>
         </Form>
         <div class="col-12 md:col-12 text-right">
-            <p-button styleClass="p-button-secondary mr-6" label="Cancelar"></p-button>
+            <p-button styleClass="p-button-secondary mr-6" (click)="Cancelar()" label="Cancelar"></p-button>
 
-            <p-button icon="pi pi-check" pRipple label="Guardar" styleClass="p-button-text"></p-button>
+            <p-button icon="pi pi-check" pRipple (click)="addService()" label="Guardar" styleClass="p-button-text"></p-button>
         </div>
     </div>
 </section>
