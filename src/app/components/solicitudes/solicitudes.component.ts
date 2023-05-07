@@ -64,7 +64,9 @@ export class SolicitudesComponent implements OnInit {
     if (tickets.idfolios) {
       
       if((this.sesionUsuario.clave === 'TEC' || this.sesionUsuario.clave === 'ADM') ){
-        tickets.idstatusticket=3
+        if(tickets.idstatusticket ===2){
+          tickets.idstatusticket=3
+        }
         this._ticketService.actualizarTicketabierto(tickets)
         .subscribe(
           (response) => console.log('Estado actualizado correctamente'),
