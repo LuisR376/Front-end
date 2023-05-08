@@ -8,6 +8,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { tipoactivo } from '../model/tipoactivo.model';
 import { RespuestaDto } from '../model/respuestaDto';
 import { AlertaComponent } from 'src/app/util/alerta.component';
+import { tipodeActivoService } from 'src/app/service/tipodeActivo.service';
+import { insertTipodeActivo } from '../model/insertTipodeActivo';
 
 @Component({
   selector: 'app-nuevo-activo',
@@ -21,7 +23,8 @@ export class NuevoActivoComponent implements OnInit {
     public _authGuardService: authGuardService,
     public ticketService: CustomerService,
     private customerService: CustomerService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private _tipodeActivoService :tipodeActivoService
   ) {
     this.token = this._authGuardService.getToken();
   }
@@ -29,8 +32,9 @@ export class NuevoActivoComponent implements OnInit {
   displayAddModal: boolean = false;
   activoInformacion!: MenuItem[];
   tablaActivos !: Activos;
-  tipo_activo_desc !: tipoactivo[];
+  tipo_activo_desc !: tipodeActivoService[];
   pertenencia!: any[];
+  idtipoactivoSeleccionado!: number;
   opciones = [  { label: 'Empresa', value: 'Empresa' },
               { label: 'Personal', value: 'Personal' }];
   items = [
@@ -49,10 +53,13 @@ export class NuevoActivoComponent implements OnInit {
 
 
   ngOnInit() {
+    this.obtenertipodeActivo();
+    this.obtenerLugar();
     this.step1Form = this.fb.group({
-      tipo_activo_desc: ['', [Validators.required]],
-           pertenencia: ['', [Validators.required]],
-           iddetallepc: ['', [Validators.required]],
+           idtipoactivo : ['', [Validators.required]],
+           descipcion   : ['', [Validators.required]],
+           pertenencia  : ['', [Validators.required]],
+           iddetallepc  : ['', [Validators.required]]
     });
 
     this.step2Form = this.fb.group({
@@ -92,23 +99,40 @@ export class NuevoActivoComponent implements OnInit {
   onActiveIndexChange(event: any) {
     console.log('Nuevo índice activo:', event.index);
   }
-  obtenertipoActivo() {
+  obtenerLugar() {
     console.log("Token", this.token);
     this.customerService.getLugar(this.token).subscribe({
       next: (resp: RespuestaDto) => {
-        console.log("TipoActivo", resp);
+        console.log("obtenerLugar", resp);
         let respuestaDto = <RespuestaDto>resp;
         if (respuestaDto.ok) {
-          this.tipo_activo_desc = resp.addenda;
-        } else {
-
-        } // if
+        } 
       },
       error: (error) => {
         let mensaje = <any>error;
         this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
       }
     });
+  }
+  obtenertipodeActivo() {
+    console.log("Token", this.token);
+    this._tipodeActivoService.gettipoActivo(this.token).subscribe({
+      next: (resp: RespuestaDto) => {
+        console.log("TipoActivo", resp);
+        let respuestaDto = <RespuestaDto>resp;
+        if (respuestaDto.ok) {
+          this.tipo_activo_desc = resp.addenda;
+        } 
+      },
+      error: (error) => {
+        let mensaje = <any>error;
+        this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
+      }
+    });
+  }
+  onChangeTipoActivo() {
+    const idtipoactivo = this.step1Form.get('idtipoactivo')?.value;
+    this.idtipoactivoSeleccionado = idtipoactivo === 1 ? idtipoactivo : null;
   }
   openNew() {
     this.displayAddModal = true;
