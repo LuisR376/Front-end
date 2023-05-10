@@ -10,6 +10,7 @@ import { RespuestaDto } from '../model/respuestaDto';
 import { AlertaComponent } from 'src/app/util/alerta.component';
 import { tipodeActivoService } from 'src/app/service/tipodeActivo.service';
 import { insertTipodeActivo } from '../model/insertTipodeActivo';
+import { detallePc } from '../model/detallePc.model';
 
 @Component({
   selector: 'app-nuevo-activo',
@@ -35,6 +36,9 @@ export class NuevoActivoComponent implements OnInit {
   tipo_activo_desc !: tipodeActivoService[];
   pertenencia!: any[];
   idtipoactivoSeleccionado!: number;
+  iddetallepcSeleccionado!:number;
+  detallepc!:detallePc[];
+  isDisabled: boolean = false;
   opciones = [  { label: 'Empresa', value: 'Empresa' },
               { label: 'Personal', value: 'Personal' }];
   items = [
@@ -55,6 +59,7 @@ export class NuevoActivoComponent implements OnInit {
   ngOnInit() {
     this.obtenertipodeActivo();
     this.obtenerLugar();
+    this.obtenerDetallepc();
     this.step1Form = this.fb.group({
            idtipoactivo : ['', [Validators.required]],
            descipcion   : ['', [Validators.required]],
@@ -134,6 +139,24 @@ export class NuevoActivoComponent implements OnInit {
     const idtipoactivo = this.step1Form.get('idtipoactivo')?.value;
     this.idtipoactivoSeleccionado = idtipoactivo === 1 ? idtipoactivo : null;
   }
+  
+  
+  obtenerDetallepc() {
+    console.log("Token", this.token);
+    this.customerService.getDetallePc(this.token).subscribe({
+      next: (resp: RespuestaDto) => {
+        console.log("getDetallePc", resp);
+        let respuestaDto = <RespuestaDto>resp;
+        if (respuestaDto.ok) {
+          this.detallepc = resp.addenda;
+        } 
+      },
+      error: (error) => {
+        let mensaje = <any>error;
+        this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
+      }
+    });
+  }
   openNew() {
     this.displayAddModal = true;
 
@@ -141,4 +164,5 @@ export class NuevoActivoComponent implements OnInit {
   closeModal() {
     this.displayAddModal = false;
   }
+ 
 }
