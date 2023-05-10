@@ -121,4 +121,21 @@ export class LicenciaComponent {
     });
   }
 
+
+  deleteLicencia(licencia: licencia){
+    this._licenciaService.deleteLicencia(licencia).subscribe({
+      next: (resp: RespuestaDto) => {
+        console.log("Obtener Licencias", resp);
+        let respuestaDto = <RespuestaDto>resp;
+        if (respuestaDto.ok) {
+          this.obtenerLicencias();
+        }
+      },
+      error: (error) => {
+        let mensaje = <any>error;
+        this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
+      }
+    });
+  }
+
 }

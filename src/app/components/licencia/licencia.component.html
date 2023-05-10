@@ -115,7 +115,7 @@
                                 <button *ngIf="editing" pButton pRipple type="button" icon="pi pi-check"
                                     pSaveEditableRow (click)="onRowEditSave(lic)"
                                     class="p-button-rounded p-button-text p-button-success mr-2"></button><!--pSaveEditableRow-->
-                                <button *ngIf="editing" pButton pRipple type="button" icon="pi pi-times"
+                                <button *ngIf="editing" pButton pRipple type="button"  (click)="deleteLicencia(lic)" icon="pi pi-times"
                                     pCancelEditableRow 
                                     class="p-button-rounded p-button-text p-button-danger"></button><!--pCancelEditableRow-->
                             </div>

@@ -25,4 +25,11 @@ export class licenciaService {
      updateLincencia(datosA: licencia): Observable<RespuestaDto> {
         return this._apiService.sendPostRequest(datosA, this.url + "licencias/updatelicencias");
     }// Update licencia
+
+
+    deleteLicencia(licencia: licencia): Observable<RespuestaDto> {
+        return this._apiService.sendPostRequest(licencia, this.url + "licencias/deletelicencias");
+    }// Update licencia
+
+    
 }
