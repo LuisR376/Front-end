@@ -4,13 +4,14 @@ import { MessageService } from "primeng/api";
 import { authGuardService } from "src/app/service/auth-guard.service";
 import { CustomerService } from '../../service/CustomerService';
 import { Activos } from '../model/activos.model'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { tipoactivo } from '../model/tipoactivo.model';
 import { RespuestaDto } from '../model/respuestaDto';
 import { AlertaComponent } from 'src/app/util/alerta.component';
 import { tipodeActivoService } from 'src/app/service/tipodeActivo.service';
 import { insertTipodeActivo } from '../model/insertTipodeActivo';
 import { detallePc } from '../model/detallePc.model';
+import { ActivosService } from 'src/app/service/Activos.service';
 
 @Component({
   selector: 'app-nuevo-activo',
@@ -25,12 +26,14 @@ export class NuevoActivoComponent implements OnInit {
     public ticketService: CustomerService,
     private customerService: CustomerService,
     private fb: FormBuilder,
-    private _tipodeActivoService :tipodeActivoService
+    private _tipodeActivoService :tipodeActivoService,
+    private _activosService:ActivosService
   ) {
     this.token = this._authGuardService.getToken();
   }
   token: string;
   displayAddModal: boolean = false;
+  desactivarboton:boolean = true;
   activoInformacion!: MenuItem[];
   tablaActivos !: Activos;
   tipo_activo_desc !: tipodeActivoService[];
@@ -62,9 +65,8 @@ export class NuevoActivoComponent implements OnInit {
     this.obtenerDetallepc();
     this.step1Form = this.fb.group({
            idtipoactivo : ['', [Validators.required]],
-           descipcion   : ['', [Validators.required]],
            pertenencia  : ['', [Validators.required]],
-           iddetallepc  : ['', [Validators.required]]
+           iddetallepc  : ['']
     });
 
     this.step2Form = this.fb.group({
@@ -138,8 +140,16 @@ export class NuevoActivoComponent implements OnInit {
   onChangeTipoActivo() {
     const idtipoactivo = this.step1Form.get('idtipoactivo')?.value;
     this.idtipoactivoSeleccionado = idtipoactivo === 1 ? idtipoactivo : null;
+    if (idtipoactivo === 1 ){
+      this.desactivarboton = true
+    } else{
+      this.desactivarboton = false
+    }
   }
-  
+  onChangeDetallePc(){
+    const iddetallepc = this.step1Form.get('iddetallepc')?.value;
+    this.desactivarboton = iddetallepc == null || iddetallepc == undefined ? true : false;
+  }
   
   obtenerDetallepc() {
     console.log("Token", this.token);
@@ -157,6 +167,21 @@ export class NuevoActivoComponent implements OnInit {
       }
     });
   }
+  guardarActivo() {
+    this._activosService.saveActivo(this.step1Form.value).subscribe(
+      respuesta => {
+        console.log('Activo guardado:', respuesta);
+      },
+      error => {
+        console.error('Error al guardar activo:', error);
+      }
+    );
+  }
+  Cancelar() {
+    this.step1Form.reset();
+
+  }
+ 
   openNew() {
     this.displayAddModal = true;
 

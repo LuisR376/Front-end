@@ -35,19 +35,19 @@
                                 <p></p><!--if de validacion-->
                             </div>
                             <div class="form-group" *ngIf="idtipoactivoSeleccionado === 1">
-                                <p-dropdown formControlName="iddetallepc" [options]="opciones" placeholder="Detalle de Pc (num_serie)"
-                                    [showClear]="true"></p-dropdown>
+                                <p-dropdown formControlName="iddetallepc" [options]="detallepc" optionLabel="num_serie" placeholder="Detalle de Pc (num_serie)"
+                                  (onChange)="onChangeDetallePc()" [showClear]="true"></p-dropdown>
                                 <p></p><!--if de validacion-->
                             </div>
                             <div *ngIf="idtipoactivoSeleccionado === 1">
-                                <p-button type="button" label="Detalles de la Pc" routerLink="../detallePc" icon="pi pi-plus" iconPos="right"></p-button>
+                                <p-button type="button" label="Detalles de la Pc"  routerLink="../detallePc" click="guardarActivo()"  icon="pi pi-plus" iconPos="right"></p-button>
                             </div>
 
                         </ng-template>
 
                         <ng-template pTemplate="footer">
                             <div class="grid grid-nogutter justify-content-end">
-                                <p-button type="button" label="Siguiente" (click)='activeIndex = 1' icon="pi pi-angle-right" iconPos="right"></p-button>
+                                <p-button type="button" label="Siguiente" [disabled]="desactivarboton" (click)='!desactivarboton && activeIndex = 1' icon="pi pi-angle-right" iconPos="right"></p-button>
                             </div>
                         </ng-template>
 

@@ -4,6 +4,7 @@ import { RespuestaDto } from '../components/model/respuestaDto';
 import { Observable } from 'rxjs';
 import { UtilApiService } from './util-api.service';
 import { environment } from 'src/environments/environment';
+import { insertActivo } from '../components/model/insertActivo';
 @Injectable()
 
 export class ActivosService {
@@ -21,6 +22,9 @@ export class ActivosService {
     getActivoNumInventario(token:string): Observable<RespuestaDto> {
         return this._apiService.sendGetRequest(this.url + "activos/numInventario",token);
     }
+    saveActivo(datos : insertActivo): Observable<RespuestaDto> {
+        return this._apiService.sendPostRequest(datos, this.url + "activos/postInventario");
+    }// Post activos
     }
     
         
