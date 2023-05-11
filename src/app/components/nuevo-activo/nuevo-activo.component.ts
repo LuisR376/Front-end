@@ -3,7 +3,7 @@ import { MenuItem } from 'primeng/api';
 import { MessageService } from "primeng/api";
 import { authGuardService } from "src/app/service/auth-guard.service";
 import { CustomerService } from '../../service/CustomerService';
-import { Activos } from '../model/activos.model'
+import { Activos } from '../model/activos.model';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { tipoactivo } from '../model/tipoactivo.model';
 import { RespuestaDto } from '../model/respuestaDto';
@@ -12,6 +12,8 @@ import { tipodeActivoService } from 'src/app/service/tipodeActivo.service';
 import { insertTipodeActivo } from '../model/insertTipodeActivo';
 import { detallePc } from '../model/detallePc.model';
 import { ActivosService } from 'src/app/service/Activos.service';
+import { insertActivo } from '../model/insertActivo';
+import { insertDetallepc } from '../model/insertDetallepc';
 
 @Component({
   selector: 'app-nuevo-activo',
@@ -37,11 +39,12 @@ export class NuevoActivoComponent implements OnInit {
   activoInformacion!: MenuItem[];
   tablaActivos !: Activos;
   tipo_activo_desc !: tipodeActivoService[];
-  pertenencia!: any[];
+  Pertenencia!: any[];
   idtipoactivoSeleccionado!: number;
   iddetallepcSeleccionado!:number;
-  detallepc!:detallePc[];
+  detallepc!:insertDetallepc[];
   isDisabled: boolean = false;
+  activosSave: any;
   opciones = [  { label: 'Empresa', value: 'Empresa' },
               { label: 'Personal', value: 'Personal' }];
   items = [
@@ -63,9 +66,10 @@ export class NuevoActivoComponent implements OnInit {
     this.obtenertipodeActivo();
     this.obtenerLugar();
     this.obtenerDetallepc();
+    
     this.step1Form = this.fb.group({
            idtipoactivo : ['', [Validators.required]],
-           pertenencia  : ['', [Validators.required]],
+           Pertenencia  : ['', [Validators.required]],
            iddetallepc  : ['']
     });
 
@@ -167,16 +171,22 @@ export class NuevoActivoComponent implements OnInit {
       }
     });
   }
-  guardarActivo() {
-    this._activosService.saveActivo(this.step1Form.value).subscribe(
-      respuesta => {
-        console.log('Activo guardado:', respuesta);
-      },
-      error => {
-        console.error('Error al guardar activo:', error);
-      }
-    );
+   addActivo() {
+    console.log("Formulario", this.step1Form.value)
+    if (this.step1Form.invalid) {
+      this.messageService.add({ severity: 'error', summary: 'No es posible agregar', detail: 'Porfavor verifique todos los campos' });
+    } else {
+      console.log("idtipoactivo:", this.step1Form.value.idtipoactivo)
+      this.saveActivo(this.step1Form.value.idtipoactivo, this.step1Form.value.Pertenencia);
+    } 
   }
+  async saveActivo(idtipoactivo: string | undefined | null, Pertenencia: string | undefined | null) {
+
+  }
+
+
+
+
   Cancelar() {
     this.step1Form.reset();
 
@@ -189,5 +199,10 @@ export class NuevoActivoComponent implements OnInit {
   closeModal() {
     this.displayAddModal = false;
   }
- 
+ onButtonClick() {
+  if (!this.desactivarboton) {
+    this.activeIndex = 1;
+    this.addActivo();
+  }
+}
 }

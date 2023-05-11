@@ -31,7 +31,7 @@ export class DetallePcComponent {
   
   formulario(){
     this.recoInfo = this.fb.group({
-      tipo_de_pc        : ['', [Validators.required]],
+      tipo_de_pc        : [''],
       modelo            : ['', [Validators.required]],
       num_serie         : ['', [Validators.required]],
       folio_compra      : ['', [Validators.required]],
