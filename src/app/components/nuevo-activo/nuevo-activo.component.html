@@ -252,9 +252,7 @@
                         <div class="grid">
                             <div class="col-3">
                                 <span class="p-float-label">
-                                    <input formControlName="idLicencias" type="text" pInputText>
-                                    <label for="float-input">idLicencias</label>
-                                    <p></p><!--if de validacion-->
+                                    <p-dropdown [options]="opcionesLicencias" placeholder="Seleccione Licencia" formControlName="idLicencias" optionValue="idLicencias"></p-dropdown>
                                 </span>
                             </div>
 

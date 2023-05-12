@@ -17,6 +17,8 @@ import { insertDetallepc } from '../model/insertDetallepc';
 import { log } from 'console';
 import { Lugar } from '../model/lugar.model';
 import { lugarAreas } from '../model/lugarArea.model';
+import { licenciaService } from 'src/app/service/licencia.service';
+import { licencia } from '../model/licencia.model';
 
 @Component({
   selector: 'app-nuevo-activo',
@@ -32,7 +34,8 @@ export class NuevoActivoComponent implements OnInit {
     private customerService: CustomerService,
     private fb: FormBuilder,
     private _tipodeActivoService: tipodeActivoService,
-    private _activosService: ActivosService
+    private _activosService: ActivosService,
+    private _licenciaService: licenciaService
   ) {
     this.token = this._authGuardService.getToken();
   }
@@ -44,14 +47,17 @@ export class NuevoActivoComponent implements OnInit {
   tipo_activo_desc !: tipodeActivoService[];
   Pertenencia!: any[];
   lugares!: Lugar[];
-    area !: lugarAreas[];
+  area !: lugarAreas[];
   idtipoactivoSeleccionado!: number;
   iddetallepcSeleccionado!: number;
   iddetallepc!: insertDetallepc[];
   isDisabled: boolean = false;
+
   activosSave: any;
   active!: Activos;
   idactivo!: number;
+  licencias   !: licencia[];
+
   opciones = [{ label: 'Empresa', value: 'Empresa' },
   { label: 'Personal', value: 'Personal' }];
   items = [
@@ -69,11 +75,14 @@ export class NuevoActivoComponent implements OnInit {
   step5Form!: FormGroup;
 
 
+
+
   ngOnInit() {
     this.obtenertipodeActivo();
     this.obtenerLugar();
     this.obtenerArea();
     this.obtenerDetallepc();
+    this.obtenerLicencias();
 
     this.step1Form = this.fb.group({
       idtipoactivo: ['', [Validators.required]],
@@ -119,7 +128,7 @@ export class NuevoActivoComponent implements OnInit {
   onActiveIndexChange(event: any) {
     console.log('Nuevo índice activo:', event.index);
   }
- obtenerLugar() {
+  obtenerLugar() {
     console.log("Token", this.token);
     this.customerService.getLugar(this.token).subscribe({
       next: (resp: RespuestaDto) => {
@@ -136,8 +145,8 @@ export class NuevoActivoComponent implements OnInit {
         this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
       }
     });
- }
-   obtenerArea() {
+  }
+  obtenerArea() {
     console.log("Token", this.token);
     this.customerService.getArea(this.token).subscribe({
       next: (resp: RespuestaDto) => {
@@ -171,6 +180,34 @@ export class NuevoActivoComponent implements OnInit {
       }
     });
   }
+  obtenerLicencias() {
+    this._licenciaService.getLicencia(this.token).subscribe({
+      next: (resp: RespuestaDto) => {
+        console.log("Obtener Licencias", resp);
+        let respuestaDto = <RespuestaDto>resp;
+        if (respuestaDto.ok) {
+          this.licencias = resp.addenda;
+          console.log("this.licencias", this.licencias);
+
+        }
+      },
+      error: (error) => {
+        let mensaje = <any>error;
+        this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
+      }
+    });
+
+  }
+  get opcionesLicencias() {
+    if (this.licencias) {
+      const licenciasList = this.licencias.map((licencia) => `${licencia.numserie_licencia} - ${licencia.nombre}`);
+      return licenciasList;
+    } else {
+      return [];
+    }
+  }
+
+
   onChangeTipoActivo() {
     const idtipoactivo = this.step1Form.get('idtipoactivo')?.value;
     this.idtipoactivoSeleccionado = idtipoactivo === 1 ? idtipoactivo : null;
@@ -215,7 +252,7 @@ export class NuevoActivoComponent implements OnInit {
       respuesta => {
         console.log('Activo guardado:', respuesta);
         this.idactivo = respuesta.addenda.idactivo;
-        console.log(this.idactivo); 
+        console.log(this.idactivo);
       },
       error => {
         console.error('Error al guardar activo:', error);
@@ -233,7 +270,7 @@ export class NuevoActivoComponent implements OnInit {
           console.log("next", respuestaDto.mensaje)
           this.messageService.add({ severity: 'error', summary: 'Error', detail: respuestaDto.mensaje });
         } else {
-          this.active = <Activos> respuestaDto.addenda;
+          this.active = <Activos>respuestaDto.addenda;
           this.messageService.add({ severity: 'success', summary: 'Se ha actualizado correctamente', detail: respuestaDto.mensaje });
         }
       },
@@ -243,7 +280,7 @@ export class NuevoActivoComponent implements OnInit {
       }
     });
   }
-   async updateUbicacion() {
+  async updateUbicacion() {
     this.step3Form.value.idactivo = this.idactivo
     console.log("update:", this.step3Form.value);
     // Llamar a la función updateUbicacionActivos de ActivosService y pasarle el objeto de Activos actualizado
@@ -254,7 +291,7 @@ export class NuevoActivoComponent implements OnInit {
           console.log("next", respuestaDto.mensaje)
           this.messageService.add({ severity: 'error', summary: 'Error', detail: respuestaDto.mensaje });
         } else {
-          this.active = <Activos> respuestaDto.addenda;
+          this.active = <Activos>respuestaDto.addenda;
           this.messageService.add({ severity: 'success', summary: 'Se ha actualizado correctamente', detail: respuestaDto.mensaje });
         }
       },
@@ -263,9 +300,9 @@ export class NuevoActivoComponent implements OnInit {
         this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
       }
     });
-   }
-  
- async updateDatosDelActivos() {
+  }
+
+  async updateDatosDelActivos() {
     this.step4Form.value.idactivo = this.idactivo
     console.log("update:", this.step4Form.value);
     // Llamar a la función updatedatosActivos de ActivosService y pasarle el objeto de Activos actualizado
@@ -276,7 +313,7 @@ export class NuevoActivoComponent implements OnInit {
           console.log("next", respuestaDto.mensaje)
           this.messageService.add({ severity: 'error', summary: 'Error', detail: respuestaDto.mensaje });
         } else {
-          this.active = <Activos> respuestaDto.addenda;
+          this.active = <Activos>respuestaDto.addenda;
           this.messageService.add({ severity: 'success', summary: 'Se ha actualizado correctamente', detail: respuestaDto.mensaje });
         }
       },
@@ -285,8 +322,8 @@ export class NuevoActivoComponent implements OnInit {
         this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
       }
     });
- }
-   async updateLicYmantdeActivos() {
+  }
+  async updateLicYmantdeActivos() {
     this.step5Form.value.idactivo = this.idactivo
     console.log("update:", this.step5Form.value);
     // Llamar a la función updateLicyMantActivos de ActivosService y pasarle el objeto de Activos actualizado
@@ -297,7 +334,7 @@ export class NuevoActivoComponent implements OnInit {
           console.log("next", respuestaDto.mensaje)
           this.messageService.add({ severity: 'error', summary: 'Error', detail: respuestaDto.mensaje });
         } else {
-          this.active = <Activos> respuestaDto.addenda;
+          this.active = <Activos>respuestaDto.addenda;
           this.messageService.add({ severity: 'success', summary: 'Se ha actualizado correctamente', detail: respuestaDto.mensaje });
         }
       },
@@ -306,7 +343,7 @@ export class NuevoActivoComponent implements OnInit {
         this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
       }
     });
-   }
+  }
   Cancelar() {
     this.step1Form.reset();
 
@@ -329,10 +366,10 @@ export class NuevoActivoComponent implements OnInit {
     this.activeIndex = 2;
     this.updateDatosPersonales();
   }
-   onActualizarUbiClick() {
+  onActualizarUbiClick() {
     this.activeIndex = 3;
     this.updateUbicacion();
-   }
+  }
   onActualizarActivosClick() {
     this.activeIndex = 4;
     this.updateDatosDelActivos();
