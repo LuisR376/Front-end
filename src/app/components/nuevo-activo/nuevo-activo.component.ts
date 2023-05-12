@@ -14,6 +14,9 @@ import { detallePc } from '../model/detallePc.model';
 import { ActivosService } from 'src/app/service/Activos.service';
 import { insertActivo } from '../model/insertActivo';
 import { insertDetallepc } from '../model/insertDetallepc';
+import { log } from 'console';
+import { Lugar } from '../model/lugar.model';
+import { lugarAreas } from '../model/lugarArea.model';
 
 @Component({
   selector: 'app-nuevo-activo',
@@ -40,12 +43,15 @@ export class NuevoActivoComponent implements OnInit {
   tablaActivos !: Activos;
   tipo_activo_desc !: tipodeActivoService[];
   Pertenencia!: any[];
+  lugares!: Lugar[];
+    area !: lugarAreas[];
   idtipoactivoSeleccionado!: number;
   iddetallepcSeleccionado!: number;
   iddetallepc!: insertDetallepc[];
   isDisabled: boolean = false;
   activosSave: any;
   active!: Activos;
+  idactivo!: number;
   opciones = [{ label: 'Empresa', value: 'Empresa' },
   { label: 'Personal', value: 'Personal' }];
   items = [
@@ -66,6 +72,7 @@ export class NuevoActivoComponent implements OnInit {
   ngOnInit() {
     this.obtenertipodeActivo();
     this.obtenerLugar();
+    this.obtenerArea();
     this.obtenerDetallepc();
 
     this.step1Form = this.fb.group({
@@ -75,6 +82,7 @@ export class NuevoActivoComponent implements OnInit {
     });
 
     this.step2Form = this.fb.group({
+      idactivo: [''],
       nombre_propietario: ['', [Validators.required]],
       num_empleado: ['', [Validators.required]],
       password: ['', [Validators.required]]
@@ -111,14 +119,35 @@ export class NuevoActivoComponent implements OnInit {
   onActiveIndexChange(event: any) {
     console.log('Nuevo índice activo:', event.index);
   }
-  obtenerLugar() {
+ obtenerLugar() {
     console.log("Token", this.token);
     this.customerService.getLugar(this.token).subscribe({
       next: (resp: RespuestaDto) => {
-        console.log("obtenerLugar", resp);
+        console.log("Lugaaaaaaaaaaaaar", resp);
         let respuestaDto = <RespuestaDto>resp;
         if (respuestaDto.ok) {
-        }
+          this.lugares = resp.addenda;
+        } else {
+
+        } // if
+      },
+      error: (error) => {
+        let mensaje = <any>error;
+        this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
+      }
+    });
+ }
+   obtenerArea() {
+    console.log("Token", this.token);
+    this.customerService.getArea(this.token).subscribe({
+      next: (resp: RespuestaDto) => {
+        console.log("Obtener Area", resp);
+        let respuestaDto = <RespuestaDto>resp;
+        if (respuestaDto.ok) {
+          this.area = resp.addenda;
+        } else {
+
+        } // if
       },
       error: (error) => {
         let mensaje = <any>error;
@@ -185,6 +214,8 @@ export class NuevoActivoComponent implements OnInit {
     this._activosService.saveActivo(this.step1Form.value).subscribe(
       respuesta => {
         console.log('Activo guardado:', respuesta);
+        this.idactivo = respuesta.addenda.idactivo;
+        console.log(this.idactivo); 
       },
       error => {
         console.error('Error al guardar activo:', error);
@@ -192,8 +223,9 @@ export class NuevoActivoComponent implements OnInit {
     );
   }
   async updateDatosPersonales() {
+    this.step2Form.value.idactivo = this.idactivo
     console.log("update:", this.step2Form.value);
-    // Llamar a la función updateLincencia de licenciaService y pasarle el objeto de licencias actualizado
+    // Llamar a la función updateActivoDatosPersonales de ActivosService y pasarle el objeto de Activos actualizado
     this._activosService.updateActivoDatosPersonales(this.step2Form.value).subscribe({
       next: (resp: RespuestaDto) => {
         let respuestaDto = <RespuestaDto>resp;
@@ -211,6 +243,70 @@ export class NuevoActivoComponent implements OnInit {
       }
     });
   }
+   async updateUbicacion() {
+    this.step3Form.value.idactivo = this.idactivo
+    console.log("update:", this.step3Form.value);
+    // Llamar a la función updateUbicacionActivos de ActivosService y pasarle el objeto de Activos actualizado
+    this._activosService.updateUbicacionActivos(this.step3Form.value).subscribe({
+      next: (resp: RespuestaDto) => {
+        let respuestaDto = <RespuestaDto>resp;
+        if (respuestaDto.valido == 0) {
+          console.log("next", respuestaDto.mensaje)
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: respuestaDto.mensaje });
+        } else {
+          this.active = <Activos> respuestaDto.addenda;
+          this.messageService.add({ severity: 'success', summary: 'Se ha actualizado correctamente', detail: respuestaDto.mensaje });
+        }
+      },
+      error: (error) => {
+        let mensaje = <any>error;
+        this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
+      }
+    });
+   }
+  
+ async updateDatosDelActivos() {
+    this.step4Form.value.idactivo = this.idactivo
+    console.log("update:", this.step4Form.value);
+    // Llamar a la función updatedatosActivos de ActivosService y pasarle el objeto de Activos actualizado
+    this._activosService.updatedatosActivos(this.step4Form.value).subscribe({
+      next: (resp: RespuestaDto) => {
+        let respuestaDto = <RespuestaDto>resp;
+        if (respuestaDto.valido == 0) {
+          console.log("next", respuestaDto.mensaje)
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: respuestaDto.mensaje });
+        } else {
+          this.active = <Activos> respuestaDto.addenda;
+          this.messageService.add({ severity: 'success', summary: 'Se ha actualizado correctamente', detail: respuestaDto.mensaje });
+        }
+      },
+      error: (error) => {
+        let mensaje = <any>error;
+        this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
+      }
+    });
+ }
+   async updateLicYmantdeActivos() {
+    this.step5Form.value.idactivo = this.idactivo
+    console.log("update:", this.step5Form.value);
+    // Llamar a la función updateLicyMantActivos de ActivosService y pasarle el objeto de Activos actualizado
+    this._activosService.updateLicyMantActivos(this.step5Form.value).subscribe({
+      next: (resp: RespuestaDto) => {
+        let respuestaDto = <RespuestaDto>resp;
+        if (respuestaDto.valido == 0) {
+          console.log("next", respuestaDto.mensaje)
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: respuestaDto.mensaje });
+        } else {
+          this.active = <Activos> respuestaDto.addenda;
+          this.messageService.add({ severity: 'success', summary: 'Se ha actualizado correctamente', detail: respuestaDto.mensaje });
+        }
+      },
+      error: (error) => {
+        let mensaje = <any>error;
+        this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
+      }
+    });
+   }
   Cancelar() {
     this.step1Form.reset();
 
@@ -232,5 +328,17 @@ export class NuevoActivoComponent implements OnInit {
   onActualizarClick() {
     this.activeIndex = 2;
     this.updateDatosPersonales();
+  }
+   onActualizarUbiClick() {
+    this.activeIndex = 3;
+    this.updateUbicacion();
+   }
+  onActualizarActivosClick() {
+    this.activeIndex = 4;
+    this.updateDatosDelActivos();
+  }
+  onFinalizarActivosClick() {
+    this.activeIndex = 5;
+    this.updateLicYmantdeActivos();
   }
 }

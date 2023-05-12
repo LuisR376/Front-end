@@ -28,6 +28,15 @@ export class ActivosService {
     updateActivoDatosPersonales(datosA: insertActivo): Observable<RespuestaDto> {
         return this._apiService.sendPostRequest(datosA, this.url + "activos/datosPersonales");
     }// Update datos personales
+     updateUbicacionActivos(datosA: insertActivo): Observable<RespuestaDto> {
+        return this._apiService.sendPostRequest(datosA, this.url + "activos/datosUbicacion");
+    }// Update datos Ubicacion
+     updatedatosActivos(datosA: insertActivo): Observable<RespuestaDto> {
+        return this._apiService.sendPostRequest(datosA, this.url + "activos/activosDescripcion");
+    }// Update datos Datos Generales del Activo
+     updateLicyMantActivos(datosA: insertActivo): Observable<RespuestaDto> {
+        return this._apiService.sendPostRequest(datosA, this.url + "activos/liceYmanteActivos");
+    }// Update Licencias y mantenimiento de activo
     }
     
         

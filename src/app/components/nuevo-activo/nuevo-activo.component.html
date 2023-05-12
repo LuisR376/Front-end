@@ -119,19 +119,13 @@
                     <ng-template pTemplate="content">
                         <div class="grid">
                             <div class="form-group col-6">
-                                <span class="p-float-label">
-                                    <input formControlName="idlugar" type="text" pInputText>
-                                    <label for="float-input">Lugar</label>
-                                    <p></p><!--if de validacion-->
-                                </span>
+                                <p-dropdown [options]="lugares" placeholder="Seleccione un lugar" formControlName="idlugar" optionLabel="ubicacion"
+                                    optionValue="idlugar"></p-dropdown>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
-                                    <span class="p-float-label">
-                                        <input formControlName="idarea" type="text" pInputText>
-                                        <label for="float-input">Area</label>
-                                        <p></p><!--if de validacion-->
-                                    </span>
+                                    <p-dropdown [options]="area" placeholder="Seleccione un Area" formControlName="idarea" optionLabel="nombre_area"
+                                        optionValue="idarea"></p-dropdown>
                                 </div>
                             </div>
                             <div class="col-6">
@@ -145,7 +139,7 @@
 
                     <ng-template pTemplate="footer">
                         <div class="grid grid-nogutter justify-content-end">
-                            <p-button type="button" label="Siguiente" (click)="activeIndex = 3" icon="pi pi-angle-right"
+                            <p-button type="button" label="Siguiente" (click)="onActualizarUbiClick()" icon="pi pi-angle-right"
                                 iconPos="right"></p-button>
                             <p></p><!--On clic de siguiente pagina-->
                         </div>
@@ -170,11 +164,11 @@
                             </span>
                         </div>
                         <div class="form-group col-3">
-                            <span class="p-float-label">
+                            <!--<span class="p-float-label">
                                 <input formControlName="fecha_compra" type="text" pInputText>
                                 <label for="float-input">fecha de compra</label>
-                                <p></p><!--if de validacion-->
-                            </span>
+                                <p></p>if de validacion
+                            </span>-->
                         </div>
 
                         <div class="col-3">
@@ -207,7 +201,7 @@
                         <div class="col-3">
                             <div class="card flex justify-content-start">
                             <span class="p-float-label">
-                                <textarea id="descripcion" rows="5" cols="30" pInputTextarea></textarea>
+                                <textarea formControlName="descripcion" id="descripcion" rows="5" cols="30" pInputTextarea></textarea>
                                 <label for="float-input">descripcion</label>
                                 <p></p><!--if de validacion-->
                             </span>
@@ -240,7 +234,7 @@
 
                     <ng-template pTemplate="footer">
                         <div class="grid grid-nogutter justify-content-end">
-                            <p-button type="button" label="Siguiente" (onClick)="activeIndex = 4"
+                            <p-button type="button" label="Siguiente" (onClick)="onActualizarActivosClick()"
                                 icon="pi pi-angle-right" iconPos="right"></p-button>
                             <p></p><!--On clic de siguiente pagina-->
                         </div>
@@ -303,7 +297,7 @@
 
                     <ng-template pTemplate="footer">
                         <div class="grid grid-nogutter justify-content-end">
-                            <p-button type="button" label="Guardar" (input)="activeIndex = 5" icon="pi pi-check"
+                            <p-button type="button" label="Guardar" (click)="onFinalizarActivosClick()" icon="pi pi-check"
                                 iconPos="right"></p-button>
                             <p></p><!--On clic de siguiente pagina-->
                         </div>
