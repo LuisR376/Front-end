@@ -25,6 +25,9 @@ export class ActivosService {
     saveActivo(datos : insertActivo): Observable<RespuestaDto> {
         return this._apiService.sendPostRequest(datos, this.url + "activos/postInventario");
     }// Post activos
+    updateActivoDatosPersonales(datosA: insertActivo): Observable<RespuestaDto> {
+        return this._apiService.sendPostRequest(datosA, this.url + "activos/datosPersonales");
+    }// Update datos personales
     }
     
         

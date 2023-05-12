@@ -5,6 +5,7 @@ import { RespuestaDto } from '../components/model/respuestaDto';
 import { UtilApiService } from './util-api.service';
 import { Observable } from 'rxjs';
 import { insertTipodeActivo } from '../components/model/insertTipodeActivo';
+import { Activos } from '../components/model/activos.model';
 
 @Injectable()
 export class tipodeActivoService {
@@ -21,4 +22,5 @@ export class tipodeActivoService {
     savetipoActivo(tipoDato : insertTipodeActivo ): Observable<RespuestaDto> {
         return this._apiService.sendPostRequest(tipoDato, this.url + "tipoActivo/post");
     }// Post a quien se le  asigna 
+   
 }
