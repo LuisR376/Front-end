@@ -42,7 +42,7 @@ export class NuevoActivoComponent implements OnInit {
   Pertenencia!: any[];
   idtipoactivoSeleccionado!: number;
   iddetallepcSeleccionado!:number;
-  detallepc!:insertDetallepc[];
+  iddetallepc!:insertDetallepc[];
   isDisabled: boolean = false;
   activosSave: any;
   opciones = [  { label: 'Empresa', value: 'Empresa' },
@@ -162,7 +162,7 @@ export class NuevoActivoComponent implements OnInit {
         console.log("getDetallePc", resp);
         let respuestaDto = <RespuestaDto>resp;
         if (respuestaDto.ok) {
-          this.detallepc = resp.addenda;
+          this.iddetallepc = resp.addenda;
         } 
       },
       error: (error) => {
@@ -176,17 +176,20 @@ export class NuevoActivoComponent implements OnInit {
     if (this.step1Form.invalid) {
       this.messageService.add({ severity: 'error', summary: 'No es posible agregar', detail: 'Porfavor verifique todos los campos' });
     } else {
-      console.log("idtipoactivo:", this.step1Form.value.idtipoactivo)
-      this.saveActivo(this.step1Form.value.idtipoactivo, this.step1Form.value.Pertenencia);
+      console.log("idtipoactivo:", this.step1Form.value.iddetallepc)
+      this.saveActivo(this.step1Form.value);
     } 
   }
-  async saveActivo(idtipoactivo: string | undefined | null, Pertenencia: string | undefined | null) {
-
+  saveActivo(step1Form : Activos) {
+    this._activosService.saveActivo(this.step1Form.value).subscribe(
+      respuesta => {
+        console.log('Activo guardado:', respuesta);
+      },
+      error => {
+        console.error('Error al guardar activo:', error);
+      }
+    );
   }
-
-
-
-
   Cancelar() {
     this.step1Form.reset();
 

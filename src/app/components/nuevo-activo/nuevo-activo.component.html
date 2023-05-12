@@ -34,10 +34,13 @@
                                     [showClear]="true"></p-dropdown>
                                 <p></p><!--if de validacion-->
                             </div>
-                            <div class="form-group" *ngIf="idtipoactivoSeleccionado === 1">
-                                <p-dropdown formControlName="iddetallepc" [options]="detallepc" optionLabel="num_serie" placeholder="Detalle de Pc (num_serie)" id="iddetallepc"
-                                  (onChange)="onChangeDetallePc()" [showClear]="true"></p-dropdown>
-                                <p></p><!--if de validacion-->
+                            <div *ngIf="idtipoactivoSeleccionado === 1">
+                                <p-dropdown [options]="iddetallepc" 
+                                placeholder="Asignar ticket a:"
+                                    formControlName="iddetallepc" 
+                                    optionLabel="num_serie"
+                                    optionValue="iddetallepc"
+                                    (onChange)="onChangeDetallePc()"></p-dropdown>
                             </div>
                             <div *ngIf="idtipoactivoSeleccionado === 1">
                                 <p-button type="button" label="Detalles de la Pc"  routerLink="../detallePc" icon="pi pi-plus" iconPos="right"></p-button>
