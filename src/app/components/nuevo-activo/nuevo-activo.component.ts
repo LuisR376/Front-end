@@ -19,6 +19,7 @@ import { Lugar } from '../model/lugar.model';
 import { lugarAreas } from '../model/lugarArea.model';
 import { licenciaService } from 'src/app/service/licencia.service';
 import { licencia } from '../model/licencia.model';
+import { accesorioService } from 'src/app/service/accesorio.service';
 
 @Component({
   selector: 'app-nuevo-activo',
@@ -35,7 +36,8 @@ export class NuevoActivoComponent implements OnInit {
     private fb: FormBuilder,
     private _tipodeActivoService: tipodeActivoService,
     private _activosService: ActivosService,
-    private _licenciaService: licenciaService
+    private _licenciaService: licenciaService,
+    private _accesorioService:accesorioService
   ) {
     this.token = this._authGuardService.getToken();
   }
@@ -73,7 +75,7 @@ export class NuevoActivoComponent implements OnInit {
   step3Form!: FormGroup;
   step4Form!: FormGroup;
   step5Form!: FormGroup;
-
+  accesorioForm !: FormGroup;
 
 
 
@@ -83,7 +85,7 @@ export class NuevoActivoComponent implements OnInit {
     this.obtenerArea();
     this.obtenerDetallepc();
     this.obtenerLicencias();
-
+    this.initFormAccesorio();
     this.step1Form = this.fb.group({
       idtipoactivo: ['', [Validators.required]],
       Pertenencia: ['', [Validators.required]],
@@ -124,6 +126,21 @@ export class NuevoActivoComponent implements OnInit {
 
     });
   }
+
+
+  initFormAccesorio(){
+    this.accesorioForm = this.fb.group({
+
+      tipoaccesorio: ['', [Validators.required]],
+      serie: ['', [Validators.required]],
+      modelo: ['', [Validators.required]],
+      descripcion: ['', [Validators.required]],
+      status: ['', [Validators.required]],
+      idactivos: [''],
+    });
+  }
+
+
   onActiveIndexChange(event: any) {
     console.log('Nuevo índice activo:', event.index);
   }
@@ -349,6 +366,27 @@ export class NuevoActivoComponent implements OnInit {
       }
     });
   }
+  async insertAccesorio() {
+    this.accesorioForm.value.idactivos = this.idactivo
+    console.log("update:", this.accesorioForm.value);
+    // Llamar a la función _accesorioService de _accesorioService y pasarle el objeto de accesorio actualizado
+    this._accesorioService.saveAccesorio(this.accesorioForm.value).subscribe({
+      next: (resp: RespuestaDto) => {
+        let respuestaDto = <RespuestaDto>resp;
+        if (respuestaDto.valido == 0) {
+          console.log("next", respuestaDto.mensaje)
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: respuestaDto.mensaje });
+        } else {
+          this.active = <Activos>respuestaDto.addenda;
+          this.messageService.add({ severity: 'success', summary: 'Se ha actualizado correctamente', detail: respuestaDto.mensaje });
+        }
+      },
+      error: (error: any) => {
+        let mensaje = <any>error;
+        this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
+      }
+    });
+  }
   Cancelar() {
     this.step1Form.reset();
 
@@ -360,6 +398,7 @@ export class NuevoActivoComponent implements OnInit {
   }
   closeModal() {
     this.displayAddModal = false;
+    this.accesorioForm.reset();
   }
   onButtonClick() {
     if (!this.desactivarboton) {
@@ -382,5 +421,10 @@ export class NuevoActivoComponent implements OnInit {
   onFinalizarActivosClick() {
     this.activeIndex = 5;
     this.updateLicYmantdeActivos();
+  }
+
+
+  addAccesorio(){
+
   }
 }

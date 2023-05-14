@@ -21,11 +21,11 @@
                         <ng-template pTemplate="content">
 
 
-                            <div class="form-group"  *ngIf="tipo_activo_desc"><!--*ngIf="tipo_activo_desc"-->
+                            <div class="form-group" *ngIf="tipo_activo_desc"><!--*ngIf="tipo_activo_desc"-->
 
                                 <p-dropdown [options]="tipo_activo_desc" placeholder="Seleccione Tipo de activo"
-                                    formControlName="idtipoactivo" optionLabel="descripcion"
-                                    optionValue="idtipoactivo" (onChange)="onChangeTipoActivo()"></p-dropdown>
+                                    formControlName="idtipoactivo" optionLabel="descripcion" optionValue="idtipoactivo"
+                                    (onChange)="onChangeTipoActivo()"></p-dropdown>
                                 <p></p><!--if de validacion-->
                             </div>
 
@@ -35,22 +35,21 @@
                                 <p></p><!--if de validacion-->
                             </div>
                             <div *ngIf="idtipoactivoSeleccionado === 1">
-                                <p-dropdown [options]="iddetallepc" 
-                                placeholder="Asignar ticket a:"
-                                    formControlName="iddetallepc" 
-                                    optionLabel="num_serie"
-                                    optionValue="iddetallepc"
+                                <p-dropdown [options]="iddetallepc" placeholder="Asignar ticket a:"
+                                    formControlName="iddetallepc" optionLabel="num_serie" optionValue="iddetallepc"
                                     (onChange)="onChangeDetallePc()"></p-dropdown>
                             </div>
                             <div *ngIf="idtipoactivoSeleccionado === 1">
-                                <p-button type="button" label="Detalles de la Pc"  routerLink="../detallePc" icon="pi pi-plus" iconPos="right"></p-button>
+                                <p-button type="button" label="Detalles de la Pc" routerLink="../detallePc"
+                                    icon="pi pi-plus" iconPos="right"></p-button>
                             </div>
 
                         </ng-template>
 
                         <ng-template pTemplate="footer">
                             <div class="grid grid-nogutter justify-content-end">
-                                <p-button type="button" label="Siguiente" [disabled]="desactivarboton" (click)='onButtonClick()'  icon="pi pi-angle-right" iconPos="right"></p-button>
+                                <p-button type="button" label="Siguiente" [disabled]="desactivarboton"
+                                    (click)='onButtonClick()' icon="pi pi-angle-right" iconPos="right"></p-button>
                             </div>
                         </ng-template>
 
@@ -102,8 +101,8 @@
 
                     <ng-template pTemplate="footer">
                         <div class="grid grid-nogutter justify-content-end">
-                            <p-button type="button" label="Siguiente" (click)="onActualizarClick()" icon="pi pi-angle-right"
-                                iconPos="right"></p-button>
+                            <p-button type="button" label="Siguiente" (click)="onActualizarClick()"
+                                icon="pi pi-angle-right" iconPos="right"></p-button>
                             <p></p><!--On clic de siguiente pagina-->
                         </div>
                     </ng-template>
@@ -119,12 +118,14 @@
                     <ng-template pTemplate="content">
                         <div class="grid">
                             <div class="form-group col-6">
-                                <p-dropdown [options]="lugares" placeholder="Seleccione un lugar" formControlName="idlugar" optionLabel="ubicacion"
+                                <p-dropdown [options]="lugares" placeholder="Seleccione un lugar"
+                                    formControlName="idlugar" optionLabel="ubicacion"
                                     optionValue="idlugar"></p-dropdown>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
-                                    <p-dropdown [options]="area" placeholder="Seleccione un Area" formControlName="idarea" optionLabel="nombre_area"
+                                    <p-dropdown [options]="area" placeholder="Seleccione un Area"
+                                        formControlName="idarea" optionLabel="nombre_area"
                                         optionValue="idarea"></p-dropdown>
                                 </div>
                             </div>
@@ -139,8 +140,8 @@
 
                     <ng-template pTemplate="footer">
                         <div class="grid grid-nogutter justify-content-end">
-                            <p-button type="button" label="Siguiente" (click)="onActualizarUbiClick()" icon="pi pi-angle-right"
-                                iconPos="right"></p-button>
+                            <p-button type="button" label="Siguiente" (click)="onActualizarUbiClick()"
+                                icon="pi pi-angle-right" iconPos="right"></p-button>
                             <p></p><!--On clic de siguiente pagina-->
                         </div>
                     </ng-template>
@@ -156,79 +157,80 @@
                     <ng-template pTemplate="subtitle">Descripcion de todo el equipo</ng-template>
                     <ng-template pTemplate="content">
                         <div class="grid">
-                        <div class="form-group col-3">
-                            <span class="p-float-label">
-                                <input formControlName="num_inventario" type="text" pInputText>
-                                <label for="float-input">num_inventario</label>
-                                <p></p><!--if de validacion-->
-                            </span>
-                        </div>
-                        <div class="form-group col-3">
-                            <!--<span class="p-float-label">
+                            <div class="form-group col-3">
+                                <span class="p-float-label">
+                                    <input formControlName="num_inventario" type="text" pInputText>
+                                    <label for="float-input">num_inventario</label>
+                                    <p></p><!--if de validacion-->
+                                </span>
+                            </div>
+                            <div class="form-group col-3">
+                                <!--<span class="p-float-label">
                                 <input formControlName="fecha_compra" type="text" pInputText>
                                 <label for="float-input">fecha de compra</label>
                                 <p></p>if de validacion
                             </span>-->
-                        </div>
+                            </div>
 
-                        <div class="col-3">
-                            <span class="p-float-label">
-                                <input formControlName="nombre_equipo" type="text" pInputText>
-                                <label for="float-input">Nombre del equipo</label>
-                                <p></p><!--if de validacion-->
-                            </span>
-                        </div>
-                        <div class="col-3">
-                            <div class="form-group">
+                            <div class="col-3">
                                 <span class="p-float-label">
-                                    <input formControlName="valor_monetario" type="text" pInputText>
-                                    <label for="float-input">valor_monetario</label>
+                                    <input formControlName="nombre_equipo" type="text" pInputText>
+                                    <label for="float-input">Nombre del equipo</label>
                                     <p></p><!--if de validacion-->
                                 </span>
                             </div>
-                        </div>
-                       
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <span class="p-float-label">
+                                        <input formControlName="valor_monetario" type="text" pInputText>
+                                        <label for="float-input">valor_monetario</label>
+                                        <p></p><!--if de validacion-->
+                                    </span>
+                                </div>
+                            </div>
 
 
 
-                        <div class="col-3">
-                            <span class="p-float-label">
-                                <input formControlName="estado" type="text" pInputText>
-                                <label for="float-input">estado</label>
-                                <p></p><!--if de validacion-->
-                            </span>
-                        </div>
-                        <div class="col-3">
-                            <div class="card flex justify-content-start">
-                            <span class="p-float-label">
-                                <textarea formControlName="descripcion" id="descripcion" rows="5" cols="30" pInputTextarea></textarea>
-                                <label for="float-input">descripcion</label>
-                                <p></p><!--if de validacion-->
-                            </span>
-                        </div>
-                        </div>
-                        <div class="col-3">
-                            <span class="p-float-label">
-                                <input formControlName="marca" type="text" pInputText>
-                                <label for="float-input">marca</label>
-                                <p></p><!--if de validacion-->
-                            </span>
-                        </div>
 
-                        <div class="form-group col-3">
-                            <span class="p-float-label">
-                                <input formControlName="modelo" type="text" pInputText>
-                                <label for="float-input">modelo</label>
-                                <p></p><!--if de validacion-->
-                            </span>
-                        </div>
-                        <div class="col-3">
-                            <span class="p-float-label">
-                                <input formControlName="tipo_de_conexion" type="text" pInputText>
-                                <label for="float-input">tipo_de_conexion</label>
-                                <p></p><!--if de validacion-->
-                            </span>
-                        </div>
+                            <div class="col-3">
+                                <span class="p-float-label">
+                                    <input formControlName="estado" type="text" pInputText>
+                                    <label for="float-input">estado</label>
+                                    <p></p><!--if de validacion-->
+                                </span>
+                            </div>
+                            <div class="col-3">
+                                <div class="card flex justify-content-start">
+                                    <span class="p-float-label">
+                                        <textarea formControlName="descripcion" id="descripcion" rows="5" cols="30"
+                                            pInputTextarea></textarea>
+                                        <label for="float-input">descripcion</label>
+                                        <p></p><!--if de validacion-->
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <span class="p-float-label">
+                                    <input formControlName="marca" type="text" pInputText>
+                                    <label for="float-input">marca</label>
+                                    <p></p><!--if de validacion-->
+                                </span>
+                            </div>
+
+                            <div class="form-group col-3">
+                                <span class="p-float-label">
+                                    <input formControlName="modelo" type="text" pInputText>
+                                    <label for="float-input">modelo</label>
+                                    <p></p><!--if de validacion-->
+                                </span>
+                            </div>
+                            <div class="col-3">
+                                <span class="p-float-label">
+                                    <input formControlName="tipo_de_conexion" type="text" pInputText>
+                                    <label for="float-input">tipo_de_conexion</label>
+                                    <p></p><!--if de validacion-->
+                                </span>
+                            </div>
                         </div>
                     </ng-template>
 
@@ -252,7 +254,9 @@
                         <div class="grid">
                             <div class="col-3">
                                 <span class="p-float-label">
-                                    <p-dropdown [options]="licencias" placeholder="Seleccione Licencia" formControlName="idLicencias" optionValue="idLicencias" optionLabel="nombre" ></p-dropdown>
+                                    <p-dropdown [options]="licencias" placeholder="Seleccione Licencia"
+                                        formControlName="idLicencias" optionValue="idLicencias"
+                                        optionLabel="nombre"></p-dropdown>
                                 </span>
                             </div>
 
@@ -274,31 +278,31 @@
 
                             <div class="col-3">
                                 <span class="p-float-label">
-                                    
-                                    <p-calendar formControlName="fecha_mantenimiento"  [showIcon]="true"></p-calendar>
+
+                                    <p-calendar formControlName="fecha_mantenimiento" [showIcon]="true"></p-calendar>
                                     <label for="float-input">fecha mantenimiento</label>
                                     <p></p><!--if de validacion-->
                                 </span>
                             </div>
                             <div class="col-6">
                                 <span class="p-float-label">
-                                    
+
                                     <p-calendar formControlName="calculoEstimado" [showIcon]="true"></p-calendar>
                                     <label for="float-input">Siguiente Mantenimiento</label>
                                     <p></p><!--if de validacion-->
                                 </span>
                             </div>
-                           
+
                         </div>
                         <div>
-                            <p-button type="button" label="Accesorio" iconPos="right" icon="pi pi-plus"></p-button>
+                            <p-button type="button" (click)="openNew()" label="Accesorio" iconPos="right" icon="pi pi-plus"></p-button>
                         </div>
                     </ng-template>
 
                     <ng-template pTemplate="footer">
                         <div class="grid grid-nogutter justify-content-end">
-                            <p-button type="button" label="Guardar" (click)="onFinalizarActivosClick()" icon="pi pi-check"
-                                iconPos="right"></p-button>
+                            <p-button type="button" label="Guardar" (click)="onFinalizarActivosClick()"
+                                icon="pi pi-check" iconPos="right"></p-button>
                             <p></p><!--On clic de siguiente pagina-->
                         </div>
                     </ng-template>
@@ -306,12 +310,81 @@
                 </p-card>
             </form>
         </div>
-
-
-
-
-
-
-
     </div>
 </section>
+
+<div class="card flex justify-content-center">
+
+    <p-dialog header="Añadir nuevo Usuario" [(visible)]="displayAddModal" [maximizable]="true"
+        [style]="{height:'35vw', width: '90vw' }">
+
+        <form [formGroup]="accesorioForm">
+            <section class="container">
+
+                <div class="grid">
+                    
+                   <div class="col-12 md:col-6">
+
+                        <div class="field">
+                            <span class="p-float-label">
+                                <input formControlName="tipoaccesorio" pInputText id="tipoaccesorio" required autofocus>
+                                <label htmlFor="tipoaccesorio">tipoaccesorio</label>
+                            </span>
+
+                        </div>
+                    </div>
+
+                   <div class="col-12 md:col-6">
+                        <div class="field">
+                            <span class="p-float-label">
+                                <input formControlName="serie" pInputText id="serie" required autofocus>
+                                <label htmlFor="serie">serie</label>
+                            </span>
+                        </div>
+                    </div>
+
+                   <div class="col-12 md:col-6">
+                        <div class="field">
+                            <span class="p-float-label">
+                                <input formControlName="modelo" pInputText id="modelo" required autofocus>
+                                <label htmlFor="modelo">modelo</label>
+                            </span>
+                        </div>
+                    </div>
+
+                   <div class="col-12 md:col-6">
+
+                        <div class="field">
+                            <span class="p-float-label">
+                                <input formControlName="descripcion" pInputText id="descripcion" required autofocus>
+                                <label htmlFor="descripcion">descripcion</label>
+                            </span>
+                        </div>
+
+                    </div>
+                    <div class="col-12 md:col-6">
+
+                        <div class="field">
+                            <span class="p-float-label">
+                                <input formControlName="status" pInputText id="status" required autofocus>
+                                <label htmlFor="status">status</label>
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+
+            </section>
+
+        </form>
+        <ng-template pTemplate="footer">
+            <p-button icon="pi pi-check" (click)="closeModal()" label="Cancel" styleClass="p-button-text"></p-button>
+            <p-button icon="pi pi-check" (click)="insertAccesorio()" label="Añadir" styleClass="p-button-text"></p-button>
+
+        </ng-template>
+    </p-dialog>
+
+</div>
+
+<p-toast position="top-right"></p-toast>
+<app-alerta></app-alerta>
