@@ -36,6 +36,7 @@ export class DetallePcComponent {
   recoInfoRam!    :FormGroup;
   recoInfoDD!     :FormGroup;
   pc!             : detallePc[];
+  pcdetalle!             : detallePc;
   ram             !:Ram[];
   ramsave             !:Ram;
   discoDuro       !:discoDuro[];
@@ -153,26 +154,27 @@ export class DetallePcComponent {
       }
     });
   }
+ 
   addDetalePc() {
-    console.log("Formulario", this.recoInfo.value)
-    this.saveDetallepc(this.recoInfo.value);
-    if (this.recoInfo.invalid) {
-      this.messageService.add({ severity: 'error', summary: 'No es posible agregar', detail: 'Porfavor verifique todos los campos' });
-    } else {
-     
+    debugger
+      this._detallePcService.saveDetallePc(this.recoInfo.value).subscribe({
+        next: (resp: RespuestaDto) => {
+          let respuestaDto = <RespuestaDto>resp;
+          debugger
+          if (respuestaDto.valido == 0) {
+            console.log("next", respuestaDto.mensaje)
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: respuestaDto.mensaje });
+          } else {
+            this.pcdetalle = <detallePc>respuestaDto.addenda;
+            this.messageService.add({ severity: 'success', summary: 'Muy bien! se ha guardado correctamente', detail: respuestaDto.mensaje });
+          }
+        },
+        error: (error) => {
+          let mensaje = <any>error;
+          this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
+        }
+      });
     }
-  }
-  saveDetallepc(recoInfo: detallePc) {
-    this._detallePcService.saveDetallePc(this.recoInfo.value).subscribe(
-      respuesta => {
-        console.log('DetallePc guardado:', respuesta);
-      
-      },
-      error => {
-        console.error('Error al guardar activo:', error);
-      }
-    );
-  }
   addRam(recoInfoRam  : Ram) {
     this._ramService.saveRam(this.recoInfoRam.value).subscribe({
       next: (resp: RespuestaDto) => {
@@ -191,25 +193,24 @@ export class DetallePcComponent {
       }
     });
   }
-  addDiscoDuro() {
-    console.log("Formulario DiscoDuro", this.recoInfoDD.value)
-    if (this.recoInfoDD.invalid) {
-      this.messageService.add({ severity: 'error', summary: 'No es posible agregar', detail: 'Porfavor verifique todos los campos' });
-    } else {
-      console.log("Disco duro:", this.recoInfoDD.value.iddetallepc)
-      this.saveDd(this.recoInfoDD.value);
-    }
-  }
-  saveDd(recoInfoDD: discoDuro) {
-    this._dicoDservice.saveDD(this.recoInfoDD.value).subscribe(
-      respuesta => {
-        console.log('Disco Duro guardado:', respuesta);
-      },
-      error => {
-        console.error('Error al guardar Disco Duro:', error);
+      addDiscoDuro() {
+        this._dicoDservice.saveDD(this.recoInfoDD.value).subscribe({
+          next: (resp: RespuestaDto) => {
+            let respuestaDto = <RespuestaDto>resp;
+            if (respuestaDto.valido == 0) {
+              console.log("next", respuestaDto.mensaje)
+              this.messageService.add({ severity: 'error', summary: 'Error', detail: respuestaDto.mensaje });
+            } else {
+              this.ramsave = <Ram>respuestaDto.addenda;
+              this.messageService.add({ severity: 'success', summary: 'Muy bien! se ha guardado correctamente', detail: respuestaDto.mensaje });
+            }
+          },
+          error: (error) => {
+            let mensaje = <any>error;
+            this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
+          }
+        });
       }
-    );
-  }
 }
 
   
