@@ -33,8 +33,11 @@ export class DetallePcComponent {
   }
   token           : string;
   recoInfo!       :FormGroup;
+  recoInfoRam!    :FormGroup;
+  recoInfoDD!     :FormGroup;
   pc!             : detallePc[];
-  ram             !:Ram[]
+  ram             !:Ram[];
+  ramsave             !:Ram;
   discoDuro       !:discoDuro[];
   displayAddModal : boolean = false;
   displayAddModalDd : boolean = false;
@@ -42,16 +45,35 @@ export class DetallePcComponent {
   formulario(){
     this.recoInfo = this.fb.group({
       tipo_de_pc        : [''],
-     
+      modelo            : ['', [Validators.required]],
       num_serie         : ['', [Validators.required]],
       folio_compra      : ['', [Validators.required]],
-     
+      procesador        : ['', [Validators.required]],
+      marca             : ['', [Validators.required]],
+      Sistema_Operativo : ['', [Validators.required]],
+      idioma            : ['', [Validators.required]],
       iddiscoduro       : ['', [Validators.required]],
-     
+      idram             : ['', [Validators.required]]
+    });
+  }
+  formularioRam(){
+    this.recoInfoRam = this.fb.group({
+      nombre      : ['', [Validators.required]],
+      capacidad   : ['', [Validators.required]],
+      marca      : ['', [Validators.required]]
+    });
+  }
+  formularioDD(){
+    this.recoInfoDD = this.fb.group({
+      cap_almacenamiento  : ['', [Validators.required]],
+      tecnologia_M_S      : ['', [Validators.required]],
+      marca               : ['', [Validators.required]]
     });
   }
   ngOnInit() {
     this.formulario();
+    this.formularioRam();
+    this.formularioDD();
     this.getdetallePc();
     this.ObtenerRam();
     this.ObtenerDD();
@@ -93,6 +115,13 @@ export class DetallePcComponent {
         let respuestaDto = <RespuestaDto>resp;
         if (respuestaDto.ok) {
           this.ram = resp.addenda;
+          var concatLabel = '';
+          for(let key in this.ram){
+            var concatLabel = '';
+                    concatLabel =  this.ram[key].nombre+ '-' + this.ram[key].capacidad + '-' + this.ram[key].marca;
+                    this.ram[key].nombre = concatLabel;
+          }
+          console.log("this.ram", this.ram);
         }
       },
       error: (error) => {
@@ -144,6 +173,45 @@ export class DetallePcComponent {
       }
     );
   }
-
-
+  addRam(recoInfoRam  : Ram) {
+    this._ramService.saveRam(this.recoInfoRam.value).subscribe({
+      next: (resp: RespuestaDto) => {
+        let respuestaDto = <RespuestaDto>resp;
+        if (respuestaDto.valido == 0) {
+          console.log("next", respuestaDto.mensaje)
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: respuestaDto.mensaje });
+        } else {
+          this.ramsave = <Ram>respuestaDto.addenda;
+          this.messageService.add({ severity: 'success', summary: 'Muy bien! se ha guardado correctamente', detail: respuestaDto.mensaje });
+        }
+      },
+      error: (error) => {
+        let mensaje = <any>error;
+        this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
+      }
+    });
+  }
+  addDiscoDuro() {
+    console.log("Formulario DiscoDuro", this.recoInfoDD.value)
+    if (this.recoInfoDD.invalid) {
+      this.messageService.add({ severity: 'error', summary: 'No es posible agregar', detail: 'Porfavor verifique todos los campos' });
+    } else {
+      console.log("Disco duro:", this.recoInfoDD.value.iddetallepc)
+      this.saveDd(this.recoInfoDD.value);
+    }
+  }
+  saveDd(recoInfoDD: discoDuro) {
+    this._dicoDservice.saveDD(this.recoInfoDD.value).subscribe(
+      respuesta => {
+        console.log('Disco Duro guardado:', respuesta);
+      },
+      error => {
+        console.error('Error al guardar Disco Duro:', error);
+      }
+    );
+  }
 }
+
+  
+
+
