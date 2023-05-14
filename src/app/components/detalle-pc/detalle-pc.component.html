@@ -19,7 +19,14 @@
 
                         <div class="col-12 md:col-4">
                             <span class="p-float-label">
-                                <input formControlName="tipo_de_pc" type="text" pInputText>
+                                <p-dropdown 
+                   
+                                [options]="equipos" 
+                                placeholder="Seleccione un equipo" 
+                                formControlName="tipo_de_pc" 
+                                optionLabel="descripcion"
+                                optionValue="id_equipo" ></p-dropdown>
+                                <small class="p-error" *ngIf="recoInfo.touched && recoInfo.invalid">Elige un Equipo</small>
                                 <label for="float-input">Tipo de PC</label>
                                 <p></p><!--if de validacion-->
                             </span>

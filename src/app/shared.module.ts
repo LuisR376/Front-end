@@ -58,6 +58,7 @@ import { tipodeActivoService } from "./service/tipodeActivo.service";
 import { detallePcService } from "./service/detallePc.service";
 import { dicoDservice } from "./service/discoDuro.service";
 import { ramService } from "./service/ram.service";
+import { EquiposService } from "./service/equipos.service";
 
 @NgModule({
   declarations: [
@@ -124,6 +125,7 @@ import { ramService } from "./service/ram.service";
   providers: [MessageService, 
     ConfirmationService, 
     authGuardService,
+    EquiposService,
      LocalService, UtilApiService, FolioService, ticketService,tipodeservicioService,reasignacionService,tecnicoService,licenciaService,servicioService, ActivosService, tipodeActivoService,detallePcService,dicoDservice,ramService],
   bootstrap: []
 })

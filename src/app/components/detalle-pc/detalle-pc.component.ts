@@ -12,6 +12,8 @@ import { ramService } from 'src/app/service/ram.service';
 import { Ram } from '../model/ram.model';
 import { discoDuro } from '../model/discoDuro.model';
 import { detallePcService } from 'src/app/service/detallePc.service';
+import { EquiposService } from 'src/app/service/equipos.service';
+import { Equipos } from '../model/equipos.model';
 
 @Component({
   selector: 'app-detalle-pc',
@@ -25,6 +27,7 @@ export class DetallePcComponent {
     public _authGuardService: authGuardService,
     private customerService: CustomerService,
     private _dicoDservice:dicoDservice,
+    private  _equiposService: EquiposService,
     private _ramService: ramService,
     private _detallePcService:detallePcService,
     private fb: FormBuilder
@@ -35,6 +38,7 @@ export class DetallePcComponent {
   recoInfo!       :FormGroup;
   recoInfoRam!    :FormGroup;
   recoInfoDD!     :FormGroup;
+  equipos          !: Equipos[];
   pc!             : detallePc[];
   pcdetalle!             : detallePc;
   ram             !:Ram[];
@@ -78,6 +82,7 @@ export class DetallePcComponent {
     this.getdetallePc();
     this.ObtenerRam();
     this.ObtenerDD();
+    this.getEquipos();
   }
   openNew(modal: string) {
     if (modal === 'ram') {
@@ -156,11 +161,11 @@ export class DetallePcComponent {
   }
  
   addDetalePc() {
-    debugger
+    
       this._detallePcService.saveDetallePc(this.recoInfo.value).subscribe({
         next: (resp: RespuestaDto) => {
           let respuestaDto = <RespuestaDto>resp;
-          debugger
+          
           if (respuestaDto.valido == 0) {
             console.log("next", respuestaDto.mensaje)
             this.messageService.add({ severity: 'error', summary: 'Error', detail: respuestaDto.mensaje });
@@ -206,6 +211,22 @@ export class DetallePcComponent {
             }
           },
           error: (error) => {
+            let mensaje = <any>error;
+            this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
+          }
+        });
+      }
+
+
+
+      getEquipos(){
+        this._equiposService.getEquipos(this.token).subscribe({
+          next: (resp: RespuestaDto) => {
+            let respuestaDto = <RespuestaDto>resp;
+            this.equipos =respuestaDto.addenda;
+            
+          },
+          error: (error : any) => {
             let mensaje = <any>error;
             this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
           }
