@@ -7,7 +7,7 @@
             </div>
         </div>
         <p-toast></p-toast>
-        <p-steps [model]="items" [readonly]="true" [(activeIndex)]="activeIndex"
+        <p-steps [model]="items" [readonly]="false" [(activeIndex)]="activeIndex"
             (activeIndexChange)="onActiveIndexChange($event)"></p-steps>
 
 
@@ -252,7 +252,7 @@
                         <div class="grid">
                             <div class="col-3">
                                 <span class="p-float-label">
-                                    <p-dropdown [options]="opcionesLicencias" placeholder="Seleccione Licencia" formControlName="idLicencias" optionValue="idLicencias"></p-dropdown>
+                                    <p-dropdown [options]="licencias" placeholder="Seleccione Licencia" formControlName="idLicencias" optionValue="idLicencias" optionLabel="nombre" ></p-dropdown>
                                 </span>
                             </div>
 
@@ -274,14 +274,16 @@
 
                             <div class="col-3">
                                 <span class="p-float-label">
-                                    <input formControlName="fecha_mantenimiento" type="text" pInputText>
+                                    
+                                    <p-calendar formControlName="fecha_mantenimiento"  [showIcon]="true"></p-calendar>
                                     <label for="float-input">fecha mantenimiento</label>
                                     <p></p><!--if de validacion-->
                                 </span>
                             </div>
                             <div class="col-6">
                                 <span class="p-float-label">
-                                    <input formControlName="calculoEstimado" type="text" pInputText>
+                                    
+                                    <p-calendar formControlName="calculoEstimado" [showIcon]="true"></p-calendar>
                                     <label for="float-input">Siguiente Mantenimiento</label>
                                     <p></p><!--if de validacion-->
                                 </span>

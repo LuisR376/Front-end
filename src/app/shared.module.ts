@@ -56,6 +56,8 @@ import { servicioService } from "./service/Servicio.service";
 import { ActivosService } from "./service/Activos.service";
 import { tipodeActivoService } from "./service/tipodeActivo.service";
 import { detallePcService } from "./service/detallePc.service";
+import { dicoDservice } from "./service/discoDuro.service";
+import { ramService } from "./service/ram.service";
 
 @NgModule({
   declarations: [
@@ -122,7 +124,7 @@ import { detallePcService } from "./service/detallePc.service";
   providers: [MessageService, 
     ConfirmationService, 
     authGuardService,
-     LocalService, UtilApiService, FolioService, ticketService,tipodeservicioService,reasignacionService,tecnicoService,licenciaService,servicioService, ActivosService, tipodeActivoService,detallePcService],
+     LocalService, UtilApiService, FolioService, ticketService,tipodeservicioService,reasignacionService,tecnicoService,licenciaService,servicioService, ActivosService, tipodeActivoService,detallePcService,dicoDservice,ramService],
   bootstrap: []
 })
 export class SharedModule { }

@@ -122,7 +122,6 @@ export class NuevoActivoComponent implements OnInit {
       fecha_mantenimiento: ['', [Validators.required]],
       calculoEstimado: ['', [Validators.required]],
 
-      accesorio: ['', [Validators.required]]
     });
   }
   onActiveIndexChange(event: any) {
@@ -187,6 +186,12 @@ export class NuevoActivoComponent implements OnInit {
         let respuestaDto = <RespuestaDto>resp;
         if (respuestaDto.ok) {
           this.licencias = resp.addenda;
+          var concatLabel = '';
+          for(let key in this.licencias){
+            var concatLabel = '';
+                    concatLabel =  this.licencias[key].numserie_licencia+ '-' + this.licencias[key].nombre;
+                    this.licencias[key].nombre = concatLabel;
+          }
           console.log("this.licencias", this.licencias);
 
         }

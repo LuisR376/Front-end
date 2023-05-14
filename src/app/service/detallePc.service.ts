@@ -19,6 +19,6 @@ export class detallePcService {
         return this._apiService.sendGetRequest(this.url + "detallePc/detallePcget", token);
     }
     saveDetallePc(datosA: insertDetallepc): Observable<RespuestaDto> {
-        return this._apiService.sendPostRequest(datosA, this.url + "detallePc/post");
+        return this._apiService.sendPostRequest(datosA, this.url + "detallePc/postSetDetallepc");
     }// Post saveDetallePc
 }
