@@ -25,16 +25,16 @@ export class InventarioRASComponent {
   idactivoss!: Activos [];
   idactivos !: string;
   ngOnInit() {
-    this.obtenerActivos();
+    this.obtenerActivos(this.idactivos);
   }
-    obtenerActivos() {
+    obtenerActivos(idactivos :string) {
     console.log("Token", this.token);
-    this._ActivosService.getActivoNumInventario(this.token).subscribe({
+    this._ActivosService.getActivosByid(this.token, idactivos).subscribe({
       next: (resp: RespuestaDto) => {
         console.log("Obtener Activos", resp);
         let respuestaDto = <RespuestaDto>resp;
         if (respuestaDto.ok) {
-          this.idactivos = resp.addenda;
+          this.idactivos = resp.addenda[0];
           console.log("this.num_inventario", this.idactivos);
         }
       },
@@ -43,5 +43,6 @@ export class InventarioRASComponent {
         this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
       }
     });
-  }
+    }
+   
 }

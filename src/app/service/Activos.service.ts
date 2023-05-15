@@ -18,7 +18,9 @@ export class ActivosService {
         getActivos(token:string): Observable<RespuestaDto> {
             return this._apiService.sendGetRequest(this.url + "activos/getActivos",token);
         }
-    
+    getActivosByid(token : string,idactivos : string): Observable<RespuestaDto> {
+        return this._apiService.sendGetRequest(this.url + `activos/getActivosById/${idactivos}`, token);
+    }
     getActivoNumInventario(token:string): Observable<RespuestaDto> {
         return this._apiService.sendGetRequest(this.url + "activos/numInventario",token);
     }
