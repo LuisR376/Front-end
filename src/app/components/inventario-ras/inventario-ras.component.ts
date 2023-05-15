@@ -28,14 +28,15 @@ export class InventarioRASComponent {
     this.obtenerActivos(this.idactivos);
   }
     obtenerActivos(idactivos :string) {
-    console.log("Token", this.token);
+      console.log("Token", this.token);
+      console.log("AQUI ESTA CORRECTO", this.idactivos);
     this._ActivosService.getActivosByid(this.token, idactivos).subscribe({
       next: (resp: RespuestaDto) => {
         console.log("Obtener Activos", resp);
         let respuestaDto = <RespuestaDto>resp;
         if (respuestaDto.ok) {
-          this.idactivos = resp.addenda[0];
-          console.log("this.num_inventario", this.idactivos);
+          this.idactivos = resp.addenda;
+          console.log("AQUI SE ESTA CORROMPIENDO", this.idactivos);
         }
       },
       error: (error) => {
