@@ -38,9 +38,9 @@
                     {{inventario.num_serie}}
                 </td>
                 <td>
-                    <button (click)="Imprimir()" type="button" label="Primary"
-                        class="p-element p-ripple p-button-outlined p-button-rounded p-button p-component p-button-sm"><span
-                            class="pi pi-print"></span></button>
+                    <button [routerLink]="['../inventarioRas', inventario.idactivos]" label="Primary"
+                        class="p-element p-ripple p-button-outlined p-button-rounded p-button p-component p-button-sm">
+                        <span class="pi pi-print"></span></button>
                 </td>
             </tr>
         </ng-template>

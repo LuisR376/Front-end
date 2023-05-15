@@ -1,10 +1,10 @@
-import { Component,ViewChild } from '@angular/core';
-import { CustomerService } from 'src/app/service/CustomerService';
+import { Component,OnInit,ViewChild } from '@angular/core';
+
 import { authGuardService } from 'src/app/service/auth-guard.service';
 import { RespuestaDto } from '../model/respuestaDto';
 import { Activos } from '../model/activos.model';
 import { AlertaComponent } from 'src/app/util/alerta.component';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ActivosService } from 'src/app/service/Activos.service';
 
 @Component({
@@ -12,12 +12,13 @@ import { ActivosService } from 'src/app/service/Activos.service';
   templateUrl: './inventario.component.html',
   styleUrls: ['./inventario.component.css']
 })
-export class InventarioComponent {
+export class InventarioComponent implements OnInit {
   @ViewChild(AlertaComponent, { static: false }) mensajeAlerta!: AlertaComponent;
   constructor(
     public _ActivosService:ActivosService,
     public _authGuardService: authGuardService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
   ) {
     this.token = this._authGuardService.getToken();
   }
@@ -25,6 +26,7 @@ export class InventarioComponent {
   activos !: Activos[];
   ngOnInit() {
     this.obtenerActivos()
+     const id = this.activatedRoute.snapshot.paramMap.get('id');
   }
   obtenerActivos() {
     console.log("Token", this.token);
@@ -41,8 +43,5 @@ export class InventarioComponent {
         this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
       }
     });
-  }
-  Imprimir() {
-   this.router.navigate(['/home/inicio/main/inventarioRas/:id']);
   }
 }

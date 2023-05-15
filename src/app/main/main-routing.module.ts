@@ -39,7 +39,7 @@ const routes: Routes = [
       { path: 'NewLicencia',        component: NuevalicenciaComponent },
       { path: 'servicio/:idfolio/:descFolio/:idlugar',           component: CompServicioComponent  },
       { path: 'inventario',         component: InventarioComponent  },
-      { path: 'inventarioRas/:id',         component: InventarioRASComponent  }
+      { path: 'inventarioRas/:idactivos',         component: InventarioRASComponent  }
       
       
     ]
