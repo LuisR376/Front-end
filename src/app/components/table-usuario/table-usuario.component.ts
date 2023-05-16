@@ -11,7 +11,7 @@ import { UsuarioService } from '../../service/usuario.service';
 import { Lugar } from '../model/lugar.model';
 import { lugarAreas } from '../model/lugarArea.model';
 import { Rol } from '../model/rol.model';
-
+import * as Papa from 'papaparse';
 @Component({
   selector: 'app-table-usuario',
   templateUrl: './table-usuario.component.html'
@@ -22,7 +22,7 @@ export class TableUsuarioComponent {
   @Output() clickClose: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   displayAddModal: boolean = false;
-
+  sesionUsuario !: Usuario;
   token: string;
   usuarios: Usuario[] = [];
   usuari: any;
@@ -119,7 +119,9 @@ get passwordNovalidado(){
     this.obtenerArea();
     this.obtenerLugar();
     this.obtenerRol();
+   
   }
+   
   obtenerArea() {
     console.log("Token", this.token);
     this.customerService.getArea(this.token).subscribe({
@@ -248,5 +250,17 @@ get passwordNovalidado(){
   closeModal() {
     this.recoInfo.reset();
     this.obtenerUsuarios();
+  }
+   exportCSV() {
+    const csv = Papa.unparse(this.usuarios);
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.setAttribute('hidden', '');
+    a.setAttribute('href', url);
+    a.setAttribute('download', 'usuarios.csv');
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   }
 }

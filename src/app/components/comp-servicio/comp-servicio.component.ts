@@ -6,7 +6,7 @@ import { authGuardService } from 'src/app/service/auth-guard.service';
 import { Servicios } from '../model/servicios.model';
 import { ticketService } from 'src/app/service/ticket.service';
 import { Ticket } from '../model/ticket.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CustomerService } from 'src/app/service/CustomerService';
 import { Lugar } from '../model/lugar.model';
 import { Activos } from '../model/activos.model';
@@ -34,7 +34,8 @@ export class CompServicioComponent {
     public customerService:CustomerService,
     public _tipodeservicioService:tipodeservicioService,
     private fb: FormBuilder,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router,
   ){
     this.token = this._authGuardService.getToken();
     this.idfolios = this.route.snapshot.paramMap.get('idfolio') as any;
@@ -54,7 +55,8 @@ export class CompServicioComponent {
   activos!:Activos;
   tiposervicio!:tipodeservicio[];
   num_inventario!:ActivosService[];
-  recoInfo!:FormGroup;
+  recoInfo!: FormGroup;
+  servicio!: Servicios;
   ngOnInit() {
     this.obtenerServicio();
     this.obtenerLugar();
@@ -144,28 +146,29 @@ export class CompServicioComponent {
       }
     });
   }
-  addService() {
-    console.log("Datos ingresados:", this.recoInfo?.value); // Usamos ? para asegurar que recoInfo no sea nulo
-    if (!this.recoInfo || this.recoInfo.invalid) { // Validamos que recoInfo no sea nulo antes de utilizarlo
-      this.messageService.add({ severity: 'error', summary: 'No es posible agregar', detail: 'Porfavor verifique todos los campos' });
-    } else {
-      this.recoInfo.get('idfolios')?.setValue(this.idfolios); // Usamos ? para asegurar que recoInfo no sea nulo y accedemos al campo idfolios con ? también
-      this.saveServicio(this.recoInfo.value);
+   addService() {
+    
+      this._servicioService.saveServicio(this.recoInfo.value).subscribe({
+        next: (resp: RespuestaDto) => {
+          let respuestaDto = <RespuestaDto>resp;
+          
+          if (respuestaDto.valido == 0) {
+            console.log("next", respuestaDto.mensaje)
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: respuestaDto.mensaje });
+          } else {
+            this.servicio = <Servicios>respuestaDto.addenda;
+            this.messageService.add({ severity: 'success', summary: 'Muy bien! se ha guardado correctamente', detail: respuestaDto.mensaje });
+          }
+        },
+        error: (error) => {
+          let mensaje = <any>error;
+          this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
+        }
+      });
+      this.recoInfo.reset();
     }
-  }
-  
-  
-  saveServicio(servicio: Servicios) {
-    if (servicio.idfolios) {
-      this._servicioService.saveServicio(servicio)
-        .subscribe(
-          (response) => console.log('Insertado correctamente'),
-          (error) => console.log('Error al Insertar', error)
-        );
-    }
-  }
   Cancelar() {
     this.recoInfo.reset();
-
+    this.router.navigate(['/home/inicio/main/solicitud']);
   }
 }
