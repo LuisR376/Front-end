@@ -5,7 +5,8 @@ import { RespuestaDto } from '../model/respuestaDto';
 import { authGuardService } from '../../service/auth-guard.service';
 import { MessageService } from 'primeng/api';
 import { AlertaComponent } from 'src/app/util/alerta.component';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { noNumbersValidator } from '../model/validatorPersonalizado';
 import { insertUsuario } from '../model/insertUsuario';
 import { UsuarioService } from '../../service/usuario.service';
 import { Lugar } from '../model/lugar.model';
@@ -98,10 +99,14 @@ get passwordNovalidado(){
   return this.recoInfo.get('password')?.invalid && this.recoInfo.get('password')?.touched;
 
 }
+  getControlErrors(controlName: string): any {
+    const control = this.recoInfo.get(controlName);
+    return control?.errors;
+  }
   formulario(){
   this.recoInfo = this.fb.group({
     num_empleado: ['', Validators.required],
-    nombre      : ['', Validators.required],
+    nombre      : ['', [Validators.required, noNumbersValidator()]],
     apellidoP   : ['', Validators.required],
     apellidoM   : ['', Validators.required],
     email       : ['', Validators.required,Validators.email],
@@ -113,15 +118,15 @@ get passwordNovalidado(){
     
     
   });
+    console.log(this.recoInfo.errors);
 }
   ngOnInit() {
     this.obtenerUsuarios();
     this.obtenerArea();
     this.obtenerLugar();
     this.obtenerRol();
-   
   }
-   
+
   obtenerArea() {
     console.log("Token", this.token);
     this.customerService.getArea(this.token).subscribe({
@@ -223,7 +228,7 @@ get passwordNovalidado(){
         } else {
           this.usuari = <Usuario>respuestaDto.addenda;
           console.log("obtenerUsuarios",this.obtenerUsuarios);
-          
+          this.messageService.add({ severity: 'success', summary: 'Usuario Levantado', detail: respuestaDto.mensaje });
           this.obtenerUsuarios();
         }
       },
@@ -262,5 +267,6 @@ get passwordNovalidado(){
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
-  }
+   }
+  
 }

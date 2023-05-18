@@ -1,7 +1,7 @@
 import { Component, ViewChild, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CustomerService } from '../../service/CustomerService';
 import { AreaService } from '../../service/Area.service';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { lugarAreas } from '../model/lugarArea.model';
 import { RespuestaDto } from '../model/respuestaDto';
 import { authGuardService } from '../../service/auth-guard.service';
@@ -35,15 +35,19 @@ export class LugarAreaComponent {
   areas !: any;
   text !: boolean;
   texts !: boolean;
-
-  agregarAreaForm = this.fb.group({
+  agregarAreaForm !: FormGroup;
+ 
+  ngOnInit() {
+    this.obtenerArea();
+    this.obtenerLugar();
+    this.FormArea();
+  }
+  FormArea() {
+     this.agregarAreaForm = this.fb.group({
     nombre_area: ['', Validators.required],
     idlugar: ['', Validators.required]
 
   });
-  ngOnInit() {
-    this.obtenerArea();
-    this.obtenerLugar();
   }
   obtenerArea() {
     console.log("Token", this.token);
@@ -91,28 +95,28 @@ export class LugarAreaComponent {
     this.displayAddModal = false;
   }
   addArea() {
-    console.log("this.loginFormLugare area", this.agregarAreaForm.value)
+    console.log("Datos ingresados:", this.agregarAreaForm.value)
     if (this.agregarAreaForm.invalid) {
       this.messageService.add({ severity: 'error', summary: 'No es posible agregar', detail: 'Porfavor verifique todos los campos' });
-    } else {
-      console.log("this.loginForm.value.usuarioLogin", this.agregarAreaForm.value.nombre_area)
-      this.saveArea(this.agregarAreaForm.value.nombre_area, this.agregarAreaForm.value.idlugar);
+    } {
+      this.saveArea(this.agregarAreaForm.value);
     }
   }
-  async saveArea(nombre_area: string | undefined | null, idlugar: string | undefined | null) {
-    console.log("lugarAreas", nombre_area, "Lugar", idlugar);
-    let datosA = new insertArea(nombre_area, idlugar);
-    console.log("Datos Area", datosA);
-    this.areaService.saveArea(datosA).subscribe({
+  async saveArea(agregarAreaForm: lugarAreas) {
+    console.log("datos del area", agregarAreaForm)
+    this.areaService.saveArea(agregarAreaForm).subscribe({
       next: (resp: RespuestaDto) => {
-
+        console.log("Respeusta", resp)
         let respuestaDto = <RespuestaDto>resp;
         if (respuestaDto.valido == 0) {
-          console.log("next", respuestaDto.mensaje)
+
           this.messageService.add({ severity: 'error', summary: 'Error', detail: respuestaDto.mensaje });
         } else {
-          this.areas = <lugarAreas>respuestaDto.addenda;
-          this.obtenerArea();
+          this.messageService.add({ severity: 'success', summary: 'Mensaje', detail: respuestaDto.mensaje });
+
+
+          this.agregarAreaForm.reset();
+
         }
       },
       error: (error) => {
@@ -120,6 +124,5 @@ export class LugarAreaComponent {
         this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
       }
     });
-
-  }
+}
 }

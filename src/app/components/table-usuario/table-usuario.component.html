@@ -104,12 +104,10 @@
                 <div class="col-3">
                     <div class="field">
                         <span class="p-float-label">
-                            <input formControlName="nombre" 
-                            pInputText 
-                            id="nombre"
-                            [class.is-invalid]="nombreNovalidado">
+                            <input pInputText formControlName="nombre" [pattern]="'[a-zA-Z ]+'" type="text" id="nombre" [class.is-invalid]="nombreNovalidado">
                             <label htmlFor="nombre">Nombre</label>
                             <small class="p-error" *ngIf="nombreNovalidado">El nombre es requerido.</small>
+                <div *ngIf="getControlErrors('nombre').containsNumbers">El nombre no puede contener números.</div>
                     </span>
                     </div>
                 </div>

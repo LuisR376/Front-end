@@ -31,43 +31,36 @@
 
                 </tr>
             </ng-template>
-            <ng-template >
+            <ng-template>
             </ng-template>
         </p-table>
     </div>
 </section>
-<p-dialog header="Header" [(visible)]="displayAddModal" [modal]="true"  [style]="{height:'30vw', width: '50vw' }" styleClass="p-fluid"  >
+<p-dialog header="Header" [(visible)]="displayAddModal" [modal]="true" [style]="{height:'30vw', width: '50vw' }"
+    styleClass="p-fluid">
     <ng-template pTemplate="header">
         <span class="text-xl font-bold">Agregar Area</span>
     </ng-template>
-    <form [formGroup]="agregarAreaForm" (ngSubmit)="addArea()">
+    <form [formGroup]="agregarAreaForm">
         <div class="field">
             <label for="name">Nombre del Area</label>
-            <input 
-            formControlName="nombre_area" 
-            pInputText 
-            required 
-            autofocus
-           
-            >
-            <small class="p-error" *ngIf="agregarAreaForm.touched && agregarAreaForm.invalid">El nombre es requerido</small>
+            <input formControlName="nombre_area" pInputText required autofocus>
+            <small class="p-error" >El nombre es
+                requerido</small>
 
         </div>
         <div class="field">
             <label for="ubi">Lugar</label>
-            <p-dropdown 
-            [options]="lugares" 
-            placeholder="Seleccione un lugar" 
-            formControlName="idlugar" 
-            optionLabel="ubicacion" 
-            optionValue="idlugar" ></p-dropdown>
-            <small class="p-error" *ngIf="agregarAreaForm.touched && agregarAreaForm.invalid">Elige un lugar</small>
+            <p-dropdown [options]="lugares" placeholder="Seleccione un lugar" formControlName="idlugar"
+                optionLabel="ubicacion" optionValue="idlugar"></p-dropdown>
+            <small class="p-error" >Elige un lugar</small>
         </div>
-        </form>
+    </form>
     <ng-template pTemplate="footer">
         <p-button icon="pi pi-times" (click)="closeModal()" label="Cancelar" styleClass="p-button-text"></p-button>
-        <p-button type="button" icon="pi pi-check" (click)="addArea()" label="Agregar" styleClass="p-button-text"></p-button>
-        
+        <p-button type="button" icon="pi pi-check" (click)="addArea()" label="Agregar"
+            styleClass="p-button-text"></p-button>
+
     </ng-template>
 </p-dialog>
 <p-toast position="top-right"></p-toast>
