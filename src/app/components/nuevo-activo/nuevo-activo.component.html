@@ -7,13 +7,15 @@
             </div>
         </div>
         <p-toast></p-toast>
-        <p-steps [model]="items" [readonly]="false" [(activeIndex)]="activeIndex"
-            (activeIndexChange)="onActiveIndexChange($event)"></p-steps>
+        <div class="col-12 md:col-12">
+            <p-steps [model]="items" [readonly]="false" [(activeIndex)]="activeIndex"(activeIndexChange)="onActiveIndexChange($event)"></p-steps>
+        </div>
+
 
 
         <div *ngIf="activeIndex === 0">
             <form [formGroup]="step1Form" class="p-grid p-dir-col p-fluid">
-                <div class="p-col-12 p-md-6">
+                <div class="col-12 md:col-12">
                     <p-card>
 
                         <ng-template pTemplate="title"> Tipo de Activo </ng-template>
@@ -25,7 +27,7 @@
 
                                 <p-dropdown [options]="tipo_activo_desc" placeholder="Seleccione Tipo de activo"
                                     formControlName="idtipoactivo" optionLabel="descripcion" optionValue="idtipoactivo"
-                                    (onChange)="onChangeTipoActivo()"></p-dropdown>
+                                    (onChange)="onChangeTipoActivo()"  [showClear]="true"></p-dropdown>
                                 <p></p><!--if de validacion-->
                             </div>
 
@@ -35,9 +37,9 @@
                                 <p></p><!--if de validacion-->
                             </div>
                             <div *ngIf="idtipoactivoSeleccionado === 1">
-                                <p-dropdown [options]="iddetallepc" placeholder="Asignar ticket a:"
+                                <p-dropdown [options]="iddetallepc" placeholder="Selecciona el numero de serie PC:"
                                     formControlName="iddetallepc" optionLabel="num_serie" optionValue="iddetallepc"
-                                    (onChange)="onChangeDetallePc()"></p-dropdown>
+                                    (onChange)="onChangeDetallePc()"  [showClear]="true"></p-dropdown>
                             </div>
                             <div *ngIf="idtipoactivoSeleccionado === 1">
                                 <p-button type="button" label="Detalles de la Pc" routerLink="../detallePc"
@@ -194,9 +196,9 @@
 
                             <div class="col-3">
                                 <span class="p-float-label">
-                                    <input formControlName="estado" type="text" pInputText>
-                                    <label for="float-input">estado</label>
-                                    <p></p><!--if de validacion-->
+                            <p-dropdown formControlName="estado" [options]="opcionesEstado"></p-dropdown>
+                            <label for="float-input">Estado</label>
+
                                 </span>
                             </div>
                             <div class="col-3">
@@ -366,8 +368,8 @@
 
                         <div class="field">
                             <span class="p-float-label">
-                                <input formControlName="status" pInputText id="status" required autofocus>
-                                <label htmlFor="status">status</label>
+                                <p-dropdown formControlName="status" [options]="opcionesEstado"></p-dropdown>
+                                <label htmlFor="status">Estado</label>
                             </span>
                         </div>
 

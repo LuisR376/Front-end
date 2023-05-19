@@ -7,7 +7,7 @@ import { MessageService } from 'primeng/api';
 import { AlertaComponent } from 'src/app/util/alerta.component';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { noNumbersValidator } from '../model/validatorPersonalizado';
-import { insertUsuario } from '../model/insertUsuario';
+
 import { UsuarioService } from '../../service/usuario.service';
 import { Lugar } from '../model/lugar.model';
 import { lugarAreas } from '../model/lugarArea.model';
@@ -37,7 +37,8 @@ export class TableUsuarioComponent {
   lugares !: Lugar[];
   area !: lugarAreas[];
   roles !: Rol[];
-  recoInfo!:FormGroup;
+  recoInfo!: FormGroup;
+  opcionesEstado = [{ label: 'Activo', value: 1 }, { label: 'Inactivo', value: 0 }];
   constructor(
     private fb: FormBuilder,
     private messageService: MessageService,
@@ -185,8 +186,11 @@ get passwordNovalidado(){
         let respuestaDto = <RespuestaDto>resp;
         if (respuestaDto.ok) {
           this.usuarios = resp.addenda;
-        } else {
-        } // if
+          this.usuarios = resp.addenda.map((objetoactivo: any) => {
+          objetoactivo.status = objetoactivo.status === 1 ? "Activo" : "Inactivo";
+          return objetoactivo;
+        });
+        }
       },
       error: (error) => {
         let mensaje = <any>error;
@@ -203,6 +207,7 @@ get passwordNovalidado(){
       console.log("this.ecolecta informacion nombre", this.recoInfo.value.nombre)
       this.saveUsuario(this.recoInfo.value);
     }
+    
   }
   
   async saveUsuario(recoInfo  : Usuario ) {
@@ -229,6 +234,7 @@ get passwordNovalidado(){
           this.usuari = <Usuario>respuestaDto.addenda;
           console.log("obtenerUsuarios",this.obtenerUsuarios);
           this.messageService.add({ severity: 'success', summary: 'Usuario Levantado', detail: respuestaDto.mensaje });
+          this.recoInfo.reset();
           this.obtenerUsuarios();
         }
       },

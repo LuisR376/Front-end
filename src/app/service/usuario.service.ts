@@ -7,7 +7,7 @@ import { UtilApiService } from './util-api.service';
 import { Observable } from 'rxjs';
 import {Usuario} from '../components/model/usuario.model';
 import { map, tap } from 'rxjs/operators';
-import { insertUsuario } from '../components/model/insertUsuario';
+
 @Injectable({
     providedIn: 'root'
   })

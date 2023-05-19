@@ -2,7 +2,7 @@
     <p-table #dt [value]="activos" responsiveLayout="scroll" [rows]="10"
         [globalFilterFields]="['nombre_equipo','country.nombre_equipo','representative.nombre_equipo','status']"
         [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" selectionMode="multiple"
+        currentPageReportTemplate="mostrando {first} a {last} de {totalRecords} entradas" selectionMode="multiple"
         [rowHover]="true" dataKey="id">
         <ng-template pTemplate="caption">
             <div class="flex justify-content-between fondo">

@@ -2,8 +2,8 @@
     <p-table #dt [value]="usuarios" [columns]="cols" responsiveLayout="scroll" [rows]="10"
         [globalFilterFields]="['num_empleado','country.num_empleado','representative.num_empleado','status']"
         [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedProducts"
-        [rowHover]="true" dataKey="id">
+        currentPageReportTemplate="mostrando {first} a {last} de {totalRecords} entradas"
+        [(selection)]="selectedProducts" [rowHover]="true" dataKey="id">
 
 
         <ng-template pTemplate="caption">
@@ -17,7 +17,7 @@
                     <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success mr-2"
                         (click)="openNew()"></button>
 
-                
+
                     <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-help mr-2"
                         (click)="exportCSV()"></button>
 
@@ -62,10 +62,10 @@
                 </td>
                 <td>
                     <div class="flex" style="padding-left:10rem;">
-                        
-                      
-                       
-                       <!-- <button  pButton pRipple icon="pi pi-pencil"
+
+
+
+                        <!-- <button  pButton pRipple icon="pi pi-pencil"
                             class="p-button-rounded p-button-success mr-2"></button>-->
                         <!--<button pButton pRipple icon="pi pi-trash"
                             class="p-button-rounded p-button-warning"></button>-->
@@ -77,139 +77,131 @@
 </section>
 
 <div class="card flex justify-content-center">
-   
-    <p-dialog header="Añadir nuevo Usuario" [(visible)]="displayAddModal" [maximizable]="true" [style]="{height:'35vw', width: '90vw' }">
+
+    <p-dialog header="Añadir nuevo Usuario" [(visible)]="displayAddModal" [maximizable]="true"
+        [style]="{height:'35vw', width: '90vw' }">
 
         <form [formGroup]="recoInfo" (ngSubmit)="addUsuario()">
             <section class="container">
 
-            <div class="grid">
-                
-                <div class="col-3">
-                    <div class="field">
-                        <span class="p-float-label">
-                            <input formControlName="num_empleado" 
-                            pInputText 
-                            id="num_empleado"
-                            [class.is-invalid]="num_empleadoNovalidado"
-                            required 
-                            autofocus
-                             />
-                            <label htmlFor="num_empleado">N°Empleado</label>
-                        <small class="p-error" *ngIf="num_empleadoNovalidado">Este campo es requerido</small>
-                    </span>
-                    </div>
-                </div>
-            
-                <div class="col-3">
-                    <div class="field">
-                        <span class="p-float-label">
-                            <input pInputText formControlName="nombre" [pattern]="'[a-zA-Z ]+'" type="text" id="nombre" [class.is-invalid]="nombreNovalidado">
-                            <label htmlFor="nombre">Nombre</label>
-                            <small class="p-error" *ngIf="nombreNovalidado">El nombre es requerido.</small>
-                <div *ngIf="getControlErrors('nombre').containsNumbers">El nombre no puede contener números.</div>
-                    </span>
-                    </div>
-                </div>
-            
-                    <div class="col-3">
-                    <div class="field">
-                        <span class="p-float-label">
-                            <input formControlName="apellidoP" pInputText id="apellidoP" [class.is-invalid]="apellidoPNovalidado" >
-                            <label htmlFor="apellidoP">A.Paterno</label>
-                            <small class="p-error" *ngIf="apellidoPNovalidado">El apellido es requerido.</small>
-                    </span>
-                    </div>
-                </div>
-            
-                <div class="col-3">
-                    <div class="field">
-                        <span class="p-float-label">
-                            <input formControlName="apellidoM" pInputText id="apellidoM" [class.is-invalid]="apellidoMNovalidado" required autofocus>
-                            <label htmlFor="apellidoM">A.Materno</label>
-                            <small class="p-error" *ngIf="apellidoMNovalidado">El apellido es requerido.</small>
-                    </span>
-                    </div>
-                </div>
-            
-            </div>
-        </section>
-       
-        <section class="container">
-            <div class="grid">
-                <div class="col-3">
-                    <div class="field">
-                        <span class="p-float-label">
-                            <input formControlName="email" pInputText id="email" [class.is-invalid]="emailNovalidado" required autofocus>
-                            <label htmlFor="email">Email</label>
-                            <small class="p-error" *ngIf="emailNovalidado">El email es requerido.</small>
-                    </span>
-                    </div>
-                </div>
-           
-                <div class="col-3">
-                    <div class="field">
-                        <span class="p-float-label">
-                            <input formControlName="status" placeholder="1 Activo" type="number" pInputText id="status" [class.is-invalid]="statusNovalidado" required autofocus>
-                            <label htmlFor="status">Estado</label>
-                            <small class="p-error" *ngIf="statusNovalidado">Estado es requerido.</small>
-                    </span>
-                    </div>
-                </div>
-            
-                <div class="col-3">
-                    <div class="field">
-                        
-                        
-                        <p-dropdown [options]="roles" placeholder="Seleccione un Rol" formControlName="idrol" [class.is-invalid]="idrolNovalidado"
-                        optionLabel="descripcion_rol" optionValue="idrol"></p-dropdown>
-                        <small class="p-error" *ngIf="idrolNovalidado">Email es requerido.</small>
-                    
-                    </div>
-                </div>
-            
-            
-                <div class="col-3">
-                    <div class="field">
+                <div class="grid">
+
+                    <div class="col-12 md:col-3">
                        
-                        <p-dropdown [options]="lugares" placeholder="Seleccione un lugar" formControlName="idlugar" [class.is-invalid]="idlugarNovalidado"
-                        optionLabel="ubicacion" optionValue="idlugar"></p-dropdown>
-                        <label htmlFor="Seleccione un lugar"></label>
+                        <label htmlFor="num_empleado">N°Empleado</label>
+                            <span class="p-float-label">
+                                <input class="wtexto" formControlName="num_empleado" pInputText id="num_empleado"
+                                [class.is-invalid]="num_empleadoNovalidado"   />
+                                <small class="p-error" *ngIf="num_empleadoNovalidado">Este campo es requerido</small>
+                            </span>
+                            
+                    </div>
+                    
+
+                    <div class="col-12 md:col-3">
                         
-                        <small class="p-error" *ngIf="idlugarNovalidado">Lugar es requerido.</small>
+                        <label htmlFor="nombre">Nombre</label>
+                            <span class="p-float-label">
+                                <input class="wtexto" pInputText formControlName="nombre" [pattern]="'[a-zA-Z ]+'"
+                                    type="text" id="nombre" [class.is-invalid]="nombreNovalidado">
+                                <small class="p-error" *ngIf="nombreNovalidado">El nombre es requerido.</small>
+                                <div *ngIf="getControlErrors('nombre').containsNumbers">El nombre no puede contener
+                                    números.</div>
+                            </span>
+                        
+                    </div>
+
+                    <div class="col-12 md:col-3">
+                        
+                        <label htmlFor="apellidoP">A.Paterno</label>
+                            <span class="p-float-label">
+                                <input class="wtexto" formControlName="apellidoP" pInputText id="apellidoP"
+                                    [class.is-invalid]="apellidoPNovalidado">
+                                <small class="p-error" *ngIf="apellidoPNovalidado">El apellido es requerido.</small>
+                            </span>
+                        
+                    </div>
+
+                    <div class="col-12 md:col-3">
+                        
+                        <label htmlFor="apellidoM">A.Materno</label>
+                            <span class="p-float-label">
+                                <input class="wtexto" formControlName="apellidoM" pInputText id="apellidoM"
+                                    [class.is-invalid]="apellidoMNovalidado"  >
+                                <small class="p-error" *ngIf="apellidoMNovalidado">El apellido es requerido.</small>
+                            </span>
+                        
+                    </div>
+
+                </div>
+            </section>
+
+            <section class="container">
+                <div class="grid">
+                    <div class="col-12 md:col-3">
+                        
+                        <label htmlFor="email">Email</label>
+                            <span class="p-float-label">
+                                <input class="wtexto" formControlName="email" pInputText id="email"
+                                    [class.is-invalid]="emailNovalidado"  >
+                                <small class="p-error" *ngIf="emailNovalidado">El email es requerido.</small>
+                            </span>
+                        
+                    </div>
+
+                    <div class="col-12 md:col-3">
+                        <label htmlFor="status">Estado</label>
+                            <span class="p-float-label">
+                                <p-dropdown formControlName="status" [options]="opcionesEstado"></p-dropdown>
+                                <small class="p-error" *ngIf="statusNovalidado">Estado es requerido.</small>
+                            </span>
+                    </div>
+
+                    <div class="col-12 md:col-3">
+                        <label htmlFor="idrol">Rol</label>
+                            <p-dropdown [options]="roles" placeholder="Seleccione un Rol" formControlName="idrol"
+                                [class.is-invalid]="idrolNovalidado" optionLabel="descripcion_rol"
+                                optionValue="idrol"></p-dropdown>
+                            <small class="p-error" *ngIf="idrolNovalidado">Email es requerido.</small>      
+                    </div>
+
+
+                    <div class="col-12 md:col-3">
+                        <label htmlFor="lugares">Lugar</label>
+                            <p-dropdown [options]="lugares" placeholder="Seleccione un lugar" formControlName="idlugar"
+                                [class.is-invalid]="idlugarNovalidado" optionLabel="ubicacion"
+                                optionValue="idlugar"></p-dropdown>
+                            <label htmlFor="Seleccione un lugar"></label>
+                            <small class="p-error" *ngIf="idlugarNovalidado">Lugar es requerido.</small>
                     </div>
                 </div>
-            </div>
-        </section>
-        <section class="container">
-            <div class="grid">
-                <div class="col-3">
-                    <div class="field">
+            </section>
+            <section class="container">
+                <div class="grid">
+                    <div class="col-12 md:col-3">
+                        <label htmlFor="area">Area</label>
+                            <p-dropdown [options]="area" placeholder="Seleccione un Area" formControlName="idarea"
+                                [class.is-invalid]="idareaNovalidado" optionLabel="nombre_area"
+                                optionValue="idarea"></p-dropdown>
+                            <small class="p-error" *ngIf="idareaNovalidado">Area es requerido.</small>
+                    </div>
+                    <div class="col-12 md:col-9">
+                        <label htmlFor="password">Contraseña</label>
+                            <span class="p-float-label">
+                                <input class="wtexto" formControlName="password" pInputText id="password"
+                                    [class.is-invalid]="passwordNovalidado"  >
+                                <small class="p-error" *ngIf="passwordNovalidado">La contraseña es requerida.</small>
+                            </span>
                         
-                        
-                        <p-dropdown [options]="area" placeholder="Seleccione un Area" formControlName="idarea" [class.is-invalid]="idareaNovalidado"
-                        optionLabel="nombre_area" optionValue="idarea"></p-dropdown>
-                        
-                        <small class="p-error" *ngIf="idareaNovalidado">Area es requerido.</small>
                     </div>
                 </div>
-                <div class="col-3">
-                    <div class="field">
-                        <span class="p-float-label">
-                            <input formControlName="password" pInputText id="password" [class.is-invalid]="passwordNovalidado" required autofocus>
-                            <label htmlFor="password">Contraseña</label>
-                            <small class="p-error" *ngIf="passwordNovalidado">La contraseña es requerida.</small>
-                    </span>
-                    </div>
-                </div>
-            </div>
             </section>
         </form>
-        
+
         <ng-template pTemplate="footer">
-            <p-button icon="pi pi-check" (click)="closeModal()" label="Cancel"  styleClass="p-button-text"></p-button>
-            <p-button icon="pi pi-check" (click)="addUsuario()" label="Añadir"  styleClass="p-button-text"></p-button>
-            
+            <p-button icon="pi pi-check" (click)="closeModal()" label="Cancel" styleClass="p-button-text"></p-button>
+            <p-button icon="pi pi-check" (click)="addUsuario()" label="Añadir" styleClass="p-button-text"></p-button>
+
         </ng-template>
     </p-dialog>
     <p-toast position="top-right"></p-toast>

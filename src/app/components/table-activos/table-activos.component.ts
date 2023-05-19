@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { Activos } from '../model/activos.model'
+import { Activos } from '../model/activos.model';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { CustomerService } from '../../service/CustomerService';
@@ -9,6 +9,7 @@ import { RespuestaDto } from '../model/respuestaDto';
 
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivosService } from 'src/app/service/Activos.service';
+import * as Papa from 'papaparse';
 @Component({
   selector: 'app-table-activos',
   templateUrl: './table-activos.component.html',
@@ -49,75 +50,67 @@ export class TableActivosComponent {
 
   ngOnInit() {
     this.obtenerActivos();
-    this.estado = [
-      { label: 'INSTOCK', value: '1' },
-      { label: 'LOWSTOCK', value: '0' },
-      { label: 'OUTOFSTOCK', value: '0' }
-    ];
   } 
-
+//POR SI EDITAR Y ELIMINAR
   recoInfo = this.fb.group({
-    id:[''], 
-    idactivos:[''],
-    idlugar:[''],
-    idarea:[''],
-    nombre_propietario:[''],
-    nombre_equipo:[''],
-    num_empleado:[''],
-    password:[''],
-    fecha_mantenimien:[''],
-    valor_monetario:[''],
-    estado:[''],
-    descripcion:[''],
-    tipo_de_conexion:[''],
-    iddetallepc:[''],
-    idLicencias:[''],
-    idtipoactivo:[''],
-    host_teamviewer:[''],
-    password_teamviewer:[''],
-    calculoEstimado:[''],
-    Pertenencia:['']
+    id                      :[''], 
+    idactivos               :[''],
+    idlugar                 :[''],
+    idarea                  :[''],
+    nombre_propietario      :[''],
+    nombre_equipo           :[''],
+    num_empleado            :[''],
+    password                :[''],
+    fecha_mantenimien       :[''],
+    valor_monetario         :[''],
+    estado                  :[''],
+    descripcion             :[''],
+    tipo_de_conexion        :[''],
+    iddetallepc             :[''],
+    idLicencias             :[''],
+    idtipoactivo            :[''],
+    host_teamviewer         :[''],
+    password_teamviewer     :[''],
+    calculoEstimado         :[''],
+    Pertenencia             :['']
     
   });
   obtenerActivos() {
-    console.log("Token", this.token);
-    this._ActivosService.getActivos(this.token).subscribe({
-      next: (resp: RespuestaDto) => {
-        console.log("Obtener Activos", resp);
-        let respuestaDto = <RespuestaDto>resp;
-        if (respuestaDto.ok) {
-          this.activos = resp.addenda;
-        }
-      },
-      error: (error) => {
-        let mensaje = <any>error;
-        this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
+  console.log("Token", this.token);
+
+  this._ActivosService.getActivos(this.token).subscribe({
+    next: (resp) => {
+      console.log("Obtener Activos", resp);
+      let respuestaDto = <RespuestaDto>resp;
+      if (respuestaDto.ok) {
+        this.activos = resp.addenda.map((objetoactivo: any) => {
+          objetoactivo.estado = objetoactivo.estado === 1 ? "Activo" : "Inactivo";
+          return objetoactivo;
+        });
       }
-    });
-  }
-
-  confirmDelete() {
-    this.deleteProductDialog = false;
-    this.activos = this.activos.filter(val => val.id !== this.product.id);
-    this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
-    this.product = {};
-  }
-
-  hideDialog() {
-    this.productDialog = false;
-    this.submitted = false;
-  }
-
-  saveProduct() {
-
-  }
+    },
+    error: (error) => {
+      let mensaje = <any>error;
+      this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
+    }
+  });
+}
 
 
   onGlobalFilter(table: any, event: Event) {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
   }
-  guardar(){
-    console.log(this.recoInfo.value);
-    
-  }
+
+   exportCSV() {
+    const csv = Papa.unparse(this.activos);
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.setAttribute('hidden', '');
+    a.setAttribute('href', url);
+    a.setAttribute('download', 'Activos.csv');
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+   }
 }

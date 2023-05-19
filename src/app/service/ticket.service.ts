@@ -4,7 +4,7 @@ import { environment } from '../../environments/environment';
 import { RespuestaDto } from '../components/model/respuestaDto';
 import { UtilApiService } from './util-api.service';
 import { Observable } from 'rxjs';
-import { insertTicket } from '../components/model/insertTicket';
+
 import { LocalService } from './local.service';
 import { Ticket } from '../components/model/ticket.model';
 

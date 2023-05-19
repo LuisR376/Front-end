@@ -9,7 +9,7 @@ import { tipoactivo } from '../model/tipoactivo.model';
 import { RespuestaDto } from '../model/respuestaDto';
 import { AlertaComponent } from 'src/app/util/alerta.component';
 import { tipodeActivoService } from 'src/app/service/tipodeActivo.service';
-import { insertTipodeActivo } from '../model/insertTipodeActivo';
+
 import { detallePc } from '../model/detallePc.model';
 import { ActivosService } from 'src/app/service/Activos.service';
 import { insertActivo } from '../model/insertActivo';
@@ -59,9 +59,9 @@ export class NuevoActivoComponent implements OnInit {
   active!: Activos;
   idactivo!: number;
   licencias   !: licencia[];
-
-  opciones = [{ label: 'Empresa', value: 'Empresa' },
-  { label: 'Personal', value: 'Personal' }];
+  
+  opcionesEstado = [{ label: 'Activo', value: 1 }, { label: 'Inactivo', value: 0 }];
+  opciones = [{ label: 'Empresa', value: 'Empresa' },{ label: 'Personal', value: 'Personal' }];
   items = [
     { label: 'Tipo de Activo' },
     { label: 'Datos del cliente' },
@@ -86,6 +86,7 @@ export class NuevoActivoComponent implements OnInit {
     this.obtenerDetallepc();
     this.obtenerLicencias();
     this.initFormAccesorio();
+    
     this.step1Form = this.fb.group({
       idtipoactivo: ['', [Validators.required]],
       Pertenencia: ['', [Validators.required]],
@@ -114,6 +115,7 @@ export class NuevoActivoComponent implements OnInit {
       marca: ['', [Validators.required]],
       modelo: ['', [Validators.required]],
       tipo_de_conexion: ['', [Validators.required]],
+      
     });
 
     this.step5Form = this.fb.group({
@@ -126,6 +128,7 @@ export class NuevoActivoComponent implements OnInit {
 
     });
   }
+  
 
 
   initFormAccesorio(){
