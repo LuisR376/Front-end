@@ -2,8 +2,10 @@
     <div>
         <div class="flex align-items-center justify-content-between fondo">
             <div>
-                <h1>REASIGNACION DEL TICKET</h1>
-                <p>Asignar al tecnico y nivel de prioridad</p>
+                <h1>REASIGNACION DE TICKET</h1>
+                <br>
+                <i>Este formulario se utiliza para reasignar tickets pendientes a los técnicos correspondientes, teniendo en cuenta la
+                prioridad de cada solicitud.</i>
             </div>
         </div>
     </div>
@@ -12,23 +14,23 @@
 
     <div class="grid">
         <p-card class="col-12 md:col-6" *ngIf="tickets">
-            <div>
-                <p>FOLIO: {{tickets.num_folio}}</p>
+            <div class="col-12 md:col-12">
+                <p><strong>FOLIO:</strong> {{tickets.num_folio}}</p>
             </div>
-            <div>
-                <p>Cliente: {{tickets.nombre}}</p>
+            <div class="col-12 md:col-12">
+                <p><strong>CLIENTE:</strong> {{tickets.nombre}}</p>
             </div>
-            <div>
-                <p>Asunto: {{tickets.asunto}}</p>
+            <div class="col-12 md:col-12">
+                <p><strong>ASUNTO:</strong> {{tickets.asunto}}</p>
             </div>
-            <div>
-                <p>Mensaje: {{tickets.mensaje}}</p>
+            <div class="col-12 md:col-12">
+                <p><strong>MENSAJE:</strong> {{tickets.mensaje}}</p>
             </div>
-            <div>
-                <p>Area: {{tickets.nombre_area}}</p>
+            <div class="col-12 md:col-12">
+                <p><strong>AREA:</strong> {{tickets.nombre_area}}</p>
             </div>
-            <div>
-                <p>Ubicacion: {{tickets.ubicacion}}</p>
+            <div class="col-12 md:col-12">
+                <p><strong>UBICACION:</strong> {{tickets.ubicacion}}</p>
             </div>
         </p-card>
         <div class="col-12 md:col-6">

@@ -2,8 +2,8 @@
     <div>
         <div class="flex align-items-center justify-content-between fondo">
             <div>
-                <h1>Detalle de Pc</h1>
-                <p>Datos de la PC</p>
+                <h1>DETALLE DE PC</h1>
+                <i>Utiliza este formulario para ingresar los datos básicos de tu computadora de manera sencilla</i>
             </div>
             <div class="inline-flex">
                 <button pButton pRipple type="button" (click)="openNew('ram')" label="RAM" class="mr-2"></button>
@@ -139,7 +139,7 @@
             <p-dialog header="Header" [(visible)]="displayAddModal" [modal]="true"
                 [style]="{height:'30vw', width: '50vw' }" styleClass="p-fluid">
                 <ng-template pTemplate="header">
-                    <span class="text-xl font-bold">Agregar Memoria Ram</span>
+                    <span class="text-xl font-bold">REGISTRAR MEMORIA RAM</span>
                 </ng-template>
                 <form [formGroup]="recoInfoRam"><!--(ngSubmit)="addProduct()"-->
                     <div class="field">
@@ -171,15 +171,15 @@
             <p-dialog header="Header" [(visible)]="displayAddModalDd" [modal]="true"
                 [style]="{height:'30vw', width: '50vw' }" styleClass="p-fluid">
                 <ng-template pTemplate="header">
-                    <span class="text-xl font-bold">Agregar Disco Duro</span>
+                    <span class="text-xl font-bold">REGISTRAR DISCO DURO</span>
                 </ng-template>
                 <form [formGroup]="recoInfoDD"><!--(ngSubmit)="addProduct()"-->
                     <div class="field">
-                        <label for="cap_almacenamiento">cap_almacenamiento</label>
+                        <label for="cap_almacenamiento">Capaciodad de almacenamiento</label>
                         <input formControlName="cap_almacenamiento" pInputText required autofocus>
                     </div>
                     <div class="field">
-                        <label for="tecnologia_M_S">tecnologia_M_S</label>
+                        <label for="tecnologia_M_S">TIPO DE TECNOLOGIA (mecanico o solido)</label>
                         <input formControlName="tecnologia_M_S" pInputText required autofocus>
                     </div>
                     <div class="field">

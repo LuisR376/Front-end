@@ -7,8 +7,8 @@
             <ng-template pTemplate="caption">
                 <div class="flex align-items-center justify-content-between fondo">
                     <div>
-                        <h1>Lugar y Area</h1>
-                        <p>Dar de alta Area</p>
+                        <h1>GESTION DE LUGARES Y AREAS</h1>
+                        <i>Proporciona una visión general de los distintos lugares y áreas de trabajo dentro de la organización</i>
                     </div>
                     <div>
                         <button pButton pRipple type="button" label="Nuevo" (click)="openNew()"></button>
@@ -39,7 +39,8 @@
 <p-dialog header="Header" [(visible)]="displayAddModal" [modal]="true" [style]="{height:'30vw', width: '50vw' }"
     styleClass="p-fluid">
     <ng-template pTemplate="header">
-        <span class="text-xl font-bold">Agregar Area</span>
+        <span class="text-xl font-bold">REGISTRAR UN NUEVO ÁREA</span>
+        <i>Utiliza este formulario para agregar un nuevo área de trabajo al sistema</i>
     </ng-template>
     <form [formGroup]="agregarAreaForm">
         <div class="field">

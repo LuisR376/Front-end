@@ -2,8 +2,11 @@
     <div>
         <div class="flex align-items-center justify-content-between fondo">
             <div>
-                <h1>Nuevo Servicio</h1>
-                <p>Ingresa un Nuevo Servicio</p>
+                <h1>Solicitud de Nuevo Servicio</h1>
+                <br>
+                <div  class="col-12 md:col-12">
+                    <p>Por favor, complete el siguiente formulario con los detalles del servicio proporcionado</p>
+                </div>
             </div>
         </div>
     </div>
@@ -13,7 +16,8 @@
         <Form [formGroup]="recoInfo">
             <div class="grid">
                 <div class="col-12 md:col-12">
-                    <p>EL NUMERO DE FOLIO ES: {{num_folio}}</p>
+                    <p><strong>EL NUMERO DE FOLIO ES:</strong>{{num_folio}}</p>
+                    <br>
                 </div>
                 <div class="col-12 md:col-4" *ngIf="num_inventario">
                     <p-dropdown formControlName="idactivos"  [options]="num_inventario" id="idactivos" placeholder="Seleccione num_inventario"

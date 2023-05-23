@@ -9,11 +9,10 @@
         <ng-template pTemplate="caption">
             <div class="flex justify-content-between fondo">
                 <div>
-                    <h1>Usuarios</h1>
+                    <h1>USUARIOS REGISTRADOS</h1>
                 </div>
-
-
                 <div class="inline-flex">
+                    
                     <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success mr-2"
                         (click)="openNew()"></button>
 
@@ -78,9 +77,10 @@
 
 <div class="card flex justify-content-center">
 
-    <p-dialog header="Añadir nuevo Usuario" [(visible)]="displayAddModal" [maximizable]="true"
+    <p-dialog header="REGISTRAR UN NUEVO USUARIO" [(visible)]="displayAddModal" [maximizable]="true"
         [style]="{height:'35vw', width: '90vw' }">
-
+        <i>Ingresar la información basica, ubicación y área de trabajo del usuario, así como establecer los permisos y roles
+            correspondientes. </i>
         <form [formGroup]="recoInfo" (ngSubmit)="addUsuario()">
             <section class="container">
 

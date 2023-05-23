@@ -5,8 +5,14 @@
             <ng-template pTemplate="caption">
                 <div class="flex align-items-center justify-content-between fondo">
                     <div>
-                        <h1>TICKETS</h1>
-                        <p>Atiende los nuevos tickets</p>
+                        <h1>TICKETS DISPONIBLES</h1>
+                        <div class="col-12 md:col-6">
+                            <i>A continuación se muestra una lista de los tickets actualmente disponibles. Estos tickets representan las
+                                solicitudes de
+                                servicio o asistencia recibidas y están listos para ser asignados a los técnicos correspondientes. Por favor,
+                                revise la
+                                información de cada ticket y tome las acciones necesarias para brindar una pronta solución al cliente.</i>
+                        </div>
                     </div>
                     <div>
                         <button pButton pRipple type="button" (click)="openNew()" label="Nuevo"></button>
@@ -14,6 +20,8 @@
                     </div>
 
                 </div>
+                <br>
+                
             </ng-template>
             <ng-template pTemplate="header">
                 <tr>
@@ -47,7 +55,7 @@
                     <td>{{ticket.asunto}}</td>
                     <td>{{ticket.estado_ticket}}</td>
                     <td>{{ticket.nombre}}</td>
-                    <td>{{ticket.mensaje}}</td>
+                    <td>{{ticket.mensaje.slice(-50)}}</td>
 
                     <td>
                         <div *ngIf="sesionUsuario.clave== 'ADM' ||   sesionUsuario.clave == 'TEC'">

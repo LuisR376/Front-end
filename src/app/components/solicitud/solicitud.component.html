@@ -2,8 +2,11 @@
     <div>
         <div class="flex align-items-center justify-content-between fondo">
             <div>
-                <h1>INFORMACION DEL TICKET</h1>
-                <p>FORMULARIO PARA EL TECNICO</p>
+                <h1>INFORMACION DEL TICKET Y FORMULARIO DE SOLUCION</h1>
+               <i>
+                Este formulario proporciona la información detallada del ticket asignado al técnico, así como un espacio para que el
+                técnico pueda registrar la solución y, si corresponde, un servicio proporcionado.
+               </i>
             </div>
         </div>
     </div>
@@ -14,19 +17,19 @@
 
     <div class="grid">
         <p-card class="col-12 md:col-6" *ngIf="tickets">
-            <div>
-                <p>FOLIO: {{tickets.num_folio}}</p>
+            <div class="col-12 md:col-12">
+                <p><strong>FOLIO:</strong> {{tickets.num_folio}}</p>
             </div>
-            <div>
-                <p>Cliente: {{tickets.nombre}}</p>
+            <div class="col-12 md:col-12">
+                <p><strong>CLIENTE:</strong> {{tickets.nombre}}</p>
             </div>
-            <div>
-                <p>Asunto: {{tickets.asunto}}</p>
+            <div class="col-12 md:col-12">
+                <p><strong>ASUNTO:</strong> {{tickets.asunto}}</p>
             </div>
-            <div>
-                <p>Mensaje: {{tickets.mensaje}}</p>
+            <div class="col-12 md:col-12">
+                <p><strong>MENSAJE:</strong>{{tickets.mensaje}}</p>
             </div>
-            <div>
+            <div class="col-12 md:col-12">
                 <p-galleria [value]="images" [(visible)]="displayCustom" [(activeIndex)]="activeIndex"
                     [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '850px'}" [numVisible]="7"
                     [circular]="true" [fullScreen]="true" [showItemNavigators]="true" [showThumbnails]="false"
@@ -47,21 +50,21 @@
                     </div>
                 </div>
             </div>
-            <div>
-                <p>Area: {{tickets.nombre_area}}</p>
+            <div class="col-12 md:col-12">
+                <p><strong>AREA:</strong> {{tickets.nombre_area}}</p>
             </div>
-            <div>
-                <p>Ubicacion: {{tickets.ubicacion}}</p>
+            <div class="col-12 md:col-12">
+                <p><strong>UBICACION:</strong> {{tickets.ubicacion}}</p>
             </div>
             <br>
-            <div>
-                <p>Asistente: {{tickets.numEmpl_Tecnicos}}</p>
+            <div class="col-12 md:col-12">
+                <p><strong>NUMERO EMPLEADO DEL TECNICO:</strong> {{tickets.numEmpl_Tecnicos}}</p>
             </div>
-            <div>
-                <p>Prioridad: {{tickets.descripcion}}</p>
+            <div class="col-12 md:col-12">
+                <p><strong>PRIORIDAD:</strong> {{tickets.descripcion}}</p>
             </div>
-            <div>
-                <p>Solucion: {{tickets.solucion}}</p>
+            <div class="col-12 md:col-12">
+                <p><strong>SOLUCION:</strong> {{tickets.solucion}}</p>
             </div>
         </p-card>
        
