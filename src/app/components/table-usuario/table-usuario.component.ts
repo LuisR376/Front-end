@@ -38,7 +38,7 @@ export class TableUsuarioComponent {
   area !: lugarAreas[];
   roles !: Rol[];
   recoInfo!: FormGroup;
-  opcionesEstado = [{ label: 'Inactivo', value: 0 },{ label: 'Activo', value: 1 }];
+  opcionesEstado = [{ label: 'Activo', value: 1 },{ label: 'Inactivo', value: 0 }];
   constructor(
     private fb: FormBuilder,
     private messageService: MessageService,

@@ -150,18 +150,19 @@
                     </div>
 
                     <div class="col-12 md:col-3">
-                        <label htmlFor="status">Estado</label>
-                            <span class="p-float-label">
-                                <p-dropdown formControlName="status" [options]="opcionesEstado"></p-dropdown>
-                                <small class="p-error" *ngIf="statusNovalidado">Estado es requerido.</small>
-                            </span>
-                    </div>
+                            <label htmlFor="idrol">Estado</label>
+                                <div>
+                                    <p-dropdown formControlName="status" [options]="opcionesEstado" placeholder="estado"
+                                        [showClear]="true"></p-dropdown>
+                        <small class="p-error" *ngIf="statusNovalidado">Estado es requerido.</small>
+                        </div>
+                    </div> 
 
                     <div class="col-12 md:col-3">
                         <label htmlFor="idrol">Rol</label>
                             <p-dropdown [options]="roles" placeholder="Seleccione un Rol" formControlName="idrol"
                                 [class.is-invalid]="idrolNovalidado" optionLabel="descripcion_rol"
-                                optionValue="idrol"></p-dropdown>
+                                optionValue="idrol" [showClear]="true"></p-dropdown>
                             <small class="p-error" *ngIf="idrolNovalidado">Email es requerido.</small>      
                     </div>
 
@@ -170,7 +171,7 @@
                         <label htmlFor="lugares">Lugar</label>
                             <p-dropdown [options]="lugares" placeholder="Seleccione un lugar" formControlName="idlugar"
                                 [class.is-invalid]="idlugarNovalidado" optionLabel="ubicacion"
-                                optionValue="idlugar"></p-dropdown>
+                                optionValue="idlugar" [showClear]="true"></p-dropdown>
                             <label htmlFor="Seleccione un lugar"></label>
                             <small class="p-error" *ngIf="idlugarNovalidado">Lugar es requerido.</small>
                     </div>
@@ -182,7 +183,7 @@
                         <label htmlFor="area">Area</label>
                             <p-dropdown [options]="area" placeholder="Seleccione un Area" formControlName="idarea"
                                 [class.is-invalid]="idareaNovalidado" optionLabel="nombre_area"
-                                optionValue="idarea"></p-dropdown>
+                                optionValue="idarea" [showClear]="true"></p-dropdown>
                             <small class="p-error" *ngIf="idareaNovalidado">Area es requerido.</small>
                     </div>
                     <div class="col-12 md:col-9">

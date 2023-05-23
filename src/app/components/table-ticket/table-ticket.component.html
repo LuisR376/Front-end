@@ -78,8 +78,13 @@
 
 <p-dialog [(visible)]="displayAddModal" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="header">
-        <b>Agregar Ticket</b>
+       
+            <h3>SOLICITUD DE ASISTENCIA TECNICA</h3>
+       
     </ng-template>
+    <div class="col-12 md:col-12">
+        <i>Comunica tus problemas de manera sencilla y clara</i> <br> <i>¡Solicita ayuda técnica sin complicaciones!</i>
+    </div><br>
     <form [formGroup]="recoInfo" (ngSubmit)="addTicket()">
 
         <div class="field">
