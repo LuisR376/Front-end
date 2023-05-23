@@ -95,7 +95,7 @@ export class NuevalicenciaComponent {
         } else {
           this.license = <licencia>respuestaDto.addenda;
           console.log("obtenerLicencias",this.obtenerLicencias);
-          
+          this.messageService.add({ severity: 'success', summary: 'NUEVA LICENCIA GUARDADA', detail: respuestaDto.mensaje });
           this.obtenerLicencias();
         }
       },

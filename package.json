@@ -22,6 +22,7 @@
     "@smart-webcomponents-angular/menu": "^15.0.2",
     "build": "^0.1.4",
     "crypto-js": "^4.1.1",
+    "install": "^0.13.0",
     "ng": "0.0.0",
     "papaparse": "^5.4.1",
     "primeflex": "^3.3.0",

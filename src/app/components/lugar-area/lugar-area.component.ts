@@ -112,7 +112,7 @@ export class LugarAreaComponent {
 
           this.messageService.add({ severity: 'error', summary: 'Error', detail: respuestaDto.mensaje });
         } else {
-          this.messageService.add({ severity: 'success', summary: 'Mensaje', detail: respuestaDto.mensaje });
+          this.messageService.add({ severity: 'success', summary: 'AREA NUEVA GUARDADA', detail: respuestaDto.mensaje });
 
 
           this.agregarAreaForm.reset();

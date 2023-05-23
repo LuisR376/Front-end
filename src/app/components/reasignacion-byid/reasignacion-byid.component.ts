@@ -9,7 +9,6 @@ import { MessageService } from 'primeng/api';
 import { ActivatedRoute } from '@angular/router';
 import { tipodeservicioService} from 'src/app/service/tipodeservicio.service'
 import { tipodeservicio} from '../model/tipodeservicio.model'
-import { reasignacionService } from 'src/app/service/reasignacion.service';
 import { reasignacion } from '../model/reasignacion.model';
 import { tecnicoService } from 'src/app/service/tecnico.service';
 import { Router,} from '@angular/router';
@@ -35,7 +34,7 @@ export class ReasignacionByidComponent {
     private route: ActivatedRoute,
     private router: Router,
     public _tipodeservicioService:tipodeservicioService,
-    public _reasignacionService:reasignacionService,
+
     public _tecnicoService:tecnicoService
   ) {
        this.token = this._authGuardService.getToken();
@@ -99,9 +98,7 @@ export class ReasignacionByidComponent {
 
           this.messageService.add({ severity: 'error', summary: 'Error', detail: respuestaDto.mensaje });
         } else {
-          this.messageService.add({ severity: 'success', summary: 'Mensaje', detail: respuestaDto.mensaje });
-
-
+          this.messageService.add({ severity: 'success', summary: 'ASIGNADO', detail: respuestaDto.mensaje });
           this.recoInfo.reset();
 
         }

@@ -49,7 +49,6 @@ import { FolioService } from "./service/folio.service";
 import { ticketService } from "./service/ticket.service";
 import {tipodeservicioService} from "./service/tipodeservicio.service";
 import { GalleriaModule } from 'primeng/galleria';
-import { reasignacionService } from "./service/reasignacion.service";
 import { tecnicoService } from "./service/tecnico.service";
 import { licenciaService } from "./service/licencia.service";
 import { servicioService } from "./service/Servicio.service";
@@ -128,7 +127,7 @@ import { accesorioService } from "./service/accesorio.service";
     authGuardService,
     EquiposService,
     accesorioService,
-     LocalService, UtilApiService, FolioService, ticketService,tipodeservicioService,reasignacionService,tecnicoService,licenciaService,servicioService, ActivosService, tipodeActivoService,detallePcService,dicoDservice,ramService],
+     LocalService, UtilApiService, FolioService, ticketService,tipodeservicioService,tecnicoService,licenciaService,servicioService, ActivosService, tipodeActivoService,detallePcService,dicoDservice,ramService],
   bootstrap: []
 })
 export class SharedModule { }
