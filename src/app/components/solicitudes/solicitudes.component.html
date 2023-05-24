@@ -1,7 +1,7 @@
 <section class="container">
     <div>
         <p-table [value]="tickets" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
-            styleClass="p-datatable-sm" [scrollable]="true" [rowsPerPageOptions]="[10,25,50]"  selectionMode="single" [selection]="selectInfo">
+            styleClass="p-datatable-sm" [scrollable]="true" [rowsPerPageOptions]="[10,25,50]"  selectionMode="single" [selection]="selectInfo" currentPageReportTemplate="mostrando {last} de {totalRecords} registros">
             <ng-template pTemplate="caption">
                 <div class="flex align-items-center justify-content-between fondo">
                     <div>

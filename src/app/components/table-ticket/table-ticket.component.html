@@ -1,17 +1,13 @@
 <section class="container">
     <div>
         <p-table [value]="tickets" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
-            styleClass="p-datatable-sm" [scrollable]="true" [rowsPerPageOptions]="[10,25,50]">
+            styleClass="p-datatable-sm" [scrollable]="true" [rowsPerPageOptions]="[10,25,50]" currentPageReportTemplate="mostrando {last} de {totalRecords} entradas"> 
             <ng-template pTemplate="caption">
                 <div class="flex align-items-center justify-content-between fondo">
                     <div>
                         <h1>TICKETS DISPONIBLES</h1>
-                        <div class="col-12 md:col-6">
-                            <i>A continuación se muestra una lista de los tickets actualmente disponibles. Estos tickets representan las
-                                solicitudes de
-                                servicio o asistencia recibidas y están listos para ser asignados a los técnicos correspondientes. Por favor,
-                                revise la
-                                información de cada ticket y tome las acciones necesarias para brindar una pronta solución al cliente.</i>
+                        <div class="col-12 md:col-12">
+                            <i>Lista de tickets disponibles para asignación y resolución de solicitudes de servicio</i>
                         </div>
                     </div>
                     <div>
