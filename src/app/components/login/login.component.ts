@@ -30,7 +30,7 @@ export class LoginComponent {
   usuario!: Usuario;
  
     loginForm = this._formBuilder.group({
-    usuarioLogin:  ['',[Validators.required, Validators.minLength(1)]],
+    usuarioLogin:  ['',[Validators.required, Validators.minLength(4)]],
     contrasenaLogin: ['',[Validators.required, Validators.maxLength(15)]]
 
   });

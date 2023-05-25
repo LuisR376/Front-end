@@ -81,7 +81,7 @@
     <div class="col-12 md:col-12">
         <i>Comunica tus problemas de manera sencilla y clara</i> <br> <i>¡Solicita ayuda técnica sin complicaciones!</i>
     </div><br>
-    <form [formGroup]="recoInfo" (ngSubmit)="addTicket()">
+    <form [formGroup]="recoInfo" (ngSubmit)="addTicket()" autocomplete="off">
 
         <div class="field">
             <label for="insertarAsunto">Asunto</label>

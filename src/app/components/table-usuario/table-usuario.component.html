@@ -33,6 +33,7 @@
             <tr>
                 <th>Numero de Usuario <p-sortIcon field="code"></p-sortIcon></th>
                 <th>Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
+                
                 <th>Apellido Paterno</th>
                 <th>Apellido Materno <p-sortIcon field="price"></p-sortIcon></th>
                 <th>Email <p-sortIcon field=""></p-sortIcon></th>
@@ -101,13 +102,18 @@
                     <div class="col-12 md:col-3">
                         
                         <label htmlFor="nombre">Nombre</label>
-                            <span class="p-float-label">
-                                <input class="wtexto" pInputText formControlName="nombre" [pattern]="'[a-zA-Z ]+'"
-                                    type="text" id="nombre" [class.is-invalid]="nombreNovalidado">
-                                <small class="p-error" *ngIf="nombreNovalidado">El nombre es requerido.</small>
+                           
+                                <input class="wtexto" 
+                                pInputText 
+                                formControlName="nombre" 
+                               
+                                    type="text" 
+                                    id="nombre" 
+                                    >
+                                <small class="p-error">El nombre es requerido.</small>
                                 <div *ngIf="getControlErrors('nombre').containsNumbers">El nombre no puede contener
                                     números.</div>
-                            </span>
+                           
                         
                     </div>
 
@@ -116,8 +122,8 @@
                         <label htmlFor="apellidoP">A.Paterno</label>
                             <span class="p-float-label">
                                 <input class="wtexto" formControlName="apellidoP" pInputText id="apellidoP"
-                                    [class.is-invalid]="apellidoPNovalidado">
-                                <small class="p-error" *ngIf="apellidoPNovalidado">El apellido es requerido.</small>
+                                    >
+                                <small class="p-error" >El apellido es requerido.</small>
                             </span>
                         
                     </div>
@@ -127,8 +133,8 @@
                         <label htmlFor="apellidoM">A.Materno</label>
                             <span class="p-float-label">
                                 <input class="wtexto" formControlName="apellidoM" pInputText id="apellidoM"
-                                    [class.is-invalid]="apellidoMNovalidado"  >
-                                <small class="p-error" *ngIf="apellidoMNovalidado">El apellido es requerido.</small>
+                                     >
+                                <small class="p-error" >El apellido es requerido.</small>
                             </span>
                         
                     </div>
@@ -139,13 +145,16 @@
             <section class="container">
                 <div class="grid">
                     <div class="col-12 md:col-3">
-                        
                         <label htmlFor="email">Email</label>
-                            <span class="p-float-label">
-                                <input class="wtexto" formControlName="email" pInputText id="email"
-                                    [class.is-invalid]="emailNovalidado"  >
-                                <small class="p-error" *ngIf="emailNovalidado">El email es requerido.</small>
-                            </span>
+                                <input 
+                                type="email"
+                                class="wtexto" 
+                                formControlName="email" 
+                                pInputText 
+                                id="email"
+                                      >
+                                <small class="p-error">Error</small>
+                            
                         
                     </div>
 
@@ -154,26 +163,26 @@
                                 <div>
                                     <p-dropdown formControlName="status" [options]="opcionesEstado" placeholder="estado"
                                         [showClear]="true"></p-dropdown>
-                        <small class="p-error" *ngIf="statusNovalidado">Estado es requerido.</small>
+                        <small class="p-error" >Estado es requerido.</small>
                         </div>
                     </div> 
 
                     <div class="col-12 md:col-3">
                         <label htmlFor="idrol">Rol</label>
                             <p-dropdown [options]="roles" placeholder="Seleccione un Rol" formControlName="idrol"
-                                [class.is-invalid]="idrolNovalidado" optionLabel="descripcion_rol"
+                                 optionLabel="descripcion_rol"
                                 optionValue="idrol" [showClear]="true"></p-dropdown>
-                            <small class="p-error" *ngIf="idrolNovalidado">Email es requerido.</small>      
+                            <small class="p-error" >Email es requerido.</small>      
                     </div>
 
 
                     <div class="col-12 md:col-3">
                         <label htmlFor="lugares">Lugar</label>
                             <p-dropdown [options]="lugares" placeholder="Seleccione un lugar" formControlName="idlugar"
-                                [class.is-invalid]="idlugarNovalidado" optionLabel="ubicacion"
+                                optionLabel="ubicacion"
                                 optionValue="idlugar" [showClear]="true"></p-dropdown>
                             <label htmlFor="Seleccione un lugar"></label>
-                            <small class="p-error" *ngIf="idlugarNovalidado">Lugar es requerido.</small>
+                            <small class="p-error" >Lugar es requerido.</small>
                     </div>
                 </div>
             </section>
@@ -182,25 +191,26 @@
                     <div class="col-12 md:col-3">
                         <label htmlFor="area">Area</label>
                             <p-dropdown [options]="area" placeholder="Seleccione un Area" formControlName="idarea"
-                                [class.is-invalid]="idareaNovalidado" optionLabel="nombre_area"
+                                 optionLabel="nombre_area"
                                 optionValue="idarea" [showClear]="true"></p-dropdown>
-                            <small class="p-error" *ngIf="idareaNovalidado">Area es requerido.</small>
+                            <small class="p-error" >Area es requerido.</small>
                     </div>
                     <div class="col-12 md:col-9">
                         <label htmlFor="password">Contraseña</label>
                             <span class="p-float-label">
                                 <input class="wtexto" formControlName="password" pInputText id="password"
-                                    [class.is-invalid]="passwordNovalidado"  >
-                                <small class="p-error" *ngIf="passwordNovalidado">La contraseña es requerida.</small>
+                                    autocomplete="off">
+                                <small class="p-error">La contraseña es requerida.</small>
                             </span>
                         
                     </div>
                 </div>
             </section>
         </form>
-
+<pre>nombre{{recoInfo.controls['nombre'].errors | json}}</pre>
+<pre>email{{recoInfo.controls['email'].errors | json}}</pre>
         <ng-template pTemplate="footer">
-            <p-button icon="pi pi-check" (click)="closeModal()" label="Cancel" styleClass="p-button-text"></p-button>
+            <p-button icon="pi pi-trash" (click)="closeModal()" label="Limpiar" styleClass="p-button-text"></p-button>
             <p-button icon="pi pi-check" (click)="addUsuario()" label="Añadir" styleClass="p-button-text"></p-button>
 
         </ng-template>

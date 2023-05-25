@@ -13,6 +13,7 @@ import { Lugar } from '../model/lugar.model';
 import { lugarAreas } from '../model/lugarArea.model';
 import { Rol } from '../model/rol.model';
 import * as Papa from 'papaparse';
+import * as customValidators from 'src/app/validaciones/validators.fuctions';
 @Component({
   selector: 'app-table-usuario',
   templateUrl: './table-usuario.component.html'
@@ -55,67 +56,23 @@ get num_empleadoNovalidado(){
   return this.recoInfo.get('num_empleado')?.invalid && this.recoInfo.get('num_empleado')?.touched;
 
 }
-get nombreNovalidado(){
-  
-  return this.recoInfo.get('nombre')?.invalid && this.recoInfo.get('nombre')?.touched;
 
-}
-get apellidoPNovalidado(){
-  
-  return this.recoInfo.get('apellidoP')?.invalid && this.recoInfo.get('apellidoP')?.touched;
-
-}
-get apellidoMNovalidado(){
-  
-  return this.recoInfo.get('apellidoM')?.invalid && this.recoInfo.get('apellidoM')?.touched;
-
-}
-get emailNovalidado(){
-  
-  return this.recoInfo.get('email')?.invalid && this.recoInfo.get('email')?.touched;
-
-}
-get statusNovalidado(){
-  
-  return this.recoInfo.get('status')?.invalid && this.recoInfo.get('status')?.touched;
-
-}
-get idrolNovalidado(){
-  
-  return this.recoInfo.get('idrol')?.invalid && this.recoInfo.get('idrol')?.touched;
-
-}
-get idlugarNovalidado(){
-  
-  return this.recoInfo.get('idlugar')?.invalid && this.recoInfo.get('idlugar')?.touched;
-
-}
-get idareaNovalidado(){
-  
-  return this.recoInfo.get('idarea')?.invalid && this.recoInfo.get('idarea')?.touched;
-
-}
-get passwordNovalidado(){
-  
-  return this.recoInfo.get('password')?.invalid && this.recoInfo.get('password')?.touched;
-
-}
   getControlErrors(controlName: string): any {
     const control = this.recoInfo.get(controlName);
     return control?.errors;
   }
   formulario(){
-  this.recoInfo = this.fb.group({
-    num_empleado: ['', Validators.required],
-    nombre      : ['', [Validators.required, noNumbersValidator()]],
-    apellidoP   : ['', Validators.required],
-    apellidoM   : ['', Validators.required],
-    email       : ['', Validators.required,Validators.email],
-    status      : ['', Validators.required],
-    idrol       : ['', Validators.required],
-    idlugar     : ['', Validators.required],
-    idarea      : ['', Validators.required],
-    password    : ['', Validators.required],
+    this.recoInfo = this.fb.group({
+      num_empleado: ['', [Validators.required]],
+      nombre      : ['', [Validators.required, Validators.pattern(customValidators.nombrePattern)]],
+      apellidoP   : ['', [Validators.required, Validators.pattern(customValidators.firstNameAndLastnamePattern)]],
+      apellidoM   : ['', [Validators.required, Validators.pattern(customValidators.firstNameAndLastnamePattern)]],
+    email       : ['',   [Validators.required, Validators.pattern(customValidators.emailPattern)]],
+    status      : ['',[ Validators.required]],
+    idrol       : ['',[ Validators.required]],
+    idlugar     : ['',[ Validators.required]],
+    idarea      : ['',[ Validators.required]],
+    password    : ['',[ Validators.required]],
     
     
   });

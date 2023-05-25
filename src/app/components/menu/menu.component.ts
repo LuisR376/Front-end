@@ -43,18 +43,23 @@ export class MenuComponent implements OnInit {
             routerLink: ['Ticket']
          }
       );
-      if (this.sesionUsuario.clave === 'TEC' || this.sesionUsuario.clave === 'ADM') {
+      if (this.sesionUsuario.clave === 'ADM') {
          this.items.push(
-
             {
                label: 'Reasignacion',
                icon: ' pi pi-sync',
                routerLink: ['reasignacion']
             },
+         );
+      }
+
+      if (this.sesionUsuario.clave === 'ADM') {
+         this.items.push(
+
             {
                label: 'Utilerías',
-              
-               items: [
+               icon: 'pi pi-cog',
+               items:  [
                   {
                      label: 'Usuarios',
                      icon: 'pi pi-user',
@@ -65,25 +70,41 @@ export class MenuComponent implements OnInit {
                      icon: 'pi pi-map-marker',
                      routerLink: ['lugarArea']
                   },
+                  
+                     ]
+            },
+             );
+
+      }
+      if (this.sesionUsuario.clave === 'TEC' || this.sesionUsuario.clave === 'ADM') {
+         this.items.push(
+            {
+               label: 'Trazabilidad y Control',
+               icon: 'pi pi-wrench',
+               items: [
                   {
                      label: 'Activos',
                      icon: 'pi pi-desktop',
                      routerLink: ['Tactivos']
                   },
+                  
                   {
                      label: 'Licencia',
                      icon: 'pi pi-microsoft',
                      routerLink: ['licencia']
                   },
-               ]
-            },
+            
           
-            {
-               label: 'Inventario',
-               icon: 'pi pi-chart-pie',
-               routerLink: ['inventario']
-            },
-         )
+                  {
+                     label: 'Inventario',
+                     icon: 'pi pi-chart-pie',
+                     routerLink: ['inventario']
+                  },
+               ]
+            }
+         );
+               
+      
       }
    }
 }
