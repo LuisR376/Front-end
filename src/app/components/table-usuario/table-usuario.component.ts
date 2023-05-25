@@ -13,7 +13,8 @@ import { Lugar } from '../model/lugar.model';
 import { lugarAreas } from '../model/lugarArea.model';
 import { Rol } from '../model/rol.model';
 import * as Papa from 'papaparse';
-import * as customValidators from 'src/app/validaciones/validators.fuctions';
+//import * as customValidators from 'src/app/validaciones/validators.fuctions';
+import { ValidatorsService } from 'src/app/service/validators.service';
 @Component({
   selector: 'app-table-usuario',
   templateUrl: './table-usuario.component.html'
@@ -45,17 +46,26 @@ export class TableUsuarioComponent {
     private messageService: MessageService,
     private customerService: CustomerService,
     public _authGuardService: authGuardService,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private validatorService:ValidatorsService
   ) {
     this.token = this._authGuardService.getToken();
     this.formulario();
 
   }
-get num_empleadoNovalidado(){
+  
+get touchedss(){
   
   return this.recoInfo.get('num_empleado')?.invalid && this.recoInfo.get('num_empleado')?.touched;
 
 }
+   get form(): { [key: string]: AbstractControl } {
+    return this.recoInfo.controls;
+   }
+  
+  isValidField(field:string) {
+    return this.validatorService.isValidField(this.recoInfo, field);
+  }
 
   getControlErrors(controlName: string): any {
     const control = this.recoInfo.get(controlName);
@@ -64,10 +74,10 @@ get num_empleadoNovalidado(){
   formulario(){
     this.recoInfo = this.fb.group({
       num_empleado: ['', [Validators.required]],
-      nombre      : ['', [Validators.required, Validators.pattern(customValidators.nombrePattern)]],
-      apellidoP   : ['', [Validators.required, Validators.pattern(customValidators.firstNameAndLastnamePattern)]],
-      apellidoM   : ['', [Validators.required, Validators.pattern(customValidators.firstNameAndLastnamePattern)]],
-    email       : ['',   [Validators.required, Validators.pattern(customValidators.emailPattern)]],
+      nombre      : ['', [Validators.required, Validators.pattern( this.validatorService.nombrePattern )  ]],
+       apellidoP  : ['', [ Validators.required, Validators.pattern( this.validatorService.nombrePattern )  ]],
+      apellidoM   : ['', [Validators.required, Validators.pattern(this.validatorService.nombrePattern)]],
+    email       : ['',   [Validators.required, Validators.pattern(this.validatorService.emailPattern)]],
     status      : ['',[ Validators.required]],
     idrol       : ['',[ Validators.required]],
     idlugar     : ['',[ Validators.required]],
@@ -84,6 +94,15 @@ get num_empleadoNovalidado(){
     this.obtenerLugar();
     this.obtenerRol();
   }
+  onSubmit() {
+    this.recoInfo.markAllAsTouched();
+  }
+isFieldInvalidAndTouched(fieldName: string): boolean | null {
+  const control = this.recoInfo.get(fieldName);
+  return control && control.invalid && control.touched ? true : null;
+}
+
+  
 
   obtenerArea() {
     console.log("Token", this.token);
