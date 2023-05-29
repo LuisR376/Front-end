@@ -1,7 +1,8 @@
 <section class="container">
     <div>
         <p-table [value]="tickets" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
-            styleClass="p-datatable-sm" [scrollable]="true" [rowsPerPageOptions]="[10,25,50]" currentPageReportTemplate="mostrando {last} de {totalRecords} entradas"> 
+            styleClass="p-datatable-sm" [scrollable]="true" [rowsPerPageOptions]="[10,25,50]"
+            currentPageReportTemplate="mostrando {last} de {totalRecords} entradas">
             <ng-template pTemplate="caption">
                 <div class="flex align-items-center justify-content-between fondo">
                     <div>
@@ -17,7 +18,7 @@
 
                 </div>
                 <br>
-                
+
             </ng-template>
             <ng-template pTemplate="header">
                 <tr>
@@ -56,7 +57,7 @@
                     <td>
                         <div *ngIf="sesionUsuario.clave== 'ADM' ||   sesionUsuario.clave == 'TEC'">
                             <img src="{{ticket.foto1}}" [alt]="ticket.foto1" width="100" class="shadow-4">
-                           
+
                         </div>
                     </td>
 
@@ -65,7 +66,7 @@
                             {{ticket.solucion}}
                         </div>
                     </td>
-                   
+
                 </tr>
             </ng-template>
         </p-table>
@@ -74,9 +75,9 @@
 
 <p-dialog [(visible)]="displayAddModal" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="header">
-       
-            <h3>SOLICITUD DE ASISTENCIA TECNICA</h3>
-       
+
+        <h3>SOLICITUD DE ASISTENCIA TECNICA</h3>
+
     </ng-template>
     <div class="col-12 md:col-12">
         <i>Comunica tus problemas de manera sencilla y clara</i> <br> <i>¡Solicita ayuda técnica sin complicaciones!</i>
@@ -86,40 +87,34 @@
         <div class="field">
             <label for="insertarAsunto">Asunto</label>
             <input formControlName="asunto" pInputText id="asunto" required autofocus>
-            <div *ngIf="recoInfo.touched && recoInfo.invalid" >     
-                <small *ngIf="form['asunto'].errors?.['required']" id="blErrorasunto" class="p-error"
-                >El campo asunto se encuentra vacío.</small>
-              </div>
+            <small *ngIf="isFieldInvalidAndTouched('asunto')" id="blErrorasunto" class="p-error">El campo asunto
+                se encuentra vacío.</small>
         </div>
 
-        <div class="field">
+        
             <label for="name">Mensaje</label>
             <textarea formControlName="mensaje" inputId="mensaje" rows="3" style="resize: none;" cols="30"
                 pInputTextarea></textarea>
-                <div *ngIf="recoInfo.touched && recoInfo.invalid" >     
-                    <small *ngIf="form['mensaje'].errors?.['required']" id="blErrormensaje" class="p-error"
-                    >El campo mensaje se encuentra vacío.</small>
-                  </div>
-
-        </div>
+            <small *ngIf="isFieldInvalidAndTouched('mensaje')" id="blErrormensaje" class="p-error">El campo mensaje
+                se encuentra vacío.</small>
+        
 
 
         <div class="field">
             <label for="name">Lugar</label>
-            <p-dropdown formControlName="idlugar"  placeholder="Seleccione un Lugar" [options]="lugares" optionLabel="ubicacion" optionValue="idlugar"></p-dropdown>
-            <div *ngIf="recoInfo.touched && recoInfo.invalid" >     
-                <small *ngIf="form['idlugar'].errors?.['required']" id="blErroridlugar" class="p-error"
-                >Seleccione un Lugar.</small>
-              </div>
+            <p-dropdown formControlName="idlugar" placeholder="Seleccione un Lugar" [options]="lugares"
+                optionLabel="ubicacion" optionValue="idlugar"></p-dropdown>
+            <small *ngIf="isFieldInvalidAndTouched('idlugar')" id="blErrorlugar" class="p-error">El campo lugar
+                se encuentra vacío.</small>
+
         </div>
 
         <div class="field">
             <label for="name">Area</label>
-            <p-dropdown formControlName="idarea" placeholder="Seleccione un Area" [options]="area" optionLabel="nombre_area" optionValue="idarea"></p-dropdown>
-            <div *ngIf="recoInfo.touched && recoInfo.invalid" >     
-                <small *ngIf="form['idarea'].errors?.['required']" id="blErroridarea" class="p-error"
-                >Seleccione un Area.</small>
-              </div>
+            <p-dropdown formControlName="idarea" placeholder="Seleccione un Area" [options]="area"
+                optionLabel="nombre_area" optionValue="idarea"></p-dropdown>
+            <small *ngIf="isFieldInvalidAndTouched('idarea')" id="blErrorarea" class="p-error">El campo area
+                se encuentra vacío.</small>
         </div>
 
         <p-fileUpload [customUpload]="true" #fileUploader [showUploadButton]="false"
@@ -128,7 +123,7 @@
             [maxFileSize]="2000000" [multiple]="true"></p-fileUpload> <!--(uploadHandler)="subirimg($event)"-->
     </form>
     <ng-template pTemplate="footer">
-        <p-button icon="pi pi-trash" (click)="closeModal()" label="Limpiar" styleClass="p-button-text"></p-button>
+        <p-button icon="pi pi-trash" (click)="LimpiarModal()" label="Limpiar" styleClass="p-button-text"></p-button>
         <p-button icon="pi pi-check" (click)="addTicket()" label="Confirmar" styleClass="p-button-text"></p-button>
     </ng-template>
 

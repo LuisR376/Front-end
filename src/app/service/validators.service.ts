@@ -31,4 +31,19 @@ export class ValidatorsService {
             return containsNumbers ? { containsNumbers: true } : null;
         };
     }
+    public validateNoQuery(control: AbstractControl): ValidationErrors | null {
+       if (!control || control.value === null || control.value === undefined) {
+    return null; // Manejar el caso cuando el control sea nulo o indefinido
+  }
+    const value: string = control.value;
+    const queryKeywords: string[] = ["SELECT", "INSERT", "UPDATE", "DELETE", "DROP", "TRUNCATE", "http", "https", "www", ];
+    
+    for (const keyword of queryKeywords) {
+      if (value.toUpperCase().includes(keyword)) {
+        return { noQuery: true };
+      }
+    }
+    
+    return null;
+  }
 }

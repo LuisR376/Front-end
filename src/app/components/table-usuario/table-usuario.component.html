@@ -224,23 +224,13 @@
                                
                         <div *ngIf="recoInfo.touched && recoInfo.invalid">
                         
-                            <small *ngIf="isFieldInvalidAndTouched('password')" id="blErrorpassword" class="p-error">El campo contraseña
-                                se encuentra vacío.</small>
+                            <small *ngIf="isFieldInvalidAndTouched('password')" id="blErrorpassword" class="p-error">Contraseña no valida</small>
                         </div>
                         
                     </div>
                 </div>
             </section>
         </form>
-        <h5>nombre</h5>
-<pre>{{recoInfo.controls['nombre'].errors | json}}</pre>
-<h5>apP</h5>
-<pre>{{recoInfo.controls['apellidoP'].errors | json}}</pre>
-<h5>apM</h5>
-<pre>{{recoInfo.controls['apellidoM'].errors | json}}</pre>
-<h5>email</h5>
-<pre>{{recoInfo.controls['email'].errors | json}}</pre>
-
         <ng-template pTemplate="footer">
             <p-button icon="pi pi-trash" (click)="closeModal()" label="Limpiar" styleClass="p-button-text"></p-button>
             <p-button icon="pi pi-check" (click)="addUsuario()" label="Añadir" styleClass="p-button-text"></p-button>

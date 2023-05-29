@@ -18,6 +18,7 @@ import { Lugar } from '../model/lugar.model';
 import { FolioService } from 'src/app/service/folio.service';
 
 import { ticketService } from 'src/app/service/ticket.service';
+import { ValidatorsService } from 'src/app/service/validators.service';
 
 @Component({
   selector: 'app-table-ticket',
@@ -26,7 +27,7 @@ import { ticketService } from 'src/app/service/ticket.service';
 })
 export class TableTicketComponent {
   @ViewChild(AlertaComponent, { static: false }) mensajeAlerta!: AlertaComponent;
-  @ViewChild('fileUploader', {static: false}) fileUpload: any;
+  @ViewChild('fileUploader', { static: false }) fileUpload: any;
 
   @Input()
   @Output() clickClose: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -53,6 +54,7 @@ export class TableTicketComponent {
     private _folioService: FolioService,
     public _authGuardService: authGuardService,
     public _ticketService: ticketService,
+    private validatorService:ValidatorsService
   ) {
     this.token = this._authGuardService.getToken();
     this.sesionUsuario = this._authGuardService.getUser();
@@ -66,34 +68,43 @@ export class TableTicketComponent {
 
 
   recoInfo = this.fb.group({
-    idfolios: [''],
-    idlugar: ['', [Validators.required]],
-    idarea: ['', [Validators.required]],
-    idusuarios: [''],
-    asunto: ['', [Validators.required]],
-    mensaje: ['', [Validators.required]],
-    foto1: [''],
-    foto2: [''],
-    foto3: [''],
-    foto4: [''],
-
+    idfolios    : [''],
+    idlugar     : ['', [Validators.required]],
+    idarea      : ['', [Validators.required]],
+    idusuarios  : [''],
+    asunto      : ['', [Validators.required, this.validatorService.validateNoQuery]],
+    mensaje     : ['', [Validators.required, this.validatorService.validateNoQuery]],
+    foto1       : [''],
+    foto2       : [''],
+    foto3       : [''],
+    foto4       : ['']
   });
 
   get form(): { [key: string]: AbstractControl } {
     return this.recoInfo.controls;
   }
-
+  isFieldInvalidAndTouched(fieldName: string): boolean | null {
+    const control = this.recoInfo.get(fieldName);
+    return control && control.invalid && control.touched ? true : null;
+  }
   openNew() {
-    
+
     this.displayAddModal = true;
     this.recoInfo.reset();
     this.clearSelectedPhoto();
-    
+
   }
 
-  closeModal() {
-    this.recoInfo.reset();
-    this.obtenerTickets();
+  LimpiarModal() {
+    this.recoInfo.reset(); // Restablece los valores de los campos de texto e input
+
+  // Elimina los errores en los controles
+  Object.keys(this.recoInfo.controls).forEach(controlName => {
+    const control = this.recoInfo.get(controlName);
+    control?.setErrors(null);
+  });
+
+  this.obtenerTickets(); // Llama a la función obtenerTickets() u otras tareas necesarias
   }
 
   obtenerTickets() {
@@ -217,9 +228,9 @@ export class TableTicketComponent {
       recoInfo[key] = img.imagen;
     });
   }
-  
-  
-  
+
+
+
 
 
   confirmDelete() {

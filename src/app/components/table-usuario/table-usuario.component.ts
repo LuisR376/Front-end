@@ -51,14 +51,7 @@ export class TableUsuarioComponent {
   ) {
     this.token = this._authGuardService.getToken();
     this.formulario();
-
   }
-  
-get touchedss(){
-  
-  return this.recoInfo.get('num_empleado')?.invalid && this.recoInfo.get('num_empleado')?.touched;
-
-}
    get form(): { [key: string]: AbstractControl } {
     return this.recoInfo.controls;
    }
@@ -66,23 +59,23 @@ get touchedss(){
   isValidField(field:string) {
     return this.validatorService.isValidField(this.recoInfo, field);
   }
-
+// Obtiene los errores asociados a un control específico del formulario.
   getControlErrors(controlName: string): any {
     const control = this.recoInfo.get(controlName);
     return control?.errors;
   }
   formulario(){
     this.recoInfo = this.fb.group({
-      num_empleado: ['', [Validators.required]],
-      nombre      : ['', [Validators.required, Validators.pattern( this.validatorService.nombrePattern )  ]],
-       apellidoP  : ['', [ Validators.required, Validators.pattern( this.validatorService.nombrePattern )  ]],
-      apellidoM   : ['', [Validators.required, Validators.pattern(this.validatorService.nombrePattern)]],
-    email       : ['',   [Validators.required, Validators.pattern(this.validatorService.emailPattern)]],
-    status      : ['',[ Validators.required]],
-    idrol       : ['',[ Validators.required]],
-    idlugar     : ['',[ Validators.required]],
-    idarea      : ['',[ Validators.required]],
-    password    : ['',[ Validators.required]],
+    num_empleado: ['', [Validators.required ]],
+    nombre      : ['', [Validators.required, Validators.pattern( this.validatorService.nombrePattern )]],
+    apellidoP   : ['', [Validators.required, Validators.pattern( this.validatorService.nombrePattern )]],
+    apellidoM   : ['', [Validators.required, Validators.pattern( this.validatorService.nombrePattern )]],
+    email       : ['', [Validators.required, Validators.pattern( this.validatorService.emailPattern  )]],
+    status      : ['', [Validators.required ]],
+    idrol       : ['', [Validators.required ]],
+    idlugar     : ['', [Validators.required ]],
+    idarea      : ['', [Validators.required ]],
+    password    : ['', [Validators.required, this.validatorService.validateNoQuery]],
     
     
   });
