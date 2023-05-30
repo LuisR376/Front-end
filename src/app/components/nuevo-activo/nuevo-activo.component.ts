@@ -20,6 +20,7 @@ import { lugarAreas } from '../model/lugarArea.model';
 import { licenciaService } from 'src/app/service/licencia.service';
 import { licencia } from '../model/licencia.model';
 import { accesorioService } from 'src/app/service/accesorio.service';
+import { ValidatorsService } from 'src/app/service/validators.service';
 
 @Component({
   selector: 'app-nuevo-activo',
@@ -37,7 +38,8 @@ export class NuevoActivoComponent implements OnInit {
     private _tipodeActivoService: tipodeActivoService,
     private _activosService: ActivosService,
     private _licenciaService: licenciaService,
-    private _accesorioService:accesorioService
+    private _accesorioService: accesorioService,
+    private validatorService:ValidatorsService
   ) {
     this.token = this._authGuardService.getToken();
   }
@@ -95,9 +97,9 @@ export class NuevoActivoComponent implements OnInit {
 
     this.step2Form = this.fb.group({
       idactivo: [''],
-      nombre_propietario: ['', [Validators.required]],
-      num_empleado: ['', [Validators.required]],
-      password: ['', [Validators.required]]
+      nombre_propietario: ['', [Validators.required,Validators.pattern( this.validatorService.firstNameAndLastnamePattern)]],
+      num_empleado: ['', [Validators.required,Validators.maxLength(4), this.validatorService.validaSoloNumeros]],
+      password: ['', [Validators.required, this.validatorService.validateNoQuery]]
     });
 
     this.step3Form = this.fb.group({

@@ -12,7 +12,7 @@
                     <h1>USUARIOS REGISTRADOS</h1>
                 </div>
                 <div class="inline-flex">
-                    
+
                     <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success mr-2"
                         (click)="openNew()"></button>
 
@@ -33,7 +33,7 @@
             <tr>
                 <th>Numero de Usuario <p-sortIcon field="code"></p-sortIcon></th>
                 <th>Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
-                
+
                 <th>Apellido Paterno</th>
                 <th>Apellido Materno <p-sortIcon field="price"></p-sortIcon></th>
                 <th>Email <p-sortIcon field=""></p-sortIcon></th>
@@ -80,7 +80,8 @@
 
     <p-dialog header="REGISTRAR UN NUEVO USUARIO" [(visible)]="displayAddModal" [maximizable]="true"
         [style]="{height:'35vw', width: '90vw' }">
-        <i>Ingresar la información basica, ubicación y área de trabajo del usuario, así como establecer los permisos y roles
+        <i>Ingresar la información basica, ubicación y área de trabajo del usuario, así como establecer los permisos y
+            roles
             correspondientes. </i>
         <form [formGroup]="recoInfo" (ngSubmit)="addUsuario()">
             <section class="container">
@@ -88,54 +89,45 @@
                 <div class="grid">
 
                     <div class="col-12 md:col-3">
-                       
-                        <label htmlFor="num_empleado">N°Empleado</label>
-                            <span class="p-float-label">
-                                <input class="wtexto" formControlName="num_empleado" pInputText id="num_empleado"
-                                [class.is-invalid]="isFieldInvalidAndTouched('num_empleado')"   />
-                                <small class="p-error" *ngIf="isFieldInvalidAndTouched('num_empleado')">Este campo es requerido</small>
-                            </span>
-                            
+
+                        <label htmlFor="num_empleado">Numero de Empleado</label>
+                        <input class="wtexto" formControlName="num_empleado" pInputText id="num_empleado" />
+                        <div *ngIf="recoInfo.touched && recoInfo.invalid">
+                            <small *ngIf="isValidField('num_empleado')" class="p-error">No debe contener letras</small>
+                        </div>
+                        <div *ngIf="recoInfo.hasError('containsLetters')">Solo se permiten números.</div>
                     </div>
-                    
+
 
                     <div class="col-12 md:col-3">
-                        
+
                         <label htmlFor="nombre">Nombre</label>
-                           
-                                <input class="wtexto" 
-                                pInputText 
-                                formControlName="nombre" 
-                               
-                                    type="text" 
-                                    id="nombre" 
-                                    >
-                               
-                                <small *ngIf="isValidField('nombre')" class="p-error">No debe contener numeros</small>
-                           
-                        
+
+                        <input class="wtexto" pInputText formControlName="nombre" type="text" id="nombre">
+
+                        <small *ngIf="isValidField('nombre')" class="p-error">No debe contener numeros</small>
+
+
                     </div>
 
                     <div class="col-12 md:col-3">
-                        
+
                         <label htmlFor="apellidoP">A.Paterno</label>
-                           
-                                <input class="wtexto" formControlName="apellidoP" pInputText id="apellidoP"
-                                    >
-                            <small *ngIf="isValidField('apellidoP')" class="p-error">no valido</small>
-                           
-                        
+
+                        <input class="wtexto" formControlName="apellidoP" pInputText id="apellidoP">
+                        <small *ngIf="isValidField('apellidoP')" class="p-error">no valido</small>
+
+
                     </div>
 
                     <div class="col-12 md:col-3">
-                        
+
                         <label htmlFor="apellidoM">A.Materno</label>
-                          
-                                <input class="wtexto" formControlName="apellidoM" pInputText id="apellidoM"
-                                     >
-                                <small *ngIf="isValidField('apellidoM')" class="p-error">no valido</small>
-                           
-                        
+
+                        <input class="wtexto" formControlName="apellidoM" pInputText id="apellidoM">
+                        <small *ngIf="isValidField('apellidoM')" class="p-error">no valido</small>
+
+
                     </div>
 
                 </div>
@@ -145,57 +137,52 @@
                 <div class="grid">
                     <div class="col-12 md:col-3">
                         <label htmlFor="email">Email</label>
-                                <input 
-                                type="email"
-                                class="wtexto" 
-                                formControlName="email" 
-                                pInputText 
-                                id="email"
-                                      >
-                                <small *ngIf="isValidField('email')" class="p-error">Escribe un correo electronico valido</small>
-                            
-                        
+                        <input type="email" class="wtexto" formControlName="email" pInputText id="email">
+                        <small *ngIf="isValidField('email')" class="p-error">Escribe un correo electronico
+                            valido</small>
+
+
                     </div>
 
                     <div class="col-12 md:col-3">
-                            <label htmlFor="idrol">Estado</label>
-                                <div>
-                                    <p-dropdown formControlName="status" [options]="opcionesEstado" placeholder="estado"
-                                        [showClear]="true"
-                                        [class.is-invalid]="isFieldInvalidAndTouched('status')"></p-dropdown>
-                                    </div>
-                                    <div *ngIf="recoInfo.touched && recoInfo.invalid">
-                                    
-                                        <small *ngIf="isFieldInvalidAndTouched('status')" id="blErrorstatus" class="p-error">El campo Estado
-                                            se encuentra vacío.</small>
-                                    </div>
-                    </div> 
+                        <label htmlFor="status">Estado</label>
+                        <div>
+                            <p-dropdown formControlName="status" [options]="opcionesEstado" placeholder="estado"
+                                [showClear]="true" [class.is-invalid]="isFieldInvalidAndTouched('status')"></p-dropdown>
+                        </div>
+                        <div *ngIf="recoInfo.touched && recoInfo.invalid">
+
+                            <small *ngIf="isFieldInvalidAndTouched('status')" id="blErrorstatus" class="p-error">El
+                                campo Estado
+                                se encuentra vacío.</small>
+                        </div>
+                    </div>
 
                     <div class="col-12 md:col-3">
                         <label htmlFor="idrol">Rol</label>
                         <div>
                             <p-dropdown [options]="roles" placeholder="Seleccione un Rol" formControlName="idrol"
-                                 optionLabel="descripcion_rol"
-                                optionValue="idrol" [showClear]="true"
+                                optionLabel="descripcion_rol" optionValue="idrol" [showClear]="true"
                                 [class.is-invalid]="isFieldInvalidAndTouched('idrol')"></p-dropdown>
-                            </div>
-                            <div *ngIf="recoInfo.touched && recoInfo.invalid">
-                            
-                                <small *ngIf="isFieldInvalidAndTouched('idrol')" id="blErroridrol" class="p-error">El campo rol
-                                    se encuentra vacío.</small>
-                            </div>
+                        </div>
+                        <div *ngIf="recoInfo.touched && recoInfo.invalid">
+
+                            <small *ngIf="isFieldInvalidAndTouched('idrol')" id="blErroridrol" class="p-error">El campo
+                                rol
+                                se encuentra vacío.</small>
+                        </div>
                     </div>
 
 
                     <div class="col-12 md:col-3">
                         <label htmlFor="lugares">Lugar</label>
-                            <p-dropdown [options]="lugares" placeholder="Seleccione un lugar" formControlName="idlugar"
-                                optionLabel="ubicacion"
-                                optionValue="idlugar" [showClear]="true"></p-dropdown>
-                            <label htmlFor="Seleccione un lugar"></label>
+                        <p-dropdown [options]="lugares" placeholder="Seleccione un lugar" formControlName="idlugar"
+                            optionLabel="ubicacion" optionValue="idlugar" [showClear]="true"></p-dropdown>
+                        <label htmlFor="Seleccione un lugar"></label>
                         <div *ngIf="recoInfo.touched && recoInfo.invalid">
-                        
-                            <small *ngIf="isFieldInvalidAndTouched('idlugar')" id="blErroridlugar" class="p-error">El campo lugar
+
+                            <small *ngIf="isFieldInvalidAndTouched('idlugar')" id="blErroridlugar" class="p-error">El
+                                campo lugar
                                 se encuentra vacío.</small>
                         </div>
                     </div>
@@ -205,28 +192,28 @@
                 <div class="grid">
                     <div class="col-12 md:col-3">
                         <label htmlFor="area">Area</label>
-                            <p-dropdown [options]="area" placeholder="Seleccione un Area" formControlName="idarea"
-                                 optionLabel="nombre_area"
-                                optionValue="idarea" [showClear]="true"
-                                 [class.is-invalid]="isFieldInvalidAndTouched('idarea')"></p-dropdown>
-                            <div *ngIf="recoInfo.touched && recoInfo.invalid">
-                            
-                                <small *ngIf="isFieldInvalidAndTouched('idarea')" id="blErroridarea" class="p-error">El campo area
-                                    se encuentra vacío.</small>
-                            </div>
+                        <p-dropdown [options]="area" placeholder="Seleccione un Area" formControlName="idarea"
+                            optionLabel="nombre_area" optionValue="idarea" [showClear]="true"
+                            [class.is-invalid]="isFieldInvalidAndTouched('idarea')"></p-dropdown>
+                        <div *ngIf="recoInfo.touched && recoInfo.invalid">
+
+                            <small *ngIf="isFieldInvalidAndTouched('idarea')" id="blErroridarea" class="p-error">El
+                                campo area
+                                se encuentra vacío.</small>
+                        </div>
                     </div>
                     <div class="col-12 md:col-9">
                         <label htmlFor="password">Contraseña</label>
-                            
-                                <input class="wtexto" formControlName="password" pInputText id="password"
-                                    autocomplete="off"
-                                    [class.is-invalid]="isFieldInvalidAndTouched('password')">
-                               
+
+                        <input class="wtexto" formControlName="password" pInputText id="password" autocomplete="off"
+                            [class.is-invalid]="isFieldInvalidAndTouched('password')">
+
                         <div *ngIf="recoInfo.touched && recoInfo.invalid">
-                        
-                            <small *ngIf="isFieldInvalidAndTouched('password')" id="blErrorpassword" class="p-error">Contraseña no valida</small>
+
+                            <small *ngIf="isFieldInvalidAndTouched('password')" id="blErrorpassword"
+                                class="p-error">Contraseña no valida</small>
                         </div>
-                        
+
                     </div>
                 </div>
             </section>

@@ -63,9 +63,9 @@
 
             </Form>
             <div class="col-12 md:col-9 text-right">
-                <p-button styleClass="p-button-secondary mr-6" (click)="Cancelar()" label="Cancelar"></p-button>
+                <p-button icon="pi pi-trash" (click)="LimpiarModal()" label="Limpiar" styleClass="p-button-text"></p-button>
                 
-                <p-button icon="pi pi-check" pRipple (click)="addLicencia()" label="Guardar" styleClass="p-button-text"></p-button>
+                <p-button icon="pi pi-check" pRipple (click)="addLicencia()" label="Guardar" styleClass="p-button-text" [routerLink]="['../NewLicencia']"></p-button>
             </div>
         </div>
 

@@ -186,14 +186,14 @@
                             <div class="col-3">
                                 <span class="p-float-label">
                                     <input class="wtexto" formControlName="marca" type="text" pInputText>
-                                    <label for="float-input">marca</label>
+                                    <label for="float-input">Marca</label>
                                     <p></p><!--if de validacion-->
                                 </span>
                             </div>
                             <div class="form-group col-3">
                                 <span class="p-float-label">
                                     <input class="wtexto" formControlName="modelo" type="text" pInputText>
-                                    <label for="float-input">modelo</label>
+                                    <label for="float-input">Modelo</label>
                                     <p></p><!--if de validacion-->
                                 </span>
                             </div>
@@ -201,7 +201,7 @@
                                 <div class="form-group">
                                     <span class="p-float-label">
                                         <input class="wtexto" formControlName="valor_monetario" type="text" pInputText>
-                                        <label for="float-input">valor_monetario</label>
+                                        <label for="float-input">Valor monetario</label>
                                         <p></p><!--if de validacion-->
                                     </span>
                                 </div>
@@ -209,24 +209,25 @@
                             <div class="col-3">
                                 <span class="p-float-label">
                                     <input class="wtexto" formControlName="tipo_de_conexion" type="text" pInputText>
-                                    <label for="float-input">tipo_de_conexion</label>
+                                    <label for="float-input">Tipo de conexion</label>
                                     <p></p><!--if de validacion-->
                                 </span>
                             </div>
                             <div class="col-3">
                                 <div class="form-group">
-                                    <p-dropdown formControlName="estado" [options]="opcionesEstado" placeholder="estado"
+                                    <p-dropdown formControlName="estado" [options]="opcionesEstado" placeholder="Estado"
                                         [showClear]="true"></p-dropdown>
                                     <p></p><!--if de validacion-->
                                 </div>
                             </div>
+                               
                             </div>
                            <div class="grid">
                             <div class="col-12 md:col-12">
                                 <div class="card flex justify-content-start">
                                     <span class="p-float-label">
                                         <textarea formControlName="descripcion" id="descripcion" rows="5" cols="100" pInputTextarea></textarea>
-                                        <label for="float-input">descripcion</label>
+                                        <label for="float-input">Descripcion</label>
                                         <p></p><!--if de validacion-->
                                     </span>
                                 </div>
@@ -251,20 +252,20 @@
             <form [formGroup]="step5Form">
                 <p-card>
                     <ng-template pTemplate="title"> Activo</ng-template>
-                    <ng-template pTemplate="subtitle">detalles del activo</ng-template>
+                    <ng-template pTemplate="subtitle">Detalles del activo</ng-template>
                     <ng-template pTemplate="content">
                         <div class="grid">
                             <div class="col-3">
                                 <span  class="form-group">
                                     <p-dropdown [options]="licencias" placeholder="Seleccione Licencia"
                                         formControlName="idLicencias" optionValue="idLicencias"
-                                        optionLabel="nombre"></p-dropdown>
+                                        optionLabel="nombre" [showClear]="true"></p-dropdown>
                                 </span>
                             </div>
                             <div class="col-3">
                                 <span class="p-float-label">
                                     <input class="wtexto" formControlName="host_teamviewer" type="text" pInputText>
-                                    <label for="float-input">host teamviewer</label>
+                                    <label for="float-input">Host teamviewer</label>
                                     <p></p><!--if de validacion-->
                                 </span>
                             </div>
@@ -272,7 +273,7 @@
                             <div class="form-group col-3">
                                 <span class="p-float-label">
                                     <input class="wtexto" formControlName="password_teamviewer" type="text" pInputText>
-                                    <label for="float-input">contraseña teamviewer</label>
+                                    <label for="float-input">Contraseña teamviewer</label>
                                     <p></p><!--if de validacion-->
                                 </span>
                             </div>
@@ -281,7 +282,7 @@
                                 <span class="p-float-label">
 
                                     <p-calendar formControlName="fecha_mantenimiento" [showIcon]="true"></p-calendar>
-                                    <label for="float-input">fecha mantenimiento</label>
+                                    <label for="float-input">Fecha mantenimiento</label>
                                     <p></p><!--if de validacion-->
                                 </span>
                             </div>
@@ -330,7 +331,7 @@
                         <div class="field">
                             <span class="p-float-label">
                                 <input formControlName="tipoaccesorio" pInputText id="tipoaccesorio" required autofocus>
-                                <label htmlFor="tipoaccesorio">tipoaccesorio</label>
+                                <label htmlFor="tipoaccesorio">Tipo de accesorio</label>
                             </span>
 
                         </div>
@@ -340,7 +341,7 @@
                         <div class="field">
                             <span class="p-float-label">
                                 <input formControlName="serie" pInputText id="serie" required autofocus>
-                                <label htmlFor="serie">serie</label>
+                                <label htmlFor="serie">Numero de Serie</label>
                             </span>
                         </div>
                     </div>
@@ -349,7 +350,7 @@
                         <div class="field">
                             <span class="p-float-label">
                                 <input formControlName="modelo" pInputText id="modelo" required autofocus>
-                                <label htmlFor="modelo">modelo</label>
+                                <label htmlFor="modelo">Modelo</label>
                             </span>
                         </div>
                     </div>
@@ -359,7 +360,7 @@
                         <div class="field">
                             <span class="p-float-label">
                                 <input formControlName="descripcion" pInputText id="descripcion" required autofocus>
-                                <label htmlFor="descripcion">descripcion</label>
+                                <label htmlFor="descripcion">Descripcion</label>
                             </span>
                         </div>
 
@@ -368,10 +369,11 @@
 
                         <div class="field">
                             <span class="p-float-label">
-                                <p-dropdown formControlName="status" [options]="opcionesEstado"></p-dropdown>
+                                <p-dropdown formControlName="status" [options]="opcionesEstado" placeholder="estado" [showClear]="true"></p-dropdown>
                                 <label htmlFor="status">Estado</label>
                             </span>
                         </div>
+                           
 
                     </div>
                 </div>

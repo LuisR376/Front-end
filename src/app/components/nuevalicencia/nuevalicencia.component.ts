@@ -106,8 +106,8 @@ export class NuevalicenciaComponent {
     });
 
   }
-  Cancelar() {
+  LimpiarModal() {
     this.userInput.reset();
-   this.router.navigate(['/home/inicio/main/licencia']);
+   
   }
 }

@@ -6,7 +6,7 @@ import { authGuardService } from '../../service/auth-guard.service';
 import { MessageService } from 'primeng/api';
 import { AlertaComponent } from 'src/app/util/alerta.component';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { noNumbersValidator } from '../model/validatorPersonalizado';
+
 
 import { UsuarioService } from '../../service/usuario.service';
 import { Lugar } from '../model/lugar.model';
@@ -66,7 +66,7 @@ export class TableUsuarioComponent {
   }
   formulario(){
     this.recoInfo = this.fb.group({
-    num_empleado: ['', [Validators.required ]],
+    num_empleado: ['', [Validators.required, Validators.maxLength(4), this.validatorService.validaSoloNumeros]],
     nombre      : ['', [Validators.required, Validators.pattern( this.validatorService.nombrePattern )]],
     apellidoP   : ['', [Validators.required, Validators.pattern( this.validatorService.nombrePattern )]],
     apellidoM   : ['', [Validators.required, Validators.pattern( this.validatorService.nombrePattern )]],
@@ -75,9 +75,7 @@ export class TableUsuarioComponent {
     idrol       : ['', [Validators.required ]],
     idlugar     : ['', [Validators.required ]],
     idarea      : ['', [Validators.required ]],
-    password    : ['', [Validators.required, this.validatorService.validateNoQuery]],
-    
-    
+    password    : ['', [Validators.required, this.validatorService.validateNoQuery]]    
   });
     console.log(this.recoInfo.errors);
 }
