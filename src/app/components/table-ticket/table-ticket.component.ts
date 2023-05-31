@@ -156,7 +156,7 @@ export class TableTicketComponent {
 
 
   async addTicket() {
-
+    //Se verifica si this.recoInfo es inválido. Si es así, se ejecuta el bloque de código siguiente.
     if (this.recoInfo.invalid) {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Porfavor verifique todos los campos' });
     } else if (this.arrayImagenes.length == 0) {
@@ -164,16 +164,16 @@ export class TableTicketComponent {
 
     } else {
       let datosTicket: Ticket = this.recoInfo.value as Ticket;
-      let idFolio: number = await this.saveFolio();
+      let idFolio: number = await this.saveFolio();//Se declara una variable idFolio de tipo number y se espera a que se resuelva la función saveFolio() antes de asignarle su valor.
       datosTicket.idfolios = idFolio;
-      this.saveTicket(datosTicket);
+      this.saveTicket(datosTicket);//Se llama a la función saveTicket pasando datosTicket como argumento.
     }
 
   }
 
 
   async saveFolio(): Promise<number> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {//Se llama al método saveFolio del servicio _folioService pasando this.token como argumento y se suscribe a los eventos next y error.
       this._folioService.saveFolio(this.token).subscribe({
         next: (resp: RespuestaDto) => {
           let respuestaDto = <RespuestaDto>resp;

@@ -236,6 +236,7 @@ export class NuevoActivoComponent implements OnInit {
 
 
   onChangeTipoActivo() {
+    //Se obtiene el valor actual del campo "idtipoactivo" utilizando el método "get()" del formulario "step1Form". 
     const idtipoactivo = this.step1Form.get('idtipoactivo')?.value;
     this.idtipoactivoSeleccionado = idtipoactivo === 1 ? idtipoactivo : null;
     if (idtipoactivo === 1) {

@@ -87,8 +87,10 @@ export class ReasignacionByidComponent {
       this.actualizarTicket(this.recoInfo.value);
     }
   }
+  //Se define una función asincrónica llamada "actualizarTicket" que toma un parámetro recoInfo del tipo Ticket.
   async actualizarTicket(recoInfo: Ticket) {
     console.log("datos del ticket", recoInfo)
+    //Asigna el valor de this.tickets.idfolios a la propiedad idfolios del objeto recoInfo.
     recoInfo.idfolios = this.tickets.idfolios;
     this._ticketService.actualizarTicket(recoInfo, this.idFolios).subscribe({
       next: (resp: RespuestaDto) => {
