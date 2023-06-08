@@ -77,6 +77,6 @@ export class LoginComponent {
           this.mensajeAlerta.alerta("AVISO", "", mensaje.message, "");
         }
       });
-     
+    
   }
 }

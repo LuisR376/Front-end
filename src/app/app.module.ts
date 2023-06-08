@@ -40,12 +40,13 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 
 
+
 @NgModule({
   declarations: [
 
     LoginComponent,
     PrincipalComponent,
-    
+
    
   ],
   imports: [

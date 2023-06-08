@@ -41,6 +41,11 @@ export class MenuComponent implements OnInit {
             label: 'Tikets',
             icon: 'pi pi-inbox',
             routerLink: ['Ticket']
+         },
+         {
+            label: 'ContraLoginComponent',
+            icon: 'pi pi-inbox',
+            routerLink: ['recuperarContraseña']
          }
       );
       if (this.sesionUsuario.clave === 'ADM') {

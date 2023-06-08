@@ -1,6 +1,6 @@
 <section class="container">
     <div>
-        <p-table [value]="area" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+        <p-table #dt [value]="area" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"  [(selection)]="selectedProducts" [rowHover]="true"
             [tableStyle]="{'min-width': '50rem'}"
             currentPageReportTemplate="mostrando {first} a {last} de {totalRecords} entradas"
             [rowsPerPageOptions]="[10,25,50]">

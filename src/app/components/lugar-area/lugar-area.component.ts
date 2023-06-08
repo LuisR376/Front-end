@@ -30,6 +30,7 @@ export class LugarAreaComponent {
   }
   token: string;
   displayAddModal: boolean = false;
+  selectedProducts: lugarAreas[] = [];
   area !: lugarAreas[];
   lugares !: Lugar[];
   areas !: any;

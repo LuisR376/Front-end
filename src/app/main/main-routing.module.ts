@@ -18,6 +18,8 @@ import { NuevalicenciaComponent } from '../components/nuevalicencia/nuevalicenci
 import { CompServicioComponent } from '../components/comp-servicio/comp-servicio.component';
 import { InventarioComponent } from '../components/inventario/inventario.component';
 import { InventarioRASComponent } from '../components/inventario-ras/inventario-ras.component';
+import { ContraLoginComponent } from '../components/contra-login/contra-login.component';
+
 
 const routes: Routes = [
   {
@@ -38,10 +40,9 @@ const routes: Routes = [
       { path: 'ReasignacionByid/:id', component: ReasignacionByidComponent },
       { path: 'NewLicencia',        component: NuevalicenciaComponent },
       { path: 'servicio/:idfolio/:descFolio/:idlugar',           component: CompServicioComponent  },
-      { path: 'inventario',         component: InventarioComponent  },
-      { path: 'inventarioRas/:idactivos',         component: InventarioRASComponent  }
-      
-      
+      { path: 'inventario',                       component: InventarioComponent  },
+      { path: 'inventarioRas/:idactivos',         component: InventarioRASComponent  },
+      { path: 'recuperarContraseña',              component: ContraLoginComponent  },
     ]
   }
 ];

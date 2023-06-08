@@ -23,6 +23,7 @@ import { CompServicioComponent } from '../components/comp-servicio/comp-servicio
 import { InventarioComponent } from '../components/inventario/inventario.component';
 
 import { InventarioRASComponent } from '../components/inventario-ras/inventario-ras.component';
+import { ContraLoginComponent } from '../components/contra-login/contra-login.component';
 
 
 
@@ -46,7 +47,8 @@ import { InventarioRASComponent } from '../components/inventario-ras/inventario-
     CompServicioComponent,
     InventarioComponent,
 
-    InventarioRASComponent
+    InventarioRASComponent,
+     ContraLoginComponent
   ],
   imports: [
     MainRoutingModule,
