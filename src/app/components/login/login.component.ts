@@ -25,14 +25,13 @@ export class LoginComponent {
      private router: Router
 
      ) {}
-  usuarioVacio !:boolean;
-  contrasenaVacia !:boolean;
-  usuario!: Usuario;
+  usuarioVacio    !:boolean; // Variable para verificar si el campo de usuario está vacío
+  contrasenaVacia !:boolean; // Variable para verificar si el campo de contraseña está vacío
+  usuario         !:Usuario; // Variable para almacenar el usuario
  
     loginForm = this._formBuilder.group({
-    usuarioLogin:  ['',[Validators.required, Validators.minLength(4)]],
-    contrasenaLogin: ['',[Validators.required, Validators.maxLength(15)]]
-
+    usuarioLogin:  ['',[Validators.required, Validators.minLength(4)]],// Campo de usuario con validación de requerido y longitud mínima
+    contrasenaLogin: ['',[Validators.required, Validators.maxLength(15)]] // Campo de contraseña con validación de requerido y longitud máxima       
   });
   fnLogueo(){
     console.log("this.loginForm",this.loginForm.value)
@@ -51,26 +50,24 @@ export class LoginComponent {
   async iniciarSesion(usuario : string  | undefined | null, contrasena : string  | undefined | null) {
     console.log("usuario", usuario , "contrasena" , contrasena);
     
-    let datosInicioSesion = new loginUsuario(usuario , contrasena );
+    let datosInicioSesion = new loginUsuario(usuario , contrasena ); // Crear objeto de inicio de sesión con usuario y contraseña
     console.log("datosSesion", datosInicioSesion);
     this._usuarioService.iniciarSesion(datosInicioSesion ).subscribe({
-      next : (resp: RespuestaDto)  => {
-      
+      next : (resp: RespuestaDto)  => { // Suscribirse a la respuesta de la llamada al servicio de inicio de sesión
+        
         let respuestaDto = <RespuestaDto>resp;
-        if (respuestaDto.valido == 0) {
+        if (respuestaDto.valido == 0) { // Verificar si la respuesta es válida o no
           console.log("next", respuestaDto.mensaje)
-          this.messageService.add({severity:'error', summary:'Error', detail:respuestaDto.mensaje});
+          this.messageService.add({severity:'error', summary:'Error', detail:respuestaDto.mensaje}); // Mostrar mensaje de error
         } else {
 
-          this.usuario = <Usuario>respuestaDto.addenda;
+          this.usuario = <Usuario>respuestaDto.addenda; // Asignar el objeto de usuario de la respuesta
         console.log("Response de logeo",this.usuario );
-        
           // this.obtenerMenu(respuestaDto.token , this.usuario);
           this._authGuardService.sendToken(this.usuario);
           this._authGuardService.sendKey(respuestaDto.token);
           this.router.navigate(["/home/inicio/main/Ticket"]);
-        } // if
-        
+        }
       },
         error : (error) => {
           let mensaje = <any>error;
