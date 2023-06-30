@@ -11,7 +11,7 @@ import { TableActivosComponent } from '../components/table-activos/table-activos
 import { TableUsuarioComponent } from '../components/table-usuario/table-usuario.component';
 import { CommonModule } from '@angular/common';
 import { NuevoActivoComponent } from '../components/nuevo-activo/nuevo-activo.component';
-import { SelectComponent } from '../components/select/select.component';
+
 
 import { SolicitudComponent } from '../components/solicitud/solicitud.component';
 import { PerfilComponent } from '../components/perfil/perfil.component';
@@ -37,7 +37,7 @@ import { ContraLoginComponent } from '../components/contra-login/contra-login.co
     LugarAreaComponent,
     ReasignacionComponent,
     NuevoActivoComponent,
-    SelectComponent,
+
     SolicitudComponent,
     PerfilComponent,
     DetallePcComponent,

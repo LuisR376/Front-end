@@ -8,7 +8,7 @@ import { TableTicketComponent }        from '../components/table-ticket/table-ti
 import { TableUsuarioComponent }       from '../components/table-usuario/table-usuario.component';
 import { InicioComponent }             from '../components/inicio/inicio.component';
 import { NuevoActivoComponent }        from '../components/nuevo-activo/nuevo-activo.component';
-import { SelectComponent }             from '../components/select/select.component';
+
 import { SolicitudComponent }          from '../components/solicitud/solicitud.component';
 import { PerfilComponent}              from '../components/perfil/perfil.component';
 import { DetallePcComponent }          from '../components/detalle-pc/detalle-pc.component';
@@ -31,7 +31,7 @@ const routes: Routes = [
       { path: 'lugarArea',          component: LugarAreaComponent     },
       { path: 'reasignacion',       component: ReasignacionComponent  },
       { path: 'NuevoActivo',        component: NuevoActivoComponent   },
-      { path: 'select',             component: SelectComponent        },
+      
       { path: 'solicitudes',        component: SolicitudesComponent   },
       { path: 'solicitud/:id',      component: SolicitudComponent     },
       { path: 'perfil',             component: PerfilComponent        },
